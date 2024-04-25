@@ -1,4 +1,4 @@
-package com.kidwiz.web;
+package com.kidwiz.web.DAO;
 
 import java.util.List;
 import java.util.Map;
