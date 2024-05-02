@@ -1,5 +1,6 @@
 package com.kidwiz.web.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -36,4 +37,16 @@ public class VueController {
 		json.put("list", arr);
 		return json.toString();
 	}
+	
+	@GetMapping("/api/board")
+	public String getBoard() {
+		List<Map<String, Object>> list = vueService.getBoard();
+		JSONObject json = new JSONObject();
+		JSONArray arr = new JSONArray(list);
+		json.put("list",arr);
+		
+		
+		return json.toString();
+	}
+	
 }

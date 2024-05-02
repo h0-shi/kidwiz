@@ -25,7 +25,7 @@ export default {
         }
     },
     mounted(){
-        axios.get('http://localhost:3000/test').then((res) => {
+        axios.get('api/test').then((res) => {
             this.list = res.data.list
         }).catch((err) => {
             alert("문제 발생"+err)
