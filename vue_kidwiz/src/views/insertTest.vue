@@ -1,11 +1,33 @@
 <template>
     <h1>test now</h1>
-    
+    <form @submit.prevent="postTest" id="test">
+        <input type="text" name="name" v-model="test.name">
+        <button @click="postTest()">submit</button>
+    </form>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
-
+    data() {
+        return {
+            test: {
+                name: ''
+            }
+        }
+    },
+    methods: {
+        postTest(){
+            console.log("실행");
+            //var form = document.getElementById('test');           
+            //var json = JSON.stringify(form)
+            console.log(this.test)
+            
+        axios.post('http://localhost:3000/testPost', this.test).then((res) => {
+            console.log(res)
+            })
+        }
+    }
 }
 </script>
 

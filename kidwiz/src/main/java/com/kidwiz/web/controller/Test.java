@@ -14,7 +14,7 @@ public class Test {
 	
 	@PostMapping("/testPost")
 	public String postTest(@RequestBody TestDTO test) {
-		System.out.println(test);
+		System.out.println(test.getName());
 		return "실험중";
 	}
 
