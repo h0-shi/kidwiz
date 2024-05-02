@@ -6,7 +6,7 @@ import insertTest from "@/views/insertTest.vue";
 const routes = [
     {path: '/testVue', name:'testVue', component: testVue},
     {path: '/listTest', name:'listTest', component: listTest},
-    {path:'/testSeonwoo', name:'testSeonwoo', component: () => import('../views/TestSeonwoo.vue')}
+    {path:'/testSeonwoo', name:'testSeonwoo', component: () => import('../views/TestSeonwoo.vue')},
     {path: '/insertTest', name:'insertTest', component: insertTest}
 ];
 
