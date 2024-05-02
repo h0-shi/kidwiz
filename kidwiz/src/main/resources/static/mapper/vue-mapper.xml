@@ -5,4 +5,8 @@
 		SELECT * FROM Temp
 	</select>
 	
+	<select id='getBoard' resultType="Map">
+		SELECT ROW_NUMBER() OVER(ORDER BY bno) AS no ,writer, btitle,bdate  FROM board_consulting;
+	</select>
+	
 </mapper>

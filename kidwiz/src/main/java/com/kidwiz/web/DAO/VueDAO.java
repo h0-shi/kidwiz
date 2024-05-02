@@ -11,4 +11,7 @@ import org.springframework.stereotype.Repository;
 public interface VueDAO {
 	public List<Map<String, Object>> boardList();
 
+	public List<Map<String, Object>> getBoard();
+
+
 }
