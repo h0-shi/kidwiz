@@ -18,4 +18,8 @@ public class VueService {
 		return vueDAO.boardList();
 	}
 
+	public List<Map<String, Object>> getBoard() {
+		return vueDAO.getBoard();
+	}
+
 }
