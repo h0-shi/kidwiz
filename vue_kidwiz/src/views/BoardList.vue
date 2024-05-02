@@ -15,6 +15,7 @@
         <td v-text="row.bdate"></td>
       </tr>
     </table>
+    <button @click="$router.push('/boardwrite')">글쓰기</button>
   </div>
 </template>
 

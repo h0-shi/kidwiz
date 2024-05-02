@@ -9,6 +9,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kidwiz.web.service.VueService;
@@ -47,6 +49,13 @@ public class VueController {
 		
 		
 		return json.toString();
+	}
+	
+	@GetMapping("/api/boardWrite")
+	public String boardWrite(@RequestBody Map<String, Object> map) {
+		int result = vueService.boardWrite(map);
+		
+		return new String();
 	}
 	
 }

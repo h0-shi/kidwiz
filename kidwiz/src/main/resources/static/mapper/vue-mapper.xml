@@ -6,7 +6,12 @@
 	</select>
 	
 	<select id='getBoard' resultType="Map">
-		SELECT ROW_NUMBER() OVER(ORDER BY bno) AS no ,writer, btitle,bdate  FROM board_consulting;
+		SELECT ROW_NUMBER() OVER(ORDER BY bno) AS no,writer, btitle,
+if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bdate,'%H:%i'),DATE_FORMAT(bdate,'%Y-%m-%d')) AS bdate
+  FROM board_consulting;
 	</select>
 	
+	<insert id="boardWrite" parameterType="Map" resultType="int">
+		INSERT INTO board_consulting (writer,btitle,bcontent) VALUES (#{writer},#{btitle},#{bcontent})
+	</insert>
 </mapper>
