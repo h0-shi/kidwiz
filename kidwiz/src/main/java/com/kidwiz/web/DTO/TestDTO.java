@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public class TestDTO {
 	
- private String name;	
+ private String name;
+ private int age;
 
 }
