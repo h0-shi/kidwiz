@@ -13,6 +13,8 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 	
 	<insert id="boardWrite" parameterType="Map">
 		INSERT INTO board_consulting (writer,btitle,bcontent) VALUES (#{writer},#{title},#{content})
+	</insert>
+	
 	<insert id="write" parameterType="Map">
 		INSERT INTO Temp (name, age) VALUES (#{name}, #{age})
 	</insert>
