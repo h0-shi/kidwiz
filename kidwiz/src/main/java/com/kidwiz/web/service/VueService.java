@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kidwiz.web.DAO.VueDAO;
+import com.kidwiz.web.DTO.TestDTO;
 
 @Service
 public class VueService {
@@ -20,6 +21,13 @@ public class VueService {
 
 	public List<Map<String, Object>> getBoard() {
 		return vueDAO.getBoard();
+	}
+
+	public int write(TestDTO dto) {
+		return vueDAO.write(dto);
+	public int boardWrite(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return vueDAO.boardWrite(map);
 	}
 
 }

@@ -15,6 +15,7 @@
         <td v-text="row.bdate"></td>
       </tr>
     </table>
+    <button @click="$router.push('/boardwrite')">글쓰기</button>
   </div>
 </template>
 
@@ -29,7 +30,7 @@ export default {
     }
   },
   mounted(){
-    axios.get('api/board').then((res) =>{
+    axios.get('/boardList').then((res) =>{
       this.list = res.data.list;
     }).catch((err) => {
       alert('문제가 발생했습니다. '+ err);

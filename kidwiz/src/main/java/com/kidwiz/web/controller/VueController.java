@@ -9,6 +9,9 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kidwiz.web.service.VueService;
@@ -38,7 +41,7 @@ public class VueController {
 		return json.toString();
 	}
 	
-	@GetMapping("/api/board")
+	@GetMapping("/boardList")
 	public String getBoard() {
 		List<Map<String, Object>> list = vueService.getBoard();
 		JSONObject json = new JSONObject();
@@ -47,6 +50,13 @@ public class VueController {
 		
 		
 		return json.toString();
+	}
+	
+	@PostMapping("/boardWrite")
+	public int boardWrite(@RequestBody Map<String, Object> map) {
+		int result = vueService.boardWrite(map);
+		
+		return result;
 	}
 	
 }
