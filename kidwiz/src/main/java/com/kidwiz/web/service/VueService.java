@@ -25,6 +25,9 @@ public class VueService {
 
 	public int write(TestDTO dto) {
 		return vueDAO.write(dto);
+	public int boardWrite(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return vueDAO.boardWrite(map);
 	}
 
 }

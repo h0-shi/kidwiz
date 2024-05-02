@@ -15,6 +15,7 @@ public interface VueDAO {
 
 	public List<Map<String, Object>> getBoard();
 
+	public int boardWrite(Map<String, Object> map);
 	public int write(TestDTO dto);
 
 
