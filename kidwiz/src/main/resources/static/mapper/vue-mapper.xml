@@ -9,4 +9,7 @@
 		SELECT ROW_NUMBER() OVER(ORDER BY bno) AS no ,writer, btitle,bdate  FROM board_consulting;
 	</select>
 	
+	<insert id="write" parameterType="Map">
+		INSERT INTO Temp (name, age) VALUES (#{name}, #{age})
+	</insert>
 </mapper>

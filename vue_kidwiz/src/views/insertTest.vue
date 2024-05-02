@@ -2,7 +2,8 @@
     <h1>test now</h1>
     <form @submit.prevent="postTest" id="test">
         <input type="text" name="name" v-model="test.name">
-        <button @click="postTest()">submit</button>
+        <input type="text" name="age" v-model="test.age">
+        <button>submit</button>
     </form>
 </template>
 
@@ -12,7 +13,8 @@ export default {
     data() {
         return {
             test: {
-                name: ''
+                name: '',
+                age: ''
             }
         }
     },
