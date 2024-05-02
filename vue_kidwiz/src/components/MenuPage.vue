@@ -4,6 +4,7 @@
         <li><router-link to="/testVue">테스트뷰</router-link></li>
         <li><router-link to="/listTest">DB테스트</router-link></li>
         <li><router-link to="/BoardList">박선우</router-link></li>
+        <li><router-link to="/insertTest">insert 테스트</router-link></li>
     </nav>
   </header>
 </template>

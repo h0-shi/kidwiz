@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted(){
-    axios.get('api/board').then((res) =>{
+    axios.get('/boardList').then((res) =>{
       this.list = res.data.list;
     }).catch((err) => {
       alert('문제가 발생했습니다. '+ err);
