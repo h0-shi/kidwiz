@@ -25,9 +25,25 @@ public class VueService {
 
 	public int write(TestDTO dto) {
 		return vueDAO.write(dto);
+	}
 	public int boardWrite(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return vueDAO.boardWrite(map);
+	}
+
+	public Map<String, Object> boardDetail(String bno) {
+		// TODO Auto-generated method stub
+		return vueDAO.boardDetail(bno);
+	}
+
+	public int boardDel(String bno) {
+		// TODO Auto-generated method stub
+		return vueDAO.boardDel(bno);
+	}
+
+	public int boardUpdate(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return vueDAO.boardUpdate(map);
 	}
 
 }

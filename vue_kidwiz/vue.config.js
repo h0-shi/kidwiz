@@ -1,11 +1,20 @@
+
+
 module.exports = {
   devServer: {
+    historyApiFallback: true,
+    // npm run serve 개발 진행시 포트가 다르기 때문에 프록시 설정을 해줘야 함
     proxy: {
         '/':{
             "target":'http://localhost:3000', // Spring boot의 주소 및 포트
-            "ws": true, //websocket 프록시 활성화 - 이문희
-            "pathRewrite":{'^/':''},
-            "changeOrigin":true,
+            pathRewrite:{'^/':''},
+            "changeOrigin":true, // CORS 에러 막는 옵션
+            ws:false,
+        },
+        "/api":{
+            target:"http://localhost:3000", // Spring boot의 주소 및 포트
+            changeOrigin:true, // CORS 에러 막는 옵션
+            ws:false,
         }
     }
   }
