@@ -27,4 +27,9 @@ public class VueService {
 		return vueDAO.boardWrite(map);
 	}
 
+	public Map<String, Object> boardDetail(String bno) {
+		// TODO Auto-generated method stub
+		return vueDAO.boardDetail(bno);
+	}
+
 }

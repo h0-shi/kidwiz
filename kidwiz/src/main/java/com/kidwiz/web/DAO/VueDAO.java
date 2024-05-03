@@ -15,5 +15,7 @@ public interface VueDAO {
 
 	public int boardWrite(Map<String, Object> map);
 
+	public Map<String, Object> boardDetail(String bno);
+
 
 }

@@ -41,7 +41,7 @@ public class VueController {
 		return json.toString();
 	}
 	
-	@GetMapping("/boardList")
+	@GetMapping("/api/boardList")
 	public String getBoard() {
 		List<Map<String, Object>> list = vueService.getBoard();
 		JSONObject json = new JSONObject();
@@ -52,11 +52,20 @@ public class VueController {
 		return json.toString();
 	}
 	
-	@PostMapping("/boardWrite")
+	@PostMapping("/api/boardWrite")
 	public int boardWrite(@RequestBody Map<String, Object> map) {
 		int result = vueService.boardWrite(map);
 		
 		return result;
 	}
+	
+	@GetMapping("/api/boardDetail")
+	public String boardDetail(@RequestBody Map<String, Object> map) {
+		System.out.println(map);
+		Map<String, Object> list = vueService.boardDetail(map.get("bno").toString());
+		JSONObject json = new JSONObject(list);
+		return json.toString();
+	}
+	
 	
 }
