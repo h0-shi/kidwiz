@@ -10,7 +10,7 @@
             <th>교수</th>
             <th>상태</th>
         </tr>
-        <tr v-for="n in list" v-bind:key="n.no" v-bind:class="[n.no+'tr']">
+        <tr v-for="n in list" v-bind:key="n.no" v-bind:class="[n.no+'tr']" @click="test(n)">
             <td>{{n.no }}</td>
             <td>{{n.name }}</td>
             <td>{{ n.stuNum }}</td>
@@ -58,8 +58,10 @@ export default {
         // 배경색 변경을 위한 로직을 여기에 추가
         console.log(item.no);
         item.backgroundColor = 'yellow'; // 예시로 노란색 배경색을 설정
-    }
-
+    },
+test(item){
+    alert('딸깍'+item.no);
+}
     }
 }
 </script>
