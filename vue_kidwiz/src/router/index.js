@@ -13,7 +13,8 @@ const routes = [
     {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite},
     {path: '/insertTest', name:'insertTest', component: insertTest},
     {path:"/boardDetail", name:"boardDetail", component: boardDetail},
-    {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate}
+    {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate},
+    {path:"/login", name:"login", component: () => import('../views/LoginView.vue')}
 ];
 
 const router = createRouter({
