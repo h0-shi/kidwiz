@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>게시판</h1>
     <table border="1">
       <tr>
         <th>번호</th>
@@ -10,9 +9,9 @@
       </tr>
       <tr v-for="row in list" v-bind:key="row.bno">
         <td v-text="row.no"></td>
-        <td>{{row.btitle}}</td>
-        <td v-text="row.writer"></td>
-        <td v-text="row.bdate"></td>
+        <td @click="detail(row.bno)">{{ row.btitle }}</td>
+        <td>{{ row.writer }}</td>
+        <td>{{ row.bdate }}</td>
       </tr>
     </table>
     <button @click="$router.push('/boardwrite')">글쓰기</button>
@@ -23,18 +22,25 @@
 import axios from 'axios';
 
 export default {
-  name:'TestSeonwoo',
+  name:"BoardList",
   data(){
     return{
       list:[],
+      requestBody : this.$route.query
     }
   },
   mounted(){
-    axios.get('/boardList').then((res) =>{
-      this.list = res.data.list;
-    }).catch((err) => {
-      alert('문제가 발생했습니다. '+ err);
+    axios("/api/BoardList").then((res)=>{
+      this.list=res.data.list
+    }).catch((err)=>{
+      alert("에러 발생 : "+ err)
     })
+  },
+  methods:{
+    detail(bno){
+      this.requestBody.bno=bno
+      this.$router.push({path:"./boardDetail",query:this.requestBody})
+    }
   }
 }
 </script>
