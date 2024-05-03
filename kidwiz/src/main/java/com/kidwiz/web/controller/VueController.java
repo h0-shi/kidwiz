@@ -41,7 +41,7 @@ public class VueController {
 		return json.toString();
 	}
 	
-	@GetMapping("/api/boardList")
+	@GetMapping("/api/BoardList")
 	public String getBoard() {
 		List<Map<String, Object>> list = vueService.getBoard();
 		JSONObject json = new JSONObject();
@@ -60,12 +60,28 @@ public class VueController {
 	}
 	
 	@GetMapping("/api/boardDetail")
-	public String boardDetail(@RequestBody Map<String, Object> map) {
-		System.out.println(map);
-		Map<String, Object> list = vueService.boardDetail(map.get("bno").toString());
-		JSONObject json = new JSONObject(list);
+	public String boardDetail(@RequestParam("bno") String bno) {
+		Map<String, Object> list = vueService.boardDetail(bno);
+		JSONObject json = new JSONObject();
+		json.put("list", list);
 		return json.toString();
 	}
 	
+	@PostMapping("/api/boardDel")
+	public String boardDel(@RequestParam("bno") String bno) {
+		int result = vueService.boardDel(bno);
+		JSONObject json = new JSONObject();
+		json.put("result", result);
+		return json.toString();
+	}
+	
+	@PostMapping("/api/boardUpdate")
+	public String boardUpdate(@RequestBody Map<String, Object> map) {
+		System.out.println(map);
+		int result = vueService.boardUpdate(map);
+		JSONObject json = new JSONObject();
+		json.put("result", result);
+		return json.toString();
+	}
 	
 }

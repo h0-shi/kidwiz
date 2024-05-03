@@ -20,5 +20,9 @@ public interface VueDAO {
 
 	public Map<String, Object> boardDetail(String bno);
 
+	public int boardDel(String bno);
+
+	public int boardUpdate(Map<String, Object> map);
+
 
 }

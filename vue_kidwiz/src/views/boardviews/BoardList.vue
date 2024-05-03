@@ -30,7 +30,7 @@ export default {
     }
   },
   mounted(){
-    axios("/api/boardList").then((res)=>{
+    axios("/api/BoardList").then((res)=>{
       this.list=res.data.list
     }).catch((err)=>{
       alert("에러 발생 : "+ err)
