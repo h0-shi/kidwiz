@@ -10,6 +10,7 @@
     <div>
       내용 : {{ detail.bcontent }}
     </div>
+    <button @click="reply()">답변글</button>
   </div>
 </template>
 
@@ -59,6 +60,8 @@ export default {
     },
     update(){
       this.$router.push({path:"./BoardUpdate",query:this.requestBody})
+    },reply(){
+      this.$router.push({path:"./BoardReply",params:this.requestBody})
     }
   }
 }
