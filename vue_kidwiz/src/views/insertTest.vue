@@ -1,10 +1,16 @@
 <template>
+<div>
     <h1>test now</h1>
     <form @submit.prevent="postTest" id="test">
-        <input type="text" name="name" v-model="test.name">
-        <input type="text" name="age" v-model="test.age">
+        <label>이름</label><input type="text" name="name" v-model="test.name">
+        <label>나이</label><input type="text" name="age" v-model="test.age"><br>
+        <label>학번</label><input type="text" name="stuNum" v-model="test.stuNum">
+        <label>전공</label><input type="text" name="major" v-model="test.major"><br>
+        <label>교수</label><input type="text" name="tName" v-model="test.teacher"><br>
+        <br>
         <button>submit</button>
     </form>
+</div>
 </template>
 
 <script>
@@ -14,7 +20,10 @@ export default {
         return {
             test: {
                 name: '',
-                age: ''
+                age: '',
+                major:'',
+                teacher:'',
+                stuNum:''
             }
         }
     },
@@ -34,5 +43,8 @@ export default {
 </script>
 
 <style>
-
+.reason{
+    width: 70%;
+    height: 300px;
+}
 </style>
