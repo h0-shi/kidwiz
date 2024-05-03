@@ -11,7 +11,7 @@ const routes = [
     {path:'/BoardList', name:'BoardList', component: () => import('../views/BoardList.vue')},
     {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite},
     {path: '/insertTest', name:'insertTest', component: insertTest},
-    {path:'/personTest', name: 'PersonTest', component: PersonTest}
+    {path:'/PersonTest', name: 'PersonTest', component: PersonTest}
 ];
 
 const router = createRouter({

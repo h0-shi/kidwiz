@@ -33,6 +33,13 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 	implementation	'org.json:json:20230227'
+	// CareerNet Open API Java SDK 추가
+    // implementation 'kr.co.career:careernet-openapi-java-sdk:VERSION'
+    
+    
+    // build.gradle
+	implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    
 }
 
 tasks.named('test') {

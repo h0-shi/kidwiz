@@ -10,9 +10,33 @@
             <ul class="quick_list">
                 <li class="career-item">
                     <div class="career-item-box">
-                        <strong class="dot_tit" style="text-align: left;">대학생 진로준비도 검사</strong>
+                        <strong style="text-align: left;">직업선호도검사 S형</strong>
+                        <p style="text-align: left;">직업선호도 검사는 좋아하는 활동, 관심 있는 직업, 선호하는</p>
+                        <a href="https://www.work.go.kr/consltJobCarpa/jobPsyExam/aduPreSNewDetail.do"
+                            target="_blank" class="career-item-button">바로가기</a>
+                    </div>
+                </li>
+                <li class="career-item">
+                    <div class="career-item-box">
+                        <strong style="text-align: left;">직업선호도검사 L형</strong>
+                        <p style="text-align: left;">직업선호도검사 L형은 대학생 및 성인구직자들이 자신의 흥미.</p>
+                        <a href="https://www.work.go.kr/consltJobCarpa/jobPsyExam/aduPreLNewDetail.do"
+                            target="_blank" class="career-item-button">바로가기</a>
+                    </div>
+                </li>
+                <li class="career-item">
+                    <div class="career-item-box">
+                        <strong style="text-align: left;">대학생 진로준비도 검사</strong>
                         <p style="text-align: left;">대학생 진로준비도 검사는ddddd.</p>
-                        <a href="https://www.work.go.kr/consltJobCarpa/jobPsyExamNew/jobPsyExamAdultList.do"
+                        <a href="https://www.work.go.kr/consltJobCarpa/jobPsyExam/univJobPreDetail.do"
+                            target="_blank" class="career-item-button">바로가기</a>
+                    </div>
+                </li>
+                <li class="career-item">
+                    <div class="career-item-box">
+                        <strong style="text-align: left;">구직준비도검사</strong>
+                        <p style="text-align: left;">구직을 희망하는 사람들이 성공적인 구직을 할 준비가 되어 </p>
+                        <a href="https://www.work.go.kr/consltJobCarpa/jobPsyExam/aduEquipDetail.do"
                             target="_blank" class="career-item-button">바로가기</a>
                     </div>
                 </li>
@@ -23,13 +47,17 @@
 
 <script>
 export default {
-    name: 'TestPage'
+    name: 'PersonTest'
 }
 </script>
 
 <style scoped>
-.career-module-container {
-}
+
+ul {
+    list-style-type: none;
+  }
+
+.career-module-container {}
 
 .career-item {
     border: 2px solid #ccc;
@@ -48,7 +76,17 @@ export default {
 }
 
 .career-item-button {
-    margin-top: auto;
-    text-align: right;
+    width: 100px;
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: block;
+    margin-left: auto;
+    text-align: center;
+    line-height: 1.5;
 }
+
+
 </style>
