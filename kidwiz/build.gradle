@@ -36,6 +36,9 @@ dependencies {
 	// CareerNet Open API Java SDK 추가
     // implementation 'kr.co.career:careernet-openapi-java-sdk:VERSION'
     
+
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
     
     // build.gradle
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
