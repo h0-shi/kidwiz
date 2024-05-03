@@ -48,7 +48,7 @@ public class VueController {
 		JSONArray arr = new JSONArray(list);
 		json.put("list",arr);
 		
-		
+		//test
 		return json.toString();
 	}
 	
