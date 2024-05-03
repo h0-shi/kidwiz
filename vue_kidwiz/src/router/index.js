@@ -9,7 +9,8 @@ const routes = [
     {path: '/listTest', name:'listTest', component: listTest},
     {path:'/BoardList', name:'BoardList', component: () => import('../views/BoardList.vue')},
     {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite},
-    {path: '/insertTest', name:'insertTest', component: insertTest}
+    {path: '/insertTest', name:'insertTest', component: insertTest},
+    {path: '/regRev', name:'regRev', component: () => import('@/views/RegRev.vue')}
 ];
 
 const router = createRouter({

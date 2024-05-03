@@ -1,5 +1,13 @@
 package com.kidwiz.web.DAO;
 
-public class RegDAO {
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+
+@Repository
+@Mapper
+public interface RegDAO {
+
+	public int accept(String no); 
+	
 
 }

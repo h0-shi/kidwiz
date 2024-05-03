@@ -7,15 +7,15 @@
 	
 	<select id='getBoard' resultType="Map">
 		SELECT ROW_NUMBER() OVER(ORDER BY bno) AS no,writer, btitle,
-if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bdate,'%H:%i'),DATE_FORMAT(bdate,'%Y-%m-%d')) AS bdate
-  FROM board_consulting ORDER BY no DESC;
+		if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bdate,'%H:%i'),DATE_FORMAT(bdate,'%Y-%m-%d')) AS bdate
+		FROM board_consulting ORDER BY no DESC;
 	</select>
 	
 	<insert id="boardWrite" parameterType="Map">
 		INSERT INTO board_consulting (writer,btitle,bcontent) VALUES (#{writer},#{title},#{content})
 	</insert>
 	
-	<insert id="write" parameterType="Map">
-		INSERT INTO Temp (name, age) VALUES (#{name}, #{age})
+	<insert id="testInsert" parameterType="Map">
+		INSERT INTO Temp (name, age, stuNum, major, teacher) VALUES (#{name}, #{age}, #{stuNum}, #{major}, #{teacher})
 	</insert>
 </mapper>
