@@ -84,4 +84,13 @@ public class VueController {
 		return json.toString();
 	}
 	
+	@PostMapping("/api/boardReply")
+	public String boardReply(@RequestBody Map<String, Object> map) {
+		System.out.println(map);
+		int result = vueService.boardReply(map);
+		JSONObject json = new JSONObject();
+		json.put("result", result);
+		return json.toString();
+	}
+	
 }

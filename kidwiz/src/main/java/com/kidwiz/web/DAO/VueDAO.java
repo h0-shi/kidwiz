@@ -24,5 +24,7 @@ public interface VueDAO {
 
 	public int boardUpdate(Map<String, Object> map);
 
+	public int boardReply(Map<String, Object> map);
+
 
 }

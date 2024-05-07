@@ -47,4 +47,9 @@ public class VueService {
 		return vueDAO.boardUpdate(map);
 	}
 
+	public int boardReply(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return vueDAO.boardReply(map);
+	}
+
 }
