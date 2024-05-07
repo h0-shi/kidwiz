@@ -33,11 +33,11 @@ public class TestAnswer {
     @Comment("질문 id")
     private Integer qid;
 
-	@Column(name = "tanswer")
-	@Comment("선택한 답변")
-	private String tanswer;
-
 	@Column(name = "tdate")
 	@Comment("검사 실시일")
 	private LocalDateTime tdate;
+
+	@Column(name = "tanswer") // vue 에서 value 를 받아와야함.
+	@Comment("선택한 답변")
+	private Integer tanswer;
 }

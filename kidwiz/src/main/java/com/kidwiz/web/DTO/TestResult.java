@@ -44,4 +44,5 @@ public class TestResult {
 
     @Column(name = "tdate")
     private LocalDateTime tdate;
+    
 }

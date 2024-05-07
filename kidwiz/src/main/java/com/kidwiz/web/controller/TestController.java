@@ -15,6 +15,7 @@ import com.kidwiz.web.DTO.ResultData;
 import com.kidwiz.web.DTO.TestAnswer;
 import com.kidwiz.web.DTO.TestQuestion;
 import com.kidwiz.web.DTO.TestResult;
+import com.kidwiz.web.repository.TestAnswerRepository;
 import com.kidwiz.web.service.TestService;
 
 @RestController
@@ -27,34 +28,47 @@ public class TestController {
 	@Autowired
 	TestResult testResult;
 	
+    @Autowired
+    private TestAnswerRepository testAnswerRepository;
+
+	
 	@PostMapping("/submitTest")
-	public ResponseEntity<ResultData> submitTest(@RequestBody List<String> answers) {
+	public ResponseEntity<ResultData> submitTest(@RequestBody List<TestQuestion> questionData) {
 	    // 1. 답변 데이터로 심리검사 결과를 계산하거나 분석함.
-		int totalScore = calculateTotalScore(answers);
-	    ResultData result = analyzeAnswers(answers, totalScore);
-	    
+	    int totalScore = calculateTotalScore(questionData);
+	    ResultData result = analyzeAnswers(questionData, totalScore);
+
 	    // 2. 데이터베이스에 질문과 답변을 저장.
-	    saveTestQuestion(answers); // 질문 저장
-	    saveTestAnswer(answers); // 답변 저장
+	    List<TestAnswer> savedAnswers = saveTestAnswer(questionData); // 답변 저장
+	    saveTestQuestion(savedAnswers);
 	    saveTestResult(result, totalScore); // 결과 저장
-	    
+
 	    // 3. 클라이언트에게 응답을 보냄.
 	    return ResponseEntity.ok(result);
 	}
 
-	private void saveTestQuestion(List<String> answers) { // 필요한 다른 데이터 설정 = qid, sid, tid
-	    TestQuestion testQuestion = new TestQuestion();
-	    testQuestion.setTcategory("카테고리 값");
-	    testQuestion.setTtitle("질문 내용 값");
-	    testService.saveTestQuestion(testQuestion);
+	private void saveTestQuestion(List<TestAnswer> savedAnswers) {
+	    for (TestAnswer answer : savedAnswers) {
+	        TestQuestion testQuestion = new TestQuestion();
+	        testQuestion.setQid(answer.getQid());
+	        testQuestion.setTcategory(answer.getTcategory());
+	        testQuestion.setTtitle(answer.getTtitle());
+	        testService.saveTestQuestion(testQuestion);
+	    }
 	}
 
-	private void saveTestAnswer(List<String> answers) {
-	    TestAnswer testAnswer = new TestAnswer();
-	    testAnswer.setTanswer(String.join(",", answers));
-	    testAnswer.setTdate(LocalDateTime.now());
-	    testService.saveTest(testAnswer);
+	private List<TestAnswer> saveTestAnswer(List<TestQuestion> questionData) {
+	    List<TestAnswer> savedAnswers = new ArrayList<>();
+	    for (TestQuestion question : questionData) {
+	        TestAnswer answer = new TestAnswer();
+	        answer.setQid(question.getQid());
+	        answer.setTanswer(question.getAnswer());
+	        savedAnswers.add(answer);
+	    }
+	    testAnswerRepository.saveAll(savedAnswers);
+	    return savedAnswers;
 	}
+
 
 	private void saveTestResult(ResultData result, int totalScore) {
 	    TestResult testResult = new TestResult();
@@ -68,14 +82,14 @@ public class TestController {
 	}
 
 	@PostMapping("/getTestResult")
-	public ResponseEntity<ResultData> getTestResult(@RequestBody List<String> answers) {
+	public ResponseEntity<ResultData> getTestResult(@RequestBody List<TestQuestion> answers) {
 		int totalScore = calculateTotalScore(answers);
 	    ResultData result = analyzeAnswers(answers, totalScore); 
 		result.setTotalScore(totalScore);
 		return ResponseEntity.ok(result);
 	}
 
-	private ResultData analyzeAnswers(List<String> answers, int totalScore) {
+	private ResultData analyzeAnswers(List<TestQuestion> questionData, int totalScore) {
 		ResultData resultData = new ResultData();
 
 		// 사용자 답변 분석
@@ -86,18 +100,12 @@ public class TestController {
 		return resultData;
 	}
 
-	private int calculateTotalScore(List<String> answers) {
+	private int calculateTotalScore(List<TestQuestion> questionData) {
 		int totalScore = 0;
-		for (String answer : answers) {
-			try {
-				int score = Integer.parseInt(answer);
-				totalScore += score; // value가 정수로 주어지므로, 직접 점수에 더합니다.
-			} catch (NumberFormatException e) {
-				// answer가 정수로 파싱될 수 없는 경우, 예외 처리
-				System.out.println("답변이 올바른 숫자 형식이 아닙니다: " + answer);
-			}
-		}
-		return totalScore;
+	    for (TestQuestion question : questionData) {
+	        totalScore += question.getAnswer(); // 입력된 답변 값으로 점수 계산
+	    }
+	    return totalScore;
 	}
 
 	private String getRecommendedJobs(int totalScore) {
