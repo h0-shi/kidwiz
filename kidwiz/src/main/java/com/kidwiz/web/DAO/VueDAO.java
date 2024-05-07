@@ -26,5 +26,7 @@ public interface VueDAO {
 
 	public int boardReply(Map<String, Object> map);
 
+	public Map<String, Object> getPath(String bno);
+
 
 }

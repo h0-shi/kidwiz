@@ -52,4 +52,9 @@ public class VueService {
 		return vueDAO.boardReply(map);
 	}
 
+	public Map<String, Object> getPath(String bno) {
+		// TODO Auto-generated method stub
+		return vueDAO.getPath(bno);
+	}
+
 }

@@ -16,7 +16,8 @@ const routes = [
     {path:"/boardDetail", name:"boardDetail", component: boardDetail},
     {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate},
     {path:"/BoardReply", name:"BoardReply",component:boardReply},
-    {path: '/regRev', name:'regRev', component: () => import('@/views/RegRev.vue')}
+    {path: '/regRev', name:'regRev', component: () => import('@/views/RegRev.vue')},
+    {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue')}
 ];
 
 const router = createRouter({
