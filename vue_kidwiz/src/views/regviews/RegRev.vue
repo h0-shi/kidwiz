@@ -27,7 +27,7 @@
     
     <div class="modal-wrap" v-show="modalCheck">
         <div class="modal-container">
-            <button>신청하기</button>
+            <button @click="btnPopup">신청하기</button>
             <table class="table stu">
                 <thead>
                     <tr>
@@ -86,8 +86,11 @@ export default {
         modalOpen(){
             this.modalCheck = !this.modalCheck;
             console.log("실행");
-        }
-    }
+        },
+        btnPopup(){
+            window.open("#/regTime","_blank","width=300,height=500");
+        },
+    },
 }
 </script>
 
