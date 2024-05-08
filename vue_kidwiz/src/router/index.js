@@ -16,7 +16,7 @@ const routes = [
     {path:"/boardDetail", name:"boardDetail", component: boardDetail},
     {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate},
     {path:"/boardReply", name:"boardReply",component:boardReply},
-    {path: '/regRev', name:'regRev', component: () => import('@/views/RegRev.vue')}
+    {path: '/regRev', name:'regRev', component: () => import('@/views/RegRev.vue')},
     {path:"/login", name:"login", component: () => import('../views/LoginView.vue')}
 ];
 
