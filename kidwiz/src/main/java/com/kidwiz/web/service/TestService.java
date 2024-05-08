@@ -12,13 +12,20 @@ import com.kidwiz.web.repository.TestResultRepository;
 @Service
 public class TestService {
 
+
     @Autowired
     private TestResultRepository testResultRepository;
+
+
+    @Transactional
+    public void saveTestResult(TestResult testResult) {
+        testResultRepository.save(testResult);
+    }
+
 
     @Transactional
     public void saveTestResults(List<TestResult> testResults) {
         testResultRepository.saveAll(testResults);
     }
-    
-    
+
 }
