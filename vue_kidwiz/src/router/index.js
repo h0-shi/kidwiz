@@ -13,7 +13,7 @@ const routes = [
     {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite},
     {path: '/insertTest', name:'insertTest', component: insertTest},
     {path:"/boardDetail", name:"boardDetail", component: boardDetail},
-    {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate}
+    {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate},
     {path: '/regRev', name:'regRev', component: () => import('@/views/RegRev.vue')}
 ];
 
