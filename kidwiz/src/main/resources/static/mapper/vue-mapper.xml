@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kidwiz.web.DAO.VueDAO">
 	<select id="boardList" resultType="Map">
-		SELECT * FROM Temp
+		SELECT * FROM reg_consulting
 	</select>
 	
 	<select id='getBoard' resultType="Map">
@@ -14,6 +14,7 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 	<insert id="boardWrite" parameterType="Map">
 		INSERT INTO board_consulting (writer,btitle,bcontent) VALUES (#{writer},#{title},#{content})
 	</insert>
+	
 	<insert id="write" parameterType="Map">
 		INSERT INTO Temp (name, age) VALUES (#{name}, #{age})
 	</insert>
