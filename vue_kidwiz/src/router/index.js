@@ -15,6 +15,9 @@ const routes = [
     {path: '/insertTest', name:'insertTest', component: insertTest},
     {path:"/boardDetail", name:"boardDetail", component: boardDetail},
     {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate},
+    {path:"/BoardReply", name:"BoardReply",component:boardReply},
+    {path: '/regRev', name:'regRev', component: () => import('@/views/RegRev.vue')},
+    {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue')}
     {path:"/boardReply", name:"boardReply",component:boardReply},
     {path: '/regRev', name:'regRev', component: () => import('@/views/RegRev.vue')},
     {path:"/login", name:"login", component: () => import('../views/LoginView.vue')}
