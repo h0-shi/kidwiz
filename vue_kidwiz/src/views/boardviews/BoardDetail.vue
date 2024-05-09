@@ -68,7 +68,7 @@ export default {
     update(){
       this.$router.push({path:"./BoardUpdate",query:this.requestBody})
     },reply(){
-      this.$router.push({path:"./BoardReply",query:this.detail})
+      this.$router.push({path:"./BoardReply",query:this.requestBody})
     }
   }
 }

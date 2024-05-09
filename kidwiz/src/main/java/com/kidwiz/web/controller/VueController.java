@@ -93,4 +93,32 @@ public class VueController {
 		return json.toString();
 	}
 	
+	@GetMapping("/api/getPath")
+	public String getPath(@RequestParam("bno") String bno) {
+		Map<String, Object> list = vueService.getPath(bno);
+		JSONObject json = new JSONObject();
+		json.put("list", list);
+		return json.toString();
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

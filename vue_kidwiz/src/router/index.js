@@ -20,7 +20,8 @@ const routes = [
     {path: '/rsrvTest', name:'rsrvTest', component: () => import('@/views/rsrvTest.vue')},
     {path: '/rsrvTest2', name:'rsrvTest2', component: () => import('@/views/rsrvTest2.vue')},
     {path: '/rsrvTest3', name:'rsrvTest3', component: () => import('@/views/rsrvTest3.vue')},
-    {path: '/rsrvTest4', name:'rsrvTest4', component: () => import('@/views/rsrvTest4.vue')}
+    {path: '/rsrvTest4', name:'rsrvTest4', component: () => import('@/views/rsrvTest4.vue')},
+    {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue')}
 ];
 
 const router = createRouter({
