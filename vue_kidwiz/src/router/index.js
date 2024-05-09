@@ -6,7 +6,10 @@ import insertTest from "@/views/regviews/insertTest.vue";
 import boardDetail from "@/views/boardviews/BoardDetail.vue";
 import boardUpdate from "@/views/boardviews/BoardUpdate.vue";
 
+import pop from '@/layout/RegTimeLayout.vue';
+
 const routes = [
+    {path: '/menu', name:'testVue', component: testVue},
     {path: '/testVue', name:'testVue', component: testVue},
     {path: '/listTest', name:'listTest', component: listTest},
     {path:'/BoardList', name:'BoardList', component: () => import('../views/boardviews/BoardList.vue')},
@@ -15,7 +18,8 @@ const routes = [
     {path:"/boardDetail", name:"boardDetail", component: boardDetail},
     {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate},
     {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue')},
-    {path: '/regTime', name:'regTime', component: () => import('@/views/regviews/RegTime.vue')}
+    {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue')},
+    {path: '/regTime', component: () => import('@/views/regviews/RegTime.vue'), meta: { layout:pop}},
 ];
 
 const router = createRouter({
