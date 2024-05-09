@@ -24,6 +24,9 @@ const routes = [
 
     {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue'), meta: {layout : menu}},
     {path: '/regTime', component: () => import('@/views/regviews/RegTime.vue'), meta: { layout:pop}},
+    {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue')},
+    {path: "/groupDetail", name:"groupDetail", component:()=> import("@/views/groupviews/groupDetail.vue")},
+    {path: "/BoardReply", name:"BoardReply",component:boardReply}
 ];
 
 const router = createRouter({

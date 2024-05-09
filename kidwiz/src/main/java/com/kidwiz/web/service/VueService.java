@@ -3,6 +3,7 @@ package com.kidwiz.web.service;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +60,21 @@ public class VueService {
 	public Map<String, Object> getPath(String bno) {
 		// TODO Auto-generated method stub
 		return vueDAO.getPath(bno);
+	}
+
+	public List<Map<String, Object>> getGroupList() {
+		// TODO Auto-generated method stub
+		return vueDAO.getGroupList();
+	}
+
+	public Map<String, Object> groupDetail(String gr_no) {
+		// TODO Auto-generated method stub
+		return vueDAO.groupDetail(gr_no);
+	}
+
+	public List<Map<String, Object>> getGList(String con_cd) {
+		// TODO Auto-generated method stub
+		return vueDAO.getGList(con_cd);
 	}
 
 }
