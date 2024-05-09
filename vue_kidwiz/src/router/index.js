@@ -6,19 +6,20 @@ import insertTest from "@/views/regviews/insertTest.vue";
 import boardDetail from "@/views/boardviews/BoardDetail.vue";
 import boardUpdate from "@/views/boardviews/BoardUpdate.vue";
 
+import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
 
 const routes = [
-    {path: '/menu', name:'testVue', component: testVue},
-    {path: '/testVue', name:'testVue', component: testVue},
-    {path: '/listTest', name:'listTest', component: listTest},
-    {path:'/BoardList', name:'BoardList', component: () => import('../views/boardviews/BoardList.vue')},
-    {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite},
-    {path: '/insertTest', name:'insertTest', component: insertTest},
-    {path:"/boardDetail", name:"boardDetail", component: boardDetail},
-    {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate},
-    {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue')},
-    {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue')},
+    {path: '/menu', name:'testVue', component: testVue, meta: {layout : menu}},
+    {path: '/testVue', name:'testVue', component: testVue, meta: {layout : menu}},
+    {path: '/listTest', name:'listTest', component: listTest, meta: {layout : menu}},
+    {path:'/BoardList', name:'BoardList', component: () => import('../views/boardviews/BoardList.vue'), meta: {layout : menu}},
+    {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite, meta: {layout : menu}},
+    {path: '/insertTest', name:'insertTest', component: insertTest, meta: {layout : menu}},
+    {path:"/boardDetail", name:"boardDetail", component: boardDetail, meta: {layout : menu}},
+    {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate, meta: {layout : menu}},
+
+    {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue'), meta: {layout : menu}},
     {path: '/regTime', component: () => import('@/views/regviews/RegTime.vue'), meta: { layout:pop}},
 ];
 

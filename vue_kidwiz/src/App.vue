@@ -1,15 +1,15 @@
 <template>
-  <MenuPage/>
-  <router-view/>
+<component :is="$route.meta.layout || 'div'">
+  <router-view></router-view>
+</component>
 </template>
 
 <script>
-import MenuPage from './components/MenuPage.vue'
 
 export default {
   name: 'App',
   components: {
-    MenuPage
+    
   }
 }
 </script>

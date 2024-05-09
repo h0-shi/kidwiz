@@ -87,7 +87,7 @@ export default {
             console.log(reg_no);
         },
         btnPopup(){
-            window.open("#/regTime","_blank","width=300,height=500");
+            window.open("#/regTime","_blank","width=950,height=500");
         },
         async getData(reg_no){
             try{

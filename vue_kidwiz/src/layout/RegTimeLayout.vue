@@ -1,6 +1,5 @@
 <template>
 <div>
-    <h1>제목짜란</h1>
     <slot />
 </div>
 </template>
