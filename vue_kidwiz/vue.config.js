@@ -2,7 +2,7 @@
 
 module.exports = {
   outputDir: "../src/main/resource/static",
-  indexPath: "../static/index.html",
+  indexPath: "index.html",
   devServer: {
     historyApiFallback: true,
     // npm run serve 개발 진행시 포트가 다르기 때문에 프록시 설정을 해줘야 함

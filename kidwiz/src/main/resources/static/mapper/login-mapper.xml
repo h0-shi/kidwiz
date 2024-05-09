@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.kidwiz.web.DAO.LoginDAO">
+<mapper namespace="com.kidwiz.web.login.UserMapper">
 
-	<select id="findUserBysid" parameterType="string"
-		resultType="com.kidwiz.web.DTO.LoginDTO">
-		SELECT sid, spw FROM student WHERE sid = #{sid}
+	<select id="findByUsername" resultType="com.kidwiz.web.login.User">
+		SELECT sid AS username,
+		spw AS password
+		FROM student
+		WHERE sid = #{username}
 	</select>
 
 </mapper>
