@@ -11,6 +11,7 @@ import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
 
 const routes = [
+    {path: '/', component: testVue, meta: {layout : menu}},
     {path: '/menu', name:'testVue', component: testVue, meta: {layout : menu}},
     {path: '/testVue', name:'testVue', component: testVue, meta: {layout : menu}},
     {path: '/listTest', name:'listTest', component: listTest, meta: {layout : menu}},

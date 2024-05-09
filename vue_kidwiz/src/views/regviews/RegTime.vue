@@ -1,6 +1,8 @@
 <template>
     <div>
-        팝업 테스트
+        <form action="">
+            <input type="date">
+        </form>
     </div>
 </template>
 
