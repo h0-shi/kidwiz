@@ -8,8 +8,13 @@
       글쓴이 : {{ detail.writer }}
     </div>
     <div>
-      내용 : {{ detail.bcontent }}
+      내용 : {{ detail.bcontent }}<br>
+      기본키 :{{ detail.bno }}<br>
+      상위 :{{ detail.up_bno }}<br>
+      뎁스 :{{ detail.depth }}<br>
+      순서 : {{ detail.ordernum }}<br>
     </div>
+    <button @click="reply()">답변글</button>
   </div>
 </template>
 
@@ -26,7 +31,10 @@ export default {
         btitle:null,
         bcontent:null,
         writer:null,
-        bdate:null
+        bdate:null,
+        up_bno:null,
+        depth:null,
+        ordernum:null
       }
     }
   },mounted(){
@@ -59,6 +67,8 @@ export default {
     },
     update(){
       this.$router.push({path:"./BoardUpdate",query:this.requestBody})
+    },reply(){
+      this.$router.push({path:"./BoardReply",query:this.requestBody})
     }
   }
 }

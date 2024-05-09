@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table border="1">
+    <table class="table">
       <tr>
         <th>번호</th>
         <th>제목</th>
@@ -9,7 +9,8 @@
       </tr>
       <tr v-for="row in list" v-bind:key="row.bno">
         <td v-text="row.no"></td>
-        <td @click="detail(row.bno)">{{ row.btitle }}</td>
+        <td v-if="row.depth ==0" @click="detail(row.bno)" style="text-align: left">{{ row.btitle }}</td>
+        <td v-else @click="detail(row.bno)" style="text-align: left">&nbsp;ㄴ[:Re]{{ row.btitle }}</td>
         <td>{{ row.writer }}</td>
         <td>{{ row.bdate }}</td>
       </tr>
