@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.json.JSONArray;
 import org.springframework.stereotype.Repository;
 
 import com.kidwiz.web.DTO.TestDTO;
@@ -27,6 +28,12 @@ public interface VueDAO {
 	public int boardReply(Map<String, Object> map);
 
 	public Map<String, Object> getPath(String bno);
+
+	public List<Map<String, Object>> getGroupList();
+
+	public Map<String, Object> groupDetail(String gr_no);
+
+	public List<Map<String, Object>> getGList(String con_cd);
 
 
 }
