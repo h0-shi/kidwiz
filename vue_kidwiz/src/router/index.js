@@ -20,8 +20,7 @@ const routes = [
     {path:"/boardDetail", name:"boardDetail", component: boardDetail, meta: {layout : menu}},
     {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate, meta: {layout : menu}},
     {path:"/BoardReply", name:"BoardReply",component:boardReply},
-    {path: '/regRev', name:'regRev', component: () => import('@/views/RegRev.vue')},
-    {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue')}
+    {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue')},
 
     {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue'), meta: {layout : menu}},
     {path: '/regTime', component: () => import('@/views/regviews/RegTime.vue'), meta: { layout:pop}},
