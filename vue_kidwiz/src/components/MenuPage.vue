@@ -6,6 +6,7 @@
         <li><router-link to="/BoardList">박선우</router-link></li>
         <li><router-link to="/insertTest">insert 테스트</router-link></li>
         <li><router-link to="/regRev">박시호</router-link></li>
+        <li><router-link to="/rsrvTest3">예약테스트</router-link></li>
     </nav>
   </header>
 </template>
