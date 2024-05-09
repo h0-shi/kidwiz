@@ -1,18 +1,21 @@
 package com.kidwiz.web.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kidwiz.web.DTO.TestDTO;
+import com.kidwiz.web.DTO.RegDTO;
 import com.kidwiz.web.service.RegService;
 import com.kidwiz.web.service.VueService;
 
 @RestController
-public class Test {
+public class RegController {
 	
 	@Autowired
 	private VueService vueService;
@@ -21,8 +24,8 @@ public class Test {
 	private RegService regService;
 	
 	@PostMapping("/testPost")
-	public String postTest(@RequestBody TestDTO test) {
-		vueService.testInsert(test);
+	public String postTest(@RequestBody RegDTO test) {
+		vueService.regconInsert(test);
 		System.out.println("-------------");
 		System.out.println(test.getMajor());
 		System.out.println(test.getTeacher());
@@ -31,9 +34,13 @@ public class Test {
 	
 	@PostMapping("/accept")
 	public String accept(@RequestBody Map<String, Object> ac) {
-		System.out.println(ac.get("no"));
-		int num = regService.accept(ac.get("no")+"");
-		System.out.println(num+" : 결과");
+		int num = regService.accept(ac.get("reg_no")+"");
 		return "성공";
+	}
+	
+	@GetMapping("/regDetail")
+	public List<RegDTO> regDetail(@RequestParam("rgno") String rgno) {
+		List<RegDTO> regDetail = regService.regDetail(rgno); 
+		return regDetail;
 	}
 }

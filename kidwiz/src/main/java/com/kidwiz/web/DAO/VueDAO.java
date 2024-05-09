@@ -7,8 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.json.JSONArray;
 import org.springframework.stereotype.Repository;
 
-import com.kidwiz.web.DTO.TestDTO;
-
 @Repository
 @Mapper
 public interface VueDAO {
@@ -17,7 +15,6 @@ public interface VueDAO {
 	public List<Map<String, Object>> getBoard();
 
 	public int boardWrite(Map<String, Object> map);
-	public int testInsert(TestDTO dto);
 
 	public Map<String, Object> boardDetail(String bno);
 

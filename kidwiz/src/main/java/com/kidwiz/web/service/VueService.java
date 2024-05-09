@@ -7,14 +7,18 @@ import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kidwiz.web.DAO.RegDAO;
 import com.kidwiz.web.DAO.VueDAO;
-import com.kidwiz.web.DTO.TestDTO;
+import com.kidwiz.web.DTO.RegDTO;
 
 @Service
 public class VueService {
 
 	@Autowired
 	private VueDAO vueDAO;
+	
+	@Autowired
+	private RegDAO regDAO;
 	
 	public List<Map<String, Object>> list() {
 		return vueDAO.boardList();
@@ -24,8 +28,8 @@ public class VueService {
 		return vueDAO.getBoard();
 	}
 
-	public int testInsert(TestDTO dto) {
-		return vueDAO.testInsert(dto);
+	public int regconInsert(RegDTO dto) {
+		return regDAO.regconInsert(dto);
 	}
 	
 	public int boardWrite(Map<String, Object> map) {

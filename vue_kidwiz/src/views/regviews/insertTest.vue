@@ -2,11 +2,7 @@
 <div>
     <h1>test now</h1>
     <form @submit.prevent="postTest" id="test">
-        <label>이름</label><input type="text" name="name" v-model="test.name">
-        <label>나이</label><input type="text" name="age" v-model="test.age"><br>
         <label>학번</label><input type="text" name="stuNum" v-model="test.stuNum">
-        <label>전공</label><input type="text" name="major" v-model="test.major"><br>
-        <label>교수</label><input type="text" name="tName" v-model="test.teacher"><br>
         <br>
         <button>submit</button>
     </form>
@@ -36,6 +32,7 @@ export default {
             
         axios.post('http://localhost:3000/testPost', this.test).then((res) => {
             console.log(res)
+            alert("신청이 완료되었습니다");
             })
         }
     }
