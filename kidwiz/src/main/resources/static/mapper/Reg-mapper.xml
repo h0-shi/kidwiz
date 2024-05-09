@@ -8,4 +8,8 @@
 	<insert id="regconInsert" parameterType="map">
 	INSERT INTO reg_consulting (stuNum) VALUES (#{stuNum})
 	</insert>
+	
+	<select id="regDetail" parameterType="map" resultType="map">
+	SELECT * FROM reg_consulting WHERE reg_no=#{rgno}
+	</select>
 </mapper>

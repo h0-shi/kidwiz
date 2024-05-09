@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="n in list" v-bind:key="n.reg_no" v-bind:class="[n.reg_no+'tr']" @click="modalOpen(n)">
+            <tr v-for="n in list" v-bind:key="n.reg_no" v-bind:class="[n.reg_no+'tr']" @click="modalOpen(n.reg_no)">
                 <td scope="row">{{n.reg_no }}</td>
                 <td>{{ n.stuNum }}</td>
                 <td v-if=" n.stat === '0'" v-bind:class="[n.reg_no+'stat']" >
@@ -28,7 +28,7 @@
     <div class="modal-wrap" v-show="modalCheck">
         <div class="modal-container">
             <button @click="btnPopup">신청하기</button>
-            <table class="table stu">
+            <table class="table stu" v-if="responseData && responseData.length > 0">
                 <thead>
                     <tr>
                         <th scope="col">번호</th>
@@ -38,9 +38,9 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">1</th>
-                        <th>60221322</th>
-                        <th>가다라</th>
+                        <th scope="row">{{ responseData[0].reg_no }}</th>
+                        <th>{{ responseData[0].stuNum }}</th>
+                        <th>{{ responseData[0].stat }}</th>
                     </tr>
                 </tbody>
             </table>
@@ -78,18 +78,26 @@ export default {
                 console.log(err);
             })
         },
-        changeBackgroundColor(item) {
-        // 배경색 변경을 위한 로직을 여기에 추가
-        console.log(item.reg_no);
-        item.backgroundColor = 'yellow'; // 예시로 노란색 배경색을 설정
-        },
-        modalOpen(){
+        async modalOpen(reg_no){
+            console.log(this.modalCheck==false)
+            if(this.modalCheck == false){
+                await this.getData(reg_no)
+            }
             this.modalCheck = !this.modalCheck;
-            console.log("실행");
+            console.log(reg_no);
         },
         btnPopup(){
             window.open("#/regTime","_blank","width=300,height=500");
         },
+        async getData(reg_no){
+            try{
+                const response = await axios.get('http://localhost:3000/regDetail?rgno='+reg_no);
+                this.responseData = response.data;
+                console.log(this.responseData)
+            } catch(error) {
+                console.log('에러 발생: '+error )
+            }
+        }
     },
 }
 </script>
