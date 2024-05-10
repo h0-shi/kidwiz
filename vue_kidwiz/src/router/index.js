@@ -1,22 +1,82 @@
-import { createRouter, createWebHistory } from "vue-router";
-import testVue from "@/views/TestVue.vue";
-import listTest from "@/views/ListTest.vue";
-import Boardwrite from "@/views/BoardWrite.vue";
-import insertTest from "@/views/insertTest.vue";
-import PersonTest from "@/views/PersonTest.vue";
-
-const routes = [
-    {path: '/testVue', name:'testVue', component: testVue},
-    {path: '/listTest', name:'listTest', component: listTest},
-    {path:'/BoardList', name:'BoardList', component: () => import('../views/BoardList.vue')},
-    {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite},
-    {path: '/insertTest', name:'insertTest', component: insertTest},
-    {path:'/PersonTest', name: 'PersonTest', component: PersonTest}
-];
+import { createRouter, createWebHistory } from 'vue-router';
+import SimriMain from '@/views/SimriMain.vue';
+import ContactMap from '@/views/contactFolder/ContactMap.vue';
+import CounselingIntro from '@/views/counselingFolder/CounselingIntro.vue';
+import CounselorShow from '@/views/counselorShow/CounselorShow.vue';
+import FaqQuestion from '@/views/faqFolder/FaqQuestion.vue';
+import FaqWrite from '@/views/faqFolder/FaqWrite.vue'; 
+import FaqDetail from '@/views/faqFolder/FaqDetail.vue'; // 새로운 컴포넌트 추가
+import CareerTest from '@/views/testFolder/CareerTest.vue';
+import PersonTest from '@/views/testFolder/PersonTest.vue';
+import ResultPage from '@/views/testFolder/ResultPage.vue';
+import OfflineSubmit from '@/views/submitFolder/OfflineSubmit.vue';
 
 const router = createRouter({
-    history: createWebHistory(process.env.BASE_URL),
-    routes
+  history: createWebHistory(process.env.BASE_URL),
+  routes: [
+    {
+      path: '/',
+      name: 'SimriMain',
+      component: SimriMain,
+    },
+    {
+      path: '/contact',
+      name: 'Contact',
+      component: ContactMap,
+    },
+    {
+      path: '/counseling',
+      name: 'Counseling',
+      component: CounselingIntro,
+    },
+    {
+        path: '/counselorshow',
+        name: 'CounselorShow',
+        component: CounselorShow,
+    },
+    {
+      path: '/faq',
+      name: 'FAQ',
+      component: FaqQuestion,
+    },
+    {
+      path: '/faqwrite',
+      name: 'FaqWrite',
+      component: FaqWrite,
+    },
+    {
+      path: '/faq/:id', // 동적 세그먼트를 포함하는 라우트 추가
+      name: 'FaqDetail',
+      component: FaqDetail,
+    },
+    {
+        path: '/offlineSubmit',
+        name: 'OfflineSubmit',
+        component: OfflineSubmit,
+    },
+    {
+      path: '/test',
+      name: 'Test',
+      component: CareerTest,
+      children: [
+        {
+          path: 'career',
+          name: 'CareerTest',
+          component: CareerTest,
+        },
+        {
+          path: 'person',
+          name: 'PersonTest',
+          component: PersonTest,
+        },
+        {
+          path: 'result',
+          name: 'ResultPage',
+          component: ResultPage,
+        },
+      ],
+    },
+  ],
 });
 
-export default router
+export default router;

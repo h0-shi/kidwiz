@@ -11,7 +11,10 @@
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "bootstrap-vue-3": "^0.5.1",
+    "clean-stack": "^5.2.0",
     "core-js": "^3.8.3",
+    "delegates": "^1.0.0",
+    "humanize-ms": "^1.2.1",
     "vue": "^3.2.13",
     "vue-router": "^4.3.2",
     "vue3-datepicker": "^0.4.0"
@@ -23,7 +26,10 @@
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3"
+    "eslint-plugin-vue": "^8.0.3",
+    "node-sass": "^9.0.0",
+    "sass": "^1.77.0",
+    "sass-loader": "^14.2.1"
   },
   "eslintConfig": {
     "root": true,
