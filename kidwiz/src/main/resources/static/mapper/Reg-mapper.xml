@@ -10,7 +10,7 @@
 	</insert>
 	
 	<select id="regDetail" parameterType="map" resultType="map">
-	SELECT * FROM reg_consulting WHERE reg_no=#{rgno}
+	SELECT * FROM timeTestReg WHERE reg_no=#{rgno} ORDER BY date
 	</select>
 	
 	<select id="timetable" resultType="map">

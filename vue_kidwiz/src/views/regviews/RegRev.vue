@@ -24,7 +24,8 @@
             </tr>
         </tbody>
     </table>
-    
+
+    <!-- 모달 -->
     <div class="modal-wrap" v-show="modalCheck">
         <div class="modal-container">
             <button @click="btnPopup(responseData[0].stuNum)">신청하기</button>
@@ -33,14 +34,16 @@
                     <tr>
                         <th scope="col">번호</th>
                         <th scope="col">학번</th>
-                        <th scope="col">상태</th>
+                        <th scope="col">날짜</th>
+                        <th scope="col">시간</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">{{ responseData[0].reg_no }}</th>
-                        <th>{{ responseData[0].stuNum }}</th>
-                        <th>{{ responseData[0].stat }}</th>
+                    <tr v-for="row in responseData" :key="row.regno">
+                        <td scope="row">{{ row.regno }}</td>
+                        <td>{{ row.stuNum }}</td>
+                        <td>{{ row.date }}</td>
+                        <td>{{ row.time }}</td>
                     </tr>
                 </tbody>
             </table>
