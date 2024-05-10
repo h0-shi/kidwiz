@@ -1,4 +1,4 @@
-package com.kidwiz.web.login;
+/*package com.kidwiz.web.login;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -13,4 +13,4 @@ public class UpdatePassword {
         System.out.println("Encoded Password: " + encodedPassword);
         // 이 출력된 해시 값을 데이터베이스에 업데이트하는 SQL 쿼리를 실행
     }
-}
+}*/
