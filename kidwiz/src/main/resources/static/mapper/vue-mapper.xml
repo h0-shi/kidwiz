@@ -7,8 +7,8 @@
 	
 	<select id='getBoard' resultType="Map">
 		SELECT ROW_NUMBER() OVER(ORDER BY if(up_bno='0',bno,up_bno) DESC,ordernum ASC) AS no,bno,writer, btitle,
-if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bdate,'%H:%i'),DATE_FORMAT(bdate,'%Y-%m-%d')) AS bdate,depth 
-  FROM board_consulting;
+		if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bdate,'%H:%i'),DATE_FORMAT(bdate,'%Y-%m-%d')) AS bdate,depth 
+  		FROM board_consulting LIMIT #{startRow},10;
 	</select>
 	
 	<insert id="boardWrite" parameterType="Map">
@@ -60,9 +60,10 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 		FROM group_consulting WHERE con_cd = #{con_cd}
 	</select>
 	
-	<select>
-		
+	<select id="totalPage" resultType="String">
+		SELECT COUNT(*) FROM board_consulting
 	</select>
+	
 </mapper>
 
 

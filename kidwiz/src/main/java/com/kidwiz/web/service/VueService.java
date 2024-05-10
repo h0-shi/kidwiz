@@ -24,8 +24,8 @@ public class VueService {
 		return vueDAO.boardList();
 	}
 
-	public List<Map<String, Object>> getBoard() {
-		return vueDAO.getBoard();
+	public List<Map<String, Object>> getBoard(Map<String, Object> pageMap) {
+		return vueDAO.getBoard(pageMap);
 	}
 
 	public int regconInsert(RegDTO dto) {
@@ -75,6 +75,11 @@ public class VueService {
 	public List<Map<String, Object>> getGList(String con_cd) {
 		// TODO Auto-generated method stub
 		return vueDAO.getGList(con_cd);
+	}
+
+	public String totalPage() {
+		// TODO Auto-generated method stub
+		return vueDAO.totalPage();
 	}
 
 }
