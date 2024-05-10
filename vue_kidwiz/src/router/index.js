@@ -23,7 +23,8 @@ const routes = [
     {path: '/regTime', component: () => import('@/views/regviews/RegTime.vue'), meta: { layout:pop}},
     {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue')},
     {path:"/groupDetail", name:"groupDetail", component:()=> import("@/views/groupviews/groupDetail.vue")},
-    {path:"/BoardReply", name:"BoardReply",component:boardReply}
+    {path:"/BoardReply", name:"BoardReply",component:boardReply},
+    {path:"/groupCreate", name:"/groupCreate", component:()=> import("@/views/groupviews/groupCreate.vue")}
 ];
 
 const router = createRouter({

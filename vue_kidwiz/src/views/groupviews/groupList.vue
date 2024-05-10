@@ -21,16 +21,15 @@
         </div>
 
       </div>
-      {{ pageMap.currentpage }}
       <div class="d-flex justify-content-center">
       <ul class="pagination" style="">
 
         <li class="page-item" v-if="pageMap.currentpage != 1">
           <span class="page-link" aria-label="Previous" @click="changegroup(1)">&laquo;</span>
         </li>
-        <li v-else>
+        <li  class="page-item" v-else>
           <span>
-            <span class="page-link" aria-label="Previous">&nbsp;</span>
+            <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
           </span>
         </li>
 
@@ -39,7 +38,7 @@
         </li>
         <li v-else>
           <span>
-            <span class="page-link" aria-label="Previous">&nbsp;</span>
+            <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
           </span>
         </li>
 
@@ -55,7 +54,7 @@
         </li>
         <li v-else>
           <span>
-            <span class="page-link" aria-label="Previous">&nbsp;</span>
+            <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
           </span>
         </li>
 
@@ -67,11 +66,12 @@
         </li>
         <li v-else>
           <span>
-            <span class="page-link" aria-label="Previous">&nbsp;</span>
+            <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
           </span>
         </li>
 
       </ul>
+      <button class="btn btn-primary" @click="groupcreate()">상담 등록</button>
     </div>
 
 
@@ -107,6 +107,9 @@ export default {
       }).catch((err)=>{
         alert(err)
       })
+    },
+    groupcreate(){
+      this.$router.push({path:"/groupCreate",query:{coun_id:"tjsdn133"}})
     }
   }
 };
