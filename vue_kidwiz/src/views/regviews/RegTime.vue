@@ -60,6 +60,7 @@
       <input type="text" name="stuNum" v-model="application.stuNum">
       <input type="text" name="date" v-model="application.date">
       <input type="text" name="time" v-model="application.time">
+      <input type="text" name="regno" v-model="application.regno">
       <button type="submit">신청하기</button>
     </form>
   </div>
@@ -72,6 +73,7 @@ import axios from "axios";
 export default {
   mounted(){
     this.application.stuNum = this.$route.query.stuNum;
+    this.application.regno = this.$route.query.regno;
   },
   data(){
     return{
@@ -83,6 +85,7 @@ export default {
         stuNum: '',
         date: '',
         time: '',
+        regno: '',
       },
     };
   },
@@ -208,6 +211,19 @@ export default {
     },
     async regSubmit(){
       console.log(this.application);
+      const today = new Date();
+      if(this.application.date < today){
+        alert("오늘보다 이전 날짜로 지정 할 수 없습니다.");
+        return false;
+      }
+      if(this.application.date.length<1 || this.application.time.length<1
+        || this.application.stuNum.length<1 || this.application.regno.length<1) {
+        alert("다시 선택해주세요");
+        return false;
+      }
+      if(!confirm('신청하시겠습니까?')){
+        return false;
+      }
       await axios.post('http://localhost:3000/regSubmit',this.application)
       .then((res)=>{
         console.log(res);

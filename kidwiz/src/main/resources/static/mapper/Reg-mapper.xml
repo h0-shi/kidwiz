@@ -10,7 +10,7 @@
 	</insert>
 	
 	<select id="regDetail" parameterType="map" resultType="map">
-	SELECT * FROM timeTestReg WHERE reg_no=#{rgno} ORDER BY date
+	SELECT ROW_NUMBER() OVER (ORDER BY DATE) as rownum, stuNum, DATE, TIME, reg_no FROM timeTestReg WHERE reg_no=#{rgno}
 	</select>
 	
 	<select id="timetable" resultType="map">
@@ -18,6 +18,6 @@
 	</select>
 	
 	<insert id="regSubmit" parameterType="map">
-	INSERT INTO timeTestReg (stuNum, date, time) VALUES (#{stuNum}, #{date}, #{time})
+	INSERT INTO timeTestReg (stuNum, date, time, reg_no) VALUES (#{stuNum}, #{date}, #{time}, #{regno})
 	</insert>
 </mapper>
