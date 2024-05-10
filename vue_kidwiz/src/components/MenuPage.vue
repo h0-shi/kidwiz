@@ -1,4 +1,5 @@
 <template>
+<div>
   <header>
     <nav class="nav">
         <li><router-link to="/testVue">테스트뷰</router-link></li>
@@ -10,6 +11,8 @@
         <li><router-link to="/GroupList">박선우 집단</router-link></li>
     </nav>
   </header>
+  <slot />
+</div>
 </template>
 
 <script>

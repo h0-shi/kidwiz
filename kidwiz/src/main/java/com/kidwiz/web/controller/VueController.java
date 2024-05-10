@@ -100,6 +100,28 @@ public class VueController {
 		json.put("list", list);
 		return json.toString();
 	}
+	
+	@GetMapping("/api/getGroupList")
+	public String getGroupList() {
+		List<Map<String, Object>> list = vueService.getGroupList();
+		JSONObject json = new JSONObject();
+		JSONArray arr = new JSONArray(list);
+		
+		json.put("list", arr);
+		return json.toString();
+	}
+	
+	@GetMapping("/api/groupDetail")
+	public String groupDetail(@RequestParam("gr_no") String gr_no) {
+		Map<String, Object> map = vueService.groupDetail(gr_no);
+
+		List<Map<String, Object>> glist = vueService.getGList((String)map.get("con_cd"));
+		JSONObject json = new JSONObject();
+		json.put("list", map);
+		json.put("glist", glist);
+		return json.toString();
+	}
+	
 }
 
 

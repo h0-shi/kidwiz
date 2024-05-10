@@ -28,7 +28,7 @@ export default {
         headers:{"Content-Type":"application/json"}
       }).then((res) => {
         if(res.data == 1){
-           this.$router.push({path:"./boardList"})
+          this.$router.push({path:"./boardList"})
         } else{
           alert("입력 실패")
         }
