@@ -1,6 +1,14 @@
-
+const path = require('path')
 
 module.exports = {
+
+  configureWebpack:{
+    resolve: {
+      alias: {
+        '@public': path.join(__dirname, 'public/')
+      }
+    },
+  },
   outputDir: "../src/main/resource/static",
   indexPath: "index.html",
   devServer: {
