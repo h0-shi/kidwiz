@@ -93,7 +93,6 @@ export default {
             try{
                 const response = await axios.get('http://localhost:3000/regDetail?rgno='+reg_no);
                 this.responseData = response.data;
-                console.log(this.responseData)
             } catch(error) {
                 console.log('에러 발생: '+error )
             }

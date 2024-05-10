@@ -23,15 +23,16 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="week in calendar" :key="week">
+            <tr v-for="(week, rowIndex) in calendar" :key="rowIndex">
               <td
-                v-for="day in week"
-                :key="day.date"
-                :class="{
+                v-for="(day, cellIndex) in week"
+                :key="cellIndex"
+                :class="[{
                   'current-day': isCurrentDay(day.date),
-                  disabled: !day.isCurrentMonth,
-                }"
-                @click="selectDay(day.date)"
+                  disabled: pastDate(day.date),
+                },
+                {'selected' : isSelected === rowIndex+''+cellIndex}]"
+                @click="selectDay(rowIndex, cellIndex, day.date)"
               >
                 {{ day.day }}
               </td>
@@ -42,10 +43,7 @@
       <div class="available-times-container">
         <h3>예약 가능 시간</h3>
         <ul v-if="selectedDate">
-          <li v-for="time in availableTimes" :key="time">{{ time }}</li>
-          <li v-if="availableTimes.length === 0">
-            예약 가능한 시간이 없습니다.
-          </li>
+          <li v-for="time in availableTime" :key="time">{{ time }}</li>
         </ul>
         <p v-else>날짜를 선택해주세요.</p>
       </div>
@@ -57,6 +55,12 @@
 import { ref, computed } from "vue";
 
 export default {
+  data(){
+    return{
+      isSelected : null,
+      availableTime: [],
+    };
+  },
   setup() {
     const currentDate = new Date();
     const currentYear = ref(currentDate.getFullYear());
@@ -125,16 +129,16 @@ export default {
         currentMonth.value++;
       }
     };
+    const pastDate = (date) => {
+      const today = new Date();
+      return date < today;
+    }
 
-    const selectDay = (date) => {
-      selectedDate.value = date;
-      // 실제로는 백엔드 API를 호출하여 해당 날짜의 예약 가능 시간을 가져와야 합니다.
-      // 예시: fetchAvailableTimes(date);
-      availableTimes.value = ["09:00", "10:00", "11:00", "14:00", "15:00"];
-      
-
-    };
-
+    //없엘까
+    const available = (date) => {
+      const today = new Date();
+      return date > today;
+    }
     const isCurrentDay = (date) => {
       if (!date) {
         return false; // 날짜가 null인 경우 false를 반환
@@ -157,10 +161,22 @@ export default {
       calendar,
       prevMonth,
       nextMonth,
-      selectDay,
       isCurrentDay,
+      pastDate,
+      available,
     };
   },
+  methods: {
+    selectDay(rowIndex,cellIndex,date){
+      if(this,this.availableTime.length<4){
+        this.availableTime = ["가","나","다","라","마"];
+      } else {
+        this.availableTime = ["가","나","다"];
+      }
+      this.isSelected = rowIndex+''+cellIndex;
+      console.log(date);
+    }
+  }
 };
 </script>
 
@@ -201,13 +217,21 @@ export default {
 
 .calendar td.disabled {
   color: #ccc;
+  background-color: #c0c0c0;
 }
 
 .calendar td.current-day {
-  background-color: #e0e0e0;
+  color: black;
+  background-color: skyblue;
 }
 
 .available-times-container {
   flex: 1;
+}
+.selected{
+  background-color: yellow;
+}
+.available{
+  background-color: white;
 }
 </style>
