@@ -1,5 +1,6 @@
 package com.kidwiz.web.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -48,5 +49,10 @@ public class RegController {
 	public List<Map<String, Object>> timeTable(){
 		List<Map<String, Object>> timetable = regService.timetable();
 		return timetable;
+	}
+	
+	@PostMapping("/regSubmit")
+	public int regSubmit(@RequestBody RegDTO application) {
+		return regService.regSubmit(application);
 	}
 }

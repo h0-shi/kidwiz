@@ -27,7 +27,7 @@
     
     <div class="modal-wrap" v-show="modalCheck">
         <div class="modal-container">
-            <button @click="btnPopup">신청하기</button>
+            <button @click="btnPopup(responseData[0].stuNum)">신청하기</button>
             <table class="table stu" v-if="responseData && responseData.length > 0">
                 <thead>
                     <tr>
@@ -86,8 +86,8 @@ export default {
             this.modalCheck = !this.modalCheck;
             console.log(reg_no);
         },
-        btnPopup(){
-            window.open("#/regTime","_blank","width=950,height=500");
+        btnPopup(stuNum){
+            window.open("#/regTime?stuNum="+stuNum,"_blank","width=950,height=500");
         },
         async getData(reg_no){
             try{

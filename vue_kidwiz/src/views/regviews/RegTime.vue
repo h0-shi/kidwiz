@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>{{stuNum}}</h1>
     <div class="rsv-container">
     <div class="calendar-container">
         <div class="calendar-header">
@@ -41,13 +42,26 @@
         </table>
       </div>
       <div class="available-times-container">
-        <h3>예약 가능 시간</h3>
-        <ul v-if="selectedDate">
-          <li v-for="time in availableTime" :key="time">{{ time.time }}</li>
-        </ul>
-        <p v-else>날짜를 선택해주세요.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>예약 가능 시간</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(time, index) in availableTime" :key="time">
+              <td v-if="selectedDate" :class="{selected : active == time.time}" @click="selectTime(time,index)">{{ time.time }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+    <form @submit.prevent="regSubmit" id="application">
+      <input type="text" name="stuNum" v-model="application.stuNum">
+      <input type="text" name="date" v-model="application.date">
+      <input type="text" name="time" v-model="application.time">
+      <button type="submit">신청하기</button>
+    </form>
   </div>
 </template>
 
@@ -56,10 +70,20 @@ import { ref, computed } from "vue";
 import axios from "axios";
 
 export default {
+  mounted(){
+    this.application.stuNum = this.$route.query.stuNum;
+  },
   data(){
     return{
       isSelected : null,
+      stuNum : null,
+      active: false,
       availableTime: [],
+      application: {
+        stuNum: '',
+        date: '',
+        time: '',
+      },
     };
   },
   setup() {
@@ -178,7 +202,29 @@ export default {
         console.log(error);
       }
       this.isSelected = rowIndex+''+cellIndex;
+      this.selectedDate = date;
+      this.application.date = this.selectedDate;
       console.log(date);
+    },
+    async regSubmit(){
+      console.log(this.application);
+      await axios.post('http://localhost:3000/regSubmit',this.application)
+      .then((res)=>{
+        console.log(res);
+        if(res.data>0){
+          alert('제출됨');
+          window.close();
+        } else {
+          alert('제출 실패');
+        }
+      }).catch((err)=>{
+        alert(err);
+      })
+      //window.close();
+    },
+    selectTime(time){
+      this.application.time = time.time;
+      this.active = time.time;
     }
   }
 };
@@ -237,5 +283,8 @@ export default {
 }
 .available{
   background-color: white;
+}
+.selectedTime{
+  background-color: yellow;
 }
 </style>

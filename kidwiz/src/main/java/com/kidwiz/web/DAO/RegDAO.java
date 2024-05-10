@@ -20,4 +20,6 @@ public interface RegDAO {
 
 	public List<Map<String, Object>> timetable();
 
+	public int regSubmit(RegDTO application);
+
 }

@@ -16,4 +16,8 @@
 	<select id="timetable" resultType="map">
 	select * from timeTest
 	</select>
+	
+	<insert id="regSubmit" parameterType="map">
+	INSERT INTO timeTestReg (stuNum, date, time) VALUES (#{stuNum}, #{date}, #{time})
+	</insert>
 </mapper>

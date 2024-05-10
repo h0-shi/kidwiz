@@ -27,4 +27,8 @@ public class RegService {
 		return regDAO.timetable();
 	}
 
+	public int regSubmit(RegDTO application) {
+		return regDAO.regSubmit(application);
+	}
+
 }
