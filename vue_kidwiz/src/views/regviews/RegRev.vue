@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="n in list" v-bind:key="n.reg_no" v-bind:class="[n.reg_no+'tr']" @click="modalOpen(n.reg_no,n.stuNum)">
+            <tr v-for="n in list" v-bind:key="n.reg_no" v-bind:class="[n.reg_no+'tr']" @click="modalOpen(n.reg_no)">
                 <td scope="row">{{n.reg_no }}</td>
                 <td>{{ n.stuNum }}</td>
                 <td v-if=" n.stat === '0'" v-bind:class="[n.reg_no+'stat']" >
@@ -28,8 +28,7 @@
     <!-- 모달 -->
     <div class="modal-wrap" v-show="modalCheck">
         <div class="modal-container">
-            <h5>{{regno}} / {{stuNum}}</h5>
-            <button @click="btnPopup(regno, stuNum)">신청하기</button>
+            <button @click="btnPopup(responseData[0].stuNum)">신청하기</button>
             <table class="table stu" v-if="responseData && responseData.length > 0">
                 <thead>
                     <tr>
@@ -41,10 +40,10 @@
                 </thead>
                 <tbody>
                     <tr v-for="row in responseData" :key="row.regno">
-                        <td scope="row">{{ row.rownum }}</td>
+                        <td scope="row">{{ row.regno }}</td>
                         <td>{{ row.stuNum }}</td>
-                        <td>{{ row.DATE }}</td>
-                        <td>{{ row.TIME }}</td>
+                        <td>{{ row.date }}</td>
+                        <td>{{ row.time }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -63,8 +62,6 @@ export default {
         return{
             list:[],
             modalCheck: false,
-            regno:'',
-            stuNum:'',
         }
     },
     mounted(){
@@ -74,7 +71,9 @@ export default {
     },
     methods:{
         al(item,stat){
-            var arrJson = {'reg_no':item.reg_no, 'stat':stat};            
+            var arrJson = {'reg_no':item.reg_no, 'stat':stat};
+            console.log('-------');
+            console.log(arrJson);
             axios.post('http://localhost:3000/accept',arrJson).then((res)=>{
                 console.log(res);
                 item.stat='1'
@@ -82,24 +81,21 @@ export default {
                 console.log(err);
             })
         },
-        async modalOpen(reg_no, stuNum){
+        async modalOpen(reg_no){
             console.log(this.modalCheck==false)
             if(this.modalCheck == false){
                 await this.getData(reg_no)
             }
             this.modalCheck = !this.modalCheck;
-            this.regno = reg_no;
-            this.stuNum = stuNum;
-            console.log(this.regno);
+            console.log(reg_no);
         },
-        btnPopup(regno,stuNum){
-            window.open("#/regTime?stuNum="+stuNum+"&regno="+regno,"_blank","width=950,height=500");
+        btnPopup(stuNum){
+            window.open("#/regTime?stuNum="+stuNum,"_blank","width=950,height=500");
         },
         async getData(reg_no){
             try{
                 const response = await axios.get('http://localhost:3000/regDetail?rgno='+reg_no);
                 this.responseData = response.data;
-                console.log(this.responseData);
             } catch(error) {
                 console.log('에러 발생: '+error )
             }
