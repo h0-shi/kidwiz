@@ -9,22 +9,11 @@
         <li><router-link to="/regRev">박시호</router-link></li>
         <li><router-link to="/rsrvTest4">예약테스트</router-link></li>
         <li><router-link to="/GroupList">박선우 집단</router-link></li>
-        <li><router-link to="/jobconsulting">취업상담</router-link></li>
-        <li><router-link to="/mypage">[name]님 마이페이지</router-link></li>
-        <li><router-link to="/login">로그인</router-link></li>
-      <li><router-link to="/">Home</router-link></li>
-      <li><router-link to="/counseling">심리상담 안내</router-link></li>
-      <li><router-link to="/counselorshow">상담사 소개</router-link></li>
-      <li><router-link to="/test">Test</router-link></li>
-      <li><router-link to="/offlinesubmit">오프라인 상담 신청</router-link></li>
-      <li><router-link to="/faq">FAQ</router-link></li>
-      <li><router-link to="/contact">Contact</router-link></li>
     </nav>
   </header>
   <slot />
 </div>
 </template>
-
 
 <script>
 export default {
