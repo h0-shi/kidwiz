@@ -45,7 +45,7 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 	
 	<select id="getGroupList" resultType="Map">
 		SELECT gr_no,coun_no,gr_title,gr_content,gr_start,gr_end,CONCAT(DATE_FORMAT(gr_oper,'%Y-%m-%d %H:%i'),' ~ ',
-		DATE_FORMAT(DATE_ADD(gr_oper,INTERVAL 3 HOUR),'%Y-%m-%d %H:%i')) AS period,DATE_FORMAT(gr_oper,'%Y-%m-%d %H:%i') AS gr_oper,total_num,con_cd FROM group_consulting
+		DATE_FORMAT(DATE_ADD(gr_oper,INTERVAL 3 HOUR),'%Y-%m-%d %H:%i')) AS period,DATE_FORMAT(gr_oper,'%Y-%m-%d %H:%i') AS gr_oper,total_num,con_cd FROM group_consulting LIMIT #{startRow},8
 	</select>
 	
 	<select id="groupDetail" parameterType="String">
@@ -62,6 +62,9 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 	
 	<select id="totalPage" resultType="String">
 		SELECT COUNT(*) FROM board_consulting
+	</select>
+	<select id="totalGPage" resultType="INTEGER">
+		SELECT COUNT(*) FROM group_consulting
 	</select>
 	
 </mapper>

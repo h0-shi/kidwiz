@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <table class="table">
       <tr>
         <th>번호</th>
@@ -23,36 +23,55 @@
         <td>{{ row.bdate }}</td>
       </tr>
     </table>
-    <div>
-      <ul class="pagination">
-        <div v-if="pageMap.currentpage==1">
-          <li class="page-item disabled">
-            <span class="page-link" aria-label="Previous" @click="changeboard(1)">&laquo;</span>
-          </li>
-        </div>
-        <div v-else>
-          <li class="page-item">
-            <span class="page-link" aria-label="Previous">&laquo;</span>
-          </li>
-        </div>
-        <li class="page-item" v-for="n in pageMap.pagelist" :key="n">
-          <span class="page-link" @click="changeboard(n)">{{ n }}</span>
+    <div class="d-flex justify-content-center">
+      <ul class="pagination" style="">
+
+        <li class="page-item" v-if="pageMap.currentpage != 1">
+          <span class="page-link" aria-label="Previous" @click="changeboard(1)">&laquo;</span>
         </li>
-        <div v-if="pageMap.currentpage==pageMap.totalpage">
-          <li class="page-item disabled">
-            <span class="page-link" @click="changeboard(pageMap.totalpage)" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </span>
-          </li>
-        </div>
-        
-        <div v-else>
-          <li class="page-item">
-            <span class="page-link" @click="changeboard(pageMap.totalpage)" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </span>
-          </li>
-        </div>
+        <li v-else>
+          <span>
+            <span class="page-link" aria-label="Previous">&nbsp;</span>
+          </span>
+        </li>
+
+        <li class="page-item" v-if="pageMap.currentpage != 1">
+          <span class="page-link" aria-label="Previous" @click="changeboard(pageMap.currentpage - 1)">&lt;</span>
+        </li>
+        <li v-else>
+          <span>
+            <span class="page-link" aria-label="Previous">&nbsp;</span>
+          </span>
+        </li>
+
+        <li class="page-item" v-for="n in pageMap.pagelist" :key="n">
+          <span class="page-link active" @click="changeboard(n)" v-if="pageMap.currentpage==n">{{ n }}</span>
+          <span class="page-link" @click="changeboard(n)" v-else>{{ n }}</span>
+        </li>
+
+        <li class="page-item" v-if="pageMap.currentpage != pageMap.totalpage">
+          <span class="page-link" @click="changeboard(pageMap.currentpage + 1)" aria-label="Next">
+            <span aria-hidden="true">&gt;</span>
+          </span>
+        </li>
+        <li v-else>
+          <span>
+            <span class="page-link" aria-label="Previous">&nbsp;</span>
+          </span>
+        </li>
+
+
+        <li class="page-item" v-if="pageMap.currentpage != pageMap.totalpage">
+          <span class="page-link" @click="changeboard(pageMap.totalpage)" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </span>
+        </li>
+        <li v-else>
+          <span>
+            <span class="page-link" aria-label="Previous">&nbsp;</span>
+          </span>
+        </li>
+
       </ul>
     </div>
     <button @click="$router.push('/boardwrite')">글쓰기</button>
@@ -68,7 +87,7 @@ export default {
     return {
       requestBody: this.$route.query,
       list: [],
-      pageMap: []
+      pageMap: [],
     };
   },
   mounted() {
@@ -104,4 +123,8 @@ export default {
 </script>
 
 <style>
+ .pagination{
+  --bs-pagination-border-color:none;
+ }
+
 </style>

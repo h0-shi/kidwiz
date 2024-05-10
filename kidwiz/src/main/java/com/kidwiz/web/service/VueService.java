@@ -62,9 +62,9 @@ public class VueService {
 		return vueDAO.getPath(bno);
 	}
 
-	public List<Map<String, Object>> getGroupList() {
+	public List<Map<String, Object>> getGroupList(Map<String, Object> pageMap) {
 		// TODO Auto-generated method stub
-		return vueDAO.getGroupList();
+		return vueDAO.getGroupList(pageMap);
 	}
 
 	public Map<String, Object> groupDetail(String gr_no) {
@@ -80,6 +80,11 @@ public class VueService {
 	public String totalPage() {
 		// TODO Auto-generated method stub
 		return vueDAO.totalPage();
+	}
+
+	public int totalGPage() {
+		// TODO Auto-generated method stub
+		return vueDAO.totalGPage();
 	}
 
 }

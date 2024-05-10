@@ -110,12 +110,15 @@ public class VueController {
 	}
 	
 	@GetMapping("/api/getGroupList")
-	public String getGroupList() {
-		List<Map<String, Object>> list = vueService.getGroupList();
+	public String getGroupList(@RequestParam("currentpage")int currentpage) {
+		int totalcount = vueService.totalGPage();
+		Map<String, Object> pageMap = Util.pageGMap(totalcount, currentpage);
+		List<Map<String, Object>> list = vueService.getGroupList(pageMap);
 		JSONObject json = new JSONObject();
 		JSONArray arr = new JSONArray(list);
 		
 		json.put("list", arr);
+		json.put("pageMap", pageMap);
 		return json.toString();
 	}
 	
