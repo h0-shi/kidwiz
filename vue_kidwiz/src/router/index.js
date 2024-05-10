@@ -32,8 +32,8 @@ const routes = [
     {path: "/BoardReply", name:"BoardReply",component:boardReply},
     {path: "/rsrv", component:()=> import("@/views/rsrvTest3.vue"), meta: {layout : menu}},
 
-    {path: '/jobconsulting', name: 'jobconsulting', component: jobconsulting }, // 취업상담 경로 추가
-    {path: '/login', name: 'login', component: login } // 로그인 경로 추가
+    {path: '/jobconsulting', name: 'jobconsulting', component: jobconsulting, meta: {layout : menu} }, // 취업상담 경로 추가
+    {path: '/login', name: 'login', component: login, meta: {layout : menu} } // 로그인 경로 추가
 ];
 
 const router = createRouter({
