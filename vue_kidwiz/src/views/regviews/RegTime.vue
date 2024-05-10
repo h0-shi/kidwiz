@@ -43,7 +43,7 @@
       <div class="available-times-container">
         <h3>예약 가능 시간</h3>
         <ul v-if="selectedDate">
-          <li v-for="time in availableTime" :key="time">{{ time }}</li>
+          <li v-for="time in availableTime" :key="time">{{ time.time }}</li>
         </ul>
         <p v-else>날짜를 선택해주세요.</p>
       </div>
@@ -53,6 +53,7 @@
 
 <script>
 import { ref, computed } from "vue";
+import axios from "axios";
 
 export default {
   data(){
@@ -167,11 +168,14 @@ export default {
     };
   },
   methods: {
-    selectDay(rowIndex,cellIndex,date){
-      if(this,this.availableTime.length<4){
-        this.availableTime = ["가","나","다","라","마"];
-      } else {
-        this.availableTime = ["가","나","다"];
+    async selectDay(rowIndex,cellIndex,date){
+      try {
+        console.log("실행");
+        const response = await axios.get('http://localhost:3000/timetable');
+        this.availableTime = response.data;
+        console.log(response.data);
+      } catch(error) {
+        console.log(error);
       }
       this.isSelected = rowIndex+''+cellIndex;
       console.log(date);

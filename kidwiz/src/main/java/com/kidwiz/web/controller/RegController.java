@@ -43,4 +43,10 @@ public class RegController {
 		List<RegDTO> regDetail = regService.regDetail(rgno); 
 		return regDetail;
 	}
+	
+	@GetMapping("/timetable")
+	public List<Map<String, Object>> timeTable(){
+		List<Map<String, Object>> timetable = regService.timetable();
+		return timetable;
+	}
 }

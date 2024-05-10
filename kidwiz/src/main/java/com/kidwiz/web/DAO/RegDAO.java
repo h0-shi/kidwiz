@@ -1,6 +1,7 @@
 package com.kidwiz.web.DAO;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -16,5 +17,7 @@ public interface RegDAO {
 	public int regconInsert(RegDTO dto);
 
 	public List<RegDTO> regDetail(String rgno);
+
+	public List<Map<String, Object>> timetable();
 
 }

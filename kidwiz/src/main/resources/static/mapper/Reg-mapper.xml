@@ -12,4 +12,8 @@
 	<select id="regDetail" parameterType="map" resultType="map">
 	SELECT * FROM reg_consulting WHERE reg_no=#{rgno}
 	</select>
+	
+	<select id="timetable" resultType="map">
+	select * from timeTest
+	</select>
 </mapper>
