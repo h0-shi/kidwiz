@@ -1,4 +1,5 @@
 
+import { createRouter, createWebHashHistory } from "vue-router";
 import SimriMain from '@/views/SimriMain.vue';
 import ContactMap from '@/views/contactFolder/ContactMap.vue';
 import CounselingIntro from '@/views/counselingFolder/CounselingIntro.vue';
@@ -12,7 +13,7 @@ import PersonTest from '@/views/testFolder/PersonTest.vue';
 import ResultPage from '@/views/testFolder/ResultPage.vue';
 import OfflineSubmit from '@/views/submitFolder/OfflineSubmit.vue';
 
-import { createRouter, createWebHashHistory } from "vue-router";
+
 import testVue from "@/views/TestVue.vue";
 import listTest from "@/views/ListTest.vue";
 import Boardwrite from "@/views/boardviews/BoardWrite.vue";
@@ -22,6 +23,7 @@ import boardUpdate from "@/views/boardviews/BoardUpdate.vue";
 import boardReply from "@/views/boardviews/BoardReply.vue";
 import login from "@/views/LoginPage.vue";
 import jobconsulting from "@/views/JobConsulting.vue";
+import MypageMain from "@/views/myPage/MypageMain.vue";
 
 import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
@@ -54,39 +56,16 @@ const routes = [
     {path: '/faqwrite', name: 'FaqWrite', component: FaqWrite, meta: {layout : menu}},
     {path: '/faq/:id', name: 'FaqDetail', component: FaqDetail, meta: {layout : menu}},// 동적 세그먼트를 포함하는 라우트 추가
     {path: '/offlineSubmit', name: 'OfflineSubmit', component: OfflineSubmit, meta: {layout : menu}},
-    {path: '/test', name: 'Test', component: CareerTest,
-      children: [
-        {path: 'career', name: 'CareerTest', component: CareerTest,},
-        {path: 'person', name: 'PersonTest', component: PersonTest,},
-        {path: 'result', name: 'ResultPage', component: ResultPage,}, ], meta: {layout : menu}
-    }
+    {path: '/test',name: 'Test',component: TestMain, meta: {layout : menu}},
+    {path: '/test/career',name: 'CareerTest',component: CareerTest, meta: {layout : menu}},
+    {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : menu}},
+    {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : menu}},
+    {path: '/mypage', name: 'MypageMain',component: MypageMain, meta: {layout : menu}}
 ];
 
 const router = createRouter({
     history: createWebHashHistory(process.env.BASE_URL),
-  routes: [
-    {
-      path: '/test',
-      name: 'Test',
-      component: TestMain // Test 페이지로 연결
-    },
-    {
-      path: '/test/career', // CareerTest 페이지로 연결
-      name: 'CareerTest',
-      component: CareerTest
-    },
-    {
-      path: '/test/person', // PersonTest 페이지로 연결
-      name: 'PersonTest',
-      component: PersonTest,
-    },
-    {
-      path: '/test/result', // ResultPage 페이지로 연결
-      name: 'ResultPage',
-      component: ResultPage,
-    },
-
-  ],
+  routes
 });
 
 export default router;

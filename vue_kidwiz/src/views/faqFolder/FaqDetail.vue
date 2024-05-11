@@ -27,6 +27,8 @@
   </div>
 </template>
 
+
+
 <script>
 import axios from 'axios';
 
@@ -52,13 +54,14 @@ export default {
         });
     },
     startUpdate() {
-      this.isUpdating = true;
+        this.isUpdating = true;
     },
     cancelUpdate() {
       this.isUpdating = false;
       this.fetchQuestion(); // 원래 데이터 가져오기
     },
     updateQuestion() {
+      if (confirm('수정하시겠습니까?')) {
       const questionId = this.$route.params.id;
       axios.put(`/api/faqquestions/${questionId}`, this.question)
         .then(() => {
@@ -68,8 +71,10 @@ export default {
         .catch(error => {
           console.error('Error updating question:', error);
         });
+      }
     },
     deleteQuestion() {
+      if (confirm('정말 삭제하시겠습니까?')) {
       const questionId = this.$route.params.id;
       axios.delete(`/api/faqquestions/${questionId}`)
         .then(() => {
@@ -82,4 +87,8 @@ export default {
     }
   }
 }
+}
 </script>
+<style scoped>
+
+</style>
