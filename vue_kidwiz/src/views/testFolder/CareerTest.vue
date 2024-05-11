@@ -145,11 +145,15 @@ export default {
         alert("모든 질문에 답해주세요.");
         return;
       }
-      
-      axios.post('/api/submitTest', { answers: this.userAnswers })
+        
+      // this.userAnswers를 배열로 변환
+       const answersArray = Object.values(this.userAnswers);
+  
+      axios.post('/api/submitTest', answersArray)
         .then(response => {
           this.result = response.data;
-          this.$router.push({ name: 'TestResultPage', params: { result: this.result } });
+          this.$router.push({ name: 'ResultPage', params: { result: JSON.stringify(this.result) } });
+
         })
         .catch(error => {
           console.error('Error submitting test:', error);
