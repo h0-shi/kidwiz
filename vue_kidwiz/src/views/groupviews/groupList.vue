@@ -21,6 +21,61 @@
         </div>
 
       </div>
+      <div class="d-flex justify-content-center">
+      <ul class="pagination" style="">
+
+        <li class="page-item" v-if="pageMap.currentpage != 1">
+          <span class="page-link" aria-label="Previous" @click="changegroup(1)">&laquo;</span>
+        </li>
+        <li  class="page-item" v-else>
+          <span>
+            <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
+          </span>
+        </li>
+
+        <li class="page-item" v-if="pageMap.currentpage != 1">
+          <span class="page-link" aria-label="Previous" @click="changegroup(pageMap.currentpage - 1)">&lt;</span>
+        </li>
+        <li v-else>
+          <span>
+            <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
+          </span>
+        </li>
+
+        <li class="page-item" v-for="n in pageMap.pagelist" :key="n">
+          <span class="page-link active" @click="changegroup(n)" v-if="pageMap.currentpage==n">{{ n }}</span>
+          <span class="page-link" @click="changegroup(n)" v-else>{{ n }}</span>
+        </li>
+
+        <li class="page-item" v-if="pageMap.currentpage != pageMap.totalpage">
+          <span class="page-link" @click="changegroup(pageMap.currentpage + 1)" aria-label="Next">
+            <span aria-hidden="true">&gt;</span>
+          </span>
+        </li>
+        <li v-else>
+          <span>
+            <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
+          </span>
+        </li>
+
+
+        <li class="page-item" v-if="pageMap.currentpage != pageMap.totalpage">
+          <span class="page-link" @click="changegroup(pageMap.totalpage)" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </span>
+        </li>
+        <li v-else>
+          <span>
+            <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
+          </span>
+        </li>
+
+      </ul>
+      <button class="btn btn-primary" @click="groupcreate()">상담 등록</button>
+    </div>
+
+
+
     </div>
   </div>
 </template>
@@ -32,18 +87,30 @@ export default {
   name:"groupList",
   data(){
     return{
-      list:[]
+      list:[],
+      pageMap:[]
     }
   },
   mounted(){
-    axios.get("/api/getGroupList").then((res)=>{
+    axios.get("/api/getGroupList?currentpage=1").then((res)=>{
       this.list=res.data.list
+      this.pageMap=res.data.pageMap
     }).catch((err)=>{
       alert(err)
     })
   },
-  method:{
-
+  methods:{
+    changegroup(page){
+      axios.get("/api/getGroupList?currentpage="+page).then((res)=>{
+        this.list=res.data.list
+        this.pageMap=res.data.pageMap
+      }).catch((err)=>{
+        alert(err)
+      })
+    },
+    groupcreate(){
+      this.$router.push({path:"/groupCreate",query:{coun_id:"tjsdn133"}})
+    }
   }
 };
 </script>

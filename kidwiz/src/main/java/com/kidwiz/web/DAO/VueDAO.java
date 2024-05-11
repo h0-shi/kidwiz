@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface VueDAO {
 	public List<Map<String, Object>> boardList();
 
-	public List<Map<String, Object>> getBoard();
+	public List<Map<String, Object>> getBoard(Map<String, Object> pageMap);
 
 	public int boardWrite(Map<String, Object> map);
 
@@ -26,11 +26,15 @@ public interface VueDAO {
 
 	public Map<String, Object> getPath(String bno);
 
-	public List<Map<String, Object>> getGroupList();
+	public List<Map<String, Object>> getGroupList(Map<String, Object> pageMap);
 
 	public Map<String, Object> groupDetail(String gr_no);
 
 	public List<Map<String, Object>> getGList(String con_cd);
+
+	public String totalPage();
+
+	public int totalGPage();
 
 
 }
