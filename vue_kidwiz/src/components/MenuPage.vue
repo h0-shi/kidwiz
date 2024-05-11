@@ -27,4 +27,7 @@ line-height:30px;text-align: center;}
 nav li:hover {font-weight: bold;}
 a{text-decoration:none; color: white}
 .lir{float:right; width: 80px;}
+
+
+
 </style>

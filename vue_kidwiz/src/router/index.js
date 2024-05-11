@@ -17,10 +17,11 @@ const routes = [
     {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate},
     {path:"/BoardReply", name:"BoardReply",component:boardReply},
     {path: '/regRev', name:'regRev', component: () => import('@/views/RegRev.vue')},
-    {path: '/rsrvTest', name:'rsrvTest', component: () => import('@/views/rsrvTest.vue')},
-    {path: '/rsrvTest2', name:'rsrvTest2', component: () => import('@/views/rsrvTest2.vue')},
-    {path: '/rsrvTest3', name:'rsrvTest3', component: () => import('@/views/rsrvTest3.vue')},
-    {path: '/rsrvTest4', name:'rsrvTest4', component: () => import('@/views/rsrvTest4.vue')},
+    {path: '/rsrvTest', name:'rsrvTest', component: () => import('@/views/RsvAndApply/rsrvTest.vue')},
+    {path: '/rsrvTest2', name:'rsrvTest2', component: () => import('@/views/RsvAndApply/rsrvTest2.vue')},
+    {path: '/rsrvTest3', name:'rsrvTest3', component: () => import('@/views/RsvAndApply/rsrvTest3.vue')},
+    {path: '/rsrvTest4', name:'rsrvTest4', component: () => import('@/views/RsvAndApply/rsrvTest4.vue')},
+    {path: '/applyForm1', name:'applyForm1', component: () => import('@/views/RsvAndApply/applyForm1.vue'), props: true},
     {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue')}
 ];
 
