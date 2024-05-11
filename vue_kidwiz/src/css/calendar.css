@@ -15,34 +15,49 @@ a {
 
 /* 선택된 날짜 영역의 스타일 */
 .fc .fc-highlight {
-    background-color: #9ecae1; /* 선택 영역의 배경색 설정 */
+    background-color: #36e7a0; /* 선택 영역의 배경색 설정 */
     opacity: 0.75; /* 배경색 투명도 설정 */
 }
 
 /* 마우스를 올렸을 때 날짜 셀의 배경색 변경 */
 .fc .fc-day:hover {
-    background-color: #a9fbdd; /* 호버 시 배경색 */
+    background-color: #d2ffee; /* 호버 시 배경색 */
     cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 
 /* 선택된 날짜 셀의 스타일 */
 .fc-day-selected {
-    background-color: #4ddbf1; /* 선택된 날짜의 배경색 */
+    background-color: hsl(154, 100%, 91%); /* 선택된 날짜의 배경색 */
     color: white; /* 선택된 날짜의 텍스트 색상 */
 }
 
 
+
 .calendar-wrapper {
+    text-align: center; /* 가운데 정렬 */
+    width: 100%; /* 전체 너비 */
+  }
+  
+.calendar-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* 양쪽 정렬 */
+    padding: 20px;
   }
+
   .calendar-container {
-    width: 50%;
+    flex: 1; /* 유연하게 너비 조정 */
+    padding: 20px; /* 패딩 추가 */
   }
+  
   .available-times {
-    width: 30%;
-    margin-left: 20px;
+    flex: 1; /* 유연하게 너비 조정 */
+    padding: 20px; /* 패딩 추가 */
+    margin-left: 20px; /* 좌측 여백 추가 */
   }
-  .reservation-form {
-    width: 20%;
+
+  .past-date {
+    background-color: #ccc !important; /* 오늘 이전 날짜들에는 모두 회색 배경 씌우기 */
+    color: #666; /* 짙은 회색 글자 */
+    pointer-events: none; /* 클릭 불가능 */
+    opacity: 0.6; /* 투명도 조절 */
   }
