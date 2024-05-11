@@ -7,7 +7,14 @@ import BootstrapVue3	from 'bootstrap-vue-3'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 
+//데이터피크 전역 사용
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+
 const app = createApp(App)
+
+app.component('DatePicker', VueDatePicker)
+
 app.use(BootstrapVue3)
 app.use(router).mount('#app')
 

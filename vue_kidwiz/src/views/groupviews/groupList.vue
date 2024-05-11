@@ -109,7 +109,7 @@ export default {
       })
     },
     groupcreate(){
-      this.$router.push({path:"/groupCreate",query:{coun_id:"tjsdn133"}})
+      this.$router.push({path:"/groupCreate",query:this.$route.query})
     }
   }
 };

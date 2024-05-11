@@ -3,7 +3,7 @@
 
     <div>
       <div class="input-group mb-3">
-        <div class="col-2">
+        <div class="col-2 firstGroup">
           상담 제목 : 
         </div>
         <div class="col">
@@ -12,7 +12,7 @@
       </div>
 
       <div class="input-group">
-        <div class="col-2">
+        <div class="col-2 firstGroup">
           상담사 이름 :  
         </div>
         <div class="col">
@@ -25,7 +25,7 @@
 
     <div>
       <div class="input-group mb-3">
-        <div class="col-2">
+        <div class="col-2 firstGroup">
           내용
         </div>
         <div class="col">
@@ -34,7 +34,7 @@
       </div>
 
       <div class="input-group mb-3">
-        <div class="col-2">파일 선택</div>
+        <div class="col-2 firstGroup">파일 선택</div>
         <div class="col">
           <input class="form-control" type="file" id="formFile">
         </div>
@@ -45,26 +45,45 @@
 
     <div>  
       <div class="input-group">
-        <div class="col-2">
-          날짜
+        
+            <div class="col-2">
+            날짜
+            </div>
+            <div class="col">
+              <DatePicker v-model="date" time-picker-inline locale="ko"/>
+            </div>
+        <!-- <div class="col-6 firstGroup">
+          <div class="input-group">
+            <div class="col-2">
+            날짜
+            </div>
+            <div class="col">
+              <Datepicker
+                v-model="picked"
+                :minimumView="day"
+                :locale="locale"
+                :week-starts-on="0"
+                :input-format="inputFormat"
+                :clearable="true"
+              />
+            </div>
+          </div>
         </div>
+
         <div class="col">
-          <Datepicker
-            v-model="picked"
-            :locale="locale"
-            :week-starts-on="0"
-            :input-format="inputFormat"
-            :clearable="true"
-          />
-        </div>
+          <div class="input-group">
+            <div class="col-2 firstGroup">
+            운영 시간 : 
+            </div>
+            <div class="col">
 
+            </div>
+          </div>
+        </div> -->
+      </div>
 
-      </div>
-      <div>
-        운영 시간 : 
-      </div>
       <div class="input-group">
-        <div class="col-2">
+        <div class="col-2 firstGroup">
           총 인원 수: 
         </div>
         <div class="col">
@@ -80,7 +99,7 @@
 
     <div class="mb-3">
       <div  class="input-group mb-3">
-        <div class="col-2">성별 : </div>
+        <div class="col-2 firstGroup">성별 : </div>
         <div class="col">
           <select class="form-select" >
             <option>전체</option>
@@ -90,7 +109,7 @@
         </div>
       </div>
       <div class="input-group">
-        <div class="col-2">전공 :</div>
+        <div class="col-2 firstGroup">전공 :</div>
         <div class="col">
           <select class="form-select" >
             <option>컴퓨터학과</option>
@@ -107,16 +126,17 @@
 </template>
 
 <script>
-import Datepicker from 'vue3-datepicker';
 
 export default {
   name:"groupCreate",
   components:{
-    Datepicker
+  },
+  setup(){
+    
   },
   data(){
     return{
-      
+      date:null
     }
   },
   mounted(){
@@ -125,8 +145,9 @@ export default {
 }
 </script>
 
-<style>
-  .container{
-    background: #c1c1c1;
+<style scope>
+  .firstGroup {
+    padding-left: 20px;
+    text-align: left;
   }
 </style>

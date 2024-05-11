@@ -22,11 +22,13 @@ const routes = [
     {path: '/insertTest', name:'insertTest', component: insertTest, meta: {layout : menu}},
     {path:"/boardDetail", name:"boardDetail", component: boardDetail, meta: {layout : menu}},
     {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate, meta: {layout : menu}},
-    {path:"/BoardReply", name:"BoardReply",component:boardReply},
-    {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue')},
-    {path:"/groupDetail", name:"groupDetail", component:()=> import("@/views/groupviews/groupDetail.vue")},
-    {path:"/BoardReply", name:"BoardReply",component:boardReply},
-    {path:"/groupCreate", name:"/groupCreate", component:()=> import("@/views/groupviews/groupCreate.vue")}
+    {path:"/BoardReply", name:"BoardReply",component:boardReply, meta: {layout : menu}},
+
+    
+    {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue'), meta: {layout : menu}},
+    {path:"/groupDetail", name:"groupDetail", component:()=> import("@/views/groupviews/groupDetail.vue"), meta: {layout : menu}},
+    {path:"/BoardReply", name:"BoardReply",component:boardReply, meta: {layout : menu}},
+    {path:"/groupCreate", name:"/groupCreate", component:()=> import("@/views/groupviews/groupCreate.vue"), meta: {layout : menu}},
 
     {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue'), meta: {layout : menu}},
     {path: '/regTime', component: () => import('@/views/regviews/RegTime.vue'), meta: { layout:pop}},
