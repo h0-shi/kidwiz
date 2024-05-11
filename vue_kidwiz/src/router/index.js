@@ -5,7 +5,8 @@ import CounselingIntro from '@/views/counselingFolder/CounselingIntro.vue';
 import CounselorShow from '@/views/counselorShow/CounselorShow.vue';
 import FaqQuestion from '@/views/faqFolder/FaqQuestion.vue';
 import FaqWrite from '@/views/faqFolder/FaqWrite.vue'; 
-import FaqDetail from '@/views/faqFolder/FaqDetail.vue'; // 새로운 컴포넌트 추가
+import FaqDetail from '@/views/faqFolder/FaqDetail.vue'; 
+import TestMain from '@/views/testFolder/TestMain.vue';
 import CareerTest from '@/views/testFolder/CareerTest.vue';
 import PersonTest from '@/views/testFolder/PersonTest.vue';
 import ResultPage from '@/views/testFolder/ResultPage.vue';
@@ -57,25 +58,24 @@ const router = createRouter({
     {
       path: '/test',
       name: 'Test',
-      component: CareerTest,
-      children: [
-        {
-          path: 'career',
-          name: 'CareerTest',
-          component: CareerTest,
-        },
-        {
-          path: 'person',
-          name: 'PersonTest',
-          component: PersonTest,
-        },
-        {
-          path: 'result',
-          name: 'ResultPage',
-          component: ResultPage,
-        },
-      ],
+      component: TestMain // Test 페이지로 연결
     },
+    {
+      path: '/test/career', // CareerTest 페이지로 연결
+      name: 'CareerTest',
+      component: CareerTest
+    },
+    {
+      path: '/test/person', // PersonTest 페이지로 연결
+      name: 'PersonTest',
+      component: PersonTest,
+    },
+    {
+      path: '/test/result', // ResultPage 페이지로 연결
+      name: 'ResultPage',
+      component: ResultPage,
+    },
+
   ],
 });
 
