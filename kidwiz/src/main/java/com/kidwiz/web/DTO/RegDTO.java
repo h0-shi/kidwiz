@@ -5,9 +5,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TestDTO {
+public class RegDTO {
 	
- private String name;
- private int age;
+ private String name, major, teacher, reg_no;
+ private int age, stuNum;
 
 }

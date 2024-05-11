@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kidwiz.web.DAO.RegDAO">
+	<update id="accept" parameterType="String">
+	UPDATE reg_consulting SET stat = '1' WHERE reg_no = #{reg_no} 
+	</update>
+	
+	<insert id="regconInsert" parameterType="map">
+	INSERT INTO reg_consulting (stuNum) VALUES (#{stuNum})
+	</insert>
+	
+	<select id="regDetail" parameterType="map" resultType="map">
+	SELECT * FROM reg_consulting WHERE reg_no=#{rgno}
+	</select>
+</mapper>

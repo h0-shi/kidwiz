@@ -42,7 +42,7 @@ public class VueController {
 		return json.toString();
 	}
 	
-	@GetMapping("/boardList")
+	@GetMapping("/api/BoardList")
 	public String getBoard() {
 		List<Map<String, Object>> list = vueService.getBoard();
 		JSONObject json = new JSONObject();
@@ -53,12 +53,95 @@ public class VueController {
 		return json.toString();
 	}
 	
-	@PostMapping("/boardWrite")
+	@PostMapping("/api/boardWrite")
 	public int boardWrite(@RequestBody Map<String, Object> map) {
 		int result = vueService.boardWrite(map);
 		
 		return result;
 	}
 	
+	@GetMapping("/api/boardDetail")
+	public String boardDetail(@RequestParam("bno") String bno) {
+		Map<String, Object> list = vueService.boardDetail(bno);
+		JSONObject json = new JSONObject();
+		json.put("list", list);
+		return json.toString();
+	}
+	
+	@PostMapping("/api/boardDel")
+	public String boardDel(@RequestParam("bno") String bno) {
+		int result = vueService.boardDel(bno);
+		JSONObject json = new JSONObject();
+		json.put("result", result);
+		return json.toString();
+	}
+	
+	@PostMapping("/api/boardUpdate")
+	public String boardUpdate(@RequestBody Map<String, Object> map) {
+		System.out.println(map);
+		int result = vueService.boardUpdate(map);
+		JSONObject json = new JSONObject();
+		json.put("result", result);
+		return json.toString();
+	}
+	
+	@PostMapping("/api/boardReply")
+	public String boardReply(@RequestBody Map<String, Object> map) {
+		System.out.println(map);
+		int result = vueService.boardReply(map);
+		JSONObject json = new JSONObject();
+		json.put("result", result);
+		return json.toString();
+	}
+	
+	@GetMapping("/api/getPath")
+	public String getPath(@RequestParam("bno") String bno) {
+		Map<String, Object> list = vueService.getPath(bno);
+		JSONObject json = new JSONObject();
+		json.put("list", list);
+		return json.toString();
+	}
+	
+	@GetMapping("/api/getGroupList")
+	public String getGroupList() {
+		List<Map<String, Object>> list = vueService.getGroupList();
+		JSONObject json = new JSONObject();
+		JSONArray arr = new JSONArray(list);
+		
+		json.put("list", arr);
+		return json.toString();
+	}
+	
+	@GetMapping("/api/groupDetail")
+	public String groupDetail(@RequestParam("gr_no") String gr_no) {
+		Map<String, Object> map = vueService.groupDetail(gr_no);
+
+		List<Map<String, Object>> glist = vueService.getGList((String)map.get("con_cd"));
+		JSONObject json = new JSONObject();
+		json.put("list", map);
+		json.put("glist", glist);
+		return json.toString();
+	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
