@@ -8,7 +8,11 @@
           <a href="">facebook</a>
         </span>
         <span class="mainImg">
-          <h1>대충 대표 이미지</h1>
+          <h1>
+            <router-link to="/">
+              대충 대표 이미지
+            </router-link>
+          </h1>
         </span>
         <span class="top-right">
           <a href="">로그인</a>
