@@ -1,12 +1,12 @@
 package com.kidwiz.web.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kidwiz.web.DTO.ResultData;
 import com.kidwiz.web.service.VueService;
 import com.kidwiz.web.util.Util;
 
@@ -26,21 +27,26 @@ public class VueController {
 	
 	
 	@GetMapping("/test")
-	public String test() {
-		List<Map<String, Object>> list = vueService.list();
+	public String test(@RequestParam(name="page", required = false) String page, @RequestParam(name="total", required = false) String total) {
+		System.out.println(page==null);		
+		if(page==null) {
+			System.out.println("???????");
+			page="1";
+		}
+		System.out.println(total+"변환 안됨");
+		Map<String, Object> pageMap = Util.pageMap(Integer.parseInt(total),Integer.parseInt(page));
+		List<Map<String, Object>> list = vueService.list(pageMap);
 		JSONObject json = new JSONObject();
 		JSONArray arr = new JSONArray(list);
 		json.put("list", arr);
+		json.put("pageMap", pageMap);
+		
 		return json.toString();
 	}
 	
 	@GetMapping("/")
 	public String index() {
-		List<Map<String, Object>> list = vueService.list();
-		JSONObject json = new JSONObject();
-		JSONArray arr = new JSONArray(list);
-		json.put("list", arr);
-		return json.toString();
+		return "";
 	}
 	
 	@GetMapping("/api/BoardList")
@@ -56,7 +62,7 @@ public class VueController {
 		json.put("list",arr);
 		json.put("pageMap", pageMap);
 		
-		
+		//test
 		return json.toString();
 	}
 	

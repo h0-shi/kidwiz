@@ -1,5 +1,6 @@
 package com.kidwiz.web.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -42,5 +43,21 @@ public class RegController {
 	public List<RegDTO> regDetail(@RequestParam("rgno") String rgno) {
 		List<RegDTO> regDetail = regService.regDetail(rgno); 
 		return regDetail;
+	}
+	
+	@GetMapping("/timetable")
+	public List<Map<String, Object>> timeTable(){
+		List<Map<String, Object>> timetable = regService.timetable();
+		return timetable;
+	}
+	
+	@PostMapping("/regSubmit")
+	public int regSubmit(@RequestBody RegDTO application) {
+		return regService.regSubmit(application);
+	}
+	
+	@GetMapping("/regTotalCount")
+	public int regTotalPage() {
+		return regService.regTotalCount();
 	}
 }

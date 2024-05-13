@@ -10,6 +10,18 @@
 	</insert>
 	
 	<select id="regDetail" parameterType="map" resultType="map">
-	SELECT * FROM reg_consulting WHERE reg_no=#{rgno}
+	SELECT ROW_NUMBER() OVER (ORDER BY DATE) as rownum, stuNum, DATE, TIME, reg_no FROM timeTestReg WHERE reg_no=#{rgno}
+	</select>
+	
+	<select id="timetable" resultType="map">
+	select * from timeTest
+	</select>
+	
+	<insert id="regSubmit" parameterType="map">
+	INSERT INTO timeTestReg (stuNum, date, time, reg_no, memo) VALUES (#{stuNum}, #{date}, #{time}, #{regno}, #{memo})
+	</insert>
+	
+	<select id="regTotalCount">
+	SELECT COUNT(*) FROM reg_consulting
 	</select>
 </mapper>
