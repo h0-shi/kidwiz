@@ -35,10 +35,9 @@ const routes = [
     {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue'), meta: {layout : menu}},
     {path: "/groupDetail", name:"groupDetail", component:()=> import("@/views/groupviews/groupDetail.vue"), meta: {layout : menu}},
     {path: "/BoardReply", name:"BoardReply",component:boardReply},
-
     {path: '/jobconsulting', name: 'jobconsulting', component: jobconsulting }, // 취업상담 경로 추가
-    {path: '/login', name: 'login', component: login } // 로그인 경로 추가
-    {path: "/rsrv", component:()=> import("@/views/rsrvTest3.vue"), meta: {layout : menu}},
+    {path: '/login', name: 'login', component: login }, // 로그인 경로 추가
+    {path: "/rsrv", component:()=> import("@/views/RsvAndApply/rsrvTest3.vue"), meta: {layout : menu}},
     {path: '/rsrvTest', name:'rsrvTest', component: () => import('@/views/RsvAndApply/rsrvTest.vue')},
     {path: '/rsrvTest2', name:'rsrvTest2', component: () => import('@/views/RsvAndApply/rsrvTest2.vue')},
     {path: '/rsrvTest4', name:'rsrvTest4', component: () => import('@/views/RsvAndApply/rsrvTest4.vue')},
