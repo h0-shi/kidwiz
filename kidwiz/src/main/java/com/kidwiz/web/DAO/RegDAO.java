@@ -22,4 +22,6 @@ public interface RegDAO {
 
 	public int regSubmit(RegDTO application);
 
+	public int regTotalCount();
+
 }

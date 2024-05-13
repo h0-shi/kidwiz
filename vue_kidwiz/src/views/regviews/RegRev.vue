@@ -53,6 +53,57 @@
             </div>
         </div>
     </div>
+    <div class="d-flex justify-content-center">
+      <ul class="pagination" style="">
+
+        <li class="page-item" v-if="pageMap.currentpage != 1">
+          <span class="page-link" aria-label="Previous" @click="changegroup(1)">&laquo;</span>
+        </li>
+        <li  class="page-item" v-else>
+          <span>
+            <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
+          </span>
+        </li>
+
+        <li class="page-item" v-if="pageMap.currentpage != 1">
+          <span class="page-link" aria-label="Previous" @click="changegroup(pageMap.currentpage - 1)">&lt;</span>
+        </li>
+        <li v-else>
+          <span>
+            <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
+          </span>
+        </li>
+
+        <li class="page-item" v-for="n in pageMap.pagelist" :key="n">
+          <span class="page-link active" @click="changegroup(n)" v-if="pageMap.currentpage==n">{{ n }}</span>
+          <span class="page-link" @click="changegroup(n)" v-else>{{ n }}</span>
+        </li>
+
+        <li class="page-item" v-if="pageMap.currentpage != pageMap.totalpage">
+          <span class="page-link" @click="changegroup(pageMap.currentpage + 1)" aria-label="Next">
+            <span aria-hidden="true">&gt;</span>
+          </span>
+        </li>
+        <li v-else>
+          <span>
+            <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
+          </span>
+        </li>
+
+
+        <li class="page-item" v-if="pageMap.currentpage != pageMap.totalpage">
+          <span class="page-link" @click="changegroup(pageMap.totalpage)" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </span>
+        </li>
+        <li v-else>
+          <span>
+            <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
+          </span>
+        </li>
+
+      </ul>
+    </div>
 </div>
 </template>
 
@@ -65,11 +116,20 @@ export default {
             modalCheck: false,
             regno:'',
             stuNum:'',
+            totalCount:'',
+            pageMap: [],
+
         }
     },
     mounted(){
-        axios.get('http://localhost:3000/test').then((res) => {
-            this.list = res.data.list
+        axios.get('http://localhost:3000/regTotalCount').then((res) => {  
+            this.totalCount = res.data;
+            console.log(this.totalCount);
+            
+            axios.get('http://localhost:3000/test?total='+this.totalCount).then((res) => {
+            this.list = res.data.list;
+            this.pageMap = res.data.pageMap;
+            })
         })
     },
     methods:{
@@ -81,6 +141,14 @@ export default {
             }).catch((err) =>{
                 console.log(err);
             })
+        },
+        changegroup(page){
+        axios.get("http://localhost:3000/test?total="+this.totalCount+"&page="+page).then((res)=>{
+            this.list=res.data.list
+            this.pageMap=res.data.pageMap
+        }).catch((err)=>{
+            alert(err)
+        })
         },
         async modalOpen(reg_no, stuNum){
             console.log(this.modalCheck==false)

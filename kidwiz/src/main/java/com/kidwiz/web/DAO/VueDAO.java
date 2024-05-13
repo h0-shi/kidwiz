@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 @Mapper
 public interface VueDAO {
-	public List<Map<String, Object>> boardList();
+	public List<Map<String, Object>> boardList(Map<String, Object> pageMap);
 
 	public List<Map<String, Object>> getBoard(Map<String, Object> pageMap);
 

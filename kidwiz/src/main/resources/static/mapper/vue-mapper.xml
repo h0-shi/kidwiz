@@ -3,7 +3,7 @@
 <mapper namespace="com.kidwiz.web.DAO.VueDAO">
 
 	<select id="boardList" resultType="Map">
-		SELECT * FROM reg_consulting
+		SELECT * FROM reg_consulting LIMIT #{startRow},10;
 	</select>
 	
 	<select id='getBoard' resultType="Map">

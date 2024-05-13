@@ -55,4 +55,9 @@ public class RegController {
 	public int regSubmit(@RequestBody RegDTO application) {
 		return regService.regSubmit(application);
 	}
+	
+	@GetMapping("/regTotalCount")
+	public int regTotalPage() {
+		return regService.regTotalCount();
+	}
 }

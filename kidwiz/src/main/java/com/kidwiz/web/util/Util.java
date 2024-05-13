@@ -13,8 +13,9 @@ public class Util {
 	public static Map<String, Object> pageMap(int totalcount,int currentpage){
 		
 		int pageNum =10;
+		double doubleTotalCount = (double) totalcount;
 		int pageBlcok = 10;
-		int totalpage = (int) Math.ceil((totalcount/pageNum));	
+		int totalpage = (int) Math.ceil((doubleTotalCount/pageNum));
 		
 		int startpage = ((currentpage -1) / pageBlcok) * pageBlcok + 1;
 		int endpage = startpage*pageBlcok > totalpage ? totalpage : startpage*pageBlcok;
@@ -36,6 +37,7 @@ public class Util {
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
 		map.put("currentpage", currentpage);
+		System.out.println(map);
 		
 		return map;
 	}

@@ -31,4 +31,8 @@ public class RegService {
 		return regDAO.regSubmit(application);
 	}
 
+	public int regTotalCount() {
+		return regDAO.regTotalCount();
+	}
+
 }
