@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kidwiz.web.DAO.VueDAO">
-	<!-- <select id="boardList" resultType="Map">
-		SELECT * FROM Temp
-	</select> -->
+	<select id="boardList" resultType="Map">
+		SELECT * FROM reg_consulting
+	</select>
 	
 	<select id='getBoard' resultType="Map">
 		SELECT ROW_NUMBER() OVER(ORDER BY if(up_bno='0',bno,up_bno) DESC,ordernum ASC) AS no,bno,writer, btitle,
-if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bdate,'%H:%i'),DATE_FORMAT(bdate,'%Y-%m-%d')) AS bdate,depth 
-  FROM board_consulting;
+		if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bdate,'%H:%i'),DATE_FORMAT(bdate,'%Y-%m-%d')) AS bdate,depth 
+  		FROM board_consulting LIMIT #{startRow},10;
 	</select>
 	
 	<insert id="boardWrite" parameterType="Map">
 		INSERT INTO board_consulting (writer,btitle,bcontent) VALUES (#{writer},#{title},#{content})
 	</insert>
+	
 	<insert id="write" parameterType="Map">
 		INSERT INTO Temp (name, age) VALUES (#{name}, #{age})
 	</insert>
@@ -41,4 +42,39 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 		FROM board_consulting
 		WHERE bno = #{bno}
 	</select>
+	
+	<select id="getGroupList" resultType="Map">
+		SELECT gr_no,coun_no,gr_title,gr_content,gr_start,gr_end,CONCAT(DATE_FORMAT(gr_oper,'%Y-%m-%d %H:%i'),' ~ ',
+		DATE_FORMAT(DATE_ADD(gr_oper,INTERVAL 3 HOUR),'%Y-%m-%d %H:%i')) AS period,DATE_FORMAT(gr_oper,'%Y-%m-%d %H:%i') AS gr_oper,total_num,con_cd FROM group_consulting LIMIT #{startRow},8
+	</select>
+	
+	<select id="groupDetail" parameterType="String">
+		SELECT a.coun_no,a.gr_title,a.gr_content,a.gr_start,a.gr_end,CONCAT(DATE_FORMAT(a.gr_oper,'%Y-%m-%d %H:%i'),' ~ ',
+		DATE_FORMAT(DATE_ADD(a.gr_oper,INTERVAL 3 HOUR),'%Y-%m-%d %H:%i')) AS gr_oper,a.total_num,a.con_cd, b.coun_name,b.email,b.mobile,b.address,a.img,a.sex,a.major,a.target,a.grade  
+		FROM group_consulting a, counselor b WHERE a.coun_no = b.coun_no AND gr_no = #{gr_no}
+	</select>
+	
+	<select id="getGList" parameterType="String">
+		SELECT gr_title,CONCAT(DATE_FORMAT(gr_oper,'%Y-%m-%d %H:%i'),' ~ ',
+		DATE_FORMAT(DATE_ADD(gr_oper,INTERVAL 3 HOUR),'%Y-%m-%d %H:%i')) AS gr_oper,total_num, con_del,round
+		FROM group_consulting WHERE con_cd = #{con_cd}
+	</select>
+	
+	<select id="totalPage" resultType="String">
+		SELECT COUNT(*) FROM board_consulting
+	</select>
+	<select id="totalGPage" resultType="INTEGER">
+		SELECT COUNT(*) FROM group_consulting
+	</select>
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+

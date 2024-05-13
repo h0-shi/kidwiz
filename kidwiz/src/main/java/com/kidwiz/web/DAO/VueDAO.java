@@ -4,19 +4,17 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.json.JSONArray;
 import org.springframework.stereotype.Repository;
-
-import com.kidwiz.web.DTO.TestDTO;
 
 @Repository
 @Mapper
 public interface VueDAO {
 	public List<Map<String, Object>> boardList();
 
-	public List<Map<String, Object>> getBoard();
+	public List<Map<String, Object>> getBoard(Map<String, Object> pageMap);
 
 	public int boardWrite(Map<String, Object> map);
-	public int testInsert(TestDTO dto);
 
 	public Map<String, Object> boardDetail(String bno);
 
@@ -27,6 +25,16 @@ public interface VueDAO {
 	public int boardReply(Map<String, Object> map);
 
 	public Map<String, Object> getPath(String bno);
+
+	public List<Map<String, Object>> getGroupList(Map<String, Object> pageMap);
+
+	public Map<String, Object> groupDetail(String gr_no);
+
+	public List<Map<String, Object>> getGList(String con_cd);
+
+	public String totalPage();
+
+	public int totalGPage();
 
 
 }

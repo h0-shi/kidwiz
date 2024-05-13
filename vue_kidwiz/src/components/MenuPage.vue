@@ -1,4 +1,5 @@
 <template>
+<div>
   <header>
     <nav class="nav">
         <li><router-link to="/testVue">테스트뷰</router-link></li>
@@ -8,8 +9,13 @@
         <li><router-link to="/regRev">박시호</router-link></li>
         <li><router-link to="/rsrvTest4">예약테스트</router-link></li>
         <li><router-link to="/GroupList">박선우 집단</router-link></li>
+        <li><router-link to="/jobconsulting">취업상담</router-link></li>
+        <li><router-link to="/mypage">[name]님 마이페이지</router-link></li>
+        <li><router-link to="/login">로그인</router-link></li>
     </nav>
   </header>
+  <slot />
+</div>
 </template>
 
 <script>
