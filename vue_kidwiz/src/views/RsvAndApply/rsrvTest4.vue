@@ -22,6 +22,7 @@
         <button v-if="!isPast && availableTimes.length > 0" @click="submitReservation">신청하기</button>
       </div>
     </div>
+    <event-modal v-model:visible="showModal" :event="currentEvent"></event-modal>
   </div>
 </template>
 
@@ -29,12 +30,14 @@
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import EventModal from './EventModal.vue';
 import axios from 'axios';
 import '../../css/calendar.css';
 
 export default {
   components: {
-    FullCalendar
+    FullCalendar,
+    EventModal
   },
   data() {
     return {
@@ -42,13 +45,17 @@ export default {
       selectedTime: null,
       availableTimes: [],
       isPast: false,
+      showModal: false, // 모달창 표시 여부
+      currentEvent: {}, // 현재 이벤트 객체
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
         locale: 'ko',
         selectable: true,
         weekends: false,
+        editable: false,
         events: [{ title: 'Meeting', start: new Date() }],
+        eventClick: this.handleEventClick,
         dateClick: this.fetchDateInfo, // 수정: dateClick 핸들러를 Ajax 호출 함수로 변경
         dayCellDidMount: this.handleDayMount
       }
@@ -100,9 +107,14 @@ export default {
 
       this.$router.push({
         name: 'applyForm1',
-        params: {
+        //params: {
+        //props: {
+          
+        query: { // params, prop 대신 query 사용 - url로 값 띄우고 전달
           selectedDate: this.selectedDate,
-          selectedTime: this.selectedTime ? this.selectedTime.time : '' 
+          //selectedTime: this.selectedTime ? this.selectedTime.time : ''
+          selectedTime: this.selectedTime.time // 여기에서 'time' 프로퍼티에 접근하여 문자열 형태로 전달
+   
         }
       });
     },
@@ -117,7 +129,20 @@ export default {
         el.style.pointerEvents = 'none';
         el.style.opacity = '0.6';
       }
+    },
+    handleEventClick(info) {
+      // 이벤트 클릭 시 실행될 로직
+      this.currentEvent = {
+        title: info.event.title,
+        start: info.event.start.toISOString()
+      };
+      this.showModal = true;  // 모달창 표시
+    },
+
+    close() {
+      this.$emit('update:modelValue', false);
     }
+
   }
   //mounted() {
   //  this.calendarOptions = {

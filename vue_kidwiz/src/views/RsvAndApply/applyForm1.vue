@@ -7,9 +7,13 @@
                 <input type="text" v-model="applicationDate" readonly>
             </div>
             <div>
-                <label>상담일:</label>
+                <label>상담희망일:</label>
                 <input type="text" :value="formattedDate" readonly>
             </div>
+            <div>
+                <label>상담희망시간:</label>
+                <input type="text" :value="formattedTime" readonly>
+            </div>            
             <div>
                 <label>신청 학생:</label>
                 <input type="text" v-model="studentName" readonly>
@@ -39,36 +43,59 @@
 <script>
 export default {
     props: {
-        selectedDate: String,
-        selectedTime: String
+        selectedDate: {
+            type: String,
+            required: true
+        },
+        selectedTime: {
+            type: String,
+            required: true
+        }
+
     },
     data() {
         return {
-            localSelectedDate: this.selectedDate, // 로컬 데이터 속성으로 사용
-            localSelectedTime: this.selectedTime,
             applicationDate: new Date().toLocaleDateString(),
             studentName: '학생 이름', // JWT를 통해 가져온 사용자 이름
             advisor: '상담자 이름', // 학과 정보에 따른 상담자
             counselingTypes: ['지도교수 상담', '취업상담', '전문 상담'],
             selectedCounselingType: '',
             requestText: '',
-            textLength: 0
+            textLength: 0,
+
+            localSelectedDate: this.selectedDate, // 로컬 데이터 속성으로 사용
+            localSelectedTime: this.selectedTime
         };
     },
     computed: {
         formattedDate() {
             //return `${this.localSelectedDate} ${this.localSelectedTime ? this.localSelectedTime.time : ''}`;
             // 날짜와 시간을 함께 포맷팅하여 표시
-            return `${this.selectedDate} ${this.selectedTime}`;
+            //return `${this.selectedDate} ${this.selectedTime}`;
+            const date = new Date(this.selectedDate);
+            return date.toLocaleDateString();
+        },
+        formattedTime() {
+            // 시간만 반환하도록 포맷팅
+            return this.selectedTime;
         }
     },
-    created() {
-        this.applicationDate = new Date().toLocaleDateString(); // 신청일을 현재 날짜로 설정
-       // if (this.$route.params.selectedDate) {
-       //     this.selectedDate = this.$route.params.selectedDate;
-            //this.selectedTime.time = this.$route.params.selectedTime;
-       //     this.selectedTime = { time: this.$route.params.selectedTime || '' }; // 객체 형태로 설정
-       // }
+   // created() {
+        //this.applicationDate = new Date().toLocaleDateString(); // 신청일을 현재 날짜로 설정
+   //     if (this.$route.query.selectedDate) {
+   //         this.selectedDate = this.$route.query.selectedDate;
+   //     }
+   //     if (this.$route.query.selectedTime) {
+   //         this.selectedTime = this.$route.query.selectedTime;
+   //     }
+   // },
+    watch: {
+        '$route.query.selectedDate': function(newDate) {
+            this.localSelectedDate = newDate;
+        },
+        '$route.query.selectedTime': function(newTime) {
+            this.localSelectedTime = newTime;
+        }
     },
     methods: {
         submitForm() {
