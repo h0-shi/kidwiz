@@ -8,7 +8,11 @@
           <a href="">facebook</a>
         </span>
         <span class="mainImg">
-          <h1>대충 대표 이미지</h1>
+          <h1>
+            <router-link to="/">
+              대충 대표 이미지
+            </router-link>
+          </h1>
         </span>
         <span class="top-right">
           <a href="">로그인</a>
@@ -38,7 +42,11 @@
       </nav>
     </div>
   </header>
-  <slot />
+  <div class="mainContainer">
+    <main>
+      <slot />
+    </main>
+  </div>
 </div>
 </template>
 
@@ -50,12 +58,9 @@ export default {
 </script>
 
 <style>
-header{height: 50px;}
 .nav{
-  position: fixed;
   top: 0;
   width: 100%;
-  height:auto;
   background-color: skyblue;
 }
 .nav-top{
@@ -66,7 +71,10 @@ header{height: 50px;}
   justify-content: space-between;
 }
 .nav-bot{
-  background-color: grey;;
+  height: 55px;
+  width: 100%;
+  background-color: grey;
+  float: hide;
 }
 .nav-bot ul li{
   list-style-type: none;
@@ -87,5 +95,21 @@ header{height: 50px;}
 .mainImg{
   flex: 1;
   text-align: center;
+}
+
+a{
+  text-decoration: none;
+}
+a:link {
+  color : black;
+}
+a:visited {
+  color : black;
+}
+a:hover {
+  color : black;
+}
+a:active {
+  color : black;
 }
 </style>
