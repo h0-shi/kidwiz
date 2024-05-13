@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class RegDTO {
 	
- private String name, major, teacher, reg_no, time, regno;
+ private String name, major, teacher, reg_no, time, regno, memo;
  private int age, stuNum;
  private LocalDate date;
 }
