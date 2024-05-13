@@ -48,7 +48,7 @@ const routes = [
     {path: "/rsrv", component:()=> import("@/views/rsrvTest3.vue"), meta: {layout : menu}},
     {path: '/jobconsulting', name: 'jobconsulting', component: jobconsulting, meta: {layout : menu}}, // 취업상담 경로 추가
     {path: '/login', name: 'login', component: login, meta: {layout : menu} }, // 로그인 경로 추가
-    {path: '/', name: 'SimriMain', component: SimriMain, meta: {layout : menu}},
+    {path: '/simrimain', name: 'SimriMain', component: SimriMain, meta: {layout : menu}},
     {path: '/contact', name: 'Contact', component: ContactMap, meta: {layout : menu}},
     {path: '/counseling', name: 'Counseling', component: CounselingIntro, meta: {layout : menu}},
     {path: '/counselorshow', name: 'CounselorShow', component: CounselorShow, meta: {layout : menu}},

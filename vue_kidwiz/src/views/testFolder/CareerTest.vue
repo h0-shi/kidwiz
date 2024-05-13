@@ -25,7 +25,6 @@
 
 <script>
 import axios from 'axios';
-
 export default {
   data() {
     return {
@@ -124,45 +123,49 @@ export default {
     this.fetchQuestions();
   },
   methods: {
-    fetchQuestions() {
+    fetchQuestions() { // fetchQuestions 함수 정의
       axios.get('/api/questions')
         .then(response => {
           this.questions = response.data;
-          this.initializeAnswers();
+          this.userAnswers = Object.fromEntries( // 질문 개수만큼 userAnswers 객체 초기화
+            this.questions.map(question => [question.qid, null])
+          );
         })
         .catch(error => {
           console.error('Error fetching questions:', error);
+          // 오류를 적절히 처리하는 코드 추가 가능
         });
     },
-    initializeAnswers() {
-      this.questions.forEach(question => {
-        this.$set(this.userAnswers, question.qid, null); // Vue.set을 사용하여 리액티브하게 userAnswers 초기화
-      });
-    },
-    submitTest() {
-      const isAllAnswered = Object.values(this.userAnswers).every(answer => answer !== null);
-      if (!isAllAnswered) {
-        alert("모든 질문에 답해주세요.");
-        return;
-      }
-        
-      // this.userAnswers를 배열로 변환
-       const answersArray = Object.values(this.userAnswers);
-  
-      axios.post('/api/submitTest', answersArray)
-        .then(response => {
-          this.result = response.data;
-          this.$router.push({ name: 'ResultPage', params: { result: JSON.stringify(this.result) } });
 
+    submitTest() {
+      // 모든 응답이 제출되었는지 확인
+      console.log(this.userAnswers);
+/*       const isAllAnswered = Object.values(this.userAnswers).every(answer => answer !== null);
+  if (!isAllAnswered) {
+    alert("모든 질문에 답해주세요.");
+    return; // 모든 질문에 답하지 않았다면 여기서 함수 종료
+  } */
+      axios.post('http://localhost:3000/api/submitTest', Object.values(this.userAnswers), {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+        .then(response => {
+          console.log(response.data);
+          // 백엔드로부터 받은 데이터를 result 객체에 설정
+          this.result.totalScore = response.data.totalScore;
+          this.result.recommendedJobs = response.data.recommendedJobs;
+          this.result.personalTraits = response.data.personalTraits;
+          // Vue Router를 사용하여 다음 페이지로 이동
+          this.$router.push({ name: 'ResultPage', query: { userAnswers: this.userAnswers } });
         })
         .catch(error => {
           console.error('Error submitting test:', error);
         });
     }
   }
-};
+}
 </script>
-
 
 <style lang="scss">
 .container {

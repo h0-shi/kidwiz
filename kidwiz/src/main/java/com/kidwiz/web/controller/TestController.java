@@ -22,7 +22,6 @@ public class TestController {
 	@Autowired
 	TestService testService;
 
-	// submitTest에서는 int로 qid, tanswer를 받아옴.
 	@PostMapping("/submitTest")
 	public ResponseEntity<ResultData> submitTest(@RequestBody List<Integer> questionData) {
 	    List<TestResult> testResults = new ArrayList<>();
@@ -70,7 +69,8 @@ public class TestController {
 	            } catch (NumberFormatException e) {
 	                // 정수로 변환할 수 없는 문자열이 포함된 경우 처리
 	                // 예외가 발생해도 계속해서 다음 값들을 처리하도록 continue 사용
-	                continue;
+	            	System.out.println("예외 발생: " + e.getMessage());
+	            	continue;
 	            }
 	        }
 	    }
@@ -80,10 +80,13 @@ public class TestController {
 	    return ResponseEntity.ok(result);
 	}
 	
-    private ResultData generateResultData(int totalScore) {
-        ResultData result = new ResultData();
-        return result;
-    }
+	private ResultData generateResultData(int totalScore) {
+	    ResultData result = new ResultData();
+	    result.setTotalScore(totalScore);
+	    result.setRecommendedJobs(getRecommendedJobs(totalScore));
+	    result.setPersonalTraits(getPersonalTraits(totalScore));
+	    return result;
+	}
 
 	
 	private int calculateTotalScore(List<Integer> answers) {

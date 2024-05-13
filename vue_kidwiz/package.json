@@ -4,9 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve --port 80",
-    "build": "vite build",
     "lint": "vue-cli-service lint",
-    "dev": "vite",
     "start": "webpack-dev-server --inline --content-base . --history-api-fallback"
   },
   "dependencies": {
@@ -17,7 +15,7 @@
     "@mdi/font": "5.9.55",
     "@vue/cli": "^5.0.8",
     "axios": "^1.6.8",
-    "bootstrap": "^5.2.3",
+    "bootstrap": "^5.3.3",
     "bootstrap-vue-3": "^0.5.1",
     "clean-stack": "^5.2.0",
     "connect-history-api-fallback": "^2.0.0",
@@ -30,9 +28,7 @@
     "vue-awesome-swiper": "^5.0.1",
     "vue-loader": "^17.3.1",
     "vue-router": "^4.3.2",
-    "vue3-datepicker": "^0.4.0",
-    "vuetify": "npm:@vuetify/nightly@next",
-    "webfontloader": "^1.0.0"
+    "vue3-datepicker": "^0.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -46,8 +42,6 @@
     "node-sass": "^9.0.0",
     "sass": "^1.77.0",
     "sass-loader": "^14.2.1",
-    "vite": "^3.0.8",
-    "vite-plugin-vuetify": "^1.0.0-alpha.12",
     "vue-cli-plugin-vuetify": "~2.5.8"
   },
   "eslintConfig": {
