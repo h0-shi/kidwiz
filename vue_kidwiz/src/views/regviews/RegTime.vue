@@ -61,6 +61,7 @@
       <input type="text" name="date" v-model="application.date">
       <input type="text" name="time" v-model="application.time">
       <input type="text" name="regno" v-model="application.regno">
+      <textarea name="memo" v-model="application.memo"></textarea>
       <button type="submit">신청하기</button>
     </form>
   </div>
@@ -86,6 +87,7 @@ export default {
         date: '',
         time: '',
         regno: '',
+        memo:'',
       },
     };
   },
@@ -197,7 +199,14 @@ export default {
   methods: {
     async selectDay(rowIndex,cellIndex,date){
       try {
-        console.log("실행");
+        const today = new Date(); 
+        if(date<today){
+          alert("오늘보다 이전 날짜로는 신청 할 수 없습니다.");
+          return false;
+        }
+        this.active = '';
+        this.application.time = '';
+
         const response = await axios.get('http://localhost:3000/timetable');
         this.availableTime = response.data;
         console.log(response.data);
