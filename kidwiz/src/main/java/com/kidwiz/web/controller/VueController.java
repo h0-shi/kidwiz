@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kidwiz.web.DTO.ResultData;
 import com.kidwiz.web.service.VueService;
+import com.kidwiz.web.util.Util;
 
 @CrossOrigin
 @RestController
@@ -23,6 +24,7 @@ public class VueController {
 	
 	@Autowired
 	private VueService vueService;
+	
 	
 	@GetMapping("/test")
 	public String test() {
@@ -43,11 +45,17 @@ public class VueController {
 	}
 	
 	@GetMapping("/api/BoardList")
-	public String getBoard() {
-		List<Map<String, Object>> list = vueService.getBoard();
+	public String getBoard(@RequestParam("currentpage")int currentpage) {
+		String totalpage = vueService.totalPage();
+		
+		Map<String, Object> pageMap = Util.pageMap(Integer.parseInt(totalpage),currentpage);
+		List<Map<String, Object>> list = vueService.getBoard(pageMap);
+		
+		
 		JSONObject json = new JSONObject();
 		JSONArray arr = new JSONArray(list);
 		json.put("list",arr);
+		json.put("pageMap", pageMap);
 		
 		//test
 		return json.toString();
@@ -103,12 +111,15 @@ public class VueController {
 	}
 	
 	@GetMapping("/api/getGroupList")
-	public String getGroupList() {
-		List<Map<String, Object>> list = vueService.getGroupList();
+	public String getGroupList(@RequestParam("currentpage")int currentpage) {
+		int totalcount = vueService.totalGPage();
+		Map<String, Object> pageMap = Util.pageGMap(totalcount, currentpage);
+		List<Map<String, Object>> list = vueService.getGroupList(pageMap);
 		JSONObject json = new JSONObject();
 		JSONArray arr = new JSONArray(list);
 		
 		json.put("list", arr);
+		json.put("pageMap", pageMap);
 		return json.toString();
 	}
 	
