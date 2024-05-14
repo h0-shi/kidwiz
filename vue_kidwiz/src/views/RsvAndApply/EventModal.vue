@@ -1,5 +1,6 @@
 <template>
-    <div v-if="visible" class="modal fade show" style="display: block;" aria-modal="true" role="dialog">
+  <div>
+    <div v-if="modelValue" class="modal fade show" style="display: block;" aria-modal="true" role="dialog">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -15,24 +16,27 @@
         </div>
       </div>
     </div>
-    <div v-if="visible" class="modal-backdrop fade show"></div>
+    <div v-if="modelValue" class="modal-backdrop fade show"></div>
+  </div>
   </template>
   
   <script>
   export default {
     props: {
-      visible: {
-        type: Boolean,
-        default: false
-      },
+      
+      modelValue: {
+      type: Boolean,
+      default: false
+    },
       event: {
         type: Object,
+        required: false,
         default: () => ({})
       }
     },
     methods: {
       close() {
-        this.$emit('update:visible', false);
+        this.$emit('update:modelValue', false);
       }
     }
   }

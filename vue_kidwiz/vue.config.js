@@ -25,6 +25,7 @@ module.exports = {
             target:"http://localhost:3000", // Spring boot의 주소 및 포트
             changeOrigin:true, // CORS 에러 막는 옵션
             ws:false,
+            pathRewrite: { '^/api': '' }
         }
     }
   }
