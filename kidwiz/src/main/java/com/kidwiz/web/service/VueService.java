@@ -87,4 +87,14 @@ public class VueService {
 		return vueDAO.totalGPage();
 	}
 
+	public Map<String, Object> getCoun(String id) {
+		// TODO Auto-generated method stub
+		return vueDAO.getCoun(id);
+	}
+
+	public void createGroup(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		vueDAO.createGroup(map);
+	}
+
 }

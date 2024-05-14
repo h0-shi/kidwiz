@@ -109,7 +109,7 @@ export default {
       })
     },
     groupcreate(){
-      this.$router.push({path:"/groupCreate",query:this.$route.query})
+      this.$router.push({path:"/groupCreate",query:{id:"test"}})
     }
   }
 };

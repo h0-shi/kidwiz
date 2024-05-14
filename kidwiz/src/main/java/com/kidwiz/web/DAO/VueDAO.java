@@ -36,5 +36,9 @@ public interface VueDAO {
 
 	public int totalGPage();
 
+	public Map<String, Object> getCoun(String id);
+
+	public void createGroup(Map<String, Object> map);
+
 
 }

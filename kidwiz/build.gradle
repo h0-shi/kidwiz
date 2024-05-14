@@ -34,6 +34,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 	implementation	'org.json:json:20230227'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.0'
+	
 	// spring sequrity 추가
 	// implementation 'org.springframework.boot:spring-boot-starter-security'
 	// jwt 추가
