@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>{{stuNum}}</h1>
     <div class="rsv-container">
     <div class="calendar-container">
         <div class="calendar-header">
@@ -23,15 +24,16 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="week in calendar" :key="week">
+            <tr v-for="(week, rowIndex) in calendar" :key="rowIndex">
               <td
-                v-for="day in week"
-                :key="day.date"
-                :class="{
+                v-for="(day, cellIndex) in week"
+                :key="cellIndex"
+                :class="[{
                   'current-day': isCurrentDay(day.date),
-                  disabled: !day.isCurrentMonth,
-                }"
-                @click="selectDay(day.date)"
+                  disabled: pastDate(day.date),
+                },
+                {'selected' : isSelected === rowIndex+''+cellIndex}]"
+                @click="selectDay(rowIndex, cellIndex, day.date)"
               >
                 {{ day.day }}
               </td>
@@ -40,23 +42,55 @@
         </table>
       </div>
       <div class="available-times-container">
-        <h3>예약 가능 시간</h3>
-        <ul v-if="selectedDate">
-          <li v-for="time in availableTimes" :key="time">{{ time }}</li>
-          <li v-if="availableTimes.length === 0">
-            예약 가능한 시간이 없습니다.
-          </li>
-        </ul>
-        <p v-else>날짜를 선택해주세요.</p>
+        <table>
+          <thead>
+            <tr>
+              <th>예약 가능 시간</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(time, index) in availableTime" :key="time">
+              <td v-if="selectedDate" :class="{selected : active == time.time}" @click="selectTime(time,index)">{{ time.time }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
+    <form @submit.prevent="regSubmit" id="application">
+      <input type="text" name="stuNum" v-model="application.stuNum">
+      <input type="text" name="date" v-model="application.date">
+      <input type="text" name="time" v-model="application.time">
+      <input type="text" name="regno" v-model="application.regno">
+      <textarea name="memo" v-model="application.memo"></textarea>
+      <button type="submit">신청하기</button>
+    </form>
   </div>
 </template>
 
 <script>
 import { ref, computed } from "vue";
+import axios from "axios";
 
 export default {
+  mounted(){
+    this.application.stuNum = this.$route.query.stuNum;
+    this.application.regno = this.$route.query.regno;
+  },
+  data(){
+    return{
+      isSelected : null,
+      stuNum : null,
+      active: false,
+      availableTime: [],
+      application: {
+        stuNum: '',
+        date: '',
+        time: '',
+        regno: '',
+        memo:'',
+      },
+    };
+  },
   setup() {
     const currentDate = new Date();
     const currentYear = ref(currentDate.getFullYear());
@@ -125,16 +159,16 @@ export default {
         currentMonth.value++;
       }
     };
+    const pastDate = (date) => {
+      const today = new Date();
+      return date < today;
+    }
 
-    const selectDay = (date) => {
-      selectedDate.value = date;
-      // 실제로는 백엔드 API를 호출하여 해당 날짜의 예약 가능 시간을 가져와야 합니다.
-      // 예시: fetchAvailableTimes(date);
-      availableTimes.value = ["09:00", "10:00", "11:00", "14:00", "15:00"];
-      
-
-    };
-
+    //없엘까
+    const available = (date) => {
+      const today = new Date();
+      return date > today;
+    }
     const isCurrentDay = (date) => {
       if (!date) {
         return false; // 날짜가 null인 경우 false를 반환
@@ -157,10 +191,67 @@ export default {
       calendar,
       prevMonth,
       nextMonth,
-      selectDay,
       isCurrentDay,
+      pastDate,
+      available,
     };
   },
+  methods: {
+    async selectDay(rowIndex,cellIndex,date){
+      try {
+        const today = new Date(); 
+        if(date<today){
+          alert("오늘보다 이전 날짜로는 신청 할 수 없습니다.");
+          return false;
+        }
+        this.active = '';
+        this.application.time = '';
+
+        const response = await axios.get('http://localhost:3000/timetable');
+        this.availableTime = response.data;
+        console.log(response.data);
+      } catch(error) {
+        console.log(error);
+      }
+      this.isSelected = rowIndex+''+cellIndex;
+      this.selectedDate = date;
+      this.application.date = this.selectedDate;
+      console.log(date);
+    },
+    async regSubmit(){
+      console.log(this.application);
+      const today = new Date();
+      if(this.application.date < today){
+        alert("오늘보다 이전 날짜로 지정 할 수 없습니다.");
+        return false;
+      }
+      if(this.application.date.length<1 || this.application.time.length<1
+        || this.application.stuNum.length<1 || this.application.regno.length<1) {
+        alert("다시 선택해주세요");
+        return false;
+      }
+      if(!confirm('신청하시겠습니까?')){
+        return false;
+      }
+      await axios.post('http://localhost:3000/regSubmit',this.application)
+      .then((res)=>{
+        console.log(res);
+        if(res.data>0){
+          alert('제출됨');
+          window.close();
+        } else {
+          alert('제출 실패');
+        }
+      }).catch((err)=>{
+        alert(err);
+      })
+      //window.close();
+    },
+    selectTime(time){
+      this.application.time = time.time;
+      this.active = time.time;
+    }
+  }
 };
 </script>
 
@@ -201,13 +292,24 @@ export default {
 
 .calendar td.disabled {
   color: #ccc;
+  background-color: #c0c0c0;
 }
 
 .calendar td.current-day {
-  background-color: #e0e0e0;
+  color: black;
+  background-color: skyblue;
 }
 
 .available-times-container {
   flex: 1;
+}
+.selected{
+  background-color: yellow;
+}
+.available{
+  background-color: white;
+}
+.selectedTime{
+  background-color: yellow;
 }
 </style>

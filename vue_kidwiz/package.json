@@ -12,12 +12,16 @@
     "@fullcalendar/common": "^5.11.5",
     "@fullcalendar/core": "^6.1.11",
     "@fullcalendar/daygrid": "^6.1.11",
+    "@fullcalendar/interaction": "^6.1.11",
     "@fullcalendar/vue3": "^6.1.11",
     "@vue/cli": "^5.0.8",
     "@vuepic/vue-datepicker": "^8.5.1",
     "axios": "^1.6.8",
     "bootstrap": "^5.2.3",
     "bootstrap-vue-3": "^0.5.1",
+    "clean-stack": "^5.2.0",
+    "delegates": "^1.0.0",
+    "humanize-ms": "^1.2.1",
     "connect-history-api-fallback": "^2.0.0",
     "core-js": "^3.8.3",
     "moment": "^2.30.1",
@@ -35,7 +39,9 @@
     "@vue/cli-service": "~5.0.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.7.1",
-    "sass-loader": "^10.5.2"
+    "sass-loader": "^10.5.2",
+    "node-sass": "^9.0.0",
+    "sass": "^1.77.0"
   },
   "eslintConfig": {
     "root": true,

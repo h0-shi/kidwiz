@@ -1,0 +1,63 @@
+#calendar {
+    height: 500px;
+    width: 500px;
+    color: darkgreen;
+}
+
+a {
+    color: inherit; /* 링크 색상을 상위 요소의 색상과 동일하게 설정 */
+    text-decoration: none; /* 밑줄 제거 */
+}
+.calendar-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* 선택된 날짜 영역의 스타일 */
+.fc .fc-highlight {
+    background-color: #36e7a0; /* 선택 영역의 배경색 설정 */
+    opacity: 0.75; /* 배경색 투명도 설정 */
+}
+
+/* 마우스를 올렸을 때 날짜 셀의 배경색 변경 */
+.fc .fc-day:hover {
+    background-color: #d2ffee; /* 호버 시 배경색 */
+    cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+
+/* 선택된 날짜 셀의 스타일 */
+.fc-day-selected {
+    background-color: hsl(154, 100%, 91%); /* 선택된 날짜의 배경색 */
+    color: white; /* 선택된 날짜의 텍스트 색상 */
+}
+
+
+
+.calendar-wrapper {
+    text-align: center; /* 가운데 정렬 */
+    width: 100%; /* 전체 너비 */
+  }
+  
+.calendar-content {
+    display: flex;
+    justify-content: space-between; /* 양쪽 정렬 */
+    padding: 20px;
+  }
+
+  .calendar-container {
+    flex: 1; /* 유연하게 너비 조정 */
+    padding: 20px; /* 패딩 추가 */
+  }
+  
+  .available-times {
+    flex: 1; /* 유연하게 너비 조정 */
+    padding: 20px; /* 패딩 추가 */
+    margin-left: 20px; /* 좌측 여백 추가 */
+  }
+
+  .past-date {
+    background-color: #ccc !important; /* 오늘 이전 날짜들에는 모두 회색 배경 씌우기 */
+    color: #666; /* 짙은 회색 글자 */
+    pointer-events: none; /* 클릭 불가능 */
+    opacity: 0.6; /* 투명도 조절 */
+  }
