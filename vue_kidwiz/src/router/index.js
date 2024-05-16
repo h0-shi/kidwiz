@@ -20,7 +20,7 @@ import boardDetail from "@/views/boardviews/BoardDetail.vue";
 import boardUpdate from "@/views/boardviews/BoardUpdate.vue";
 import boardReply from "@/views/boardviews/BoardReply.vue";
 import login from "@/views/LoginPage.vue";
-import jobconsulting from "@/views/JobConsulting.vue";
+import jobConsulting from "@/views/JobConsulting.vue";
 
 import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
@@ -43,7 +43,7 @@ const routes = [
     {path: "/groupDetail", name:"groupDetail", component:()=> import("@/views/groupviews/groupDetail.vue"), meta: {layout : menu}},
     {path: "/BoardReply", name:"BoardReply",component:boardReply, meta: {layout : menu}},
     {path: "/rsrv", component:()=> import("@/views/rsrvTest3.vue"), meta: {layout : menu}},
-    {path: '/jobconsulting', name: 'jobconsulting', component: jobconsulting, meta: {layout : menu}}, // 취업상담 경로 추가
+    {path: '/jobConsulting', name: 'jobConsulting', component: jobConsulting, meta: {layout : menu}}, // 취업상담 경로 추가
     {path: '/login', name: 'login', component: login, meta: {layout : menu} }, // 로그인 경로 추가
     {path: '/', name: 'SimriMain', component: SimriMain, meta: {layout : menu}},
     {path: '/contact', name: 'Contact', component: ContactMap, meta: {layout : menu}},

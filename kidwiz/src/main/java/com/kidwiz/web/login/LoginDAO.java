@@ -2,10 +2,9 @@
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Update;
 
 @Mapper
-public interface UserMapper {
-	User findByUsername(String username);
-	
+public interface LoginDAO {
+	LoginDTO findUserByIdAndPassword(@Param("id") String id, @Param("pw") String pw);
+
 }*/

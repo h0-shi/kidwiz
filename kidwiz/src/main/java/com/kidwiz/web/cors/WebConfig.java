@@ -11,9 +11,11 @@ public class WebConfig implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**")
-		.allowedOrigins("*")
-		.allowedMethods("GET","POST")
-		.maxAge(3000);
+		.allowedOrigins("http://localhost") // Vue 앱의 도메인
+		//.allowedOrigins("*")
+		.allowedMethods("GET", "POST", "DELETE")
+		//.maxAge(3000);
+		.allowCredentials(true);
 	}
 	/*
 	 * @Override public void addResourceHandlers(ResourceHandlerRegistry registry) {
