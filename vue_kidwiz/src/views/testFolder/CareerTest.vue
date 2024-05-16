@@ -4,9 +4,13 @@
     <div v-for="(question, index) in questions" :key="question.qid" class="card mb-4">
       <div class="card-body" v-if="index !== 10">
         <h3 class="card-title">{{ question.ttitle }}</h3>
-        <div class="form-check d-flex flex-row flex-wrap" v-for="(option, optionIndex) in question.options" :key="optionIndex">
-          <input type="radio" :name="'question-' + question.qid" :value="option.value" v-model="userAnswers[question.qid]" class="form-check-input" :id="'option' + question.qid + '-' + optionIndex" />
-          <label :for="'option' + question.qid + '-' + optionIndex" class="form-check-label mr-3">{{ option.label }}</label>
+        <div class="form-check d-flex flex-row flex-wrap" v-for="(option, optionIndex) in question.options"
+          :key="optionIndex">
+          <input type="radio" :name="'question-' + question.qid" :value="option.value"
+            v-model="userAnswers[question.qid]" class="form-check-input"
+            :id="'option' + question.qid + '-' + optionIndex" />
+          <label :for="'option' + question.qid + '-' + optionIndex" class="form-check-label mr-3">{{ option.label
+            }}</label>
         </div>
       </div>
     </div>
@@ -25,7 +29,6 @@
 
 <script>
 import axios from 'axios';
-
 export default {
   data() {
     return {
@@ -112,7 +115,7 @@ export default {
           ]
         },
       ],
-      userAnswers: {},
+      userAnswers: {}, // userAnswers 객체 초기화
       result: {
         totalScore: null,
         recommendedJobs: "",
@@ -124,41 +127,56 @@ export default {
     this.fetchQuestions();
   },
   methods: {
-    fetchQuestions() {
+    fetchQuestions() { // fetchQuestions 함수 정의 : 서버에서 질문을 가져와서 화면에 표시함.(axios를 사용)
       axios.get('/api/questions')
         .then(response => {
           this.questions = response.data;
-          this.initializeAnswers();
+          this.userAnswers = Object.fromEntries( // 질문 개수만큼 userAnswers 객체 초기화
+            this.questions.map(question => [question.qid, null])
+          );
         })
         .catch(error => {
           console.error('Error fetching questions:', error);
+          // 오류를 적절히 처리하는 코드 추가 가능
         });
     },
-    initializeAnswers() {
-      this.questions.forEach(question => {
-        this.$set(this.userAnswers, question.qid, null); // Vue.set을 사용하여 리액티브하게 userAnswers 초기화
-      });
-    },
+
     submitTest() {
-      const isAllAnswered = Object.values(this.userAnswers).every(answer => answer !== null);
+      console.log(this.userAnswers);
+      console.log('네비게이션 전에 로그 출력');
+
+      const isAllAnswered = Object.keys(this.userAnswers).length === this.questions.length;
       if (!isAllAnswered) {
         alert("모든 질문에 답해주세요.");
-        return;
+        return; // 모든 질문에 답하지 않았다면 여기서 함수 종료
       }
-      
-      axios.post('/api/submitTest', { answers: this.userAnswers })
+
+      // 미응답 질문에 대한 기본값 설정 (예: 0)
+      const userAnswersArray = this.questions.map(question => {
+        return this.userAnswers[question.qid] !== null ? parseInt(this.userAnswers[question.qid]) : 0;
+      });
+
+      console.log('test page 전송하는 데이터:', userAnswersArray);
+
+      axios.post('http://localhost:3000/api/submitTest', userAnswersArray)
         .then(response => {
-          this.result = response.data;
-          this.$router.push({ name: 'TestResultPage', params: { result: this.result } });
+          console.log('성공적으로 제출됨:', response.data);
+          const { totalScore, recommendedJobs, personalTraits } = response.data;
+
+          this.result.totalScore = totalScore;
+          this.result.recommendedJobs = recommendedJobs;
+          this.result.personalTraits = personalTraits;
+
+          this.$router.push({ name: 'ResultPage', query: { userAnswers: JSON.stringify(userAnswersArray) } });
         })
         .catch(error => {
           console.error('Error submitting test:', error);
         });
     }
-  }
-};
-</script>
 
+  }
+}
+</script>
 
 <style lang="scss">
 .container {
