@@ -164,7 +164,7 @@ public class VueController {
 		
 		map.put("image", Util.fileUploadUtil(image).get("saveFileName"));
 		
-		//vueService.createGroup(map);
+		vueService.createGroup(map);
 		
         return "성공";
     }

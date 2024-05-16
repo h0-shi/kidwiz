@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.json.JSONArray;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -39,6 +38,10 @@ public interface VueDAO {
 	public Map<String, Object> getCoun(String id);
 
 	public void createGroup(Map<String, Object> map);
+
+	public List<Map<String, Object>> getDay(Map<String, Object> dayMap);
+
+	public String getGrNo(String title);
 
 
 }

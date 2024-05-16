@@ -44,7 +44,6 @@ const routes = [
     {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue'), meta: {layout : menu}},
     {path: "/groupDetail", name:"groupDetail", component:()=> import("@/views/groupviews/groupDetail.vue"), meta: {layout : menu}},
     {path: "/BoardReply", name:"BoardReply",component:boardReply, meta: {layout : menu}},
-    {path: "/rsrv", component:()=> import("@/views/rsrvTest3.vue"), meta: {layout : menu}},
     {path: '/jobconsulting', name: 'jobconsulting', component: jobconsulting, meta: {layout : menu}}, // 취업상담 경로 추가
     {path: '/login', name: 'login', component: login, meta: {layout : menu} }, // 로그인 경로 추가
     {path: '/contact', name: 'Contact', component: ContactMap, meta: {layout : menu}},
@@ -59,7 +58,7 @@ const routes = [
         {path: 'career', name: 'CareerTest', component: CareerTest,},
         {path: 'person', name: 'PersonTest', component: PersonTest,},
         {path: 'result', name: 'ResultPage', component: ResultPage,}, ], meta: {layout : menu}
-    }
+    },
     {path: '/applyForm1', name:'applyForm1', component: () => import('@/views/RsvAndApply/applyForm1.vue'), props: route => ({ ...route.query })},
 ];
 

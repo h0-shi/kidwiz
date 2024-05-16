@@ -83,11 +83,11 @@
             </div>
             <div class="col">
               <select class="form-select" v-model="group.request.g_day">
-                <option value="월">월</option>
-                <option value="화">화</option>
-                <option value="수">수</option>
-                <option value="목">목</option>
-                <option value="금">금</option>
+                <option value="0">월</option>
+                <option value="1">화</option>
+                <option value="2">수</option>
+                <option value="3">목</option>
+                <option value="4">금</option>
               </select>
             </div>
         
@@ -163,7 +163,7 @@ export default {
           g_content:null,
           g_apply:null,
           g_oper:null,
-          g_day:"월",
+          g_day:"0",
           g_total:"선택",
           g_sex:"전체",
           g_major:"전체"
@@ -250,9 +250,9 @@ export default {
         const endDay2 = endDate2.getDate().toString().padStart(2, "0");
 
         
-        group.value.request.g_oper =`${startYear2}-${startMonth2}-${startDay2}  ~ ${endYear2}-${endMonth2}-${endDay2} `
+        group.value.request.g_oper =`${startYear2}-${startMonth2}-${startDay2} ~ ${endYear2}-${endMonth2}-${endDay2}`
 
-        return `${startYear2}-${startMonth2}-${startDay2}  ~ ${endYear2}-${endMonth2}-${endDay2} `;
+        return `${startYear2}-${startMonth2}-${startDay2} ~ ${endYear2}-${endMonth2}-${endDay2}`;
       }
     }
     const imageUpload = () => {
