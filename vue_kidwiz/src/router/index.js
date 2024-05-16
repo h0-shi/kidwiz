@@ -8,7 +8,6 @@ import TestMain from '@/views/testFolder/TestMain.vue';
 import CareerTest from '@/views/testFolder/CareerTest.vue';
 import PersonTest from '@/views/testFolder/PersonTest.vue';
 import ResultPage from '@/views/testFolder/ResultPage.vue';
-import OfflineSubmit from '@/views/submitFolder/OfflineSubmit.vue';
 import mainPage from '@/views/mainPage.vue';
 
 
@@ -25,6 +24,8 @@ import MypageMain from "@/views/myPage/MypageMain.vue";
 
 import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
+
+import { createRouter,createWebHashHistory } from 'vue-router';
 
 const routes = [
     {path: '/', component: mainPage, meta: {layout : menu}},
@@ -54,14 +55,13 @@ const routes = [
     {path: '/applyForm1', name:'applyForm1', component: () => import('@/views/RsvAndApply/applyForm1.vue'), props: route => ({ ...route.query }), meta: {layout : menu}},
     {path: '/jobConsulting', name: 'jobConsulting', component: jobConsulting, meta: {layout : menu}}, // 취업상담 경로 추가
     {path: '/login', name: 'login', component: login, meta: {layout : menu} }, // 로그인 경로 추가
-    {path: '/simrimain', name: 'SimriMain', component: SimriMain, meta: {layout : menu}},
+    {path: '/simrimain', name: 'SimriMain', component: import('@/views/SimriMain.vue'), meta: {layout : menu}},
     {path: '/contact', name: 'Contact', component: ContactMap, meta: {layout : menu}},
     {path: '/counseling', name: 'Counseling', component: CounselingIntro, meta: {layout : menu}},
     {path: '/counselorshow', name: 'CounselorShow', component: CounselorShow, meta: {layout : menu}},
     {path: '/faq', name: 'FAQ', component: FaqQuestion, meta: {layout : menu}},
     {path: '/faqwrite', name: 'FaqWrite', component: FaqWrite, meta: {layout : menu}},
     {path: '/faq/:id', name: 'FaqDetail', component: FaqDetail, meta: {layout : menu}},// 동적 세그먼트를 포함하는 라우트 추가
-    {path: '/offlineSubmit', name: 'OfflineSubmit', component: OfflineSubmit, meta: {layout : menu}},
     {path: '/test',name: 'Test',component: TestMain, meta: {layout : menu}},
     {path: '/test/career',name: 'CareerTest',component: CareerTest, meta: {layout : menu}},
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : menu}},
@@ -74,5 +74,4 @@ const router = createRouter({
   routes
 });
 
-export default router;
 export default router;
