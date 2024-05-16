@@ -29,8 +29,7 @@
           <li>공지사항</li>
         </ul>
       </nav>
-  <div>
-    <div class="secNav boundary" :style="{display: navDisplay}" @mouseover="navAct()">
+    <div class="secNav boundary" :style="{display: navDisplay}" @mouseover="navAct()" @mouseleave="navDead()">
       <nav class="nav-sec">
         <ul>
           <li><router-link to="/listTest">DB테스트</router-link></li>
@@ -57,7 +56,6 @@
           <li><router-link to="/contact">Contact</router-link></li>
         </ul>
       </nav>
-    </div>
     </div>
   </div>
   </header>
