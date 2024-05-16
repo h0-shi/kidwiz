@@ -1,5 +1,6 @@
 package com.kidwiz.web.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kidwiz.web.DTO.ResultData;
 import com.kidwiz.web.service.VueService;
 import com.kidwiz.web.util.Util;
@@ -138,6 +141,34 @@ public class VueController {
 		json.put("glist", glist);
 		return json.toString();
 	}
+	@GetMapping("/api/getcoun")
+	public String getcoun(@RequestParam("id") String id) {
+		
+		Map<String, Object> map = vueService.getCoun(id);
+		JSONObject json = new JSONObject();
+		json.put("map", map);
+		return json.toString();
+	}
+	
+	@PostMapping("/api/createGroup")
+    public String createGroup(@RequestParam("image") MultipartFile image,
+    		@RequestParam("request") String requestJson) throws IllegalStateException, IOException {
+        // 이미지와 JSON 데이터를 받아 처리하는 로직을 작성합니다.
+        // 예를 들어, 이미지를 저장하고 JSON 데이터를 파싱하여 필요한 작업을 수행합니다.
+		Map<String, Object> map;
+		 
+		ObjectMapper objectMapper = new ObjectMapper();
+        
+		map = objectMapper.readValue(requestJson, Map.class);
+		
+		
+		map.put("image", Util.fileUploadUtil(image).get("saveFileName"));
+		
+		//vueService.createGroup(map);
+		
+        return "성공";
+    }
+	
 	
 }
 
