@@ -1,6 +1,7 @@
 <template>
 <div>
   <header>
+
     <div class="nav">
       <nav class="nav-top">
         <span class="top-left">
@@ -28,9 +29,11 @@
           <li><router-link to="/regRev">박시호</router-link></li>
           <li><router-link to="/rsrvTest4">예약테스트</router-link></li>
           <li><router-link to="/GroupList">박선우 집단</router-link></li>
-          <li><router-link to="/jobconsulting">취업상담</router-link></li>
-          <li><router-link to="/mypage">[name]님 마이페이지</router-link></li>
-          <li><router-link to="/login">로그인</router-link></li>
+                  <li><router-link to="/jobConsulting">취업상담</router-link></li>
+        <li>
+          <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
+          <a to="/login" @click="logout()" v-else>로그아웃</a>
+        </li>
           <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/counseling">심리상담 안내</router-link></li>
           <li><router-link to="/counselorshow">상담사 소개</router-link></li>
@@ -52,8 +55,19 @@
 
 
 <script>
+import store from "@/views/store";
+import router from '@/router'
+
 export default {
-    name:'MenuPage'
+    name:'MenuPage',
+    setup() {
+      const logout = () => {
+        store.commit('setAccount', 0);
+        sessionStorage.removeItem("id");
+        router.push({path: '/'});
+      }
+      return {logout}
+    }
 }
 </script>
 
