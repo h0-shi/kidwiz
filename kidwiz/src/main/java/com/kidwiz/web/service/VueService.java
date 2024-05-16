@@ -1,5 +1,7 @@
 package com.kidwiz.web.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,7 +96,65 @@ public class VueService {
 
 	public void createGroup(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		vueDAO.createGroup(map);
+		String[] day =((String) map.get("g_oper")).split(" ~ ");
+		
+//		System.out.println(day[0]+" / "+day[1]);
+		Map<String, Object> dayMap = new HashMap<>();
+
+		dayMap.put("startDay", day[0]);
+		dayMap.put("endDay", day[1]);
+		dayMap.put("day", map.get("g_day"));
+
+		System.out.println(map);
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		list = vueDAO.getDay(dayMap);
+		
+		int i = 0;
+		String up_gr_no="0";
+		dayMap.put("up_gr_no", up_gr_no);
+		dayMap.put("round", i);
+		for (Map<String, Object> map2 : list) {
+
+			dayMap.put("g_oper", map2.get("dt"));
+			if(i == 0 ) {
+				vueDAO.createGroup(dayMap);
+				up_gr_no = vueDAO.getGrNo((String)dayMap.get("g_title"));
+				dayMap.put("up_gr_no", up_gr_no);
+				i++;
+			} else{
+				dayMap.put("round", i);
+				vueDAO.createGroup(dayMap);
+				i++;
+			}
+			
+		}
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
