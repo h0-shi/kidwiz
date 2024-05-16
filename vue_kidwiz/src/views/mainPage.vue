@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="bannerImg">
-      <h1>배너 이미지</h1>
+      <img src="@/assets/testBanner.jpg" alt="">
     </div>
     <div class="main1">
       <div class="cardsBox boundary">
@@ -102,8 +102,13 @@ export default {
 <style>
 .bannerImg{
   width: 100%;
-  height: 200px;
-  background-color: green;
+  height: 250px;
+  overflow: hidden;
+}
+.bannerImg img{
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 .boundary{
   width: 100%;
@@ -129,11 +134,25 @@ export default {
   background: #f0f4ff;
   border-radius: 15px;
   transition: all 0.5s;
-  background-color: yellow;
-  border: 1px solid black;
+  background-color: white;
 }
-.cards :hover{
-  background-color: black;
+.cards:nth-child(1):hover{
+  background-color: #edbf47;
+}
+.cards:hover {
+	color:#fff;
+	transition:all 0.5s;
+}
+.cards:hover a,
+.cards:hover h3 span {
+	color:#fff;
+	text-shadow:0px 0px 3px rgba(0,0,0,0.5);
+}
+.cards:nth-child(1):hover .togo {color:#edbf47;}
+.cards:hover .togo {
+	font-weight:bold;
+	background:#fff;
+	text-shadow:none;
 }
 .block{
   display: block;
@@ -147,7 +166,7 @@ export default {
   max-width: 100%;
   vertical-align: center;
 }
-.cards h3{
+.cards h3{ 
   padding-top: 0.8em;
   font-size: 1.1em;
   font-family: 'NanumSquareRound', 'NotoSansKR', 'NanumGothic', sans-serif;
@@ -168,7 +187,7 @@ export default {
   margin-top: 1em;
   color: #333;
   background-color: #fff;
-  border: 2px solid blue;
+  border: 2px solid black;
   border-radius: 30px;
 }
 </style>

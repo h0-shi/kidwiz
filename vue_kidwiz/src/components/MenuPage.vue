@@ -1,7 +1,6 @@
 <template>
 <div>
   <header>
-
     <div class="nav">
       <nav class="nav-top">
         <span class="top-left">
@@ -11,29 +10,25 @@
         <span class="mainImg">
           <h1>
             <router-link to="/">
-              대충 대표 이미지
+              <img src="@/assets/testLogo.png" alt="">
             </router-link>
           </h1>
         </span>
         <span class="top-right">
-          <a href="">로그인</a>
+          <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
+          <a to="/login" @click="logout()" v-else>로그아웃</a>
           <a href="">회원가입</a>
         </span>
       </nav>
-      <nav class="nav-bot">
+      <nav class="nav-bot boundary">
         <ul>
-          <li><router-link to="/testVue">테스트뷰</router-link></li>
           <li><router-link to="/listTest">DB테스트</router-link></li>
           <li><router-link to="/BoardList">박선우</router-link></li>
           <li><router-link to="/insertTest">insert 테스트</router-link></li>
           <li><router-link to="/regRev">박시호</router-link></li>
           <li><router-link to="/rsrvTest4">예약테스트</router-link></li>
           <li><router-link to="/GroupList">박선우 집단</router-link></li>
-                  <li><router-link to="/jobConsulting">취업상담</router-link></li>
-        <li>
-          <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
-          <a to="/login" @click="logout()" v-else>로그아웃</a>
-        </li>
+          <li><router-link to="/jobConsulting">취업상담</router-link></li>
           <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/counseling">심리상담 안내</router-link></li>
           <li><router-link to="/counselorshow">상담사 소개</router-link></li>
@@ -75,7 +70,10 @@ export default {
 .nav{
   top: 0;
   width: 100%;
-  background-color: skyblue;
+  background-color: #fff;
+  border-bottom: 1px solid #c0c0c0;
+  position: fixed;
+  z-index: 999;
 }
 .nav-top{
   height: 80px;
@@ -87,14 +85,16 @@ export default {
 .nav-bot{
   height: 55px;
   width: 100%;
-  background-color: grey;
+  background-color: #fff;
   float: hide;
+}
+.nav-bot ul{
+  display: flex;
+  justify-content: space-between;
 }
 .nav-bot ul li{
   list-style-type: none;
   text-decoration: none;
-  float: left;
-  margin: 0 5px;
 }
 .top-left{
   margin-right: auto;
@@ -125,5 +125,8 @@ a:hover {
 }
 a:active {
   color : black;
+}
+.mainContainer{
+  margin-top: 135px;
 }
 </style>
