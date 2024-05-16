@@ -7,14 +7,17 @@
         
       <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
 
-        <div class="col" v-for="row in list" v-bind:key="row.gr_no">
+        <div class="col mb-3" v-for="row in list" v-bind:key="row.gr_no">
           <div class="card">
             <router-link :to="{path:'./groupDetail',query:{no:row.gr_no}}">
-              <img class="card-img-top img-thumbnail" src="@public/images/song.jpg" alt="...">
+              <div class="file-preview-wrapper">
+                <img class="card-img-top img-thumbnail" :src="require(`@public/images/${row.img}`)" alt="...">
+              </div>
               <div class="card-body">
-                <h5 class="card-title">{{ row.gr_title }}</h5>
-                <p class="card-text">content</p>
-                <small class="text-muted">신청 : {{ row.gr_oper }} ~</small>
+                <h6 class="card-title" style="font-weight: bold">{{ row.gr_title }}</h6>
+                <br>
+                <small class="text-muted">신청 : {{ row.gr_apply }}</small><br>
+                <small class="text-muted">운영 : {{ row.gr_oper }}</small>
               </div>
             </router-link>
           </div>
@@ -116,6 +119,13 @@ export default {
 </script>
 
 <style>
+.file-preview-wrapper > img{
+  position: relative;
+  width: 100%;
+  height: 200px;
+  z-index: 10;
+}
+
 .container{
   width:1100px;
 }
