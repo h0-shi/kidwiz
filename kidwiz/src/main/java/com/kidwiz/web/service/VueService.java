@@ -74,9 +74,9 @@ public class VueService {
 		return vueDAO.groupDetail(gr_no);
 	}
 
-	public List<Map<String, Object>> getGList(String con_cd) {
+	public List<Map<String, Object>> getGList(String gr_no) {
 		// TODO Auto-generated method stub
-		return vueDAO.getGList(con_cd);
+		return vueDAO.getGList(gr_no);
 	}
 
 	public String totalPage() {
@@ -105,26 +105,30 @@ public class VueService {
 		dayMap.put("endDay", day[1]);
 		dayMap.put("day", map.get("g_day"));
 
-		System.out.println(map);
+		//System.out.println(map);
 		
 		List<Map<String, Object>> list = new ArrayList<>();
 		list = vueDAO.getDay(dayMap);
 		
 		int i = 0;
 		String up_gr_no="0";
-		dayMap.put("up_gr_no", up_gr_no);
-		dayMap.put("round", i);
+		map.put("up_gr_no", up_gr_no);
+		map.put("round", i);
+		
+		System.out.println(list);
+		//System.out.println(map);
+		
 		for (Map<String, Object> map2 : list) {
-
-			dayMap.put("g_oper", map2.get("dt"));
+			
+			map.put("g_oper", map2.get("DT"));
 			if(i == 0 ) {
-				vueDAO.createGroup(dayMap);
-				up_gr_no = vueDAO.getGrNo((String)dayMap.get("g_title"));
-				dayMap.put("up_gr_no", up_gr_no);
+				vueDAO.createGroup(map);
+				up_gr_no = vueDAO.getGrNo((String)map.get("g_title"));
+				map.put("up_gr_no", up_gr_no);
 				i++;
 			} else{
-				dayMap.put("round", i);
-				vueDAO.createGroup(dayMap);
+				map.put("round", i);
+				vueDAO.createGroup(map);
 				i++;
 			}
 			

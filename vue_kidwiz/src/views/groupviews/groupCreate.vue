@@ -54,6 +54,7 @@
                 locale="ko"
                 v-model="date1"
                 :format="dateRangeFormat1"
+                :enable-time-picker="false"
                 @click="click1()"
               />
             </div>
@@ -73,6 +74,18 @@
                 :enable-time-picker="false"
                 :min-date="mindate"
               />
+            </div>
+        
+      </div>
+      <div class="input-group mb-3">
+            <div class="col-2">
+            시간
+            </div>
+            <div class="col">
+              <button class="btn me-3" :class="{ 'btn-outline-primary': !clicked[index], 'btn-primary': clicked[index] }" v-for="(i,index) in btn" 
+              :key="index" @click="clickbtn(i,index)">
+                {{ i }}
+              </button>
             </div>
         
       </div>
@@ -151,7 +164,9 @@ export default {
     const date2 = ref();
     const image = ref();
     const mindate = ref();
+    const clicked = ref([]);
     const coun = ref({coun_name:null});
+    const btn = ref(["09:00","10:00","11:00","13:00","14:00","15:00","16:00","17:00"])
     const group = ref({
         input:{
           g_img:null,
@@ -163,6 +178,7 @@ export default {
           g_content:null,
           g_apply:null,
           g_oper:null,
+          g_time:null,
           g_day:"0",
           g_total:"선택",
           g_sex:"전체",
@@ -219,20 +235,16 @@ export default {
         const startYear1 = startDate1.getFullYear();
         const startMonth1 = (startDate1.getMonth() + 1).toString().padStart(2, "0");
         const startDay1 = startDate1.getDate().toString().padStart(2, "0");
-        const startHours1 = startDate1.getHours().toString().padStart(2,"0");
-        const startMinutes1 = startDate1.getMinutes().toString().padStart(2,"0");
 
         const endYear1 = endDate1.getFullYear();
         const endMonth1 = (endDate1.getMonth() + 1).toString().padStart(2, "0");
         const endDay1 = endDate1.getDate().toString().padStart(2, "0");
-        const endHours1 = endDate1.getHours().toString().padStart(2,"0");
-        const endMinutes1 = endDate1.getMinutes().toString().padStart(2,"0");
         
         mindate.value = `${endYear1}-${endMonth1}-${endDay1}`
 
-        group.value.request.g_apply =`${startYear1}-${startMonth1}-${startDay1} ${startHours1}:${startMinutes1} ~ ${endYear1}-${endMonth1}-${endDay1} ${endHours1}:${endMinutes1}`
+        group.value.request.g_apply =`${startYear1}-${startMonth1}-${startDay1} ~ ${endYear1}-${endMonth1}-${endDay1}`
         
-        return `${startYear1}-${startMonth1}-${startDay1} ${startHours1}:${startMinutes1} ~ ${endYear1}-${endMonth1}-${endDay1} ${endHours1}:${endMinutes1}`;
+        return `${startYear1}-${startMonth1}-${startDay1} ~ ${endYear1}-${endMonth1}-${endDay1}`;
       }
     };
 
@@ -257,10 +269,19 @@ export default {
     }
     const imageUpload = () => {
       group.value.input.g_img = image.value.files[0]
-      console.log(image.value.files[0])
     }
+
+    const clickbtn= (time,index) =>{
+      for(let i=0; i<clicked.value.length;i++){
+        clicked.value[i]=false
+      }
+      clicked.value[index] = !clicked.value[index]
+      group.value.request.g_time = time
+      console.log(group.value.request.g_time)
+    }
+
     return{
-      dateRangeFormat1,date1,dateRangeFormat2,date2,click1,mindate,group,coun,createGroup,imageUpload,image
+      dateRangeFormat1,date1,dateRangeFormat2,date2,click1,mindate,group,coun,createGroup,imageUpload,image,btn,clickbtn,clicked
     }
   }
 }

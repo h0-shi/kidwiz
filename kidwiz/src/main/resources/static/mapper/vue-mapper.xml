@@ -45,18 +45,18 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 	</select>
 	
 	<select id="getGroupList" resultType="Map">
-		SELECT gr_no,coun_no,gr_title,gr_content,gr_apply,gr_oper,total_num,con_cd FROM group_consulting LIMIT #{startRow},8
+		SELECT gr_no,coun_no,gr_title,gr_content,gr_apply,CONCAT(gr_oper," ",gr_time) AS gr_oper,total_num,img FROM group_consulting ORDER BY gr_no DESC LIMIT #{startRow},8
 	</select>
 	
 	<select id="groupDetail" parameterType="String">
-		SELECT a.coun_no,a.gr_title,a.gr_content,a.gr_apply,a.gr_oper,a.total_num,a.con_cd, b.coun_name,b.email,b.mobile,b.address,a.img,a.sex,a.major,a.target,a.grade  
+		SELECT a.coun_no,a.gr_title,a.gr_content,a.gr_apply,a.gr_oper,a.total_num, b.coun_name,b.email,b.mobile,b.address,a.img,a.sex,a.major   
 		FROM group_consulting a, counselor b WHERE a.coun_no = b.coun_no AND gr_no = #{gr_no}
 	</select>
 	
 	<select id="getGList" parameterType="String">
 		SELECT gr_title,CONCAT(DATE_FORMAT(gr_oper,'%Y-%m-%d %H:%i'),' ~ ',
 		DATE_FORMAT(DATE_ADD(gr_oper,INTERVAL 3 HOUR),'%Y-%m-%d %H:%i')) AS gr_oper,total_num, con_del,round
-		FROM group_consulting WHERE con_cd = #{con_cd}
+		FROM group_consulting WHERE gr_no = #{gr_no}
 	</select>
 	
 	<select id="totalPage" resultType="String">
@@ -71,9 +71,9 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 	</select>
 	
 	<insert id="createGroup" parameterType="Map">
-		INSERT INTO group_consulting (coun_no,up_gr_no,gr_title,gr_content,gr_apply,gr_oper,total_num,round,img,sex,major,round) 
-		VALUES ((SELECT coun_no FROM counselor WHERE coun_id = #{g_counid}),#{up_gr_no},#{g_title},
-		#{gr_content},#{gr_apply},#{gr_oper},#{g_total},#{round},#{image},#{g_sex},#{g_major},#{round})
+		INSERT INTO group_consulting (coun_no,up_gr_no,gr_title,gr_content,gr_apply,gr_oper,total_num,round,img,sex,major,gr_time) 
+		VALUES ((SELECT coun_no FROM counselor WHERE coun_id = #{g_coun_id}),#{up_gr_no},#{g_title},
+		#{g_content},#{g_apply},#{g_oper},#{g_total},#{round},#{image},#{g_sex},#{g_major},#{g_time})
 	</insert>
 	<select id="getDay" parameterType="Map">
 			WITH RECURSIVE T_TEMP_DATES AS (
