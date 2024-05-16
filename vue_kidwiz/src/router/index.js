@@ -21,6 +21,7 @@ import boardReply from "@/views/boardviews/BoardReply.vue";
 import login from "@/views/LoginPage.vue";
 import jobConsulting from "@/views/JobConsulting.vue";
 
+
 import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
 
@@ -45,6 +46,11 @@ const routes = [
     {path: "/groupDetail", name:"groupDetail", component:()=> import("@/views/groupviews/groupDetail.vue"), meta: {layout : menu}},
     {path: "/BoardReply", name:"BoardReply",component:boardReply, meta: {layout : menu}},
     {path: "/rsrv", component:()=> import("@/views/RsvAndApply/rsrvTest3.vue"), meta: {layout : menu}},
+    {path: '/rsrvTest', name:'rsrvTest', component: () => import('@/views/RsvAndApply/rsrvTest.vue')},
+    {path: '/rsrvTest2', name:'rsrvTest2', component: () => import('@/views/RsvAndApply/rsrvTest2.vue')},
+    {path: '/rsrvTest4', name:'rsrvTest4', component: () => import('@/views/RsvAndApply/rsrvTest4.vue'), meta: {layout : menu} },
+    {path: '/rsrvTest3', name:'rsrvTest3', component: () => import('@/views/RsvAndApply/rsrvTest3.vue')},
+    {path: '/applyForm1', name:'applyForm1', component: () => import('@/views/RsvAndApply/applyForm1.vue'), props: route => ({ ...route.query }), meta: {layout : menu}},
     {path: '/jobConsulting', name: 'jobConsulting', component: jobConsulting, meta: {layout : menu}}, // 취업상담 경로 추가
     {path: '/login', name: 'login', component: login, meta: {layout : menu} }, // 로그인 경로 추가
     {path: '/contact', name: 'Contact', component: ContactMap, meta: {layout : menu}},
@@ -68,4 +74,5 @@ const router = createRouter({
     routes
 });
 
+export default router;
 export default router;

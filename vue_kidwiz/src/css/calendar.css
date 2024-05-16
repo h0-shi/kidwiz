@@ -31,6 +31,10 @@ a {
     color: white; /* 선택된 날짜의 텍스트 색상 */
 }
 
+.selectedDate {
+  background-color: #20ffda;
+}
+
 
 
 .calendar-wrapper {

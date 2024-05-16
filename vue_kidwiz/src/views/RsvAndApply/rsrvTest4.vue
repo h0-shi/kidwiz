@@ -22,7 +22,7 @@
         <button v-if="!isPast && availableTimes.length > 0" @click="submitReservation">신청하기</button>
       </div>
     </div>
-    <event-modal v-model:visible="showModal" :event="currentEvent"></event-modal>
+    <event-modal v-model="showModal" :event="currentEvent"></event-modal>
   </div>
 </template>
 
@@ -51,17 +51,39 @@ export default {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
         locale: 'ko',
-        selectable: true,
+        selectable: false,
         weekends: false,
         editable: false,
-        events: [{ title: 'Meeting', start: new Date() }],
+        validRange: { // 오늘부터 한 달까지만 달력에 나오도록
+            start: Date.now(),
+            end: Date.now() + 2592000000,
+      },
+        events: [],
         eventClick: this.handleEventClick,
         dateClick: this.fetchDateInfo, // 수정: dateClick 핸들러를 Ajax 호출 함수로 변경
         dayCellDidMount: this.handleDayMount
       }
     };
   },
+  created() {
+    this.loadReservations();
+  },
   methods: {
+    loadReservations() {
+      axios.get('/api/reservations')
+        .then(response => {
+          this.calendarOptions.events = response.data.map(reservation => {
+            return {
+              title: 'Reservation',
+              start: `${reservation.cdate}T${reservation.startTime}:00`,
+              end: `${reservation.cdate}T${reservation.endTime}:00`
+            };
+          });
+        })
+        .catch(error => {
+          console.error("Error fetching reservations:", error);
+        });
+    },
     fetchDateInfo(info) {
       this.selectedDate = info.dateStr;
       this.selectedTime = null;  // 시간 선택 초기화
@@ -86,7 +108,8 @@ export default {
         { id: 6, time: '16:00 - 17:00', availableSeats: 1 },
         { id: 7, time: '17:00 - 18:00', availableSeats: 1 }
       ];
-      axios
+      //axios
+
       //axios.get('/api/available-times', { params: { date: info.dateStr } })
       //  .then(response => {
       //    this.availableTimes = response.data.times;
@@ -95,6 +118,26 @@ export default {
       //    console.error("Error fetching available times:", error);
       //    this.availableTimes = [];  // 오류 시 배열 초기화
       //  });
+
+
+      // 선택한 시간을 FullCalendar 이벤트에 추가하기
+      // const events = this.availableTimes.map(time => {
+      //   return {
+      //     title: `Available Seats: ${time.availableSeats}`,
+      //    start: `${info.dateStr}T${time.time.split(' - ')[0]}:00`,
+      //     end: `${info.dateStr}T${time.time.split(' - ')[1]}:00`
+      //   };
+      // });
+
+      // FullCalendar의 이벤트 업데이트
+      // this.calendarOptions.events = events;
+
+      // 선택한 날짜 강조 스타일 추가
+      let days = document.querySelectorAll(".selectedDate");
+      days.forEach(function (day) {
+        day.classList.remove("selectedDate");
+      });
+      info.dayEl.classList.add("selectedDate");
 
     },
     submitReservation() {
@@ -105,17 +148,36 @@ export default {
       // 폼 제출 로직: 서버에 예약 데이터 전송
       console.log(`Reservation submitted for ${this.selectedDate} at ${this.selectedTime.time}`);
 
-      this.$router.push({
-        name: 'applyForm1',
-        //params: {
-        //props: {
-          
-        query: { // params, prop 대신 query 사용 - url로 값 띄우고 전달
-          selectedDate: this.selectedDate,
-          //selectedTime: this.selectedTime ? this.selectedTime.time : ''
-          selectedTime: this.selectedTime.time // 여기에서 'time' 프로퍼티에 접근하여 문자열 형태로 전달
-   
-        }
+      // 예제 서버 요청 코드 (실제 서버 요청으로 대체해야 함)
+      axios.post('/api/reservations', {
+        selectedDate: this.selectedDate,
+        selectedTime: this.selectedTime.time,
+        // 기타 예약 정보
+      }).then(() => {
+        // 예약 성공 시 FullCalendar에 이벤트 추가
+        const event = {
+          title: 'Reservation',
+          start: `${this.selectedDate}T${this.selectedTime.time.split(' - ')[0]}:00`,
+          end: `${this.selectedDate}T${this.selectedTime.time.split(' - ')[1]}:00`
+        };
+        this.calendarOptions.events.push(event);
+
+        // 예약 완료 후 페이지 이동
+        this.$router.push({
+          name: 'applyForm1',
+          //params: {
+          //props: {
+
+          query: { // params, prop 대신 query 사용 - url로 값 띄우고 전달
+            selectedDate: this.selectedDate,
+            //selectedTime: this.selectedTime ? this.selectedTime.time : ''
+            selectedTime: this.selectedTime.time // 여기에서 'time' 프로퍼티에 접근하여 문자열 형태로 전달
+
+          }
+        });
+      }).catch(error => {
+        console.error("Error submitting reservation:", error);
+        alert("예약 중 오류가 발생했습니다.");
       });
     },
     handleDayRender({ date, el }) {
@@ -144,17 +206,5 @@ export default {
     }
 
   }
-  //mounted() {
-  //  this.calendarOptions = {
-  //    plugins: [dayGridPlugin, interactionPlugin],
-  //    initialView: 'dayGridMonth',
-  //    locale: 'ko',
-  //    selectable: true,
-  //    weekends: false,
-  //    events: [{ title: 'Meeting', start: new Date() }],
-  //    dateClick: this.fetchDateInfo,
-  //    dayCellDidMount: this.handleDayMount
-  //  };
-  // }
 }
 </script>
