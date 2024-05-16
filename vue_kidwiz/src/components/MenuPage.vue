@@ -41,6 +41,7 @@
           <li><router-link to="/offlinesubmit">오프라인 상담 신청</router-link></li>
           <li><router-link to="/faq">FAQ</router-link></li>
           <li><router-link to="/contact">Contact</router-link></li>
+          <li><router-link to="/admin">관리자페이지</router-link></li>
         </ul>
       </nav>
     </div>
