@@ -21,24 +21,45 @@
         </span>
       </nav>
       <nav class="nav-bot boundary">
+        <ul @mouseover="navAct()" @mouseleave="navDead()">
+          <li>센터소개</li>
+          <li>상담사소개</li>
+          <li>상담실</li>
+          <li>상담백과</li>
+          <li>공지사항</li>
+        </ul>
+      </nav>
+  <div>
+    <div class="secNav boundary" :style="{display: navDisplay}" @mouseover="navAct()">
+      <nav class="nav-sec">
         <ul>
           <li><router-link to="/listTest">DB테스트</router-link></li>
           <li><router-link to="/BoardList">박선우</router-link></li>
           <li><router-link to="/insertTest">insert 테스트</router-link></li>
+        </ul>
+        <ul>
           <li><router-link to="/regRev">박시호</router-link></li>
           <li><router-link to="/rsrvTest4">예약테스트</router-link></li>
           <li><router-link to="/GroupList">박선우 집단</router-link></li>
+        </ul>
+        <ul>
           <li><router-link to="/jobConsulting">취업상담</router-link></li>
           <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/counseling">심리상담 안내</router-link></li>
+        </ul>
+        <ul>
           <li><router-link to="/counselorshow">상담사 소개</router-link></li>
           <li><router-link to="/test">Test</router-link></li>
+        </ul>
+        <ul>
           <li><router-link to="/offlinesubmit">오프라인 상담 신청</router-link></li>
           <li><router-link to="/faq">FAQ</router-link></li>
           <li><router-link to="/contact">Contact</router-link></li>
         </ul>
       </nav>
     </div>
+    </div>
+  </div>
   </header>
   <div class="mainContainer">
     <main>
@@ -55,6 +76,19 @@ import router from '@/router'
 
 export default {
     name:'MenuPage',
+    data(){
+      return{
+        navDisplay : 'none'
+      };
+    },
+    methods : {
+      navAct(){
+        this.navDisplay = 'block';
+      },
+      navDead(){
+        this.navDisplay = "none";
+      }
+    },
     setup() {
       const logout = () => {
         store.commit('setAccount', 0);
@@ -89,12 +123,30 @@ export default {
   float: hide;
 }
 .nav-bot ul{
+  width: 100%;
+  height: 100%;
+  padding: 0;
   display: flex;
-  justify-content: space-between;
 }
 .nav-bot ul li{
+  width: 20%;
   list-style-type: none;
   text-decoration: none;
+  justify-content: center;
+  align-content: center;
+}
+.secNav{
+  width: 100%;
+}
+.nav-sec ul{
+  width: 20%;
+  padding: 0;
+  float: left;
+}
+.nav-sec ul li{
+  list-style-type: none;
+  text-decoration: none;
+  margin-top: 10px;
 }
 .top-left{
   margin-right: auto;
@@ -129,4 +181,5 @@ a:active {
 .mainContainer{
   margin-top: 135px;
 }
+
 </style>
