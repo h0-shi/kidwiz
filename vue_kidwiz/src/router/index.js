@@ -26,6 +26,8 @@ import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
 import Admin from '@/admin/AdminApp.vue';
 
+//import header from '@/components/Header.vue'
+
 import { createRouter,createWebHashHistory } from 'vue-router';
 
 const routes = [

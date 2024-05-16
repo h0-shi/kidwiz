@@ -118,7 +118,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .file-preview-wrapper > img{
   position: relative;
   width: 100%;
