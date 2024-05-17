@@ -1,14 +1,13 @@
 <template>
-  <Header></Header>
-  <component :is="$route.meta.layout || 'div'">
-    <Main></Main>
-    <router-view></router-view>
-  </component>
-  <Footer></Footer>
+  <div>
+    <component :is="$route.meta.layout || 'div'">
+      <router-view></router-view>
+    </component>
+  </div>
   </template>
   
   <script>
-import Header from './components/Header.vue';
+import HeaderMenu from './components/HeaderMenu.vue';
 import Main from './components/Main.vue'
 import Footer from './components/Footer.vue'
   import axios from 'axios';
@@ -19,8 +18,9 @@ import Footer from './components/Footer.vue'
   export default {
     name: 'App',
     components: {
-      Header,
-      Main
+      HeaderMenu,
+      Main,
+      Footer
     },
     setup() {
       const check = () => {
@@ -37,8 +37,6 @@ import Footer from './components/Footer.vue'
         check();
       })
 
-      Main,
-      Footer
     }
   }
 </script>
