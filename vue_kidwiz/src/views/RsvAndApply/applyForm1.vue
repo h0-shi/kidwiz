@@ -5,7 +5,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title mb-4">상담 신청</h2>
-                        <form @submit.prevent="submitForm">
+
+                        <!--<form @submit.prevent="submitForm">-->
+                        <form @submit="submitForm">
 
                             <div class="mb-3">
                                 <!-- <label class="form-label col-md-4">상담 유형: </label> -->
@@ -58,7 +60,9 @@
                                     maxlength="500" class="form-control" rows="5"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">신청서 제출</button>
+
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -88,12 +92,14 @@ export default {
             studentName: '학생 이름', // JWT를 통해 가져온 사용자 이름
             advisor: '상담자 이름', // 학과 정보에 따른 상담자
             counselingTypes: ['지도교수 상담', '취업상담', '전문 상담'],
-            selectedCounselingType: '',
+            selectedCounselingType: '지도교수 상담', // 기본값으로 초기 설정되어있게 함
             requestText: '',
             textLength: 0,
 
             localSelectedDate: this.selectedDate, // 로컬 데이터 속성으로 사용
-            localSelectedTime: this.selectedTime
+            localSelectedTime: this.selectedTime,
+
+            isSubmitting: false // 중복 제출 방지 240516
         };
     },
     computed: {
@@ -127,27 +133,70 @@ export default {
         }
     },
     methods: {
-        submitForm() {
+        async submitForm(event) {
+            event.preventDefault(); // 기본 폼 제출 방지
+
+            if (this.isSubmitting) return; // 중복 제출 방지 240516
+            this.isSubmitting = true;
+
+            // 상담 유형이 선택되지 않은 경우 경고 메시지 표시(기본값 만들어서 이제 필요 없음)
+            if (!this.selectedCounselingType) {
+                alert("상담 유형 선택은 필수 사항입니다.");
+                this.isSubmitting = false;
+                return;
+            }
+
+            // Axios 요청 데이터 검증
+            if (Object.values(reservationData).some(value => value === null)) {
+                alert('필수 입력 항목을 모두 입력해주세요.');
+                return;
+            }
+
             // 폼 제출 로직
             const reservationData = {
                 sid: 111, // 학생 ID (예: JWT에서 추출)
                 proid: 222, // 상담자 ID (상담자 정보에서 추출)
                 ctype: this.selectedCounselingType,
-                timeSlotId: this.localSelectedTime,
+                ctime: this.localSelectedTime,
                 cdate: this.localSelectedDate,
                 rsvdate: new Date().toISOString().split('T')[0],
                 rsvmemo: this.requestText
             };
 
-            axios.post('/api/reservations', reservationData)
-                .then(() => {
-                    alert('예약이 성공적으로 완료되었습니다.');
-                    this.$router.push('/rsrvTest4'); // 예약 페이지로 이동
-                })
-                .catch(error => {
-                    console.error('예약 중 오류가 발생했습니다.', error);
-                    alert('예약 중 오류가 발생했습니다.');
-                });
+            // 예약 데이터 확인
+            console.log('예약 데이터:', reservationData);
+
+            for (const field in reservationData) {
+                // reservationData 객체에 폼 데이터 추가
+                if (Object.prototype.hasOwnProperty.call(this, field) && field !== 'isSubmitting') {
+                    reservationData[field] = this[field];
+                }
+            }
+
+            try {
+                console.log('Axios 요청 시작', reservationData);
+                await axios.post('/api/reservations', reservationData)
+                    .then(() => {
+                        console.log('Axios 요청 성공');
+                        alert('예약이 성공적으로 완료되었습니다.');
+                        this.$router.push('/rsrvTest4');
+                    })
+                    .catch(error => {
+                        console.error('예약 중 오류가 발생했습니다.', error);
+                        alert('예약 중 오류가 발생했습니다.');
+                    })
+                    .finally(() => {
+                        this.isSubmitting = false;
+                        console.log('submitForm 완료됨');
+                    });
+
+            } catch (error) {
+                console.error('예약 중 오류가 발생했습니다.', error);
+                alert('예약 중 오류가 발생했습니다.');
+                this.isSubmitting = false;
+            }
+
+
         },
 
         updateTextLength() {
