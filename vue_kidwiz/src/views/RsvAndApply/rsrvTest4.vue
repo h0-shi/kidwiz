@@ -10,7 +10,7 @@
         <h3 v-if="!selectedDate" class="initial-message">희망하는 날짜를 선택하시면 <br> 예약 가능 시간이 나타납니다.</h3>
         <!-- 날짜가 선택되었을 때의 메시지 -->
         <h3 v-else>{{ selectedDate }}의 예약 가능 시간</h3>
-        <p v-if="isPast">지난 날짜에는 예약이 불가능합니다.</p>
+        <p v-if="isPast">당일 및 이전 날짜는 예약이 불가능합니다.</p>
         <ul v-else>
           <li v-for="time in availableTimes" :key="time.id">
             <label>
@@ -55,9 +55,10 @@ export default {
         weekends: false,
         editable: false,
         validRange: { // 오늘부터 한 달까지만 달력에 나오도록
-            start: Date.now(),
-            end: Date.now() + 2592000000,
-      },
+          start: Date.now(),
+          //end: Date.now() + 2592000000,
+          end: new Date(new Date().setMonth(new Date().getMonth() + 1))
+        },
         events: [],
         eventClick: this.handleEventClick,
         dateClick: this.fetchDateInfo, // 수정: dateClick 핸들러를 Ajax 호출 함수로 변경
@@ -92,8 +93,17 @@ export default {
       today.setHours(0, 0, 0, 0);
       const clickedDate = new Date(info.dateStr);
 
+      //  this.isPast = clickedDate < today;
+      //  if (this.isPast) {
+      //    this.availableTimes = [];
+      //    return;
+      //  }
       this.isPast = clickedDate < today;
       if (this.isPast) {
+        this.availableTimes = [];
+        return;
+      } else if (clickedDate.toDateString() === today.toDateString()) {
+        this.isPast = true; // 당일 클릭 시 isPast를 true로 설정
         this.availableTimes = [];
         return;
       }
