@@ -24,6 +24,9 @@ import mypage from "@/views/mypage/MyPage.vue";
 
 import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
+import Admin from '@/admin/AdminApp.vue';
+
+//import header from '@/components/Header.vue'
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 
@@ -66,7 +69,8 @@ const routes = [
     {path: '/test',name: 'Test',component: TestMain, meta: {layout : menu}},
     {path: '/test/career',name: 'CareerTest',component: CareerTest, meta: {layout : menu}},
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : menu}},
-    {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : menu}}
+    {path: '/admin', name: 'Admin',component: Admin, meta: {layout : menu}}
+    {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : menu}},
 ];
 
 const router = createRouter({
