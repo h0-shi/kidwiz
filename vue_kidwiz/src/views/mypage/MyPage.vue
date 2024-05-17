@@ -2,46 +2,18 @@
 <div>
   <div>
     <h1>마이페이지입니다</h1>
-  </div>
-  <table>
-    <thead>
-        <tr>
-          <th>내정보 id|--</th>
-          <th>내정보 email|--</th>
-          <th>내정보 비밀번호|--</th>
-        </tr>
-    </thead>
-    <tbody>
-      <tr v-for="myinfo in state.myinfos" v-bind:key="myinfo.id">
-            <td>{{ myinfo.id }}</td>
-            <td>{{ myinfo.email }}</td>
-            <td>{{ myinfo.password }}</td>
-        </tr>
-    </tbody>
-  </table>
+    <p>마이페이지 하위 메뉴</p>
+    <p>1. 나의 정보 관리 -> 비밀번호 확인 -> 비밀번호 수정 등</p>
+    <p>2. 나의 상담 내역 -> 상담 종류, 날짜, 상태(접수완료, 접수진행, 상담완료, 등), 상담취소, 상담변경</p> 
+    <p>3. 비교과(집단상담)내역 -> 상담 종류, 날짜, 상태(접수완료, 접수진행, 상담완료, 등)</p> 
+    <p>4. 나의 문의 내역</p>
+    <p>5. 나의 리뷰</p>
+    <p>현재 로그인한 사용자 id: {{ $store.state.account.id }}</p>
+    <p>현재 로그인한 사용자 email: {{ $store.state.account.email }}</p>
+    <p>현재 로그인한 사용자 name: {{ $store.state.account.name }}</p>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
-import { reactive, onMounted } from 'vue';
 
-export default {
-  setup(){
-  const state = reactive({
-  myinfos:[]
-  });
-
-  onMounted(() => {
-        axios.get('http://localhost:3000/api/myinfo', { withCredentials: true })
-        .then(response => {
-            state.myinfos = response.data;
-        }).catch((err) => {
-              alert("문제 발생"+err)
-        });
-    });
-
-  return{state}
-  }
-}
 </script>
