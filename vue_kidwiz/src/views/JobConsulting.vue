@@ -20,6 +20,12 @@
     </tbody>
     </table>
   </div>
+
+  <div class="intro" >
+    <div class="container">
+      <h2>취업상담</h2>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -55,3 +61,9 @@ setup(){
 }
 }
 </script>
+
+<style scoped>
+.intro {
+  background-color: #f2f2f2;
+}
+</style>
