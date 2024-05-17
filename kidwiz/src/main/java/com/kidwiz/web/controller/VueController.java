@@ -135,7 +135,7 @@ public class VueController {
 	public String groupDetail(@RequestParam("gr_no") String gr_no) {
 		Map<String, Object> map = vueService.groupDetail(gr_no);
 
-		List<Map<String, Object>> glist = vueService.getGList((String)map.get("con_cd"));
+		List<Map<String, Object>> glist = vueService.getGList(gr_no);
 		JSONObject json = new JSONObject();
 		json.put("list", map);
 		json.put("glist", glist);
