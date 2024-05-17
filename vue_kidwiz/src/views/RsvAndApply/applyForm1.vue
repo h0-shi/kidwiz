@@ -139,16 +139,11 @@ export default {
             if (this.isSubmitting) return; // 중복 제출 방지 240516
             this.isSubmitting = true;
 
-            // 상담 유형이 선택되지 않은 경우 경고 메시지 표시(기본값 만들어서 이제 필요 없음)
+            // 상담 유형이 선택되지 않은 경우 경고 메시지 표시(240516 기본값 만들어서 이제 필요 없음)
+            //
             if (!this.selectedCounselingType) {
                 alert("상담 유형 선택은 필수 사항입니다.");
                 this.isSubmitting = false;
-                return;
-            }
-
-            // Axios 요청 데이터 검증
-            if (Object.values(reservationData).some(value => value === null)) {
-                alert('필수 입력 항목을 모두 입력해주세요.');
                 return;
             }
 
@@ -163,37 +158,40 @@ export default {
                 rsvmemo: this.requestText
             };
 
+            // Axios 요청 데이터 검증
+            if (Object.values(reservationData).some(value => !value)) {
+                alert('필수 입력 항목을 모두 입력해주세요.');
+                this.isSubmitting = false;
+                return;
+            }
             // 예약 데이터 확인
             console.log('예약 데이터:', reservationData);
 
-            for (const field in reservationData) {
-                // reservationData 객체에 폼 데이터 추가
-                if (Object.prototype.hasOwnProperty.call(this, field) && field !== 'isSubmitting') {
-                    reservationData[field] = this[field];
-                }
-            }
+            // for (const field in reservationData) {
+            //     // reservationData 객체에 폼 데이터 추가
+            //     if (Object.prototype.hasOwnProperty.call(this, field) && field !== 'isSubmitting') {
+            //        reservationData[field] = this[field];
+            //     }
+            // }
 
             try {
                 console.log('Axios 요청 시작', reservationData);
-                await axios.post('/api/reservations', reservationData)
-                    .then(() => {
-                        console.log('Axios 요청 성공');
-                        alert('예약이 성공적으로 완료되었습니다.');
-                        this.$router.push('/rsrvTest4');
-                    })
-                    .catch(error => {
-                        console.error('예약 중 오류가 발생했습니다.', error);
-                        alert('예약 중 오류가 발생했습니다.');
-                    })
-                    .finally(() => {
-                        this.isSubmitting = false;
-                        console.log('submitForm 완료됨');
-                    });
+                const response = await axios.post('/api/reservations', reservationData);
+                console.log('Axios 요청 성공', response);
 
+                if (response.status === 201) {
+                    alert('예약이 성공적으로 완료되었습니다.');
+                    this.$router.push('/rsrvTest4');
+                } else {
+                    console.error('예약 중 오류가 발생했습니다.', response);
+                    alert('예약 중 오류가 발생했습니다. 관리자에게 문의해주세요.');
+                }
             } catch (error) {
                 console.error('예약 중 오류가 발생했습니다.', error);
-                alert('예약 중 오류가 발생했습니다.');
+                alert('예약 중 오류가 발생했습니다. 관리자에게 문의해주세요.');
+            } finally {
                 this.isSubmitting = false;
+                console.log('submitForm 완료됨');
             }
 
 

@@ -59,6 +59,14 @@ import jakarta.transaction.Transactional;
 	        if (reservationDto.getRsvmemo() == null || reservationDto.getRsvmemo().isEmpty()) {
 	            logger.error("Rsvmemo is not set");
 	        }
+	        
+	     // 240517 유효성 검사를 통과하지 못한 경우 데이터베이스에 삽입하지 않음
+	        if (reservationDto.getSid() == 0 || reservationDto.getProid() == 0 || reservationDto.getCtype() == null || 
+	            reservationDto.getCtime() == null || reservationDto.getCdate() == null || reservationDto.getRsvdate() == null || 
+	            reservationDto.getRsvmemo() == null) {
+	            logger.error("유효성 검사를 통과하지 못했습니다.");
+	            return;
+	        }
 
 	        reservationDAO.insertReservation(reservationDto);
 	    }
