@@ -1,20 +1,18 @@
 <template>
-  <Header></Header>
   <component :is="$route.meta.layout || 'div'">
     <Main></Main>
     <router-view></router-view>
   </component>
-  <Footer></Footer>
   </template>
   
   <script>
 import Header from './components/Header.vue';
 import Main from './components/Main.vue'
 import Footer from './components/Footer.vue'
-  import axios from 'axios';
-  import store from './views/store';
-  import { useRoute } from 'vue-router';
-  import { watch } from 'vue';
+import axios from 'axios';
+import store from './views/store';
+import { useRoute } from 'vue-router';
+import { watch } from 'vue';
   
   export default {
     name: 'App',
@@ -131,20 +129,3 @@ import Footer from './components/Footer.vue'
       }
     
 </style>
-
-
-    <!--  이 부분 있으면 사이트 접속 시 에러 남. 
-      setup() {
-      const check = () => {
-        axios.get('http://localhost:3000/api/account/check', { withCredentials: true }).then(({data}) => {
-          console.log(data+"안녕안녕");
-          // data 값이 있으면 setAccount 에 data 넣고, 없으면 0
-          store.commit("setAccount", data || 0);
-        })
-      };
-      // url 정보 가져오기
-      const route = useRoute();
-      // 경로가 바뀔 때 마다 감시(check 실행)
-      watch(route, () => {
-        check();
-      }) -->
