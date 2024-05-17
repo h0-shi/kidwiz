@@ -29,12 +29,16 @@ public class AccountController {
 	@Autowired
 	JwtService jwtService;
 
+	// 로그인
 	@PostMapping("/api/account/login")
 	public ResponseEntity login(@RequestBody Map<String, String> params, HttpServletResponse res) {
+		
 		Member member = memberRepository.findByEmailAndPassword(params.get("email"), params.get("password"));
 
 		if (member != null) {
 			int id = member.getId();
+//			String email = member.getEmail();
+//			String name = member.getName();
 			String token = jwtService.getToken("id", id);
 
 //			Cookie cookie = new Cookie("token", token);
@@ -47,30 +51,46 @@ public class AccountController {
 	        String cookieValue = String.format("token=%s; HttpOnly; SameSite=None; Secure; Path=/", token);
 	        res.addHeader("Set-Cookie", cookieValue);
 
-
 			System.out.println("ID: " + id);
             System.out.println("Token: " + token);
             System.out.println("Cookie: " + cookieValue);
             
-			return new ResponseEntity<>(id, HttpStatus.OK);
+            //Member 객체의 모든 필드가 JSON으로 변환되어 클라이언트에 반환(password : @JsonIgnore)
+			return new ResponseEntity<>(member, HttpStatus.OK);
 		}
 
 		throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+	}
+	
+	// 로그아웃
+	@PostMapping("/api/account/logout")
+    public ResponseEntity logout(HttpServletResponse res) {
+		
+		System.out.println("로그아웃 합니다");
+		
+        Cookie cookie = new Cookie("token", null);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+
+        res.addCookie(cookie);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	// 토큰값으로 사용자 여부 확인
 	@GetMapping("/api/account/check")
 	public ResponseEntity check(@CookieValue(value = "token", required = false) String token) {
 
-		System.out.println("토큰이 있다?: " + token);
+		System.out.println("check! 토큰이 있다?: " + token);
 
 		Claims claims = jwtService.getClaims(token);
 
-		System.out.println("Claims 있다?: " + claims);
+		System.out.println("check! Claims 있다?: " + claims);
 
 		if (claims != null) {
 			int id = Integer.parseInt(claims.get("id").toString());
-			return new ResponseEntity<>(id, HttpStatus.OK);
+			Member member = memberRepository.findById(id);
+			return new ResponseEntity<>(member, HttpStatus.OK);
 		}
 
 		return new ResponseEntity<>(null, HttpStatus.OK);
