@@ -1,10 +1,12 @@
 <template>
+  <div>
   <h1>Login</h1>
     <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
            @keyup.enter="submit()" v-model="state.form.email">
     <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
      @keyup.enter="submit()" v-model="state.form.password">
   <button @click="submit()">Sign in</button>
+</div>
 </template>
 
 <script>
