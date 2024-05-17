@@ -1,16 +1,13 @@
 <template>
-  <Header></Header>
   <component :is="$route.meta.layout || 'div'">
     <Main></Main>
     <router-view></router-view>
   </component>
-  <Footer></Footer>
   </template>
   
   <script>
 import Header from './components/Header.vue';
 import Main from './components/Main.vue'
-import Footer from './components/Footer.vue'
   import axios from 'axios';
   import store from './views/store';
   import { useRoute } from 'vue-router';
@@ -37,8 +34,6 @@ import Footer from './components/Footer.vue'
         check();
       })
 
-      Main,
-      Footer
     }
   }
 </script>

@@ -10,7 +10,6 @@ import PersonTest from '@/views/testFolder/PersonTest.vue';
 import ResultPage from '@/views/testFolder/ResultPage.vue';
 import mainPage from '@/views/mainPage.vue';
 
-
 import testVue from "@/views/TestVue.vue";
 import listTest from "@/views/ListTest.vue";
 import Boardwrite from "@/views/boardviews/BoardWrite.vue";
@@ -69,8 +68,8 @@ const routes = [
     {path: '/test',name: 'Test',component: TestMain, meta: {layout : menu}},
     {path: '/test/career',name: 'CareerTest',component: CareerTest, meta: {layout : menu}},
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : menu}},
-    {path: '/admin', name: 'Admin',component: Admin, meta: {layout : menu}}
-    {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : menu}},
+    {path: '/admin', name: 'Admin',component: Admin, meta: {layout : menu}},
+    {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : menu}}
 ];
 
 
