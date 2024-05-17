@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="bannerImg">
+    <!-- <div class="bannerImg">
       <h1>배너 이미지</h1>
-    </div>
+    </div> -->
     <div class="main1">
       <div class="cardsBox boundary">
         <div class="cards">
