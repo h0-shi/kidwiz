@@ -6,7 +6,7 @@
   </template>
   
   <script>
-import Header from './components/Header.vue';
+import HeaderMenu from './components/HeaderMenu.vue';
 import Main from './components/Main.vue'
 import Footer from './components/Footer.vue'
 import axios from 'axios';
@@ -17,8 +17,9 @@ import { watch } from 'vue';
   export default {
     name: 'App',
     components: {
-      Header,
-      Main
+      HeaderMenu,
+      Main,
+      Footer
     },
     setup() {
       const check = () => {
@@ -35,8 +36,6 @@ import { watch } from 'vue';
         check();
       })
 
-      Main,
-      Footer
     }
   }
 </script>

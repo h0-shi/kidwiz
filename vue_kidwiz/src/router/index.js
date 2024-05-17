@@ -22,19 +22,23 @@ import jobConsulting from "@/views/JobConsulting.vue"; // 취업상담
 import jobConsultingSim from "@/views/JobConsultingSim.vue"; // 취업상담(심리)
 import mypage from "@/views/mypage/MyPage.vue";
 
+import BoardList from '@/views/boardviews/BoardList.vue';
+import groupList from '@/views/groupviews/groupList.vue';
+
 import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
 import Admin from '@/admin/AdminApp.vue';
+
+import MainLayout from '@/layout/MainLayout.vue'
 //import header from '@/components/Header.vue'
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 
 const routes = [
-    {path: '/', component: mainPage, meta: {layout : menu}},
-    {path: '/menu', name:'testVue', component: testVue, meta: {layout : menu}},
+    {path: '/', component: mainPage, meta: {layout : MainLayout}},    {path: '/menu', name:'testVue', component: testVue, meta: {layout : menu}},
     {path: '/testVue', name:'testVue', component: testVue, meta: {layout : menu}},
     {path: '/listTest', name:'listTest', component: listTest, meta: {layout : menu}},
-    {path:'/BoardList', name:'BoardList', component: () => import('../views/boardviews/BoardList.vue'), meta: {layout : menu}},
+    {path:'/BoardList', name:'BoardList', component: BoardList, meta: {layout : menu}},
     {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite, meta: {layout : menu}},
     {path: '/insertTest', name:'insertTest', component: insertTest, meta: {layout : menu}},
     {path:"/boardDetail", name:"boardDetail", component: boardDetail, meta: {layout : menu}},
