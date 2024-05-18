@@ -26,6 +26,7 @@ import MyConsultations from '@/views/mypage/MyConsultations.vue';
 import MyGroupConsulte from '@/views/mypage/MyGroupConsulte.vue';
 import MyQna from '@/views/mypage/MyQna.vue';
 import MyReviews from '@/views/mypage/MyReviews.vue';
+import MySimri from '@/views/mypage/MySimri.vue';
 
 import BoardList from '@/views/boardviews/BoardList.vue';
 // import groupList from '@/views/groupviews/groupList.vue';
@@ -85,7 +86,8 @@ const routes = [
     {path: '/myconsultations', name: 'myconsultations', component: MyConsultations, meta: { layout: MainLayout } },
     {path: '/mygroup', name: 'mygroup', component: MyGroupConsulte, meta: { layout: MainLayout } },
     {path: '/myqna', name: 'myqna', component: MyQna, meta: { layout: MainLayout } },
-    {path: '/myreviews', name: 'myreviews', component: MyReviews, meta: { layout: MainLayout } }
+    {path: '/myreviews', name: 'myreviews', component: MyReviews, meta: { layout: MainLayout } },
+    {path: '/mysimri', name: 'mysimri', component: MySimri, meta: { layout: MainLayout } }
   ];
 
 

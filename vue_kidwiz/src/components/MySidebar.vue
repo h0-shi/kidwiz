@@ -12,11 +12,15 @@
             <router-link class="nav-link" :to="{ name: 'mygroup' }">비교과(집단 상담)내역</router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'mysimri' }">나의 심리검사 결과</router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'myqna' }">나의 문의 내역</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'myreviews' }">나의 리뷰</router-link>
           </li>
+
         </ul>
       </div>
     </nav>
