@@ -20,7 +20,12 @@ import boardReply from "@/views/boardviews/BoardReply.vue";
 import login from "@/views/LoginPage.vue";
 import jobConsulting from "@/views/JobConsulting.vue"; // 취업상담
 import jobConsultingSim from "@/views/JobConsultingSim.vue"; // 취업상담(심리)
-import mypage from "@/views/mypage/DashBoard.vue";
+import mypage from "@/views/mypage/MyPage.vue";
+import MyInfo from '@/views/mypage/MyInfo.vue';
+import MyConsultations from '@/views/mypage/MyConsultations.vue';
+import MyGroupConsulte from '@/views/mypage/MyGroupConsulte.vue';
+import MyQna from '@/views/mypage/MyQna.vue';
+import MyReviews from '@/views/mypage/MyReviews.vue';
 
 import BoardList from '@/views/boardviews/BoardList.vue';
 // import groupList from '@/views/groupviews/groupList.vue';
@@ -75,8 +80,12 @@ const routes = [
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : menu}},
     {path: '/admin', name: 'Admin',component: Admin, meta: {layout : menu}},
     {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : menu}},
-    
-    {path: '/mypage', name: 'mypage', component: mypage, meta: {layout : menu}}
+    {path: '/mypage', name: 'mypage', component: mypage, meta: {layout : MainLayout}},
+    {path: '/myinfo', name: 'myinfo', component: MyInfo, meta: { layout: MainLayout } },
+    {path: '/myconsultations', name: 'myconsultations', component: MyConsultations, meta: { layout: MainLayout } },
+    {path: '/mygroup', name: 'mygroup', component: MyGroupConsulte, meta: { layout: MainLayout } },
+    {path: '/myqna', name: 'myqna', component: MyQna, meta: { layout: MainLayout } },
+    {path: '/myreviews', name: 'myreviews', component: MyReviews, meta: { layout: MainLayout } }
   ];
 
 
