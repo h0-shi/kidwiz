@@ -10,7 +10,6 @@ import PersonTest from '@/views/testFolder/PersonTest.vue';
 import ResultPage from '@/views/testFolder/ResultPage.vue';
 import mainPage from '@/views/mainPage.vue';
 
-
 import testVue from "@/views/TestVue.vue";
 import listTest from "@/views/ListTest.vue";
 import Boardwrite from "@/views/boardviews/BoardWrite.vue";
@@ -19,20 +18,30 @@ import boardDetail from "@/views/boardviews/BoardDetail.vue";
 import boardUpdate from "@/views/boardviews/BoardUpdate.vue";
 import boardReply from "@/views/boardviews/BoardReply.vue";
 import login from "@/views/LoginPage.vue";
-import jobConsulting from "@/views/JobConsulting.vue";
+import jobConsulting from "@/views/JobConsulting.vue"; // 취업상담
+import jobConsultingSim from "@/views/JobConsultingSim.vue"; // 취업상담(심리)
 import mypage from "@/views/mypage/MyPage.vue";
+import MyInfo from '@/views/mypage/MyInfo.vue';
+import MyConsultations from '@/views/mypage/MyConsultations.vue';
+import MyGroupConsulte from '@/views/mypage/MyGroupConsulte.vue';
+import MyQna from '@/views/mypage/MyQna.vue';
+import MyReviews from '@/views/mypage/MyReviews.vue';
+import MySimri from '@/views/mypage/MySimri.vue';
 
 import BoardList from '@/views/boardviews/BoardList.vue';
-import groupList from '@/views/groupviews/groupList.vue';
+// import groupList from '@/views/groupviews/groupList.vue';
 
 //import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
 import Admin from '@/admin/AdminApp.vue';
 
+
 import MainLayout from '@/layout/MainLayout.vue'
 //import header from '@/components/Header.vue'
 
 import { createRouter,createWebHashHistory } from 'vue-router';
+
+
 
 const routes = [
     {path: '/', component: mainPage, meta: {layout : MainLayout}},    
@@ -76,11 +85,18 @@ const routes = [
     {path: '/admin', name: 'Admin',component: Admin, meta: {layout : MainLayout}},
     {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : MainLayout}},
 ];
+    {path: '/mypage', name: 'mypage', component: mypage, meta: {layout : MainLayout}},
+    {path: '/myinfo', name: 'myinfo', component: MyInfo, meta: { layout: MainLayout } },
+    {path: '/myconsultations', name: 'myconsultations', component: MyConsultations, meta: { layout: MainLayout } },
+    {path: '/mygroup', name: 'mygroup', component: MyGroupConsulte, meta: { layout: MainLayout } },
+    {path: '/myqna', name: 'myqna', component: MyQna, meta: { layout: MainLayout } },
+    {path: '/myreviews', name: 'myreviews', component: MyReviews, meta: { layout: MainLayout } },
+    {path: '/mysimri', name: 'mysimri', component: MySimri, meta: { layout: MainLayout } }
 
 
 const router = createRouter({
-    history: createWebHashHistory(process.env.BASE_URL),
-    routes
+  history: createWebHashHistory(process.env.BASE_URL),
+  routes
 });
 
 export default router;
