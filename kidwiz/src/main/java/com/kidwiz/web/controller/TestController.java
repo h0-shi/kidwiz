@@ -39,12 +39,19 @@ public class TestController {
                 
                 TestResult testResult = new TestResult();
                 testResult.setQid(i + 1);
+                testResult.setSid(1);
                 testResult.setTanswer(answer);
                 testResult.setTdate(LocalDateTime.now());
                 testResult.setTotalScore(totalScore);
                 testResults.add(testResult);
             }
         }
+        
+        // 결과 데이터 저장
+        if (!testResults.isEmpty()) {
+            testService.saveTestResults(testResults);
+        }
+        
         ResultData result = generateResultData(totalScore);
         return ResponseEntity.ok(result);
     }

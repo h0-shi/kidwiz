@@ -53,21 +53,18 @@
         </main>
       </div>
     </div>
-    <Footer></Footer>
   </div>
 </template>
 
 <script>
 import HeaderMenu from '@/components/HeaderMenu.vue';
 import MySidebar from '@/components/MySidebar.vue';
-import Footer from '@/components/Footer.vue';
 
 export default {
   name: 'MyInfo',
   components: {
     HeaderMenu,
     MySidebar,
-    Footer
   },
   data() {
     return {

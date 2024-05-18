@@ -1,6 +1,9 @@
 <template>
     <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
       <div class="position-sticky pt-3">
+        <div class="user-welcome mb-3">
+        '{{ $store.state.account.name }}' 님 반갑습니다.
+      </div>
         <ul class="nav flex-column">
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'myinfo' }">나의 정보 관리</router-link>

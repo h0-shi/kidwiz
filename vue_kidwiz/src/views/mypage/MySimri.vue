@@ -4,32 +4,7 @@
       <div class="container-fluid mt-5 pt-4">
         <div class="row">
           <MySidebar></MySidebar>
-          <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <h1>심리검사 결과</h1>
-            <div v-if="isValidResult">
-              <div class="result-container">
-                <h2>{{ result.title }}</h2>
-                <h3>{{ result.description }}</h3>
-                <p>총점: {{ result.totalScore }} / 30</p>
-                <p>검사 날짜: {{ result.testDate }}</p>
-                <h3>추천 직업</h3>
-                <ul>
-                  <li v-for="job in result.recommendedJobs.split(',')" :key="job.trim()">
-                    {{ job.trim() }}
-                  </li>
-                </ul>
-                <h3>당신의 성향</h3>
-                <ul>
-                  <li v-for="(trait, index) in result.personalTraits" :key="index">
-                    <strong>{{ traitTitles[index] }}:</strong>
-                    <ul>
-                      <li>{{ trait }}</li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </main>
+
         </div>
       </div>
       <Footer></Footer>
@@ -39,14 +14,12 @@
   <script>
   import HeaderMenu from '@/components/HeaderMenu.vue';
   import MySidebar from '@/components/MySidebar.vue';
-  import Footer from '@/components/Footer.vue';
   
   export default {
     name: 'MySimri',
     components: {
       HeaderMenu,
       MySidebar,
-      Footer
     },
     data() {
       return {
