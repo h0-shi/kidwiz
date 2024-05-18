@@ -20,19 +20,22 @@ import boardReply from "@/views/boardviews/BoardReply.vue";
 import login from "@/views/LoginPage.vue";
 import jobConsulting from "@/views/JobConsulting.vue"; // 취업상담
 import jobConsultingSim from "@/views/JobConsultingSim.vue"; // 취업상담(심리)
-import mypage from "@/views/mypage/MyPage.vue";
+import mypage from "@/views/mypage/DashBoard.vue";
 
 import BoardList from '@/views/boardviews/BoardList.vue';
-import groupList from '@/views/groupviews/groupList.vue';
+// import groupList from '@/views/groupviews/groupList.vue';
 
 import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
 import Admin from '@/admin/AdminApp.vue';
 
+
 import MainLayout from '@/layout/MainLayout.vue'
 //import header from '@/components/Header.vue'
 
 import { createRouter,createWebHashHistory } from 'vue-router';
+
+
 
 const routes = [
     {path: '/', component: mainPage, meta: {layout : MainLayout}},
@@ -71,8 +74,10 @@ const routes = [
     {path: '/test/career',name: 'CareerTest',component: CareerTest, meta: {layout : menu}},
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : menu}},
     {path: '/admin', name: 'Admin',component: Admin, meta: {layout : menu}},
-    {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : menu}}
-];
+    {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : menu}},
+    
+    {path: '/mypage', name: 'mypage', component: mypage, meta: {layout : menu}}
+  ];
 
 
 const router = createRouter({

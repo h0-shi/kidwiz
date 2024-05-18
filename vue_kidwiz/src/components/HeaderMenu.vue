@@ -15,7 +15,7 @@
           <li class="nav-item">
             <router-link class="nav-link" :to="{path:'/'}">공지사항</router-link>
           </li>
-          
+
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" :class="clicked ? 'show' : ''" data-bs-toggle="dropdown" aria-expanded="true" @click.prevent="ontoggle">상담</a>
           <ul class="dropdown-menu" :class="clicked ? 'show' : ''" data-bs-popper="static">
@@ -25,6 +25,12 @@
             <li><router-link class="dropdown-item" :to="{path:'/'}">심리 상담</router-link></li>
           </ul>
         </li>
+        <li class="nav-item">
+            <router-link class="nav-link" :to="{path:'/login'}">로그인</router-link>
+          </li>
+          <li v-if="$store.state.account.id"><router-link to="/mypage">마이페이지</router-link></li>
+
+
         </ul>
       </div>
     </div>
