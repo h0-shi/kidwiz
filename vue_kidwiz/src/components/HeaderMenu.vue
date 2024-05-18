@@ -21,10 +21,18 @@
           <ul class="dropdown-menu" :class="clicked ? 'show' : ''" data-bs-popper="static">
             <li><router-link class="dropdown-item" :to="{path:'/BoardList'}">게시판 상담</router-link></li>
             <li><router-link class="dropdown-item" :to="{path:'/'}">지도교수 상담</router-link></li>
-            <li><router-link class="dropdown-item" :to="{path:'/GroupList'}">집단 상담</router-link></li>
+            <li><router-link class="dropdown-item" to="/GroupList">집단 상담</router-link></li>
             <li><router-link class="dropdown-item" :to="{path:'/'}">심리 상담</router-link></li>
           </ul>
         </li>
+        </ul>
+        <ul class="navbar-nav mb-2 mb-md-0 d-flex">
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{path:'/'}">로그인</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" :to="{path:'/'}">마이페이지</router-link>
+          </li>
         </ul>
       </div>
     </div>

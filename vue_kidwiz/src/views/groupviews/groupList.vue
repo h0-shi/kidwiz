@@ -1,5 +1,5 @@
 <template>
-  <div class="py-5">
+  <div class="py-5 mt-5">
     <div class="container text-start">
       <!-- row-cols-1은 행ㅇ에 열 1개씩 배치, 
         row-cols-sm-2 : 가로화면 크기가 576px보다 크거나 같으면 행에 2개씩 배치
@@ -144,4 +144,5 @@ a:hover {
 a:active {
   color : black;
 }
+
 </style>

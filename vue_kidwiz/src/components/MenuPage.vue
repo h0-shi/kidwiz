@@ -20,8 +20,22 @@
           <a href="">회원가입</a>
         </span>
       </nav>
+
       <nav class="nav-bot">
-        <ul>
+        <div class="container">
+          <nav class="container d-flex flex-column flex-md-row justify-content-between">
+            <router-link class="py-2 d-none d-md-inline-block flex-fill" to="/BoardList">상담</router-link>
+            <router-link class="py-2 d-none d-md-inline-block flex-fill" to="/BoardList">상담</router-link>
+            <router-link class="py-2 d-none d-md-inline-block flex-fill" to="/BoardList">상담</router-link>
+            <router-link class="py-2 d-none d-md-inline-block flex-fill" to="/BoardList">상담</router-link>
+          </nav>
+        </div>
+        <!-- <ul>
+          <li><router-link to="/listTest">공지사항</router-link></li>
+          <li><router-link to="/BoardList">상담</router-link></li>
+          <li><router-link to="/insertTest">상담 정보</router-link></li>
+          <li><router-link to="/regRev">미디어 콘텐츠</router-link></li>
+          <li><router-link to="/rsrvTest4">소통/참여</router-link></li>
           <li><router-link to="/testVue">테스트뷰</router-link></li>
           <li><router-link to="/listTest">DB테스트</router-link></li>
           <li><router-link to="/BoardList">박선우</router-link></li>
@@ -42,7 +56,65 @@
           <li><router-link to="/faq">FAQ</router-link></li>
           <li><router-link to="/contact">Contact</router-link></li>
           <li><router-link to="/admin">관리자페이지</router-link></li>
-        </ul>
+        </ul> -->
+      </nav>
+      <nav class="nav-menu">
+        <div class="parentsDiv container d-flex flex-column flex-md-row justify-content-between">
+          <nav class="container d-flex flex-column flex-md-row justify-content-between">
+            <!-- <router-link class="py-2 d-none d-md-inline-block flex-fill" to="/BoardList">상담</router-link>
+            <router-link class="py-2 d-none d-md-inline-block flex-fill" to="/BoardList">상담</router-link>
+            <router-link class="py-2 d-none d-md-inline-block flex-fill" to="/BoardList">상담</router-link>
+            <router-link class="py-2 d-none d-md-inline-block flex-fill" to="/BoardList">상담</router-link> -->
+            <ul class="divUl py-2 d-none d-md-inline-block flex-fill">
+              <li>상담</li>
+              <li>상담</li>
+              <li>상담</li>
+              <li>상담</li>
+            </ul>
+            <ul class="divUl py-2 d-none d-md-inline-block flex-fill">
+              <li>상담</li>
+              <li>상담</li>
+              <li>상담</li>
+              <li>상담</li>
+            </ul>
+            <ul class="divUl py-2 d-none d-md-inline-block flex-fill">
+              <li>상담</li>
+              <li>상담</li>
+              <li>상담</li>
+              <li>상담</li>
+            </ul>
+            <ul class="divUl py-2 d-none d-md-inline-block flex-fill">
+              <li>상담</li>
+              <li>상담</li>
+              <li>상담</li>
+              <li>상담</li>
+            </ul>
+          </nav>
+          <!-- <ul class="divUl">
+            <li>상담</li>
+            <li>상담</li>
+            <li>상담</li>
+            <li>상담</li>
+          </ul>
+          <ul class="divUl">
+            <li>상담</li>
+            <li>상담</li>
+            <li>상담</li>
+            <li>상담</li>
+          </ul>
+          <ul class="divUl">
+            <li>상담</li>
+            <li>상담</li>
+            <li>상담</li>
+            <li>상담</li>
+          </ul>
+          <ul class="divUl">
+            <li>상담</li>
+            <li>상담</li>
+            <li>상담</li>
+            <li>상담</li>
+          </ul> -->
+        </div>
       </nav>
     </div>
   </header>
@@ -90,16 +162,39 @@ export default {
   justify-content: space-between;
 }
 .nav-bot{
-  height: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
   width: 100%;
   background-color: grey;
   float: hide;
 }
+.nav-bot ul{
+  margin:0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .nav-bot ul li{
+  
   list-style-type: none;
   text-decoration: none;
   float: left;
   margin: 0 5px;
+}
+.nav-menu{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 100%;
+  float: hide;
+  height: 100%;
+}
+.nav-menu ul{
+  list-style-type: none;
+  text-decoration: none;
 }
 .top-left{
   margin-right: auto;
@@ -132,4 +227,20 @@ a:hover {
 a:active {
   color : black;
 }
+
+.divUl{
+  display: flex;
+  align-content: flex-start;
+  flex-direction: column;
+  flex-wrap: wrap
+}
+.divUl li {
+  list-style: none;
+  margin-bottom:10px;
+  padding-right: 30px;
+  }
+.parentsDiv{
+  display: flex;
+}
+
 </style>

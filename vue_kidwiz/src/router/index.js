@@ -25,7 +25,7 @@ import mypage from "@/views/mypage/MyPage.vue";
 import BoardList from '@/views/boardviews/BoardList.vue';
 import groupList from '@/views/groupviews/groupList.vue';
 
-import menu from '@/components/MenuPage.vue';
+//import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
 import Admin from '@/admin/AdminApp.vue';
 
@@ -35,45 +35,46 @@ import MainLayout from '@/layout/MainLayout.vue'
 import { createRouter,createWebHashHistory } from 'vue-router';
 
 const routes = [
-    {path: '/', component: mainPage, meta: {layout : MainLayout}},    {path: '/menu', name:'testVue', component: testVue, meta: {layout : menu}},
-    {path: '/testVue', name:'testVue', component: testVue, meta: {layout : menu}},
-    {path: '/listTest', name:'listTest', component: listTest, meta: {layout : menu}},
-    {path:'/BoardList', name:'BoardList', component: BoardList, meta: {layout : menu}},
-    {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite, meta: {layout : menu}},
-    {path: '/insertTest', name:'insertTest', component: insertTest, meta: {layout : menu}},
-    {path:"/boardDetail", name:"boardDetail", component: boardDetail, meta: {layout : menu}},
-    {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate, meta: {layout : menu}},
-    {path:"/BoardReply", name:"BoardReply",component:boardReply, meta: {layout : menu}},
+    {path: '/', component: mainPage, meta: {layout : MainLayout}},    
+    {path: '/menu', name:'testVue', component: testVue, meta: {layout : MainLayout}},
+    {path: '/testVue', name:'testVue', component: testVue, meta: {layout : MainLayout}},
+    {path: '/listTest', name:'listTest', component: listTest, meta: {layout : MainLayout}},
+    {path:'/BoardList', name:'BoardList', component: BoardList, meta: {layout : MainLayout}},
+    {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite, meta: {layout : MainLayout}},
+    {path: '/insertTest', name:'insertTest', component: insertTest, meta: {layout : MainLayout}},
+    {path:"/boardDetail", name:"boardDetail", component: boardDetail, meta: {layout : MainLayout}},
+    {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate, meta: {layout : MainLayout}},
+    {path:"/BoardReply", name:"BoardReply",component:boardReply, meta: {layout : MainLayout}},
     {path: '/GroupList', name:'groupList', component: groupList, meta: {layout : MainLayout}},
-    {path:"/groupDetail", name:"groupDetail", component:()=> import("@/views/groupviews/groupDetail.vue"), meta: {layout : menu}},
-    {path:"/BoardReply", name:"BoardReply",component:boardReply, meta: {layout : menu}},
-    {path:"/groupCreate", name:"/groupCreate", component:()=> import("@/views/groupviews/groupCreate.vue"), meta: {layout : menu}},
-    {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue'), meta: {layout : menu}},
+    {path:"/groupDetail", name:"groupDetail", component:()=> import("@/views/groupviews/groupDetail.vue"), meta: {layout : MainLayout}},
+    {path:"/BoardReply", name:"BoardReply",component:boardReply, meta: {layout : MainLayout}},
+    {path:"/groupCreate", name:"/groupCreate", component:()=> import("@/views/groupviews/groupCreate.vue"), meta: {layout : MainLayout}},
+    {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue'), meta: {layout : MainLayout}},
     {path: '/regTime', component: () => import('@/views/regviews/RegTime.vue'), meta: { layout:pop}},
-    {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue'), meta: {layout : menu}},
-    {path: "/groupDetail", name:"groupDetail", component:()=> import("@/views/groupviews/groupDetail.vue"), meta: {layout : menu}},
-    {path: "/BoardReply", name:"BoardReply",component:boardReply, meta: {layout : menu}},
-    {path: "/rsrv", component:()=> import("@/views/RsvAndApply/rsrvTest3.vue"), meta: {layout : menu}},
+    {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue'), meta: {layout : MainLayout}},
+    {path: "/groupDetail", name:"groupDetail", component:()=> import("@/views/groupviews/groupDetail.vue"), meta: {layout : MainLayout}},
+    {path: "/BoardReply", name:"BoardReply",component:boardReply, meta: {layout : MainLayout}},
+    {path: "/rsrv", component:()=> import("@/views/RsvAndApply/rsrvTest3.vue"), meta: {layout : MainLayout}},
     {path: '/rsrvTest', name:'rsrvTest', component: () => import('@/views/RsvAndApply/rsrvTest.vue')},
     {path: '/rsrvTest2', name:'rsrvTest2', component: () => import('@/views/RsvAndApply/rsrvTest2.vue')},
-    {path: '/rsrvTest4', name:'rsrvTest4', component: () => import('@/views/RsvAndApply/rsrvTest4.vue'), meta: {layout : menu} },
+    {path: '/rsrvTest4', name:'rsrvTest4', component: () => import('@/views/RsvAndApply/rsrvTest4.vue'), meta: {layout : MainLayout} },
     {path: '/rsrvTest3', name:'rsrvTest3', component: () => import('@/views/RsvAndApply/rsrvTest3.vue')},
-    {path: '/applyForm1', name:'applyForm1', component: () => import('@/views/RsvAndApply/applyForm1.vue'), props: route => ({ ...route.query }), meta: {layout : menu}},
-    {path: '/jobConsulting', name: 'jobConsulting', component: jobConsulting, meta: {layout : menu}}, // 취업상담 경로 추가
-    {path: '/login', name: 'login', component: login, meta: {layout : menu} }, // 로그인 경로 추가
-    {path: '/mypage', name: 'mypage',component: mypage, meta: {layout : menu}}, // 마이페이지
-    {path: '/simrimain', name: 'SimriMain', component: import('@/views/SimriMain.vue'), meta: {layout : menu}},
-    {path: '/contact', name: 'Contact', component: ContactMap, meta: {layout : menu}},
-    {path: '/counseling', name: 'Counseling', component: CounselingIntro, meta: {layout : menu}},
-    {path: '/counselorshow', name: 'CounselorShow', component: CounselorShow, meta: {layout : menu}},
-    {path: '/faq', name: 'FAQ', component: FaqQuestion, meta: {layout : menu}},
-    {path: '/faqwrite', name: 'FaqWrite', component: FaqWrite, meta: {layout : menu}},
-    {path: '/faq/:id', name: 'FaqDetail', component: FaqDetail, meta: {layout : menu}},// 동적 세그먼트를 포함하는 라우트 추가
-    {path: '/test',name: 'Test',component: TestMain, meta: {layout : menu}},
-    {path: '/test/career',name: 'CareerTest',component: CareerTest, meta: {layout : menu}},
-    {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : menu}},
-    {path: '/admin', name: 'Admin',component: Admin, meta: {layout : menu}},
-    {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : menu}},
+    {path: '/applyForm1', name:'applyForm1', component: () => import('@/views/RsvAndApply/applyForm1.vue'), props: route => ({ ...route.query }), meta: {layout : MainLayout}},
+    {path: '/jobConsulting', name: 'jobConsulting', component: jobConsulting, meta: {layout : MainLayout}}, // 취업상담 경로 추가
+    {path: '/login', name: 'login', component: login, meta: {layout : MainLayout} }, // 로그인 경로 추가
+    {path: '/mypage', name: 'mypage',component: mypage, meta: {layout : MainLayout}}, // 마이페이지
+    {path: '/simrimain', name: 'SimriMain', component: import('@/views/SimriMain.vue'), meta: {layout : MainLayout}},
+    {path: '/contact', name: 'Contact', component: ContactMap, meta: {layout : MainLayout}},
+    {path: '/counseling', name: 'Counseling', component: CounselingIntro, meta: {layout : MainLayout}},
+    {path: '/counselorshow', name: 'CounselorShow', component: CounselorShow, meta: {layout : MainLayout}},
+    {path: '/faq', name: 'FAQ', component: FaqQuestion, meta: {layout : MainLayout}},
+    {path: '/faqwrite', name: 'FaqWrite', component: FaqWrite, meta: {layout : MainLayout}},
+    {path: '/faq/:id', name: 'FaqDetail', component: FaqDetail, meta: {layout : MainLayout}},// 동적 세그먼트를 포함하는 라우트 추가
+    {path: '/test',name: 'Test',component: TestMain, meta: {layout : MainLayout}},
+    {path: '/test/career',name: 'CareerTest',component: CareerTest, meta: {layout : MainLayout}},
+    {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : MainLayout}},
+    {path: '/admin', name: 'Admin',component: Admin, meta: {layout : MainLayout}},
+    {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : MainLayout}},
 ];
 
 
