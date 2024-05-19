@@ -62,6 +62,7 @@
   </div>
   </header>
   <div class="mainContainer">
+    <Main></Main>
     <main>
       <slot />
     </main>
@@ -74,9 +75,13 @@
 import store from "@/views/store";
 import router from '@/router'
 import axios from 'axios';
+import Main from '@/components/Main.vue'
 
 export default {
     name:'MenuPage',
+    component:{
+      Main,
+    },
     data(){
       return{
         navDisplay : 'none'

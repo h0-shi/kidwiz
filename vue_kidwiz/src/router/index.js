@@ -32,7 +32,7 @@ import BoardList from '@/views/boardviews/BoardList.vue';
 // import groupList from '@/views/groupviews/groupList.vue';
 
 import menu from '@/components/MenuPage.vue';
-import pop from '@/layout/RegTimeLayout.vue';
+//import pop from '@/layout/RegTimeLayout.vue';
 import Admin from '@/admin/AdminApp.vue';
 
 
@@ -57,7 +57,7 @@ const routes = [
     {path:"/groupDetail", name:"groupDetail", component:()=> import("@/views/groupviews/groupDetail.vue"), meta: {layout : menu}},
     {path:"/groupCreate", name:"groupCreate", component:()=> import("@/views/groupviews/groupCreate.vue"), meta: {layout : menu}},
     {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue'), meta: {layout : menu}},
-    {path: '/regTime', component: () => import('@/views/regviews/RegTime.vue'), meta: { layout:pop}},
+    {path: '/regTime', component: () => import('@/views/regviews/RegTime.vue')},
     {path: "/BoardReply", name:"BoardReply",component:boardReply, meta: {layout : menu}},
     {path: "/rsrv", component:()=> import("@/views/RsvAndApply/rsrvTest3.vue"), meta: {layout : menu}},
     {path: '/rsrvTest', name:'rsrvTest', component: () => import('@/views/RsvAndApply/rsrvTest.vue')},
