@@ -8,6 +8,7 @@
     "start": "webpack-dev-server --inline --content-base . --history-api-fallback"
   },
   "dependencies": {
+    "@creative-tim-official/argon-dashboard-free": "^1.2.0",
     "@fullcalendar/common": "^5.11.5",
     "@fullcalendar/core": "^6.1.11",
     "@fullcalendar/daygrid": "^6.1.11",
@@ -29,7 +30,7 @@
     "vue": "^3.2.13",
     "vue-awesome-swiper": "^5.0.1",
     "vue-loader": "^17.3.1",
-    "vue-router": "^4.3.2",
+    "vue-router": "^4.0.13",
     "vue3-datepicker": "^0.4.0",
     "vuex": "^4.0.2"
   },
@@ -58,7 +59,9 @@
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
-    "rules": {}
+    "rules": {
+      "vue/multi-word-component-names": 0
+    }
   },
   "browserslist": [
     "> 1%",

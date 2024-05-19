@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div class="bannerImg">
-      <img src="@/assets/testBanner.jpg" alt="">
-    </div>
+    <Main></Main>
     <div class="main1">
       <div class="cardsBox boundary">
         <div class="cards">
@@ -94,8 +92,12 @@
 </template>
 
 <script>
-export default {
+import Main from '@/components/Main.vue';
 
+export default {
+  components:{
+    Main
+  }
 }
 </script>
 
