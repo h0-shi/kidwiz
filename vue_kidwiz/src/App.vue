@@ -6,9 +6,6 @@
   </template>
   
   <script>
-import HeaderMenu from './components/HeaderMenu.vue';
-import Main from './components/Main.vue'
-import Footer from './components/Footer.vue'
 import axios from 'axios';
 import store from './views/store';
 import { useRoute } from 'vue-router';
