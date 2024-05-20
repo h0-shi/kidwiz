@@ -49,4 +49,8 @@ public class RegService {
 		return regDAO.resultWrite(result);
 	}
 
+	public List<RegDTO> getRegResult(String regno) {
+		return regDAO.getRegResult(regno);
+	}
+
 }

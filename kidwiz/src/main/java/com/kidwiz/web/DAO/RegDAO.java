@@ -32,4 +32,6 @@ public interface RegDAO {
 
 	public int resultWrite(ResultDTO result);
 
+	public List<RegDTO> getRegResult(String regno);
+
 }

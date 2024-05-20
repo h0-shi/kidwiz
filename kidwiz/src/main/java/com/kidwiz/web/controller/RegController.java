@@ -81,4 +81,10 @@ public class RegController {
 		int resultWrite = regService.resultWrite(result);
 		return 1;
 	}
+	
+	@GetMapping("/getRegResult")
+	public List<RegDTO> getRegResult(@RequestParam("regno") String regno){
+		List<RegDTO> regResult = regService.getRegResult(regno);
+		return regResult; 
+	}
 }

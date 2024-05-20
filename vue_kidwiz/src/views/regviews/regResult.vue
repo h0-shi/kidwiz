@@ -16,34 +16,34 @@
                 </tr>
                 <tr>
                     <th>내담자 성명</th>
-                    <td>박시호</td>
+                    <td>{{stuName}}</td>
                     <th>학번</th>
-                    <td>{{regno}}</td>
+                    <td>{{stuNum}}</td>
                 </tr>
                 <tr>
                     <th>성별</th>
                     <td>남자</td>
                     <th>소속</th>
-                    <td>심리치료학과</td>
+                    <td>{{major}}</td>
                 </tr>
                 <tr>
                     <th>생년월일</th>
-                    <td>2000.03.21</td>
+                    <td>2000.03.21(수정필요)</td>
                     <th>연락처</th>
-                    <td>010-8942-5728</td>
+                    <td>010-8942-5728(수정필요)</td>
                 </tr>
                 <tr>
                     <th colspan="4" class="cellType">상담 정보</th>
                 </tr>
                 <tr>
                     <th>상담일</th>
-                    <td>2024.05.20</td>
+                    <td>{{ date }}</td>
                     <th>상담자</th>
                     <td>위지언</td>
                 </tr>
                 <tr>
                     <th>상담 시간</th>
-                    <td>14:00 - 15:00</td>
+                    <td>{{time}}</td>
                     <th>상담 회기</th>
                     <td>3/10회기</td>
                 </tr>
@@ -57,39 +57,34 @@
                 </tr>
                 <tr>
                     <th>회기 상담 목표</th>
-                    <td colspan="3"><input type="text"></td>
+                    <td colspan="3">{{goal}}</td>
                 </tr>
-                <tr class="resultContent">
-                    <th>진행 내용</th>
+                <tr>
+                    <th class="resultContent">진행 내용</th>
                     <td colspan="3">
-                        <textarea name=""></textarea>
+                        {{content}}
                     </td>
                 </tr>
                 <tr>
-                    <th>
-                        회기 요약
-                        <td colspan="3">
-                            <input type="text">                            
-                        </td>                                                
-                    </th>
+                    <th>회기 요약</th>
+                    <td colspan="3">
+                        {{summary}}                            
+                    </td>  
                 </tr>
                 <tr>
-                    <th>
-                        회기 과제
-                        <td colspan="3">
-                            <input type="text">                            
-                        </td>                                                
-                    </th>
+                    <th>회기 과제</th>
+                    <td colspan="3">
+                        {{homework}}                            
+                    </td>  
                 </tr>
                 <tr class="opinion">
                     <th>상담사 의견</th>
-                    <td colspan="3"><textarea name=""></textarea></td>
+                    <td colspan="3">{{opinion}}</td>
                 </tr>
             </tbody>
         </table>      
         <section class="btns">
-            <button class="button save">저장</button>
-            <button class="button cancel">취소</button>
+            <button class="button save">수정하기</button>            
         </section>  
         
     </form>
@@ -100,27 +95,47 @@
 <script>
 import axios from 'axios';
 export default {
+    data(){
+        return{
+            stuName : '',
+            date: '',
+            time: '',
+            major : '',     
+            regno : '',
+            stuNum: '',
+            goal: '',
+            content:'',
+            summary:'',
+            homework:'',
+            opinion:'',
+        }
+    },
     mounted() {
         this.regno = this.$route.query.regno;
-        axios.get('http://localhost:3000/regResult?regno='+this.regno).then((res) => {
-            console.log(res.data);
+        axios.get('http://localhost:3000/getRegResult?regno='+this.regno).then((res) => {
+            this.goal = res.data[0].goal;
+            this.content = res.data[0].content;
+            this.summary = res.data[0].summary;
+            this.homework = res.data[0].homework;
+            this.opinion = res.data[0].opinion;            
+            axios.get('http://localhost:3000/regResult?regno='+this.regno).then((res2) => {                        
+                console.log(res2.data[0]);
+                this.stuNum=res2.data[0].stuNum;
+                this.date = res2.data[0].date;
+                this.time = res2.data[0].time;
+                axios.get('http://localhost:3000/memberDetail?stuNum='+this.stuNum).then((response)=>{
+                    this.stuName = response.data[0].name;
+                    this.major = response.data[0].major_name;                    
+                }).catch((error) => {
+                    console.log(error);
+                })
+            }).catch((err) => {
+                console.log(err+'에러디');
+        })
         }).catch((err) => {
             console.log(err+'에러디')
         })
-    },
-    data(){
-        return{
-            regno : '',
-            resultForm : {
-                stuName : '',
-                stuNum: '',
-                date: '',
-                time: '',
-
-            }
-        }
     }
-
 }
 </script>
 
@@ -132,16 +147,6 @@ export default {
     background-color: rgb(255, 255, 255);
     border: 1px soild black;
 }
-.result input{
-    width: 100%;
-    border: 1px solid #c0c0c0;
-}
-.resultContent textarea{
-    width: 100%;
-    height: 100vh;
-    border: 1px solid #c0c0c0;
-    resize: none;
-}
 .formTable{
     width: 100%;
     text-align: center;    
@@ -151,11 +156,7 @@ export default {
 }
 .opinion{
     height: 150px;
-}
-.opinion textarea{
-    height: 150px;
     width: 100%;
-    border: 1px solid #c0c0c0;
 }
 .formTable tr{
     height: 50px;
@@ -170,9 +171,6 @@ export default {
 }
 .cellType{
     height: 30px !important;
-    
-
-
 }
 .btns{
     text-align: right;
