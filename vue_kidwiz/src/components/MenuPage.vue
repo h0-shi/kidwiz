@@ -1,6 +1,7 @@
 <template>
 <div>
   <header>
+
     <div class="nav">
       <nav class="nav-top">
         <span class="top-left">
@@ -10,13 +11,12 @@
         <span class="mainImg">
           <h1>
             <router-link to="/">
-              <img src="@/assets/testLogo.png" alt="">
+              대충 대표 이미지
             </router-link>
           </h1>
         </span>
         <span class="top-right">
-          <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
-          <a to="/login" @click="logout()" v-else>로그아웃</a>
+          <a href="">로그인</a>
           <a href="">회원가입</a>
         </span>
       </nav>
@@ -40,8 +40,6 @@
           <li><router-link to="/listTest">DB테스트</router-link></li>
           <li><router-link to="/BoardList">박선우</router-link></li>
           <li><router-link to="/insertTest">insert 테스트</router-link></li>
-        </ul>
-        <ul>
           <li><router-link to="/regRev">박시호</router-link></li>
           <li><router-link to="/rsrvTest4">예약테스트</router-link></li>
           <li><router-link to="/GroupList">박선우 집단</router-link></li>
@@ -54,8 +52,6 @@
           </li>
           <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/counseling">심리상담 안내</router-link></li>
-        </ul>
-        <ul>
           <li><router-link to="/counselorshow">상담사 소개</router-link></li>
           <li><router-link to="/test">Test</router-link></li>
           <li><router-link to="/faq">FAQ</router-link></li>
@@ -122,10 +118,8 @@
         </div>
       </nav>
     </div>
-  </div>
   </header>
   <div class="mainContainer">
-    <Main></Main>
     <main>
       <slot />
     </main>
@@ -138,26 +132,9 @@
 import store from "@/views/store";
 import router from '@/router'
 import axios from 'axios';
-import Main from '@/components/Main.vue'
 
 export default {
     name:'MenuPage',
-    component:{
-      Main,
-    },
-    data(){
-      return{
-        navDisplay : 'none'
-      };
-    },
-    methods : {
-      navAct(){
-        this.navDisplay = 'block';
-      },
-      navDead(){
-        this.navDisplay = "none";
-      }
-    },
     setup() {
       const logout = () => {
         axios.post("http://localhost:3000/api/account/logout", {}, { withCredentials: true })
@@ -176,10 +153,7 @@ export default {
 .nav{
   top: 0;
   width: 100%;
-  background-color: #fff;
-  border-bottom: 1px solid #c0c0c0;
-  position: fixed;
-  z-index: 999;
+  background-color: skyblue;
 }
 .nav-top{
   height: 80px;
@@ -194,7 +168,7 @@ export default {
   align-items: center;
   height: 50px;
   width: 100%;
-  background-color: #fff;
+  background-color: grey;
   float: hide;
 }
 .nav-bot ul{
@@ -207,21 +181,8 @@ export default {
   
   list-style-type: none;
   text-decoration: none;
-  justify-content: center;
-  align-content: center;
-}
-.secNav{
-  width: 100%;
-}
-.nav-sec ul{
-  width: 20%;
-  padding: 0;
   float: left;
-}
-.nav-sec ul li{
-  list-style-type: none;
-  text-decoration: none;
-  margin-top: 10px;
+  margin: 0 5px;
 }
 .nav-menu{
   display: flex;

@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <h1>정기상담 예약 조회</h1>
-        <table class="table regRev">
+        <!-- <table class="table regRev">
             <thead>
                 <tr>
                     <th scope="col">번호</th>
@@ -10,7 +10,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="n in list" v-bind:key="n.reg_no" v-bind:class="[n.reg_no+'tr']" @click="modalOpen(n.reg_no,n.stuNum)">
+                <tr v-for="n in list" v-bind:key="n.reg_no" v-bind:class="[n.reg_no+'tr']" @click="modalOpen(n.reg_no)">
                     <td scope="row">{{n.reg_no }}</td>
                     <td>{{ n.stuNum }}</td>
                     <td v-if=" n.stat === '0'" v-bind:class="[n.reg_no+'stat']" >
@@ -24,27 +24,23 @@
                 </tr>
             </tbody>
         </table>
-    
-        <!-- 모달 -->
+        
         <div class="modal-wrap" v-show="modalCheck">
             <div class="modal-container">
-                <h5>{{regno}} / {{stuNum}}</h5>
-                <button @click="btnPopup(regno, stuNum)">신청하기</button>
+                <button @click="btnPopup">신청하기</button>
                 <table class="table stu" v-if="responseData && responseData.length > 0">
                     <thead>
                         <tr>
                             <th scope="col">번호</th>
                             <th scope="col">학번</th>
-                            <th scope="col">날짜</th>
-                            <th scope="col">시간</th>
+                            <th scope="col">상태</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="row in responseData" :key="row.regno">
-                            <td scope="row">{{ row.rownum }}</td>
-                            <td>{{ row.stuNum }}</td>
-                            <td>{{ row.DATE }}</td>
-                            <td>{{ row.TIME }}</td>
+                        <tr>
+                            <th scope="row">{{ responseData[0].reg_no }}</th>
+                            <th>{{ responseData[0].stuNum }}</th>
+                            <th>{{ responseData[0].stat }}</th>
                         </tr>
                     </tbody>
                 </table>
@@ -52,58 +48,7 @@
                     <button @click="modalOpen">닫기</button>
                 </div>
             </div>
-        </div>
-        <div class="d-flex justify-content-center">
-          <ul class="pagination" style="">
-    
-            <li class="page-item" v-if="pageMap.currentpage != 1">
-              <span class="page-link" aria-label="Previous" @click="changegroup(1)">&laquo;</span>
-            </li>
-            <li  class="page-item" v-else>
-              <span>
-                <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
-              </span>
-            </li>
-    
-            <li class="page-item" v-if="pageMap.currentpage != 1">
-              <span class="page-link" aria-label="Previous" @click="changegroup(pageMap.currentpage - 1)">&lt;</span>
-            </li>
-            <li v-else>
-              <span>
-                <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
-              </span>
-            </li>
-    
-            <li class="page-item" v-for="n in pageMap.pagelist" :key="n">
-              <span class="page-link active" @click="changegroup(n)" v-if="pageMap.currentpage==n">{{ n }}</span>
-              <span class="page-link" @click="changegroup(n)" v-else>{{ n }}</span>
-            </li>
-    
-            <li class="page-item" v-if="pageMap.currentpage != pageMap.totalpage">
-              <span class="page-link" @click="changegroup(pageMap.currentpage + 1)" aria-label="Next">
-                <span aria-hidden="true">&gt;</span>
-              </span>
-            </li>
-            <li v-else>
-              <span>
-                <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
-              </span>
-            </li>
-    
-    
-            <li class="page-item" v-if="pageMap.currentpage != pageMap.totalpage">
-              <span class="page-link" @click="changegroup(pageMap.totalpage)" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </span>
-            </li>
-            <li v-else>
-              <span>
-                <span class="page-link disabled" aria-label="Previous">&nbsp;</span>
-              </span>
-            </li>
-    
-          </ul>
-        </div>
+        </div> -->
     </div>
     </template>
     
@@ -114,27 +59,18 @@
             return{
                 list:[],
                 modalCheck: false,
-                regno:'',
-                stuNum:'',
-                totalCount:'',
-                pageMap: [],
-    
             }
         },
         mounted(){
-            axios.get('http://localhost:3000/regTotalCount').then((res) => {  
-                this.totalCount = res.data;
-                console.log(this.totalCount);
-                
-                axios.get('http://localhost:3000/test?total='+this.totalCount).then((res) => {
-                this.list = res.data.list;
-                this.pageMap = res.data.pageMap;
-                })
+            axios.get('http://localhost:3000/test').then((res) => {
+                this.list = res.data.list
             })
         },
         methods:{
             al(item,stat){
-                var arrJson = {'reg_no':item.reg_no, 'stat':stat};            
+                var arrJson = {'reg_no':item.reg_no, 'stat':stat};
+                console.log('-------');
+                console.log(arrJson);
                 axios.post('http://localhost:3000/accept',arrJson).then((res)=>{
                     console.log(res);
                     item.stat='1'
@@ -142,32 +78,22 @@
                     console.log(err);
                 })
             },
-            changegroup(page){
-            axios.get("http://localhost:3000/test?total="+this.totalCount+"&page="+page).then((res)=>{
-                this.list=res.data.list
-                this.pageMap=res.data.pageMap
-            }).catch((err)=>{
-                alert(err)
-            })
-            },
-            async modalOpen(reg_no, stuNum){
+            async modalOpen(reg_no){
                 console.log(this.modalCheck==false)
                 if(this.modalCheck == false){
                     await this.getData(reg_no)
                 }
                 this.modalCheck = !this.modalCheck;
-                this.regno = reg_no;
-                this.stuNum = stuNum;
-                console.log(this.regno);
+                console.log(reg_no);
             },
-            btnPopup(regno,stuNum){
-                window.open("#/regTime?stuNum="+stuNum+"&regno="+regno,"_blank","width=950,height=500");
+            btnPopup(){
+                window.open("#/regTime","_blank","width=950,height=500");
             },
             async getData(reg_no){
                 try{
                     const response = await axios.get('http://localhost:3000/regDetail?rgno='+reg_no);
                     this.responseData = response.data;
-                    console.log(this.responseData);
+                    console.log(this.responseData)
                 } catch(error) {
                     console.log('에러 발생: '+error )
                 }
@@ -184,7 +110,6 @@
         width: 100%;
         height: 100%;
         background: rgba(0,0,0,0.4);
-        z-index: 99;
     }
     
     .modal-container{

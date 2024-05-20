@@ -36,9 +36,6 @@ public class VueController {
 			System.out.println("???????");
 			page="1";
 		}
-		if(total == null) {
-			total = "1";
-		}
 		System.out.println(total+"변환 안됨");
 		Map<String, Object> pageMap = Util.pageMap(Integer.parseInt(total),Integer.parseInt(page));
 		List<Map<String, Object>> list = vueService.list(pageMap);
