@@ -32,7 +32,7 @@ a {
 }
 
 .selectedDate {
-  background-color: #20ffda;
+  background-color: #20ffda !important;
 }
 
 
@@ -65,3 +65,42 @@ a {
     pointer-events: none; /* 클릭 불가능 */
     opacity: 0.6; /* 투명도 조절 */
   }
+
+
+  /* 240518 상담 유형 버튼 스타일 추가 */
+  .counseling-type {
+    padding: 10px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    margin-right: 5px;
+  }
+  
+
+
+.counseling-type.selected {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -5px;
+  margin-left: -5px;
+}
+
+.form-row>.col-md-4,
+.form-row>.col-md-8 {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.form-row>.col-md-4 {
+  flex: 0 0 33.333333%;
+  max-width: 33.333333%;
+}
+
+.form-row>.col-md-8 {
+  flex: 0 0 66.666667%;
+  max-width: 66.666667%;
+}

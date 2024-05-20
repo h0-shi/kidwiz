@@ -1,25 +1,50 @@
 <template>
-  <div class="calendar-wrapper">
-    <h2>상담 신청하기</h2>
-    <div class="calendar-content">
-      <div class="calendar-container">
-        <FullCalendar :options="calendarOptions" id="calendar"></FullCalendar>
+  <div class="container calendar-wrapper my-5">
+    <h2 class="text-center mb-4">상담 신청하기</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="calendar-container mb-4">
+          <FullCalendar :options="calendarOptions" id="calendar"></FullCalendar>
+        </div>
       </div>
-      <div class="available-times">
-        <!-- 날짜가 선택되지 않았을 때의 메시지 -->
-        <h3 v-if="!selectedDate" class="initial-message">희망하는 날짜를 선택하시면 <br> 예약 가능 시간이 나타납니다.</h3>
-        <!-- 날짜가 선택되었을 때의 메시지 -->
-        <h3 v-else>{{ selectedDate }}의 예약 가능 시간</h3>
-        <p v-if="isPast">당일 및 이전 날짜는 예약이 불가능합니다.</p>
-        <ul v-else>
-          <li v-for="time in availableTimes" :key="time.id">
-            <label>
-              <input type="radio" v-model="selectedTime" :value="time">
-              {{ time.time }} (남은 자리: {{ time.availableSeats }})
-            </label>
-          </li>
-        </ul>
-        <button v-if="!isPast && availableTimes.length > 0" @click="submitReservation">신청하기</button>
+      <div class="col-md-6">
+        <div class="available-times p-3 border rounded">
+
+          <!-- 240517 상담 유형 선택 추가 -->
+          <div class="counseling-type-selection mb-3">
+            <h3 class="h5 mb-3">상담 유형을 선택하세요:</h3>
+            <div role="group" aria-label="Counseling Types">
+              <button type="button" v-for="type in counselingTypes" :key="type" class="counseling-type"
+                :class="{ 'selected': selectedCounselingType === type }" @click="selectCounselingType(type)">
+                {{ type }}
+              </button>
+            </div>
+          </div>
+
+          <!-- 날짜가 선택되지 않았을 때의 메시지 -->
+          <div v-if="!selectedDate" class="alert alert-info">
+            희망하는 날짜를 선택하시면 <br> 예약 가능 시간이 나타납니다.
+          </div>
+          <!-- 날짜가 선택되었을 때의 메시지 -->
+          <div v-else>
+            <h3 class="h5">{{ selectedDate }}의 예약 가능 시간</h3>
+            <p v-if="isPast">당일 및 이전 날짜는 예약이 불가능합니다.</p>
+            <ul class="list-group">
+              <li v-for="time in availableTimes" :key="time.time"
+                class="list-group-item d-flex justify-content-between align-items-center">
+                <label class="form-check-label">
+                  <input type="radio" v-model="selectedTime" :value="time" :disabled="!time.available"
+                    class="form-check-input me-2">
+                  {{ time.time }}
+                </label>
+                <span class="badge" :class="{ 'bg-success': time.available, 'bg-secondary': !time.available }">
+                  {{ time.available ? '예약 가능' : '예약 불가' }}
+                </span>
+              </li>
+            </ul>
+            <button v-if="!isPast && availableTimes.some(t => t.available)" @click="submitReservation">신청하기</button>
+          </div>
+        </div>
       </div>
     </div>
     <event-modal v-model="showModal" :event="currentEvent"></event-modal>
@@ -33,6 +58,7 @@ import interactionPlugin from '@fullcalendar/interaction';
 import EventModal from './EventModal.vue';
 import axios from 'axios';
 import '../../css/calendar.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default {
   components: {
@@ -47,6 +73,8 @@ export default {
       isPast: false,
       showModal: false, // 모달창 표시 여부
       currentEvent: {}, // 현재 이벤트 객체
+      counselingTypes: ['지도교수 상담', '취업상담', '전문 상담', '심리 상담'], // 상담 유형 추가
+      selectedCounselingType: '', // 선택된 상담 유형 초기화
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
@@ -56,6 +84,7 @@ export default {
         editable: false,
         validRange: { // 오늘부터 한 달까지만 달력에 나오도록
           start: Date.now(),
+          //start: new Date(new Date().setDate(new Date().getDate() + 1)),
           //end: Date.now() + 2592000000,
           end: new Date(new Date().setMonth(new Date().getMonth() + 1))
         },
@@ -76,8 +105,8 @@ export default {
           this.calendarOptions.events = response.data.map(reservation => {
             return {
               title: 'Reservation',
-              start: `${reservation.cdate}T${reservation.startTime}:00`,
-              end: `${reservation.cdate}T${reservation.endTime}:00`
+              start: `${reservation.cdate}T${reservation.ctime.split(' - ')[0]}:00`,
+              end: `${reservation.cdate}T${reservation.ctime.split(' - ')[1]}:00`
             };
           });
         })
@@ -108,17 +137,39 @@ export default {
         return;
       }
 
-      // 더미 데이터 
-      this.availableTimes = [
-        { id: 1, time: '10:00 - 11:00', availableSeats: 3 },
-        { id: 2, time: '11:00 - 12:00', availableSeats: 5 },
-        { id: 3, time: '13:00 - 14:00', availableSeats: 2 },
-        { id: 4, time: '14:00 - 15:00', availableSeats: 1 },
-        { id: 5, time: '15:00 - 16:00', availableSeats: 3 },
-        { id: 6, time: '16:00 - 17:00', availableSeats: 1 },
-        { id: 7, time: '17:00 - 18:00', availableSeats: 1 }
+      //// 더미 데이터 
+      //this.availableTimes = [
+      //  { id: 1, time: '10:00 - 11:00', availableSeats: 3 },
+      //  { id: 2, time: '11:00 - 12:00', availableSeats: 5 },
+      //  { id: 3, time: '13:00 - 14:00', availableSeats: 2 },
+      //  { id: 4, time: '14:00 - 15:00', availableSeats: 1 },
+      //  { id: 5, time: '15:00 - 16:00', availableSeats: 3 },
+      //  { id: 6, time: '16:00 - 17:00', availableSeats: 1 },
+      //  { id: 7, time: '17:00 - 18:00', availableSeats: 1 }
+      //];
+
+      // 예약 가능한 시간대 설정
+      const timeSlots = [
+        '10:00 - 11:00',
+        '11:00 - 12:00',
+        '13:00 - 14:00',
+        '14:00 - 15:00',
+        '15:00 - 16:00',
+        '16:00 - 17:00',
+        '17:00 - 18:00'
       ];
-      //axios
+      axios.get('/api/reservations', { params: { date: info.dateStr } })
+        .then(response => {
+          const reservedTimes = response.data.map(reservation => reservation.ctime);
+          this.availableTimes = timeSlots.map(time => ({
+            time,
+            available: !reservedTimes.includes(time)
+          }));
+        })
+        .catch(error => {
+          console.error("Error fetching available times:", error);
+          this.availableTimes = timeSlots.map(time => ({ time, available: true }));
+        });
 
       //axios.get('/api/available-times', { params: { date: info.dateStr } })
       //  .then(response => {
@@ -143,25 +194,53 @@ export default {
       // this.calendarOptions.events = events;
 
       // 선택한 날짜 강조 스타일 추가
-      let days = document.querySelectorAll(".selectedDate");
-      days.forEach(function (day) {
-        day.classList.remove("selectedDate");
-      });
-      info.dayEl.classList.add("selectedDate");
+      //et days = document.querySelectorAll(".selectedDate");
+      //days.forEach(function (day) {
+      //  day.classList.remove("selectedDate");
+      //});
+      //info.dayEl.classList.add("selectedDate");
+      //},
 
+      let days = document.querySelectorAll(".selectedDate");
+      days.forEach(day => day.classList.remove("selectedDate"));
+      info.dayEl.classList.add("selectedDate");
     },
+    selectCounselingType(type) {
+      this.selectedCounselingType = type;
+    },
+
     submitReservation() {
-      if (!this.selectedTime) {
-        alert("시간을 선택해 주세요.");
+      if (!this.selectedTime || !this.selectedCounselingType) {
+        alert("상담 유형과 시간을 선택해 주세요.");
         return;
+      }
+
+      //240517 선택한 상담 유형에 따라 신청form.vue 다른 곳으로 보내기
+      let formRoute;
+      switch (this.selectedCounselingType) {
+        case '지도교수 상담':
+          formRoute = 'applyForm1';
+          break;
+        case '취업상담':
+          formRoute = 'applyForm2';
+          break;
+        case '전문 상담':
+          formRoute = 'applyForm3';
+          break;
+        case '심리 상담':
+          formRoute = 'applyForm4';
+          break;
+        default:
+          formRoute = 'applyForm5';
       }
       // 폼 제출 로직: 서버에 예약 데이터 전송
       console.log(`Reservation submitted for ${this.selectedDate} at ${this.selectedTime.time}`);
 
-      // 예제 서버 요청 코드 (실제 서버 요청으로 대체해야 함)
+      // 서버로 보내기
       axios.post('/api/reservations', {
         selectedDate: this.selectedDate,
         selectedTime: this.selectedTime.time,
+        selectedCounselingType: this.selectedCounselingType //240517 추가
         // 기타 예약 정보
       }).then(() => {
         // 예약 성공 시 FullCalendar에 이벤트 추가
@@ -174,7 +253,7 @@ export default {
 
         // 예약 완료 후 페이지 이동
         this.$router.push({
-          name: 'applyForm1',
+          name: formRoute,
           //params: {
           //props: {
 
