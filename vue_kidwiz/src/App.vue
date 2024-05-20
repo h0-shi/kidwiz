@@ -17,6 +17,9 @@ import { watch } from 'vue';
   export default {
     name: 'App',
     components: {
+      HeaderMenu,
+      Main,
+      Footer
     },
     setup() {
       const check = () => {
