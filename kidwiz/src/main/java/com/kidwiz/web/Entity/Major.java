@@ -14,12 +14,12 @@ import lombok.Data;
 public class Major {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private int majorId;
 
-	@Column(nullable = false, length = 100)
+	@Column(length = 100)
 	private String majorName;
 
-	@Column(nullable = false, length = 100)
+	@Column(length = 100)
 	private String majorHead;
 	
 }

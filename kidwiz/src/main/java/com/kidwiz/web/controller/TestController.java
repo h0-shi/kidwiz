@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,7 @@ public class TestController {
     // 설문지 제출 -> 결과 생성
     @PostMapping("/submitTest")
     public ResponseEntity<ResultData> submitTest(@RequestBody ResultData resultData) {
+    	
         List<TestResult> testResults = new ArrayList<>();
         int totalScore = 0;
 
