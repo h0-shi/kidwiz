@@ -58,4 +58,7 @@ export default {
 .carousel-item{
   height: 100%;
 }
+#myCarousel{
+  margin-top: -50px;
+}
 </style>

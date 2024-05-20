@@ -1,3 +1,6 @@
+
+
+
 <template>
     <div class="container">
         <h1>정기상담 예약 조회</h1>
@@ -40,7 +43,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="row in responseData" :key="row.regno">
+                        <tr v-for="row in responseData" :key="row.regno" @click="regDetail(row)"> 
                             <td scope="row">{{ row.rownum }}</td>
                             <td>{{ row.stuNum }}</td>
                             <td>{{ row.DATE }}</td>
@@ -149,6 +152,10 @@
             }).catch((err)=>{
                 alert(err)
             })
+            },
+            regDetail(reg){
+                console.log(reg.reg_no);
+                this.$router.push('/regResult?regno='+reg.regno);
             },
             async modalOpen(reg_no, stuNum){
                 console.log(this.modalCheck==false)
