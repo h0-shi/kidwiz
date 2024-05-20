@@ -40,13 +40,11 @@
 </template>
 
 <script>
-import HeaderMenu from '@/components/HeaderMenu.vue';
 import MySidebar from '@/components/MySidebar.vue';
 
 export default {
   name: 'MyConsultations',
   components: {
-    HeaderMenu,
     MySidebar,
   },
   data() {

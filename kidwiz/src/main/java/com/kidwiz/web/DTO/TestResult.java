@@ -42,6 +42,16 @@ public class TestResult {
     @Comment("총점")
     private int totalScore;
 
+    
+//    @Column(name = "id")
+//    private String id;
+//    
+//    @Column(name = "email")
+//    private String email;
+//    
+//    @Column(name = "password")
+//    private String password;
+    
     @Column(name = "tdate")
     @Comment("검사 실시일")
     private LocalDateTime tdate;

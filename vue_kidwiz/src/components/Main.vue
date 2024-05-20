@@ -1,3 +1,4 @@
+@@ -1,61 +0,0 @@
 <template>
 <div id="myCarousel" class="carousel slide mb-6" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -59,3 +60,4 @@ export default {
   height: 100%;
 }
 </style>
+No newline at end of file
