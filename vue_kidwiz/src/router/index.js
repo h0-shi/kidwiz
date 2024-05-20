@@ -9,7 +9,6 @@ import CareerTest from '@/views/testFolder/CareerTest.vue';
 import PersonTest from '@/views/testFolder/PersonTest.vue';
 import ResultPage from '@/views/testFolder/ResultPage.vue';
 import mainPage from '@/views/mainPage.vue';
-
 import testVue from "@/views/TestVue.vue";
 import listTest from "@/views/ListTest.vue";
 import Boardwrite from "@/views/boardviews/BoardWrite.vue";
@@ -26,20 +25,16 @@ import MyGroupConsulte from '@/views/mypage/MyGroupConsulte.vue';
 import MyQna from '@/views/mypage/MyQna.vue';
 import MyReviews from '@/views/mypage/MyReviews.vue';
 import MySimri from '@/views/mypage/MySimri.vue';
-
 import BoardList from '@/views/boardviews/BoardList.vue';
-
 //import menu from '@/components/MenuPage.vue';
+
 import pop from '@/layout/RegTimeLayout.vue';
 import Admin from '@/admin/AdminApp.vue';
-
-
-import MainLayout from '@/layout/MainLayout.vue'
+import MainLayout from '@/layout/MainLayout.vue';
 //import header from '@/components/Header.vue'
+import secMenuTest from '@/views/regviews/secMenuTest.vue';
 
 import { createRouter,createWebHashHistory } from 'vue-router';
-
-
 
 const routes = [
     {path: '/', component: mainPage, meta: {layout : MainLayout}},    
@@ -84,8 +79,9 @@ const routes = [
     {path: '/mygroup', name: 'mygroup', component: MyGroupConsulte, meta: { layout: MainLayout } },
     {path: '/myqna', name: 'myqna', component: MyQna, meta: { layout: MainLayout } },
     {path: '/myreviews', name: 'myreviews', component: MyReviews, meta: { layout: MainLayout } },
-    {path: '/mysimri', name: 'mysimri', component: MySimri, meta: { layout: MainLayout } }
-
+    {path: '/mysimri', name: 'mysimri', component: MySimri, meta: { layout: MainLayout } },
+    {path: '/secMenuTest', name: 'secMenuTest', component: secMenuTest, meta: { layout: MainLayout } },
+    
 ];
 
 const router = createRouter({

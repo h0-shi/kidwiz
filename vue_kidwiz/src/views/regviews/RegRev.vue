@@ -28,7 +28,7 @@
         <!-- 모달 -->
         <div class="modal-wrap" v-show="modalCheck">
             <div class="modal-container">
-                <h5>{{regno}} / {{stuNum}}</h5>
+                <h5>{{regno}} / {{stuNum}} // {{ check }}</h5>
                 <button @click="btnPopup(regno, stuNum)">신청하기</button>
                 <table class="table stu" v-if="responseData && responseData.length > 0">
                     <thead>
@@ -118,10 +118,14 @@
                 stuNum:'',
                 totalCount:'',
                 pageMap: [],
+                check:'',
     
             }
         },
         mounted(){
+            if(this.$store.state.account.id == 0){
+                alert("로그인 됨");
+            }
             axios.get('http://localhost:3000/regTotalCount').then((res) => {  
                 this.totalCount = res.data;
                 console.log(this.totalCount);

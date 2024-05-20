@@ -40,7 +40,7 @@ export default {
       });
 
     const addToCart = (itemId) => {
-        axios.post(`http://localhost:3000/api/cart/items/${itemId}`,{}, { withCredentials: true })
+        axios.post('http://localhost:3000/api/cart/items',{itemId}, { withCredentials: true })
         .then(() => {
           console.log('success');
         })

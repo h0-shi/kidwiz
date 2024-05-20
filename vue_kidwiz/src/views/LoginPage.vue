@@ -1,9 +1,9 @@
 <template>
   <div>
   <h1>Login</h1>
-    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
-           @keyup.enter="submit()" v-model="state.form.email">
-    <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+    <input type="text" class="form-control" id="floatingInput" placeholder="학번을 입력해주세요"
+           @keyup.enter="submit()" v-model="state.form.id">
+    <input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호를 입력해주세요"
      @keyup.enter="submit()" v-model="state.form.password">
   <button @click="submit()">Sign in</button>
 </div>
@@ -19,7 +19,7 @@ export default {
 setup() {
   const state = reactive({
     form: {
-      email: "",
+      id: "",
       password: ""
     }
   })
