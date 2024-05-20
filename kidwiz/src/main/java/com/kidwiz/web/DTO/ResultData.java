@@ -19,4 +19,6 @@ public class ResultData {
     private String recommendedJobs;
     private List<String> personalTraits;
     private LocalDateTime tdate;
+    
+    private List<Integer> userAnswersArray;
 }

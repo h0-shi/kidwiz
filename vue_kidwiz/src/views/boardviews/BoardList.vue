@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container py-5 mt-5">
     <table class="table">
       <tr>
         <th>번호</th>
@@ -27,48 +27,44 @@
       <ul class="pagination" style="">
 
         <li class="page-item" v-if="pageMap.currentpage != 1">
-          <span class="page-link" aria-label="Previous" @click="changeboard(1)">&laquo;</span>
+          <button class="page-link" aria-label="Previous" @click="changeboard(1)">&laquo;</button>
         </li>
         <li v-else>
           <span>
-            <span class="page-link" aria-label="Previous">&nbsp;</span>
+            <button class="page-link" disabled="disabled" aria-label="Previous">&nbsp;</button>
           </span>
         </li>
 
         <li class="page-item" v-if="pageMap.currentpage != 1">
-          <span class="page-link" aria-label="Previous" @click="changeboard(pageMap.currentpage - 1)">&lt;</span>
+          <button class="page-link" aria-label="Previous" @click="changeboard(pageMap.currentpage - 1)">&lt;</button>
         </li>
         <li v-else>
           <span>
-            <span class="page-link" aria-label="Previous">&nbsp;</span>
+            <button class="page-link" disabled="disabled" aria-label="Previous">&nbsp;</button>
           </span>
         </li>
 
         <li class="page-item" v-for="n in pageMap.pagelist" :key="n">
-          <span class="page-link active" @click="changeboard(n)" v-if="pageMap.currentpage==n">{{ n }}</span>
-          <span class="page-link" @click="changeboard(n)" v-else>{{ n }}</span>
+          <button class="page-link active" @click="changeboard(n)" v-if="pageMap.currentpage==n">{{ n }}</button>
+          <button class="page-link" @click="changeboard(n)" v-else>{{ n }}</button>
         </li>
 
         <li class="page-item" v-if="pageMap.currentpage != pageMap.totalpage">
-          <span class="page-link" @click="changeboard(pageMap.currentpage + 1)" aria-label="Next">
-            <span aria-hidden="true">&gt;</span>
-          </span>
+            <button class="page-link" @click="changeboard(pageMap.currentpage + 1)" aria-label="Next" aria-hidden="true">&gt;</button>
         </li>
         <li v-else>
           <span>
-            <span class="page-link" aria-label="Previous">&nbsp;</span>
+            <button class="page-link" disabled="disabled" aria-label="Previous">&nbsp;</button>
           </span>
         </li>
 
 
         <li class="page-item" v-if="pageMap.currentpage != pageMap.totalpage">
-          <span class="page-link" @click="changeboard(pageMap.totalpage)" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </span>
+            <button class="page-link" @click="changeboard(pageMap.totalpage)" aria-label="Next" aria-hidden="true">&raquo;</button>
         </li>
         <li v-else>
           <span>
-            <span class="page-link" aria-label="Previous">&nbsp;</span>
+            <button class="page-link" disabled="disabled" aria-label="Previous">&nbsp;</button>
           </span>
         </li>
 
@@ -122,7 +118,7 @@ export default {
 };
 </script>
 
-<style>
+<style scope>
  .pagination{
   --bs-pagination-border-color:none;
  }
