@@ -57,6 +57,11 @@
           <li><router-link to="/contact">Contact</router-link></li>
           <li><router-link to="/admin">관리자페이지</router-link></li>
         </ul>
+        <ul>
+          <li><router-link to="/applyForm3">applyForm3</router-link></li>
+          <li><router-link to="/resultWrite">resultWrite</router-link></li>
+          <li><router-link to="/regResult">regResult</router-link></li>
+        </ul>
       </nav>
     </div>
   </div>
@@ -189,7 +194,7 @@ a:active {
   color : black;
 }
 .mainContainer{
-  margin-top: 135px;
+  margin-top: 185px;
 }
 
 </style>

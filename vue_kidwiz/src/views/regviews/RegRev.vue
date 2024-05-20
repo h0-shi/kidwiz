@@ -1,3 +1,6 @@
+
+
+
 <template>
     <div class="container">
         <h1>정기상담 예약 조회</h1>
@@ -37,14 +40,21 @@
                             <th scope="col">학번</th>
                             <th scope="col">날짜</th>
                             <th scope="col">시간</th>
+                            <th>일지 작성 여부</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="row in responseData" :key="row.regno">
+                        <tr v-for="row in responseData" :key="row.regno"> 
                             <td scope="row">{{ row.rownum }}</td>
                             <td>{{ row.stuNum }}</td>
-                            <td>{{ row.DATE }}</td>
-                            <td>{{ row.TIME }}</td>
+                            <td>{{ row.date }}</td>
+                            <td>{{ row.time }}</td>
+                            <td v-if="row.writed === 0">
+                                <button class="save" @click="regWrite(row)">일지 작성</button>
+                            </td>
+                            <td v-if="row.writed === 1">
+                                <button class="done" @click="regDetail(row)">일지 보기</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -118,8 +128,7 @@
                 stuNum:'',
                 totalCount:'',
                 pageMap: [],
-                check:'',
-    
+                writed:'',
             }
         },
         mounted(){
@@ -153,6 +162,10 @@
             }).catch((err)=>{
                 alert(err)
             })
+            },
+            regDetail(reg){
+                console.log(reg.reg_no);
+                this.$router.push('/regResult?regno='+reg.regno);
             },
             async modalOpen(reg_no, stuNum){
                 console.log(this.modalCheck==false)
@@ -201,5 +214,10 @@
         border-radius: 10px;
         padding: 20px;
         box-sizing: border-box;
+    }
+    .done{
+        color : black;
+        background-color: white;
+        border: 1px solid #c0c0c0;
     }
     </style>
