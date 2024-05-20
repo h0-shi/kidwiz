@@ -34,6 +34,7 @@ import MainLayout from '@/layout/MainLayout.vue';
 //import header from '@/components/Header.vue'
 import secMenuTest from '@/views/regviews/secMenuTest.vue';
 import applyForm3 from '@/views/regviews/applyForm3.vue';
+import resultWrite from '@/views/regviews/resultWrite.vue';
 import regResult from '@/views/regviews/regResult.vue';
 
 
@@ -85,7 +86,9 @@ const routes = [
     {path: '/mysimri', name: 'mysimri', component: MySimri, meta: { layout: MainLayout } },
     {path: '/secMenuTest', name: 'secMenuTest', component: secMenuTest, meta: { layout: MainLayout } },
     {path: '/applyForm3', name: 'applyForm3', component: applyForm3, meta: { layout: MainLayout } },
+    {path: '/resultWrite', name: 'resultWrite', component: resultWrite, meta: { layout: MainLayout } },
     {path: '/regResult', name: 'regResult', component: regResult, meta: { layout: MainLayout } },
+    
 
     
     

@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.kidwiz.web.DAO.RegDAO;
+import com.kidwiz.web.DTO.MemberDTO;
 import com.kidwiz.web.DTO.RegDTO;
+import com.kidwiz.web.DTO.ResultDTO;
 
 @Component
 public class RegService {
@@ -33,6 +35,18 @@ public class RegService {
 
 	public int regTotalCount() {
 		return regDAO.regTotalCount();
+	}
+	
+	public List<RegDTO> regResult(String regno){
+		return regDAO.regResult(regno);
+	}
+
+	public List<MemberDTO> memberDetail(String stuNum) {
+		return regDAO.memberDetail(stuNum);
+	}
+
+	public int resultWrite(ResultDTO result) {
+		return regDAO.resultWrite(result);
 	}
 
 }

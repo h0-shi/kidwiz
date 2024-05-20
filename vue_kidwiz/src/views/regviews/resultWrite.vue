@@ -2,7 +2,7 @@
   <div class="mainContainer boundary">
     <h1>상담 일지</h1>
     <div class="formContainer">
-    <form action="" class="result">
+    <form @submit.prevent="formSubmit" class="result" id="result">
         <table class=formTable>
             <colgroup>
                 <col style="width:16%">
@@ -16,74 +16,70 @@
                 </tr>
                 <tr>
                     <th>내담자 성명</th>
-                    <td>박시호</td>
+                    <td>{{stuName}}</td>
                     <th>학번</th>
-                    <td>{{regno}}</td>
+                    <td>{{resultForm.stuNum}}</td>
                 </tr>
                 <tr>
                     <th>성별</th>
-                    <td>남자</td>
+                    <td>남자(수정필요)</td>
                     <th>소속</th>
-                    <td>심리치료학과</td>
+                    <td>{{major}}</td>
                 </tr>
                 <tr>
                     <th>생년월일</th>
-                    <td>2000.03.21</td>
+                    <td>2000.03.21(수정필요)</td>
                     <th>연락처</th>
-                    <td>010-8942-5728</td>
+                    <td>010-8942-5728(수정필요)</td>
                 </tr>
                 <tr>
                     <th colspan="4" class="cellType">상담 정보</th>
                 </tr>
                 <tr>
                     <th>상담일</th>
-                    <td>2024.05.20</td>
+                    <td>{{date}}</td>
                     <th>상담자</th>
-                    <td>위지언</td>
+                    <td>위지언(수정필요)</td>
                 </tr>
                 <tr>
                     <th>상담 시간</th>
-                    <td>14:00 - 15:00</td>
+                    <td>{{time}}</td>
                     <th>상담 회기</th>
-                    <td>3/10회기</td>
+                    <td>3/10회기(수정필요)</td>
                 </tr>
                 <tr>
                     <th class="summary">지난 회기 과제 / 요약</th>
                     <td colspan="3">
-                        과제 : 뭐시기
+                        과제 : 뭐시기 (수정필요)
                         <br><br>
-                        요약 : 저시기
+                        요약 : 저시기 (수정필요)
                     </td>
                 </tr>
                 <tr>
                     <th>회기 상담 목표</th>
-                    <td colspan="3"><input type="text"></td>
+                    <td colspan="3"><input type="text" v-model="resultForm.goal"></td>
                 </tr>
                 <tr class="resultContent">
                     <th>진행 내용</th>
                     <td colspan="3">
-                        <textarea name=""></textarea>
+                        <textarea name="" v-model="resultForm.content"></textarea>
                     </td>
                 </tr>
                 <tr>
-                    <th>
-                        회기 요약
-                        <td colspan="3">
-                            <input type="text">                            
-                        </td>                                                
-                    </th>
+                    <th>회기 요약</th>
+                    <td colspan="3">
+                        <input type="text" v-model="resultForm.summary">                            
+                    </td>    
                 </tr>
                 <tr>
-                    <th>
-                        회기 과제
-                        <td colspan="3">
-                            <input type="text">                            
-                        </td>                                                
-                    </th>
+                    <th>회기 과제</th>
+                    <td colspan="3">
+                        <input type="text" v-model="resultForm.homework">                            
+                    </td>    
                 </tr>
                 <tr class="opinion">
                     <th>상담사 의견</th>
-                    <td colspan="3"><textarea name=""></textarea></td>
+                    <td colspan="3"><textarea name="" v-model="resultForm.opinion"></textarea></td>
                 </tr>
             </tbody>
         </table>      
@@ -94,33 +90,56 @@
         
     </form>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
 import axios from 'axios';
 export default {
+    data(){
+        return{
+            stuName : '',
+            date: '',
+            time: '',
+            major : '',
+            resultForm : {                
+                regno : '',
+                stuNum: '',
+                goal: '',
+                content:'',
+                summary:'',
+                homework:'',
+                opinion:'',
+            }
+        }
+    },
     mounted() {
-        this.regno = this.$route.query.regno;
-        axios.get('http://localhost:3000/regDetail?regno='+this.regno).then((res) => {
-            console.log(res);
+        this.resultForm.regno = this.$route.query.regno;
+        axios.get('http://localhost:3000/regResult?regno='+this.resultForm.regno).then((res) => {        
+            this.resultForm.stuNum = res.data[0].stuNum;            
+            this.date = res.data[0].date;
+            this.time = res.data[0].time;
+
+            axios.get('http://localhost:3000/memberDetail?stuNum='+this.resultForm.stuNum).then((response)=>{
+            this.stuName = response.data[0].name;
+            this.major = response.data[0].major_name;
+        }).catch((error) => {
+            console.log(error);
+        })
         }).catch((err) => {
             console.log(err+'에러디');
         })
     },
-    data(){
-        return{
-            regno : '',
-            resultForm : {
-                stuName : '',
-                stuNum: '',
-                date: '',
-                time: '',
-
-            }
+    methods: {
+        formSubmit(){
+            axios.post('http://localhost:3000/resultWrite',this.resultForm).then((res) => {
+                console.log(res);
+            }).catch((err) => {
+                console.log(err);
+            })
+            console.log(this.resultForm);
         }
     }
-
 }
 </script>
 

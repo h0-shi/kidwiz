@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kidwiz.web.DTO.MemberDTO;
 import com.kidwiz.web.DTO.RegDTO;
+import com.kidwiz.web.DTO.ResultDTO;
 import com.kidwiz.web.service.RegService;
 import com.kidwiz.web.service.VueService;
 
@@ -59,5 +61,24 @@ public class RegController {
 	@GetMapping("/regTotalCount")
 	public int regTotalPage() {
 		return regService.regTotalCount();
+	}
+	
+	@GetMapping("/regResult")
+	public List<RegDTO> regResult(@RequestParam("regno") String regno){
+		List<RegDTO> result = regService.regResult(regno);
+		
+		return result;
+	}
+	
+	@GetMapping("/memberDetail")
+	public List<MemberDTO> memberDetail(@RequestParam("stuNum") String stuNum){
+		List<MemberDTO> memberDetail = regService.memberDetail(stuNum);
+		return memberDetail;
+	}
+	
+	@PostMapping("/resultWrite")
+	public int resultWrite(@RequestBody ResultDTO result) {
+		int resultWrite = regService.resultWrite(result);
+		return 1;
 	}
 }

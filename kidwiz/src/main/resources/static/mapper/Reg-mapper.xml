@@ -22,6 +22,20 @@
 	</insert>
 	
 	<select id="regTotalCount">
-	SELECT COUNT(*) FROM reg_consulting
+		SELECT COUNT(*) FROM reg_consulting
 	</select>
+	
+	<select id="regResult" parameterType="String">
+		SELECT * FROM timeTestReg WHERE regno = #{regno}
+	</select>
+	
+	<select id="memberDetail" parameterType="String">
+		SELECT * FROM members WHERE id = #{stuNum}
+	</select>
+	
+	<insert id="resultWrite" parameterType="map">
+		INSERT INTO counResult (counNum, stuNum, proNum, goal, content, summary,homework, opinion) 
+		VALUES (#{regno}, #{stuNum}, 000321, #{goal}, #{content}, #{summary}, #{homework}, #{opinion})
+	</insert>
+	
 </mapper>

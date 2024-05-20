@@ -102,10 +102,10 @@ import axios from 'axios';
 export default {
     mounted() {
         this.regno = this.$route.query.regno;
-        axios.get('http://localhost:3000/regDetail?regno='+this.regno).then((res) => {
-            console.log(res);
+        axios.get('http://localhost:3000/regResult?regno='+this.regno).then((res) => {
+            console.log(res.data);
         }).catch((err) => {
-            console.log(err+'에러디');
+            console.log(err+'에러디')
         })
     },
     data(){
