@@ -19,11 +19,9 @@ import boardUpdate from "@/views/boardviews/BoardUpdate.vue";
 import boardReply from "@/views/boardviews/BoardReply.vue";
 import login from "@/views/LoginPage.vue";
 import jobConsulting from "@/views/JobConsulting.vue"; // 취업상담
-import jobConsultingSim from "@/views/JobConsultingSim.vue"; // 취업상담(심리)
 import mypage from "@/views/mypage/MyPage.vue";
 
 import BoardList from '@/views/boardviews/BoardList.vue';
-import groupList from '@/views/groupviews/groupList.vue';
 
 import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
@@ -57,7 +55,6 @@ const routes = [
     {path: '/rsrvTest3', name:'rsrvTest3', component: () => import('@/views/RsvAndApply/rsrvTest3.vue')},
     {path: '/applyForm1', name:'applyForm1', component: () => import('@/views/RsvAndApply/applyForm1.vue'), props: route => ({ ...route.query }), meta: {layout : menu}},
     {path: '/jobConsulting', name: 'jobConsulting', component: jobConsulting, meta: {layout : menu}}, // 취업상담 경로 추가
-    {path: '/jobConsultingSim', name: 'jobConsultingSim', component: jobConsultingSim, meta: {layout : menu}}, // 취업상담 경로 추가(심리검사)
     {path: '/login', name: 'login', component: login, meta: {layout : menu} }, // 로그인 경로 추가
     {path: '/mypage', name: 'mypage',component: mypage, meta: {layout : menu}}, // 마이페이지
     {path: '/simrimain', name: 'SimriMain', component: () => import('@/views/SimriMain.vue'), meta: {layout : menu}},

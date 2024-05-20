@@ -30,7 +30,6 @@
           <li><router-link to="/rsrvTest4">예약테스트</router-link></li>
           <li><router-link to="/GroupList">박선우 집단</router-link></li>
           <li><router-link to="/jobConsulting">취업상담</router-link></li>
-          <li><router-link to="/jobConsultingSim">취업상담(직업심리검사)</router-link></li>
           <li v-if="$store.state.account.id"><router-link to="/mypage">마이페이지</router-link></li>
           <li>
           <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
