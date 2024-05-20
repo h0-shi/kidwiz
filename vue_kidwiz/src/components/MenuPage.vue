@@ -48,6 +48,7 @@
           </li>
           <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/counseling">심리상담 안내</router-link></li>
+          <li><router-link to="/secMenuTest">다증레이아웃</router-link></li>
         </ul>
         <ul>
           <li><router-link to="/counselorshow">상담사 소개</router-link></li>
