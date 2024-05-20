@@ -23,7 +23,7 @@ import jobConsultingSim from "@/views/JobConsultingSim.vue"; // 취업상담(심
 import mypage from "@/views/mypage/MyPage.vue";
 
 import BoardList from '@/views/boardviews/BoardList.vue';
-import groupList from '@/views/groupviews/groupList.vue';
+//import groupList from '@/views/groupviews/groupList.vue';
 
 import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
