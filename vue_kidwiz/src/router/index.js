@@ -19,7 +19,6 @@ import boardUpdate from "@/views/boardviews/BoardUpdate.vue";
 import boardReply from "@/views/boardviews/BoardReply.vue";
 import login from "@/views/LoginPage.vue";
 import jobConsulting from "@/views/JobConsulting.vue"; // 취업상담
-//import jobConsultingSim from "@/views/JobConsultingSim.vue"; // 취업상담(심리)
 import mypage from "@/views/mypage/MyPage.vue";
 import MyInfo from '@/views/mypage/MyInfo.vue';
 import MyConsultations from '@/views/mypage/MyConsultations.vue';
@@ -29,7 +28,6 @@ import MyReviews from '@/views/mypage/MyReviews.vue';
 import MySimri from '@/views/mypage/MySimri.vue';
 
 import BoardList from '@/views/boardviews/BoardList.vue';
-// import groupList from '@/views/groupviews/groupList.vue';
 
 //import menu from '@/components/MenuPage.vue';
 import pop from '@/layout/RegTimeLayout.vue';
