@@ -20,9 +20,14 @@
               </button>
             </div>
           </div>
+          
+          <!-- 날짜 클릭 전에 상담 유형이 선택되지 않았을 때의 메시지 -->
+          <div v-if="showCounselingTypeAlert" class="alert alert-warning">
+            상담 유형을 먼저 선택해주세요.
+          </div>
 
           <!-- 날짜가 선택되지 않았을 때의 메시지 -->
-          <div v-if="!selectedDate" class="alert alert-info">
+          <div v-if="!selectedDate && !showCounselingTypeAlert" class="alert alert-info">
             희망하는 날짜를 선택하시면 <br> 예약 가능 시간이 나타납니다.
           </div>
           <!-- 날짜가 선택되었을 때의 메시지 -->
@@ -75,6 +80,8 @@ export default {
       currentEvent: {}, // 현재 이벤트 객체
       counselingTypes: ['지도교수 상담', '취업상담', '전문 상담', '심리 상담'], // 상담 유형 추가
       selectedCounselingType: '', // 선택된 상담 유형 초기화
+      showCounselingTypeAlert: false, // 상담 유형 선택 알림 표시 여부
+
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
         initialView: 'dayGridMonth',
@@ -115,6 +122,15 @@ export default {
         });
     },
     fetchDateInfo(info) {
+
+      //상담유형 미선택 시 날짜누르면 alert
+      if (!this.selectedCounselingType) { 
+        this.showCounselingTypeAlert = true;
+        return;
+      }
+      this.showCounselingTypeAlert = false;
+
+
       this.selectedDate = info.dateStr;
       this.selectedTime = null;  // 시간 선택 초기화
 
@@ -207,6 +223,8 @@ export default {
     },
     selectCounselingType(type) {
       this.selectedCounselingType = type;
+      this.showCounselingTypeAlert = false;
+
     },
 
     submitReservation() {
@@ -260,8 +278,8 @@ export default {
           query: { // params, prop 대신 query 사용 - url로 값 띄우고 전달
             selectedDate: this.selectedDate,
             //selectedTime: this.selectedTime ? this.selectedTime.time : ''
-            selectedTime: this.selectedTime.time // 여기에서 'time' 프로퍼티에 접근하여 문자열 형태로 전달
-
+            selectedTime: this.selectedTime.time, // 여기에서 'time' 프로퍼티에 접근하여 문자열 형태로 전달
+            selectedCounselingType: this.selectedCounselingType
           }
         });
       }).catch(error => {
