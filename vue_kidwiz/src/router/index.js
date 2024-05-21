@@ -9,7 +9,6 @@ import CareerTest from '@/views/testFolder/CareerTest.vue';
 import PersonTest from '@/views/testFolder/PersonTest.vue';
 import ResultPage from '@/views/testFolder/ResultPage.vue';
 import mainPage from '@/views/mainPage.vue';
-
 import testVue from "@/views/TestVue.vue";
 import listTest from "@/views/ListTest.vue";
 import Boardwrite from "@/views/boardviews/BoardWrite.vue";
@@ -20,26 +19,27 @@ import boardReply from "@/views/boardviews/BoardReply.vue";
 import login from "@/views/LoginPage.vue";
 import jobConsulting from "@/views/JobConsulting.vue"; // 취업상담
 import mypage from "@/views/mypage/MyPage.vue";
-import MyInfo from '@/views/mypage/MyInfo.vue';
 import MyConsultations from '@/views/mypage/MyConsultations.vue';
 import MyGroupConsulte from '@/views/mypage/MyGroupConsulte.vue';
 import MyQna from '@/views/mypage/MyQna.vue';
 import MyReviews from '@/views/mypage/MyReviews.vue';
 import MySimri from '@/views/mypage/MySimri.vue';
-
 import BoardList from '@/views/boardviews/BoardList.vue';
+//import menu from '@/components/MenuPage.vue';
 
 import pop from '@/layout/RegTimeLayout.vue';
+import MainLayout from '@/layout/MainLayout.vue';
+//import header from '@/components/Header.vue'
+import secMenuTest from '@/views/regviews/secMenuTest.vue';
+import applyForm3 from '@/views/regviews/applyForm3.vue';
+import resultWrite from '@/views/regviews/resultWrite.vue';
+import regResult from '@/views/regviews/regResult.vue';
+
 import admin from '@/layout/AdminSidebar.vue';
-
 import adminMemberControl from '@/layout/AdminSidebar.vue';
-
-import MainLayout from '@/layout/MainLayout.vue'
 import MemberControl from '@/components/MemberControl.vue'
 
 import { createRouter,createWebHashHistory } from 'vue-router';
-
-
 
 const routes = [
     {path: '/', component: mainPage, meta: {layout : MainLayout}},    
@@ -84,12 +84,16 @@ const routes = [
     
     {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : MainLayout}},
     {path: '/mypage', name: 'mypage', component: mypage, meta: {layout : MainLayout}},
-    {path: '/myinfo', name: 'myinfo', component: MyInfo, meta: { layout: MainLayout } },
     {path: '/myconsultations', name: 'myconsultations', component: MyConsultations, meta: { layout: MainLayout } },
     {path: '/mygroup', name: 'mygroup', component: MyGroupConsulte, meta: { layout: MainLayout } },
     {path: '/myqna', name: 'myqna', component: MyQna, meta: { layout: MainLayout } },
     {path: '/myreviews', name: 'myreviews', component: MyReviews, meta: { layout: MainLayout } },
-    {path: '/mysimri', name: 'mysimri', component: MySimri, meta: { layout: MainLayout } }
+    {path: '/mysimri', name: 'mysimri', component: MySimri, meta: { layout: MainLayout } },
+    {path: '/secMenuTest', name: 'secMenuTest', component: secMenuTest, meta: { layout: MainLayout } },
+    {path: '/applyForm3', name: 'applyForm3', component: applyForm3, meta: { layout: MainLayout } },
+    {path: '/resultWrite', name: 'resultWrite', component: resultWrite, meta: { layout: MainLayout } },
+    {path: '/regResult', name: 'regResult', component: regResult, meta: { layout: MainLayout } },
+    
 
 
 ];

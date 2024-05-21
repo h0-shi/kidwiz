@@ -1,9 +1,9 @@
 <template>
   <div>
-    <HeaderMenu></HeaderMenu>
+    <MenuPage />
+    <MyPageSecMenu />
     <div class="container-fluid mt-5 pt-4">
       <div class="row">
-        <MySidebar></MySidebar>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
           <h1> 아래는 예시입니다. 수정 필수! </h1><br><hr>
           <h1 class="mb-4">나의 상담 내역</h1>
@@ -40,12 +40,14 @@
 </template>
 
 <script>
-import MySidebar from '@/components/MySidebar.vue';
+import MenuPage from '@/components/MenuPage.vue';
+import MyPageSecMenu from '@/views/mypage/MyPageSecMenu.vue';
 
 export default {
   name: 'MyConsultations',
   components: {
-    MySidebar,
+    MenuPage,
+    MyPageSecMenu
   },
   data() {
     return {

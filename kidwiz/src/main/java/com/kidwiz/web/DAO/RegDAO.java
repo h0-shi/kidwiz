@@ -6,7 +6,9 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.kidwiz.web.DTO.MemberDTO;
 import com.kidwiz.web.DTO.RegDTO;
+import com.kidwiz.web.DTO.ResultDTO;
 
 @Repository
 @Mapper
@@ -23,5 +25,13 @@ public interface RegDAO {
 	public int regSubmit(RegDTO application);
 
 	public int regTotalCount();
+
+	public List<RegDTO> regResult(String regno);
+
+	public List<MemberDTO> memberDetail(String stuNum);
+
+	public int resultWrite(ResultDTO result);
+
+	public List<RegDTO> getRegResult(String regno);
 
 }
