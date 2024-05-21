@@ -1,6 +1,7 @@
 import ContactMap from '@/views/counselingFolder/ContactMap.vue';
 import CounselingIntro from '@/views/counselingFolder/CounselingIntro.vue';
 import CounselorShow from '@/views/counselingFolder/CounselorShow.vue';
+import SimriSecMenu from '@/views/counselingFolder/SimriSecMenu.vue';
 import FaqQuestion from '@/views/faqFolder/FaqQuestion.vue';
 import FaqWrite from '@/views/faqFolder/FaqWrite.vue'; 
 import FaqDetail from '@/views/faqFolder/FaqDetail.vue'; 
@@ -71,6 +72,7 @@ const routes = [
     {path: '/contact', name: 'Contact', component: ContactMap, meta: {layout : MainLayout}},
     {path: '/counseling', name: 'Counseling', component: CounselingIntro, meta: {layout : MainLayout}},
     {path: '/counselorshow', name: 'CounselorShow', component: CounselorShow, meta: {layout : MainLayout}},
+    {path: '/simrisec', name: 'simrisec', component: SimriSecMenu, meta: {layout : MainLayout}},
     {path: '/faq', name: 'FAQ', component: FaqQuestion, meta: {layout : MainLayout}},
     {path: '/faqwrite', name: 'FaqWrite', component: FaqWrite, meta: {layout : MainLayout}},
     {path: '/faq/:id', name: 'FaqDetail', component: FaqDetail, meta: {layout : MainLayout}},// 동적 세그먼트를 포함하는 라우트 추가

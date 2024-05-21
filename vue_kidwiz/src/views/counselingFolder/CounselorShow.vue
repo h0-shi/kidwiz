@@ -1,5 +1,8 @@
 <!-- src/components/CounselorProfile.vue -->
 <template>
+  <div>
+      <MenuPage />
+    <SimriSecMenu />
   <div class="container my-5 p-lg-5 bg-white rounded shadow-lg">
     <h2 class="text-center mb-4">상담사 소개</h2>
     <div class="row align-items-center mb-4">
@@ -45,10 +48,19 @@
       </blockquote>
     </div>
   </div>
+</div>
 </template>
 
 <script>
+
+import MenuPage from '@/components/MenuPage.vue';
+import SimriSecMenu from '@/views/counselingFolder/SimriSecMenu.vue';
+
 export default {
+    components: {
+    MenuPage,
+    SimriSecMenu
+  },
   data() {
     return {
       counselor: {

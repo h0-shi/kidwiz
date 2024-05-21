@@ -41,7 +41,7 @@
           <li><router-link to="/rsrvTest4">예약테스트</router-link></li>
           <li><router-link to="/GroupList">박선우 집단</router-link></li>
           <li><router-link to="/jobConsulting">취업상담</router-link></li>
-          <li><router-link to="/counseling">심리상담 안내</router-link></li>
+          <li><router-link to="/simrimain">심리 상담</router-link></li>
           <li><router-link to="/secMenuTest">다증레이아웃</router-link></li>
         </ul>
         <ul>
@@ -74,12 +74,10 @@
 import store from "@/views/store";
 import router from '@/router'
 import axios from 'axios';
-import Main from '@/components/Main.vue'
 
 export default {
     name:'MenuPage',
     component:{
-      Main,
     },
     data(){
       return{
