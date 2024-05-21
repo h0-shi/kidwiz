@@ -124,8 +124,7 @@ export default {
             this.time = res.data[0].time;
             this.times = res.data[0].times;
             this.totalTimes = res.data[0].totalTimes;
-            axios.get('http://localhost:3000/memberDetail?stuNum='+this.resultForm.stuNum).then((response)=>{
-                console.log(response.data[0]);
+            axios.get('http://localhost:3000/memberDetail?stuNum='+this.resultForm.stuNum).then((response)=>{                
             this.stuName = response.data[0].name;
             this.major = response.data[0].major_name;
             this.gender = res.data[0].gender;
@@ -140,6 +139,7 @@ export default {
     },
     methods: {
         formSubmit(){
+            this.resultForm.content = this.resultForm.content.replaceAll(/(\n|\r\n)/g,'<br>');
             if(!confirm("일지를 저장하시겠습니까?")){
                 return false;
             }

@@ -57,8 +57,8 @@
                 </tr>
                 <tr>
                     <th class="resultContent">진행 내용</th>
-                    <td colspan="3">
-                        {{content}}
+                    <td colspan="3" v-html="content">
+                        
                     </td>
                 </tr>
                 <tr>

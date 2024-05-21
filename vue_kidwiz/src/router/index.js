@@ -111,7 +111,7 @@ const routes = [
     {path: '/jobs/apply', name: 'jobapply', component: jobapply, meta: { layout: MainLayout } },
     {path: '/jobs/intro', name: 'jobintro', component: jobintro, meta: { layout: MainLayout } },
     {path: '/jobs/list', name: 'joblist', component: joblist, meta: { layout: MainLayout } },
-    {path: '/jobs/test', name: 'jobtest', component: jobtest, meta: { layout: MainLayout } }
+    {path: '/jobs/test', name: 'jobtest', component: jobtest, meta: { layout: MainLayout } },
     {path: '/cardNews', name: 'cardNews', component: cardNews, meta: { layout: MainLayout } },
     {path: '/cardDetail', name: 'cardDetail', component: cardDetail, meta: { layout: MainLayout } },
     
