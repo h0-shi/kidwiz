@@ -59,7 +59,8 @@ export default {
     width: 28%;
     border-radius: 8px;
     background-color: white;
-    color: black;    
+    color: black;
+    box-shadow: 10px black;
 }
 .cardsNews:hover{
     transition: 0.3s;

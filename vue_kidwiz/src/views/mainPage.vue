@@ -3,8 +3,54 @@
     <Carousel></Carousel>
     <div class="main1">
       <div class="cardsBox boundary">
+        
+        <div class="cards block">
+          <a @click="goto('BoardList')" class="block">
+            <img src="@/assets/sec01_chat.png" alt="">
+            <h3 class="subtit">게시글 상담
+              <span>사람들과 소통하는 공간</span>
+            </h3>
+            <span class="togo">바로가기</span>
+          </a>
+        </div>
         <div class="cards">
-          <a href="" class="block">
+          <a @click="goto('cardNews')" class="block">
+            <img src="@/assets/sec01_chat.png" alt="">
+            <h3 class="subtit">카드뉴스
+              <span>카드뉴스를 볼 수 있어요!</span>
+            </h3>
+            <span class="togo">바로가기</span>
+          </a>
+        </div>
+        <div class="cards">
+          <a @click="goto('simrimain')" class="block">
+            <img src="@/assets/sec01_chat.png" alt="">
+            <h3 class="subtit">심리 상담
+              <span>심리 검사와 함께 하는 상담</span>
+            </h3>
+            <span class="togo">바로가기</span>
+          </a>
+        </div>
+        <div class="cards">
+          <a @click="goto('jobs/intro')" class="block">
+            <img src="@/assets/sec01_chat.png" alt="">
+            <h3 class="subtit">취업 상담
+              <span>당신의 취업을 함께 고민해요</span>
+            </h3>
+            <span class="togo">바로가기</span>
+          </a>
+        </div>
+        <div class="cards">
+          <a @click="goto('rsrvTest4')" class="block">
+            <img src="@/assets/sec01_chat.png" alt="">
+            <h3 class="subtit">상담 신청
+              <span>여기서 상담 신청</span>
+            </h3>
+            <span class="togo">바로가기</span>
+          </a>
+        </div>
+        <div class="cards">
+          <a @click="goto()" class="block">
             <img src="@/assets/sec01_chat.png" alt="">
             <h3 class="subtit">채팅상담
               <span>박시호가 테스트중</span>
@@ -13,7 +59,7 @@
           </a>
         </div>
         <div class="cards">
-          <a href="" class="block">
+          <a @click="goto()" class="block">
             <img src="@/assets/sec01_chat.png" alt="">
             <h3 class="subtit">채팅상담
               <span>박시호가 테스트중</span>
@@ -22,7 +68,7 @@
           </a>
         </div>
         <div class="cards">
-          <a href="" class="block">
+          <a @click="goto()" class="block">
             <img src="@/assets/sec01_chat.png" alt="">
             <h3 class="subtit">채팅상담
               <span>박시호가 테스트중</span>
@@ -31,52 +77,7 @@
           </a>
         </div>
         <div class="cards">
-          <a href="" class="block">
-            <img src="@/assets/sec01_chat.png" alt="">
-            <h3 class="subtit">채팅상담
-              <span>박시호가 테스트중</span>
-            </h3>
-            <span class="togo">바로가기</span>
-          </a>
-        </div>
-        <div class="cards">
-          <a href="" class="block">
-            <img src="@/assets/sec01_chat.png" alt="">
-            <h3 class="subtit">채팅상담
-              <span>박시호가 테스트중</span>
-            </h3>
-            <span class="togo">바로가기</span>
-          </a>
-        </div>
-        <div class="cards">
-          <a href="" class="block">
-            <img src="@/assets/sec01_chat.png" alt="">
-            <h3 class="subtit">채팅상담
-              <span>박시호가 테스트중</span>
-            </h3>
-            <span class="togo">바로가기</span>
-          </a>
-        </div>
-        <div class="cards">
-          <a href="" class="block">
-            <img src="@/assets/sec01_chat.png" alt="">
-            <h3 class="subtit">채팅상담
-              <span>박시호가 테스트중</span>
-            </h3>
-            <span class="togo">바로가기</span>
-          </a>
-        </div>
-        <div class="cards">
-          <a href="" class="block">
-            <img src="@/assets/sec01_chat.png" alt="">
-            <h3 class="subtit">채팅상담
-              <span>박시호가 테스트중</span>
-            </h3>
-            <span class="togo">바로가기</span>
-          </a>
-        </div>
-        <div class="cards">
-          <a href="" class="block">
+          <a @click="goto()" class="block">
             <img src="@/assets/sec01_chat.png" alt="">
             <h3 class="subtit">채팅상담
               <span>박시호가 테스트중</span>
@@ -96,7 +97,12 @@ import Carousel from '@/components/Carousel.vue';
 export default {
   components:{
     Carousel
-  }
+  },
+  methods : {
+    goto(link){
+      this.$router.push('/'+link);
+    }
+  },
 }
 </script>
 
@@ -135,11 +141,28 @@ export default {
   background: #f0f4ff;
   border-radius: 15px;
   transition: all 0.5s;
-  background-color: white;
+  background-color: f0f4ff;
 }
-.cards:nth-child(1):hover{
-  background-color: #edbf47;
-}
+.cards:nth-child(1):hover{background-color: #edbf47;}
+.cards:nth-child(2):hover{background-color: #edbf47;}
+.cards:nth-child(3):hover{background-color: #edbf47;}
+.cards:nth-child(4):hover{background-color: #edbf47;}
+.cards:nth-child(5):hover{background-color: #edbf47;}
+.cards:nth-child(6):hover{background-color: #edbf47;}
+.cards:nth-child(7):hover{background-color: #edbf47;}
+.cards:nth-child(8):hover{background-color: #edbf47;}
+.cards:nth-child(9):hover{background-color: #edbf47;}
+
+.cards:nth-child(1):hover .togo {color:#edbf47;}
+.cards:nth-child(2):hover .togo {color:#edbf47;}
+.cards:nth-child(3):hover .togo {color:#edbf47;}
+.cards:nth-child(4):hover .togo {color:#edbf47;}
+.cards:nth-child(5):hover .togo {color:#edbf47;}
+.cards:nth-child(6):hover .togo {color:#edbf47;}
+.cards:nth-child(7):hover .togo {color:#edbf47;}
+.cards:nth-child(8):hover .togo {color:#edbf47;}
+.cards:nth-child(9):hover .togo {color:#edbf47;}
+
 .cards:hover {
 	color:#fff;
 	transition:all 0.5s;
@@ -149,7 +172,6 @@ export default {
 	color:#fff;
 	text-shadow:0px 0px 3px rgba(0,0,0,0.5);
 }
-.cards:nth-child(1):hover .togo {color:#edbf47;}
 .cards:hover .togo {
 	font-weight:bold;
 	background:#fff;
