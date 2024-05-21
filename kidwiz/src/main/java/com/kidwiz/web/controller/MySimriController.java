@@ -39,7 +39,6 @@ public class MySimriController {
     		System.out.println("유효한가요?");
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
-
         int memberId = jwtService.getId(token);
         List<TestResult> testResults = testResultRepository.findByMemberIdAndQidOrderByTdateDesc(memberId, 10);
         

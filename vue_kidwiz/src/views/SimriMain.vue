@@ -1,33 +1,21 @@
 <template>
   <div>
-    <br>
-    <div class="sbmContainer boundary">
-        <table class="subMenu">
-            <tr>
-                <th :style="select[0]" @click="displayAct(0)">심리검사 안내</th>
-                <th :style="select[1]" @click="displayAct(1)">심리 상담사 소개</th>
-                <th :style="select[2]" @click="displayAct(2)">센터 오시는 길</th>
-                <th :style="select[3]" @click="displayAct(3)">버444튼4</th>
-            </tr>
-        </table>
-    </div>
-    <section class="section s1" :style="cssAct[0]">
-        <h1>심리검사 안내</h1>
-    </section>
-    <section class="section s2" :style="cssAct[1]">
-      심리 상담사 소개
-    </section>
-    <section class="section s3" :style="cssAct[2]">
-      센터 오시는 길
-    </section>
-    <section class="section s4" :style="cssAct[3]">
-        테스트4
-    </section>
+    <MenuPage />
+    <SimriSecMenu />
+
+
   </div>
 </template>
 
 <script>
+import MenuPage from '@/components/MenuPage.vue';
+import SimriSecMenu from '@/views/counselingFolder/SimriSecMenu.vue';
+
 export default {
+    components: {
+    MenuPage,
+    SimriSecMenu
+  },
     data(){
         return{
             act : "none",

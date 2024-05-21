@@ -1,6 +1,7 @@
 import ContactMap from '@/views/counselingFolder/ContactMap.vue';
 import CounselingIntro from '@/views/counselingFolder/CounselingIntro.vue';
 import CounselorShow from '@/views/counselingFolder/CounselorShow.vue';
+import SimriSecMenu from '@/views/counselingFolder/SimriSecMenu.vue';
 import FaqQuestion from '@/views/faqFolder/FaqQuestion.vue';
 import FaqWrite from '@/views/faqFolder/FaqWrite.vue'; 
 import FaqDetail from '@/views/faqFolder/FaqDetail.vue'; 
@@ -41,9 +42,9 @@ import joblist from '@/views/jobs/list.vue';
 import jobtest from '@/views/jobs/test.vue';
 
 
-import admin from '@/layout/AdminSidebar.vue';
 import adminMemberControl from '@/layout/AdminSidebar.vue';
 import MemberControl from '@/components/MemberControl.vue'
+import BoardControl from '@/components/BoardControl.vue'
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 
@@ -76,6 +77,7 @@ const routes = [
     {path: '/contact', name: 'Contact', component: ContactMap, meta: {layout : MainLayout}},
     {path: '/counseling', name: 'Counseling', component: CounselingIntro, meta: {layout : MainLayout}},
     {path: '/counselorshow', name: 'CounselorShow', component: CounselorShow, meta: {layout : MainLayout}},
+    {path: '/simrisec', name: 'simrisec', component: SimriSecMenu, meta: {layout : MainLayout}},
     {path: '/faq', name: 'FAQ', component: FaqQuestion, meta: {layout : MainLayout}},
     {path: '/faqwrite', name: 'FaqWrite', component: FaqWrite, meta: {layout : MainLayout}},
     {path: '/faq/:id', name: 'FaqDetail', component: FaqDetail, meta: {layout : MainLayout}},// 동적 세그먼트를 포함하는 라우트 추가
@@ -84,8 +86,9 @@ const routes = [
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : MainLayout}},
 
 
-    {path: '/admin', name: 'admin',component: MemberControl,meta:{layout:admin}},
+    {path: '/admin', name: 'admin',component: MemberControl,meta:{layout:adminMemberControl}},
     {path: '/adminMemberControl', name: 'adminMemberControl',component: MemberControl,meta:{layout:adminMemberControl}},
+    {path: '/adminBoardControl', name: 'adminBoardControl',component: BoardControl,meta:{layout:adminMemberControl}},
 
     
     {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : MainLayout}},

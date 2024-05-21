@@ -43,7 +43,7 @@
           <li><router-link to="/GroupList">박선우 집단</router-link></li>
           <!-- <li><router-link to="/jobConsulting">취업상담</router-link></li>  -->
           <li><router-link to="/jobs/intro">취업상담</router-link></li>
-          <li><router-link to="/counseling">심리상담 안내</router-link></li>
+          <li><router-link to="/simrimain">심리상담 안내</router-link></li>
           <li><router-link to="/secMenuTest">다증레이아웃</router-link></li>
         </ul>
         <ul>
@@ -78,6 +78,7 @@ import axios from 'axios';
 
 export default {
     name:'MenuPage',
+
     data(){
       return{
         navDisplay : 'none'

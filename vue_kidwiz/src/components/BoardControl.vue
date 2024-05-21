@@ -1,28 +1,31 @@
 <template>
   <div class="table-container">
-    <h2>회원 관리</h2>
+    <h2>게시판 관리</h2>
     <table class="table">
       <thead>
         <tr>
           <th>번호</th>
-          <th>아이디</th>
-          <th>이름</th>
-          <th>학과</th>
-          <th>직위</th>
+          <th>제목</th>
+          <th>글쓴이</th>
+          <th>유형</th>
+          <th>날짜</th>
           <th style="text-align: center;">상태</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(row, index) in member" :key="index">
+        <tr v-for="(row, index) in board" :key="index">
           <td>{{ index + 1 }}</td>
-          <td>{{ row.id }}</td>
-          <td>{{ row.name }}</td>
-          <td>{{ row.major_name }}</td>
-          <td>{{ row.dept }}</td>
+          <td>{{ row.title }}</td>
+          <td>{{ row.writer }}</td>
+
+          <td v-if="row.pri_no.substring(0,2)=='gr'">그룹</td>
+          <td v-else-if="row.pri_no.substring(0,2)=='bn'">게시판</td>
+          <td v-else>fnq</td>
+
+          <td>{{ row.date }}</td>
           <td  style="text-align: center;">
-            <button @click="changeGrade(row, 1)" v-if="row.grade ==0" :class="{'status-declined':row.grade ==0,'status-sent':row.grade ==1,'status-pending':row.grade ==2}">회원탈퇴</button>
-            <button @click="changeGrade(row, 2)" v-else-if="row.grade ==1" :class="{'status-declined':row.grade ==0,'status-sent':row.grade ==1,'status-pending':row.grade ==2}">일반회원</button>
-            <button @click="changeGrade(row, 0)" v-else-if="row.grade ==2" :class="{'status-declined':row.grade ==0,'status-sent':row.grade ==1,'status-pending':row.grade ==2}">&nbsp;&nbsp;관리자&nbsp;&nbsp;</button>
+            <button @click="changeDel(row, 1)" v-if="row.del ==0" :class="{'status-declined':row.del ==0,'status-sent':row.del ==1}">삭제</button>
+            <button @click="changeDel(row, 0)" v-else-if="row.del ==1" :class="{'status-declined':row.del ==0,'status-sent':row.del ==1}">복원</button>
           </td>
         </tr>
       </tbody>
@@ -37,28 +40,29 @@ import { onMounted, ref } from 'vue';
 export default {
   name: "MemberControl",
   setup() {
-    const member = ref([]);
+    const board = ref([]);
 
     onMounted(() => {
-      axios.get("/api/admin/member")
+      axios.get("/api/admin/totalBoard")
         .then((res) => {
-          member.value = res.data.member;
+          board.value = res.data.list;
         })
         .catch((error) => {
           console.error("There was an error fetching the data:", error);
         });
     });
 
-    const changeDbGrade = (row) =>{
-      axios.post("/api/admin/changeGrade",row)
+
+    const changeDbDel = (row) =>{
+      axios.post("/api/admin/changeDb",row)
     }
 
-    const changeGrade = (row,value) =>{
-      row.grade = value
-      changeDbGrade(row)
+    const changeDel = (row,value) =>{
+      row.del = value
+      changeDbDel(row)
     }
     return {
-      member,changeGrade
+      board,changeDel
     };
   }
 }
