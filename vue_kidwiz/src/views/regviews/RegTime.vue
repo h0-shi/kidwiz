@@ -60,7 +60,7 @@
       <input type="text" name="stuNum" v-model="application.stuNum">
       <input type="text" name="date" v-model="application.date">
       <input type="text" name="time" v-model="application.time">
-      <input type="text" name="regno" v-model="application.regno">
+      <input type="text" name="reg_no" v-model="application.reg_no">
       <textarea name="memo" v-model="application.memo"></textarea>
       <button type="submit">신청하기</button>
     </form>
@@ -74,7 +74,7 @@ import axios from "axios";
 export default {
   mounted(){
     this.application.stuNum = this.$route.query.stuNum;
-    this.application.regno = this.$route.query.regno;
+    this.application.reg_no = this.$route.query.regno;
   },
   data(){
     return{
@@ -86,7 +86,7 @@ export default {
         stuNum: '',
         date: '',
         time: '',
-        regno: '',
+        reg_no: '',
         memo:'',
       },
     };

@@ -5,8 +5,8 @@
 		UPDATE reg_consulting SET stat = '1' WHERE reg_no = #{reg_no} 
 	</update>
 	
-	<insert id="regconInsert" parameterType="map">
-		INSERT INTO reg_consulting (stuNum) VALUES (#{stuNum})
+	<insert id="regconInsert" parameterType="Map" keyColumn="sub_no" keyProperty="sub_no" useGeneratedKeys="true">
+		INSERT INTO reg_consulting (stuNum, pro) VALUES (#{stuNum}, #{proNum}) 
 	</insert>
 	
 	<select id="regDetail" parameterType="map" resultType="map">
@@ -17,8 +17,8 @@
 		select * from timeTest
 	</select>
 	
-	<insert id="regSubmit" parameterType="map">
-		INSERT INTO timeTestReg (stuNum, date, time, reg_no, memo) VALUES (#{stuNum}, #{date}, #{time}, #{regno}, #{memo})
+	<insert id="oneTimeRegInsert" parameterType="map">
+		INSERT INTO timeTestReg (stuNum, date, time, reg_no, memo) VALUES (#{stuNum}, #{date}, #{time}, #{reg_no}, #{memo})
 	</insert>
 	
 	<select id="regTotalCount">
