@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Main></Main>
+    <Carousel></Carousel>
     <div class="main1">
       <div class="cardsBox boundary">
         <div class="cards">
@@ -92,11 +92,10 @@
 </template>
 
 <script>
-import Main from '@/components/Main.vue';
-
+import Carousel from '@/components/Carousel.vue';
 export default {
   components:{
-    Main
+    Carousel
   }
 }
 </script>
