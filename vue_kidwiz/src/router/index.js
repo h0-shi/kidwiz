@@ -36,6 +36,7 @@ import applyForm3 from '@/views/RsvAndApply/applyForm3.vue';
 import resultWrite from '@/views/regviews/resultWrite.vue';
 import regResult from '@/views/regviews/regResult.vue';
 import cardNews from '@/views/alpha/cardNews.vue';
+import cardDetail from '@/views/alpha/cardDetail.vue';
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 
@@ -90,6 +91,7 @@ const routes = [
     {path: '/resultWrite', name: 'resultWrite', component: resultWrite, meta: { layout: MainLayout } },
     {path: '/regResult', name: 'regResult', component: regResult, meta: { layout: MainLayout } },
     {path: '/cardNews', name: 'cardNews', component: cardNews, meta: { layout: MainLayout } },
+    {path: '/cardDetail', name: 'cardDetail', component: cardDetail, meta: { layout: MainLayout } },
     
 
     

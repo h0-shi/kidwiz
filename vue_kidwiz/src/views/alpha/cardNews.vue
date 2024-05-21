@@ -2,19 +2,19 @@
   <div class="mainContainer">
     <h1>상담 카드뉴스</h1>
     <div class="cardContainer">
-        <div class="cardsNews">
+        <div class="cardsNews" @click="gotoCard()">
             <img src="@/assets/card01/001.png" class="thumbNail">
             <div class="title">상담이 뭐죠?</div>
             <div class="exp">상담에 대해 알아보아요!</div>
             <div class="date">2024-05-21</div>
         </div>
-        <div class="cardsNews">
+        <div class="cardsNews" @click="gotoCard()">
             <img src="@/assets/card01/001.png" class="thumbNail">
             <div class="title">상담이 뭐죠?</div>
             <div class="exp">상담에 대해 알아보아요!</div>
             <div class="date">2024-05-21</div>
         </div>
-        <div class="cardsNews">
+        <div class="cardsNews" @click="gotoCard()">
             <img src="@/assets/card01/001.png" class="thumbNail">
             <div class="title">상담이 뭐죠?</div>
             <div class="exp">상담에 대해 알아보아요!</div>
@@ -26,11 +26,15 @@
 
 <script>
 export default {
-
+    methods: {
+        gotoCard(){
+            this.$router.push("/cardDetail");
+        }
+    }
 }
 </script>
 
-<style>
+<style scoped>
 .mainContainer{
     width: 100%;
     max-width: 1000px;
