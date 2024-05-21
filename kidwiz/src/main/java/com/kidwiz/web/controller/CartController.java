@@ -1,6 +1,7 @@
 package com.kidwiz.web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -51,19 +54,24 @@ public class CartController {
     }
 	
 	// 장바구니 담기
-    @PostMapping("/api/cart/items/{itemId}")
+    @PostMapping("/api/cart/items")
     public ResponseEntity pushCartItem(
-            @PathVariable("itemId") int itemId,
+    		@RequestBody Map<String, Object> ac,
             @CookieValue(value = "token", required = false) String token) {
     	
     	System.out.println("db테스트 토큰이 있다?: " + token);
+    	System.out.println(ac.get("itemId")+"리퀘스트바디 테스트");
+    	
+    	 int itemId = (Integer) ac.get("itemId");
     	
     	// 토큰값이 유효하지 않으면
         if (!jwtService.isValid(token)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
 
+        // 토큰값으로부터 id 값 추출하기
         int memberId = jwtService.getId(token);
+        
         Cart cart = cartRepository.findByMemberIdAndItemId(memberId, itemId);
 
         if (cart == null) {

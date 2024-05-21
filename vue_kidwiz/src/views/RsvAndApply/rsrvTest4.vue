@@ -35,7 +35,7 @@
             <h3 class="h5">{{ selectedDate }}의 예약 가능 시간</h3>
             <p v-if="isPast">당일 및 이전 날짜는 예약이 불가능합니다.</p>
             <ul class="list-group">
-              <li v-for="time in availableTimes" :key="time.time"
+              <li v-for="time in availableTimes" :key="time.id"
                 class="list-group-item d-flex justify-content-between align-items-center">
                 <label class="form-check-label">
                   <input type="radio" v-model="selectedTime" :value="time" :disabled="!time.available"
@@ -81,6 +81,9 @@ export default {
       counselingTypes: ['지도교수 상담', '취업상담', '전문 상담', '심리 상담'], // 상담 유형 추가
       selectedCounselingType: '', // 선택된 상담 유형 초기화
       showCounselingTypeAlert: false, // 상담 유형 선택 알림 표시 여부
+      
+      studentId: 1, // 학생 ID (임의 값)
+      majorId: 1, // 선택된 상담사의 소속 학과 ID (임의 값)
 
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],

@@ -5,7 +5,7 @@ import com.kidwiz.web.Entity.Member;
 
 public interface MemberRepository extends JpaRepository<Member, Integer> {
 	
-	Member findByEmailAndPassword(String email, String password);
+	Member findByIdAndPassword(int id, String password);
 	
 	Member findById(int memberId);
 }
