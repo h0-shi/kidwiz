@@ -33,13 +33,14 @@ public class AccountController {
 	@PostMapping("/api/account/login")
 	public ResponseEntity login(@RequestBody Map<String, String> params, HttpServletResponse res) {
 		
-		Member member = memberRepository.findByEmailAndPassword(params.get("email"), params.get("password"));
+		// id 를 int 형으로 변환
+		int id = Integer.parseInt(params.get("id"));
+		
+		Member member = memberRepository.findByIdAndPassword(id, params.get("password"));
 
 		if (member != null) {
-			int id = member.getId();
-//			String email = member.getEmail();
-//			String name = member.getName();
-			String token = jwtService.getToken("id", id);
+			int tokenid = member.getId();
+			String token = jwtService.getToken("id", tokenid);
 
 //			Cookie cookie = new Cookie("token", token);
 //			cookie.setHttpOnly(true);
@@ -51,8 +52,8 @@ public class AccountController {
 	        String cookieValue = String.format("token=%s; HttpOnly; SameSite=None; Secure; Path=/", token);
 	        res.addHeader("Set-Cookie", cookieValue);
 
-			System.out.println("ID: " + id);
-            System.out.println("Token: " + token);
+	        System.out.println("Token: " + token);
+			System.out.println("TokenID: " + tokenid);
             System.out.println("Cookie: " + cookieValue);
             
             //Member 객체의 모든 필드가 JSON으로 변환되어 클라이언트에 반환(password : @JsonIgnore)
