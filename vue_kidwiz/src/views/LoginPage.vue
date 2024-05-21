@@ -1,11 +1,15 @@
 <template>
-  <div>
-  <h1>Login</h1>
-    <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
-           @keyup.enter="submit()" v-model="state.form.email">
-    <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+  <div class="login-container">
+  <div class="spacer"></div>
+  <h1>로그인</h1>
+  <p>로그인을 하시면 상담센터의 다양한 서비스를 이용하실 수 있습니다</p>
+  <div class="form">
+    <input type="text" class="form-control" id="floatingInput" placeholder="학번을 입력해주세요"
+           @keyup.enter="submit()" v-model="state.form.id">
+    <input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호를 입력해주세요"
      @keyup.enter="submit()" v-model="state.form.password">
-  <button @click="submit()">Sign in</button>
+    <button @click="submit()" class="btn-login">로그인</button>
+  </div>
 </div>
 </template>
 
@@ -19,7 +23,7 @@ export default {
 setup() {
   const state = reactive({
     form: {
-      email: "",
+      id: "",
       password: ""
     }
   })
@@ -50,3 +54,51 @@ const submit = () => {
 }
 }
 </script>
+
+<style scoped>
+.login-container {
+  width: 500px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.spacer {
+  height: 50px; /* 여백 추가 */
+}
+
+h1 {
+  font-size: 40px;
+  margin-bottom: 20px;
+  font-weight: bold; 
+}
+
+p {
+  margin-bottom: 30px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-control {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 15px;
+  font-size: 16px; 
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn-login {
+  background-color: black;
+  color: white;
+  padding: 15px;
+  font-size: 18px; 
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+</style>
