@@ -19,7 +19,6 @@ import boardReply from "@/views/boardviews/BoardReply.vue";
 import login from "@/views/LoginPage.vue";
 import jobConsulting from "@/views/JobConsulting.vue"; // 취업상담
 import mypage from "@/views/mypage/MyPage.vue";
-import MyInfo from '@/views/mypage/MyInfo.vue';
 import MyConsultations from '@/views/mypage/MyConsultations.vue';
 import MyGroupConsulte from '@/views/mypage/MyGroupConsulte.vue';
 import MyQna from '@/views/mypage/MyQna.vue';
@@ -78,7 +77,6 @@ const routes = [
     {path: '/admin', name: 'Admin',component: Admin},
     {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : MainLayout}},
     {path: '/mypage', name: 'mypage', component: mypage, meta: {layout : MainLayout}},
-    {path: '/myinfo', name: 'myinfo', component: MyInfo, meta: { layout: MainLayout } },
     {path: '/myconsultations', name: 'myconsultations', component: MyConsultations, meta: { layout: MainLayout } },
     {path: '/mygroup', name: 'mygroup', component: MyGroupConsulte, meta: { layout: MainLayout } },
     {path: '/myqna', name: 'myqna', component: MyQna, meta: { layout: MainLayout } },
