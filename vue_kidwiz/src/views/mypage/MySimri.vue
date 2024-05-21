@@ -1,6 +1,6 @@
 <template>
   <div>
-  	<MenuPage />
+    <MenuPage />
     <MyPageSecMenu />
     <div v-if="testResult">
       <h2>테스트 결과</h2>
@@ -19,41 +19,48 @@
     <div v-else>
       <p>테스트 결과를 불러오는 중...</p>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
-import axios from 'axios';
-import { ref, onMounted } from 'vue';
-import { useStore } from 'vuex';
-import MenuPage from '@/components/MenuPage.vue';
-import MyPageSecMenu from '@/views/mypage/MyPageSecMenu.vue';
+import axios from "axios";
+import { ref, onMounted } from "vue";
+import { useStore } from "vuex";
+import MenuPage from "@/components/MenuPage.vue";
+import MyPageSecMenu from "@/views/mypage/MyPageSecMenu.vue";
 
 export default {
-  name: 'MySimri',
+  name: "MySimri",
   components: {
-      MenuPage,
-      MyPageSecMenu
+    MenuPage,
+    MyPageSecMenu,
   },
 
   setup() {
     const testResult = ref([]);
 
     const loadTestResult = () => {
-      axios.get('http://localhost:3000/api/mysimri', { withCredentials: true })
-        .then(response => {
+      axios
+        .get("http://localhost:3000/api/mysimri", { withCredentials: true })
+        .then((response) => {
           testResult.value = response.data;
         })
-        .catch(error => {
-          console.error('Error fetching test result:', error);
+        .catch((error) => {
+          console.error("Error fetching test result:", error);
         });
     };
 
     const formatDate = (dateString) => {
-      const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
-      return new Date(dateString).toLocaleDateString('en-US', options);
+      const options = {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+      };
+      return new Date(dateString).toLocaleDateString("en-US", options);
     };
-    
+
     const store = useStore();
 
     onMounted(() => {
@@ -68,7 +75,6 @@ export default {
   },
 };
 </script>
-
 
 <style scoped>
 .container-fluid {

@@ -29,8 +29,7 @@ public class RegController {
 	@PostMapping("/testPost")
 	public String postTest(@RequestBody RegDTO test) {
 		vueService.regconInsert(test);
-		System.out.println("-------------");
-		System.out.println(test.getMajor());
+		System.out.println("-------------");		
 		System.out.println(test.getTeacher());
 		return "실험중";
 	}
