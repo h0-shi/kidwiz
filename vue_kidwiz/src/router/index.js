@@ -30,10 +30,12 @@ import MySimri from '@/views/mypage/MySimri.vue';
 import BoardList from '@/views/boardviews/BoardList.vue';
 
 import pop from '@/layout/RegTimeLayout.vue';
-import Admin from '@/admin/AdminApp.vue';
+import admin from '@/layout/AdminSidebar.vue';
 
+import adminMemberControl from '@/layout/AdminSidebar.vue';
 
 import MainLayout from '@/layout/MainLayout.vue'
+import MemberControl from '@/components/MemberControl.vue'
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 
@@ -74,7 +76,12 @@ const routes = [
     {path: '/test',name: 'Test',component: TestMain, meta: {layout : MainLayout}},
     {path: '/test/career',name: 'CareerTest',component: CareerTest, meta: {layout : MainLayout}},
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : MainLayout}},
-    {path: '/admin', name: 'Admin',component: Admin},
+
+
+    {path: '/admin', name: 'admin',component: MemberControl,meta:{layout:admin}},
+    {path: '/adminMemberControl', name: 'adminMemberControl',component: MemberControl,meta:{layout:adminMemberControl}},
+
+    
     {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : MainLayout}},
     {path: '/mypage', name: 'mypage', component: mypage, meta: {layout : MainLayout}},
     {path: '/myinfo', name: 'myinfo', component: MyInfo, meta: { layout: MainLayout } },
@@ -83,6 +90,7 @@ const routes = [
     {path: '/myqna', name: 'myqna', component: MyQna, meta: { layout: MainLayout } },
     {path: '/myreviews', name: 'myreviews', component: MyReviews, meta: { layout: MainLayout } },
     {path: '/mysimri', name: 'mysimri', component: MySimri, meta: { layout: MainLayout } }
+
 
 ];
 
