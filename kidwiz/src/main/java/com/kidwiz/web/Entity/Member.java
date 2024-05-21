@@ -47,4 +47,7 @@ public class Member {
 	@Column(length = 100)
     private String dept;  
 	
+	@Column(nullable = false)
+    private String grade;
+	
 }

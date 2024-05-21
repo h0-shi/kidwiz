@@ -1,6 +1,7 @@
 <template>
   <div>
-    <MySidebar />
+  	<MenuPage />
+    <MyPageSecMenu />
     <div v-if="testResult">
       <h2>테스트 결과</h2>
       <ul>
@@ -24,13 +25,15 @@
 <script>
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
-import MySidebar from '@/components/MySidebar.vue';
 import { useStore } from 'vuex';
+import MenuPage from '@/components/MenuPage.vue';
+import MyPageSecMenu from '@/views/mypage/MyPageSecMenu.vue';
 
 export default {
   name: 'MySimri',
   components: {
-    MySidebar,
+      MenuPage,
+      MyPageSecMenu
   },
 
   setup() {
