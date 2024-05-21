@@ -10,7 +10,7 @@
 	</insert>
 	
 	<select id="regDetail" parameterType="map" resultType="map">
-		SELECT ROW_NUMBER() OVER (ORDER BY DATE) as rownum, regno, stuNum, DATE, TIME, reg_no, writed FROM testView WHERE reg_no=#{rgno}
+		SELECT * FROM regInfoView WHERE reg_no=#{rgno}
 	</select>
 	
 	<select id="timetable" resultType="map">
@@ -26,7 +26,7 @@
 	</select>
 	
 	<select id="regResult" parameterType="String">
-		SELECT * FROM timeTestReg WHERE regno = #{regno}
+		SELECT * FROM regInfoView WHERE regno = #{regno}
 	</select>
 	
 	<select id="memberDetail" parameterType="String">
@@ -39,7 +39,7 @@
 	</insert>
 	
 	<select id="getRegResult" parameterType="String">
-		SELECT * FROM counResult WHERE counNum = #{regno}
+		SELECT * FROM resultView WHERE regno = #{regno}
 	</select>
 	
 </mapper>

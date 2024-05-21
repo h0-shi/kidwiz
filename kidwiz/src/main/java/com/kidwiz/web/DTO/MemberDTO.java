@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class MemberDTO {
 	
-	private String name, major_name, major_head,sex, ph, dept;
+	private String name, major_name, major_head, gender, contact;
 	private int id;
-	private LocalDate birthDay;
+	private LocalDate birth_date;
 
 }

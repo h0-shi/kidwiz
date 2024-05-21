@@ -11,8 +11,8 @@
                 <col style="width:34%">
             </colgroup>
             <tbody>
-                <tr>
-                    <th colspan="4" class="cellType">내담자 정보</th>
+                <tr class="cellType">
+                    <th colspan="4">내담자 정보</th>
                 </tr>
                 <tr>
                     <th>내담자 성명</th>
@@ -22,18 +22,19 @@
                 </tr>
                 <tr>
                     <th>성별</th>
-                    <td>남자(수정필요)</td>
+                    <td v-if="gender==='F'">여성</td>
+                    <td v-if="gender==='M'">남성</td>
                     <th>소속</th>
                     <td>{{major}}</td>
                 </tr>
                 <tr>
                     <th>생년월일</th>
-                    <td>2000.03.21(수정필요)</td>
+                    <td>{{birth_date}}</td>
                     <th>연락처</th>
-                    <td>010-8942-5728(수정필요)</td>
+                    <td>{{contact}}</td>
                 </tr>
-                <tr>
-                    <th colspan="4" class="cellType">상담 정보</th>
+                <tr class="cellType">
+                    <th colspan="4">상담 정보</th>
                 </tr>
                 <tr>
                     <th>상담일</th>
@@ -45,15 +46,10 @@
                     <th>상담 시간</th>
                     <td>{{time}}</td>
                     <th>상담 회기</th>
-                    <td>3/10회기(수정필요)</td>
+                    <td>{{times}}/{{totalTimes}}회기</td>
                 </tr>
-                <tr>
-                    <th class="summary">지난 회기 과제 / 요약</th>
-                    <td colspan="3">
-                        과제 : 뭐시기 (수정필요)
-                        <br><br>
-                        요약 : 저시기 (수정필요)
-                    </td>
+                <tr class="cellType">
+                    <th colspan="4">상담 일지</th>
                 </tr>
                 <tr>
                     <th>회기 상담 목표</th>
@@ -101,7 +97,13 @@ export default {
             stuName : '',
             date: '',
             time: '',
-            major : '',
+            major_name : '',
+            gender:'',
+            birth_date:'',
+            times:'',
+            totalTimes:'',            
+            contact:'',
+
             resultForm : {                
                 regno : '',
                 stuNum: '',
@@ -116,13 +118,19 @@ export default {
     mounted() {
         this.resultForm.regno = this.$route.query.regno;
         axios.get('http://localhost:3000/regResult?regno='+this.resultForm.regno).then((res) => {        
+            
             this.resultForm.stuNum = res.data[0].stuNum;            
             this.date = res.data[0].date;
             this.time = res.data[0].time;
-
+            this.times = res.data[0].times;
+            this.totalTimes = res.data[0].totalTimes;
             axios.get('http://localhost:3000/memberDetail?stuNum='+this.resultForm.stuNum).then((response)=>{
+                console.log(response.data[0]);
             this.stuName = response.data[0].name;
             this.major = response.data[0].major_name;
+            this.gender = res.data[0].gender;
+            this.contact = res.data[0].contact;
+            this.birth_date = res.data[0].birth_date;
         }).catch((error) => {
             console.log(error);
         })
@@ -132,8 +140,12 @@ export default {
     },
     methods: {
         formSubmit(){
+            if(!confirm("일지를 저장하시겠습니까?")){
+                return false;
+            }
             axios.post('http://localhost:3000/resultWrite',this.resultForm).then((res) => {
                 console.log(res);
+                this.$router.push("/regResult?regno="+this.resultForm.regno);
             }).catch((err) => {
                 console.log(err);
             })
@@ -188,10 +200,8 @@ export default {
     height: 100px;
 }
 .cellType{
-    height: 30px !important;
-    
-
-
+    height: 35px !important;
+    background-color: #dadada;
 }
 .btns{
     text-align: right;
