@@ -1,6 +1,7 @@
 import ContactMap from '@/views/counselingFolder/ContactMap.vue';
 import CounselingIntro from '@/views/counselingFolder/CounselingIntro.vue';
 import CounselorShow from '@/views/counselingFolder/CounselorShow.vue';
+import SimriSecMenu from '@/views/counselingFolder/SimriSecMenu.vue';
 import FaqQuestion from '@/views/faqFolder/FaqQuestion.vue';
 import FaqWrite from '@/views/faqFolder/FaqWrite.vue'; 
 import FaqDetail from '@/views/faqFolder/FaqDetail.vue'; 
@@ -23,20 +24,29 @@ import MyConsultations from '@/views/mypage/MyConsultations.vue';
 import MyGroupConsulte from '@/views/mypage/MyGroupConsulte.vue';
 import MyQna from '@/views/mypage/MyQna.vue';
 import MyReviews from '@/views/mypage/MyReviews.vue';
-import MySimri from '@/views/mypage/MySimri.vue';
+import MySimriResult from '@/views/mypage/MySimriResult.vue';
+import MySimriReserve from '@/views/mypage/MySimriReserve.vue';
 import BoardList from '@/views/boardviews/BoardList.vue';
 //import menu from '@/components/MenuPage.vue';
 
 import pop from '@/layout/RegTimeLayout.vue';
-import Admin from '@/admin/AdminApp.vue';
 import MainLayout from '@/layout/MainLayout.vue';
 //import header from '@/components/Header.vue'
 import secMenuTest from '@/views/regviews/secMenuTest.vue';
 import applyForm3 from '@/views/RsvAndApply/applyForm3.vue';
 import resultWrite from '@/views/regviews/resultWrite.vue';
 import regResult from '@/views/regviews/regResult.vue';
+import jobapply from '@/views/jobs/apply.vue';
+import jobintro from '@/views/jobs/intro.vue';
+import joblist from '@/views/jobs/list.vue';
+import jobtest from '@/views/jobs/test.vue';
+
 import cardNews from '@/views/alpha/cardNews.vue';
 import cardDetail from '@/views/alpha/cardDetail.vue';
+
+import adminMemberControl from '@/layout/AdminSidebar.vue';
+import MemberControl from '@/components/MemberControl.vue'
+import BoardControl from '@/components/BoardControl.vue'
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 
@@ -72,24 +82,36 @@ const routes = [
     {path: '/contact', name: 'Contact', component: ContactMap, meta: {layout : MainLayout}},
     {path: '/counseling', name: 'Counseling', component: CounselingIntro, meta: {layout : MainLayout}},
     {path: '/counselorshow', name: 'CounselorShow', component: CounselorShow, meta: {layout : MainLayout}},
+    {path: '/simrisec', name: 'simrisec', component: SimriSecMenu, meta: {layout : MainLayout}},
     {path: '/faq', name: 'FAQ', component: FaqQuestion, meta: {layout : MainLayout}},
     {path: '/faqwrite', name: 'FaqWrite', component: FaqWrite, meta: {layout : MainLayout}},
     {path: '/faq/:id', name: 'FaqDetail', component: FaqDetail, meta: {layout : MainLayout}},// 동적 세그먼트를 포함하는 라우트 추가
     {path: '/test',name: 'Test',component: TestMain, meta: {layout : MainLayout}},
     {path: '/test/career',name: 'CareerTest',component: CareerTest, meta: {layout : MainLayout}},
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : MainLayout}},
-    {path: '/admin', name: 'Admin',component: Admin},
+
+
+    {path: '/admin', name: 'admin',component: MemberControl,meta:{layout:adminMemberControl}},
+    {path: '/adminMemberControl', name: 'adminMemberControl',component: MemberControl,meta:{layout:adminMemberControl}},
+    {path: '/adminBoardControl', name: 'adminBoardControl',component: BoardControl,meta:{layout:adminMemberControl}},
+
+    
     {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : MainLayout}},
     {path: '/mypage', name: 'mypage', component: mypage, meta: {layout : MainLayout}},
     {path: '/myconsultations', name: 'myconsultations', component: MyConsultations, meta: { layout: MainLayout } },
     {path: '/mygroup', name: 'mygroup', component: MyGroupConsulte, meta: { layout: MainLayout } },
     {path: '/myqna', name: 'myqna', component: MyQna, meta: { layout: MainLayout } },
     {path: '/myreviews', name: 'myreviews', component: MyReviews, meta: { layout: MainLayout } },
-    {path: '/mysimri', name: 'mysimri', component: MySimri, meta: { layout: MainLayout } },
+    {path: '/mysimri', name: 'mysimri', component: MySimriResult, meta: { layout: MainLayout } },
+    {path: '/mysimrireserve', name: 'mysimrireserve', component: MySimriReserve, meta: { layout: MainLayout } },
     {path: '/secMenuTest', name: 'secMenuTest', component: secMenuTest, meta: { layout: MainLayout } },
     {path: '/applyForm3', name: 'applyForm3', component: applyForm3, meta: { layout: MainLayout } },
     {path: '/resultWrite', name: 'resultWrite', component: resultWrite, meta: { layout: MainLayout } },
     {path: '/regResult', name: 'regResult', component: regResult, meta: { layout: MainLayout } },
+    {path: '/jobs/apply', name: 'jobapply', component: jobapply, meta: { layout: MainLayout } },
+    {path: '/jobs/intro', name: 'jobintro', component: jobintro, meta: { layout: MainLayout } },
+    {path: '/jobs/list', name: 'joblist', component: joblist, meta: { layout: MainLayout } },
+    {path: '/jobs/test', name: 'jobtest', component: jobtest, meta: { layout: MainLayout } }
     {path: '/cardNews', name: 'cardNews', component: cardNews, meta: { layout: MainLayout } },
     {path: '/cardDetail', name: 'cardDetail', component: cardDetail, meta: { layout: MainLayout } },
     

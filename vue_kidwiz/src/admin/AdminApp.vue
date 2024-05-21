@@ -1,8 +1,7 @@
 <template>
-    <div id="admin-app">
-      <h1>Admin Page</h1>
-      <h2>메인 메뉴에 넣어서 확인해보니 접속됩니다.</h2>
-    </div>
+    <component :is="$route.meta.layout || 'div'">
+      <router-view></router-view>
+    </component>
   </template>
   
   <script>
