@@ -1,7 +1,7 @@
 <template>
   <div class="mainContainer">
     <div class="info">
-        <h1>상담에 대해 알아보자!</h1>
+        <h1>상담 좋아하세요?</h1>
         <div class="date">
             작성자 : 관리자 <br>
             작성일 : 2024-05-21

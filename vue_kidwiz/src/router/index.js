@@ -42,7 +42,9 @@ import joblist from '@/views/jobs/list.vue';
 import jobtest from '@/views/jobs/test.vue';
 
 import cardNews from '@/views/alpha/cardNews.vue';
-import cardDetail from '@/views/alpha/cardDetail.vue';
+import cardDetail1 from '@/views/alpha/cardDetail1.vue';
+import cardDetail2 from '@/views/alpha/cardDetail2.vue';
+import cardDetail3 from '@/views/alpha/cardDetail3.vue';
 
 import adminMemberControl from '@/layout/AdminSidebar.vue';
 import MemberControl from '@/components/MemberControl.vue'
@@ -113,7 +115,9 @@ const routes = [
     {path: '/jobs/list', name: 'joblist', component: joblist, meta: { layout: MainLayout } },
     {path: '/jobs/test', name: 'jobtest', component: jobtest, meta: { layout: MainLayout } },
     {path: '/cardNews', name: 'cardNews', component: cardNews, meta: { layout: MainLayout } },
-    {path: '/cardDetail', name: 'cardDetail', component: cardDetail, meta: { layout: MainLayout } },
+    {path: '/cardDetail1', name: 'cardDetail1', component: cardDetail1, meta: { layout: MainLayout } },
+    {path: '/cardDetail2', name: 'cardDetail2', component: cardDetail2, meta: { layout: MainLayout } },
+    {path: '/cardDetail3', name: 'cardDetail3', component: cardDetail3, meta: { layout: MainLayout } },
     
 
     
