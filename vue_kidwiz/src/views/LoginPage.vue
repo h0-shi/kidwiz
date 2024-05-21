@@ -33,7 +33,8 @@ const submit = () => {
     //state.form 을 보낸다
     console.log(state.form);
 
-    axios.post('http://localhost:3000/api/account/login', state.form, { withCredentials: true }).then((res) => {
+    axios.post('http://localhost:3000/api/account/login', state.form, { withCredentials: true })
+    .then((res) => {
       window.alert("로그인하였습니다.");
       console.log("로그인하였습니다", JSON.stringify(res.data));
 

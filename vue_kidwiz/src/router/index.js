@@ -36,6 +36,11 @@ import secMenuTest from '@/views/regviews/secMenuTest.vue';
 import applyForm3 from '@/views/regviews/applyForm3.vue';
 import resultWrite from '@/views/regviews/resultWrite.vue';
 import regResult from '@/views/regviews/regResult.vue';
+import jobapply from '@/views/jobs/apply.vue';
+import jobintro from '@/views/jobs/intro.vue';
+import joblist from '@/views/jobs/list.vue';
+import jobtest from '@/views/jobs/test.vue';
+
 
 import admin from '@/layout/AdminSidebar.vue';
 import adminMemberControl from '@/layout/AdminSidebar.vue';
@@ -97,9 +102,12 @@ const routes = [
     {path: '/applyForm3', name: 'applyForm3', component: applyForm3, meta: { layout: MainLayout } },
     {path: '/resultWrite', name: 'resultWrite', component: resultWrite, meta: { layout: MainLayout } },
     {path: '/regResult', name: 'regResult', component: regResult, meta: { layout: MainLayout } },
+    {path: '/jobs/apply', name: 'jobapply', component: jobapply, meta: { layout: MainLayout } },
+    {path: '/jobs/intro', name: 'jobintro', component: jobintro, meta: { layout: MainLayout } },
+    {path: '/jobs/list', name: 'joblist', component: joblist, meta: { layout: MainLayout } },
+    {path: '/jobs/test', name: 'jobtest', component: jobtest, meta: { layout: MainLayout } }
     
-
-
+    
 ];
 
 const router = createRouter({
