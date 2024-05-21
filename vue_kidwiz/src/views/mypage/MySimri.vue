@@ -1,25 +1,23 @@
 <template>
     <div>
-      <HeaderMenu></HeaderMenu>
+      <MenuPage />
+      <MyPageSecMenu />
       <div class="container-fluid mt-5 pt-4">
-        <div class="row">
-          <MySidebar></MySidebar>
-
-        </div>
+        <div class="row">안녕하세녀</div>
       </div>
       <Footer></Footer>
     </div>
   </template>
   
   <script>
-  import HeaderMenu from '@/components/HeaderMenu.vue';
-  import MySidebar from '@/components/MySidebar.vue';
+import MenuPage from '@/components/MenuPage.vue';
+import MyPageSecMenu from '@/views/mypage/MyPageSecMenu.vue';
   
   export default {
     name: 'MySimri',
     components: {
-      HeaderMenu,
-      MySidebar,
+      MenuPage,
+      MyPageSecMenu
     },
     data() {
       return {

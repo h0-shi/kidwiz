@@ -17,7 +17,7 @@
         <span class="top-right">
           <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
           <a to="/login" @click="logout()" v-else>로그아웃</a>
-          <a href="">회원가입</a>
+          <router-link to="/mypage" v-if="$store.state.account.id">마이페이지</router-link>
         </span>
       </nav>
       <nav class="nav-bot boundary">
@@ -41,12 +41,6 @@
           <li><router-link to="/rsrvTest4">예약테스트</router-link></li>
           <li><router-link to="/GroupList">박선우 집단</router-link></li>
           <li><router-link to="/jobConsulting">취업상담</router-link></li>
-          <li v-if="$store.state.account.id"><router-link to="/mypage">마이페이지</router-link></li>
-          <li>
-          <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
-          <a to="/login" @click="logout()" v-else>로그아웃</a>
-          </li>
-          <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/counseling">심리상담 안내</router-link></li>
           <li><router-link to="/secMenuTest">다증레이아웃</router-link></li>
         </ul>
@@ -120,7 +114,8 @@ export default {
 }
 .nav-top{
   height: 80px;
-  width: 100%;
+  width: 70%;
+  margin: 0 auto; /* 가운데 정렬 */
   display: flex;
   align-items: center;
   justify-content: space-between;
