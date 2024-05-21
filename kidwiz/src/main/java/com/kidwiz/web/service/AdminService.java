@@ -24,4 +24,24 @@ public class AdminService {
 		return adminDAO.changeGrade(row);
 	}
 
+	public List<Map<String, Object>> totalBoard() {
+		// TODO Auto-generated method stub
+		return adminDAO.totalBoard();
+	}
+
+	public int changeDb(Map<String, Object> row) {
+		// TODO Auto-generated method stub
+		if(row.get("pri_no").toString().length()>5) {
+			if(row.get("pri_no").toString().substring(0,2).equals("gr")) {
+				row.put("table_name", "group_consulting");
+			} else if(row.get("pri_no").toString().substring(0,2).equals("bn")) {
+				row.put("table_name", "board_consulting");
+			}
+		}else {
+			row.put("table_name", "faq_question");
+		}
+		System.out.println(row);
+		return adminDAO.changeDb(row);
+	}
+
 }
