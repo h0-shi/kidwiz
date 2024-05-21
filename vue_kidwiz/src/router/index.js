@@ -42,9 +42,9 @@ import joblist from '@/views/jobs/list.vue';
 import jobtest from '@/views/jobs/test.vue';
 
 
-import admin from '@/layout/AdminSidebar.vue';
 import adminMemberControl from '@/layout/AdminSidebar.vue';
 import MemberControl from '@/components/MemberControl.vue'
+import BoardControl from '@/components/BoardControl.vue'
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 
@@ -86,8 +86,9 @@ const routes = [
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : MainLayout}},
 
 
-    {path: '/admin', name: 'admin',component: MemberControl,meta:{layout:admin}},
+    {path: '/admin', name: 'admin',component: MemberControl,meta:{layout:adminMemberControl}},
     {path: '/adminMemberControl', name: 'adminMemberControl',component: MemberControl,meta:{layout:adminMemberControl}},
+    {path: '/adminBoardControl', name: 'adminBoardControl',component: BoardControl,meta:{layout:adminMemberControl}},
 
     
     {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : MainLayout}},

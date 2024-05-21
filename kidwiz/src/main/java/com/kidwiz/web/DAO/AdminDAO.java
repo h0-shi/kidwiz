@@ -14,4 +14,8 @@ public interface AdminDAO {
 
 	int changeGrade(Map<String, Object> row);
 
+	List<Map<String, Object>> totalBoard();
+
+	int changeDb(Map<String, Object> row);
+
 }

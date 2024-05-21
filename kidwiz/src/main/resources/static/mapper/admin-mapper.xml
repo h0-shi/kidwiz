@@ -8,4 +8,20 @@
 	<update id="changeGrade" parameterType="Map">
 		UPDATE members SET grade = #{grade} WHERE id = #{id}
 	</update>
+	<select id="totalBoard" resultType="Map">
+		SELECT pri_no,title,writer,DATE_FORMAT(DATE,'%Y-%m-%d') as date,del FROM totalBoard
+	</select>
+	<update id="changeDb" parameterType="Map">
+	    UPDATE ${table_name}
+	    <set>
+	        <if test="table_name == 'group_consulting'">gr_del = #{del}</if>
+	        <if test="table_name == 'board_consulting'">b_del = #{del}</if>
+	        <if test="table_name == 'faq_question'">faq_del = #{del}</if>
+	    </set>
+	    <where>
+	        <if test="table_name == 'group_consulting'">gr_no = #{pri_no}</if>
+	        <if test="table_name == 'board_consulting'">bno = #{pri_no}</if>
+	        <if test="table_name == 'faq_question'">question_id = #{pri_no}</if>
+	    </where>
+	</update>
 </mapper>

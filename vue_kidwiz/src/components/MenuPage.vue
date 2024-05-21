@@ -63,7 +63,6 @@
   </div>
   </header>
   <div class="mainContainer">
-    <Main></Main>
     <main>
       <slot />
     </main>

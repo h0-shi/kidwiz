@@ -33,10 +33,24 @@ public class AdminController {
 	
 	@PostMapping("/api/admin/changeGrade")
 	public int changeGrade(@RequestBody Map<String, Object> row) {
-		System.out.println(row);
 		
 		return adminService.changeGrade(row);
 	}
 	
-	
+	@GetMapping("/api/admin/totalBoard")
+	public String totalBoard() {
+		
+		List<Map<String, Object>> list = adminService.totalBoard();
+		JSONObject json = new JSONObject();
+		JSONArray arr = new JSONArray(list);
+		
+		json.put("list", arr);
+		
+		return json.toString();
+	}
+
+	@PostMapping("/api/admin/changeDb")
+	public int changeDb(@RequestBody Map<String, Object> row) {
+		return adminService.changeDb(row);
+	}
 }
