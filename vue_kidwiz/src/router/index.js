@@ -23,7 +23,8 @@ import MyConsultations from '@/views/mypage/MyConsultations.vue';
 import MyGroupConsulte from '@/views/mypage/MyGroupConsulte.vue';
 import MyQna from '@/views/mypage/MyQna.vue';
 import MyReviews from '@/views/mypage/MyReviews.vue';
-import MySimri from '@/views/mypage/MySimri.vue';
+import MySimriResult from '@/views/mypage/MySimriResult.vue';
+import MySimriReserve from '@/views/mypage/MySimriReserve.vue';
 import BoardList from '@/views/boardviews/BoardList.vue';
 //import menu from '@/components/MenuPage.vue';
 
@@ -88,7 +89,8 @@ const routes = [
     {path: '/mygroup', name: 'mygroup', component: MyGroupConsulte, meta: { layout: MainLayout } },
     {path: '/myqna', name: 'myqna', component: MyQna, meta: { layout: MainLayout } },
     {path: '/myreviews', name: 'myreviews', component: MyReviews, meta: { layout: MainLayout } },
-    {path: '/mysimri', name: 'mysimri', component: MySimri, meta: { layout: MainLayout } },
+    {path: '/mysimri', name: 'mysimri', component: MySimriResult, meta: { layout: MainLayout } },
+    {path: '/mysimrireserve', name: 'mysimrireserve', component: MySimriReserve, meta: { layout: MainLayout } },
     {path: '/secMenuTest', name: 'secMenuTest', component: secMenuTest, meta: { layout: MainLayout } },
     {path: '/applyForm3', name: 'applyForm3', component: applyForm3, meta: { layout: MainLayout } },
     {path: '/resultWrite', name: 'resultWrite', component: resultWrite, meta: { layout: MainLayout } },
