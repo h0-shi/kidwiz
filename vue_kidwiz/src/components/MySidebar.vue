@@ -15,6 +15,9 @@
             <router-link class="nav-link" :to="{ name: 'mygroup' }">비교과(집단 상담)내역</router-link>
           </li>
           <li class="nav-item">
+            <router-link class="nav-link" :to="{ name: 'mysimrireserve' }">심리검사 예약 내역</router-link>
+          </li>
+          <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'mysimri' }">나의 심리검사 결과</router-link>
           </li>
           <li class="nav-item">
