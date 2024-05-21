@@ -1,6 +1,6 @@
 <template>
   <div>
-  	<MenuPage />
+    <MenuPage />
     <MyPageSecMenu />
     <div v-if="testResult">
       <h2>테스트 결과</h2>
@@ -19,7 +19,7 @@
     <div v-else>
       <p>테스트 결과를 불러오는 중...</p>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -32,8 +32,8 @@ import MyPageSecMenu from '@/views/mypage/MyPageSecMenu.vue';
 export default {
   name: 'MySimri',
   components: {
-      MenuPage,
-      MyPageSecMenu
+    MenuPage,
+    MyPageSecMenu
   },
 
   setup() {
@@ -53,7 +53,7 @@ export default {
       const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
       return new Date(dateString).toLocaleDateString('en-US', options);
     };
-    
+
     const store = useStore();
 
     onMounted(() => {
@@ -72,11 +72,14 @@ export default {
 
 <style scoped>
 .container-fluid {
-  padding-top: 56px; /* Adjust based on the height of HeaderMenu */
+  padding-top: 56px;
+  /* Adjust based on the height of HeaderMenu */
 }
+
 .result-container {
   margin-top: 20px;
 }
+
 .action-buttons {
   margin-top: 20px;
 }
