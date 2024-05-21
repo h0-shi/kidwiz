@@ -32,7 +32,7 @@ import Admin from '@/admin/AdminApp.vue';
 import MainLayout from '@/layout/MainLayout.vue';
 //import header from '@/components/Header.vue'
 import secMenuTest from '@/views/regviews/secMenuTest.vue';
-import applyForm3 from '@/views/regviews/applyForm3.vue';
+import applyForm3 from '@/views/RsvAndApply/applyForm3.vue';
 import resultWrite from '@/views/regviews/resultWrite.vue';
 import regResult from '@/views/regviews/regResult.vue';
 

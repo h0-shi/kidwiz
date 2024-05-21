@@ -4,7 +4,8 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title mb-4">상담 신청</h2>
+                        <h2 class="card-title mb-4">상담 신청                            
+                        </h2>
 
                         <!--<form @submit.prevent="submitForm">-->
                         <form @submit="submitForm">
@@ -44,7 +45,7 @@
                             <div class="mb-3 form-row">
                                 <label for="counselingType" class="form-label col-md-4">상담 유형:</label>
                                 <div class="col-md-8">
-                                    <input type="text" id="counselingType" :value="selectedCounselingType" readonly
+                                    <input type="text" id="counselingType" :value="localSelectedCounselingType" readonly
                                         class="form-control">
                                 </div>
                             </div>
@@ -100,7 +101,7 @@ export default {
     data() {
         return {
             applicationDate: new Date().toLocaleDateString(),
-            studentName: '학생 이름', // JWT를 통해 가져온 사용자 이름
+            studentName: '', // JWT를 통해 가져온 사용자 이름
             advisor: '상담자 이름', // 학과 정보에 따른 상담자
             //counselingTypes: ['지도교수 상담', '취업상담', '전문 상담'],
             //selectedCounselingType: '지도교수 상담', // 기본값으로 초기 설정되어있게 함
@@ -113,6 +114,10 @@ export default {
 
             isSubmitting: false // 중복 제출 방지 240516
         };
+    },
+    mounted() {         
+        this.studentName = this.$store.state.account.name;
+        this.advisor = '24130004';
     },
     computed: {
         formattedSelectedDate() {
@@ -158,29 +163,18 @@ export default {
     methods: {
         async submitForm(event) {
             event.preventDefault(); // 기본 폼 제출 방지
-
             if (this.isSubmitting) return; // 중복 제출 방지 240516
             this.isSubmitting = true;
-
-            // 상담 유형이 선택되지 않은 경우 경고 메시지 표시(240516 기본값 만들어서 이제 필요 없음)
-            // 240520 이제 신청페이지에서 선택하므로 삭제
-            //if (!this.selectedCounselingType) {
-            //    alert("상담 유형 선택은 필수 사항입니다.");
-            //    this.isSubmitting = false;
-            //    return;
-            //}
-
             // 폼 제출 로직
             const reservationData = {
-                sid: 111, // 학생 ID (예: JWT에서 추출)
-                proid: 222, // 상담자 ID (상담자 정보에서 추출)
+                stuNum: this.$store.state.account.id, // 학생 ID (예: JWT에서 추출)
+                proNum: this.advisor, // 상담자 ID (상담자 정보에서 추출)
                 ctype: this.localSelectedCounselingType,
-                ctime: this.localSelectedTime,
-                cdate: this.localSelectedDate,
+                time: this.localSelectedTime,
+                date: this.localSelectedDate,
                 rsvdate: new Date().toISOString().split('T')[0],
-                rsvmemo: this.requestText
+                memo: this.requestText
             };
-
             // Axios 요청 데이터 검증
             if (Object.values(reservationData).some(value => !value)) {
                 alert('필수 입력 항목을 모두 입력해주세요.');
@@ -199,10 +193,10 @@ export default {
 
             try {
                 console.log('Axios 요청 시작', reservationData);
-                const response = await axios.post('/api/reservations', reservationData);
+                const response = await axios.post('http:localhost:3000/regconInsert', reservationData);
                 console.log('Axios 요청 성공', response);
 
-                if (response.status === 201) {
+                if (response.status === 200 ||response.status === 201) {
                     alert('예약이 성공적으로 완료되었습니다.');
                     this.$router.push('/rsrvTest4');
                 } else {

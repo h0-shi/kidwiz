@@ -26,13 +26,11 @@ public class RegController {
 	@Autowired
 	private RegService regService;
 	
-	@PostMapping("/testPost")
-	public String postTest(@RequestBody RegDTO test) {
+	@PostMapping("/regconInsert")
+	public int postTest(@RequestBody RegDTO test) {
 		vueService.regconInsert(test);
-		System.out.println("-------------");
-		System.out.println(test.getMajor());
-		System.out.println(test.getTeacher());
-		return "실험중";
+		test.setReg_no("reg-"+String.format("%05d", test.getSub_no()));
+		return regService.oneTimeRegInsert(test);
 	}
 	
 	@PostMapping("/accept")
@@ -55,7 +53,7 @@ public class RegController {
 	
 	@PostMapping("/regSubmit")
 	public int regSubmit(@RequestBody RegDTO application) {
-		return regService.regSubmit(application);
+		return regService.oneTimeRegInsert(application);
 	}
 	
 	@GetMapping("/regTotalCount")
