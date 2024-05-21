@@ -1,6 +1,7 @@
 import ContactMap from '@/views/counselingFolder/ContactMap.vue';
 import CounselingIntro from '@/views/counselingFolder/CounselingIntro.vue';
 import CounselorShow from '@/views/counselingFolder/CounselorShow.vue';
+import SimriSecMenu from '@/views/counselingFolder/SimriSecMenu.vue';
 import FaqQuestion from '@/views/faqFolder/FaqQuestion.vue';
 import FaqWrite from '@/views/faqFolder/FaqWrite.vue'; 
 import FaqDetail from '@/views/faqFolder/FaqDetail.vue'; 
@@ -35,6 +36,11 @@ import secMenuTest from '@/views/regviews/secMenuTest.vue';
 import applyForm3 from '@/views/regviews/applyForm3.vue';
 import resultWrite from '@/views/regviews/resultWrite.vue';
 import regResult from '@/views/regviews/regResult.vue';
+import jobapply from '@/views/jobs/apply.vue';
+import jobintro from '@/views/jobs/intro.vue';
+import joblist from '@/views/jobs/list.vue';
+import jobtest from '@/views/jobs/test.vue';
+
 
 import adminMemberControl from '@/layout/AdminSidebar.vue';
 import MemberControl from '@/components/MemberControl.vue'
@@ -71,6 +77,7 @@ const routes = [
     {path: '/contact', name: 'Contact', component: ContactMap, meta: {layout : MainLayout}},
     {path: '/counseling', name: 'Counseling', component: CounselingIntro, meta: {layout : MainLayout}},
     {path: '/counselorshow', name: 'CounselorShow', component: CounselorShow, meta: {layout : MainLayout}},
+    {path: '/simrisec', name: 'simrisec', component: SimriSecMenu, meta: {layout : MainLayout}},
     {path: '/faq', name: 'FAQ', component: FaqQuestion, meta: {layout : MainLayout}},
     {path: '/faqwrite', name: 'FaqWrite', component: FaqWrite, meta: {layout : MainLayout}},
     {path: '/faq/:id', name: 'FaqDetail', component: FaqDetail, meta: {layout : MainLayout}},// 동적 세그먼트를 포함하는 라우트 추가
@@ -96,9 +103,12 @@ const routes = [
     {path: '/applyForm3', name: 'applyForm3', component: applyForm3, meta: { layout: MainLayout } },
     {path: '/resultWrite', name: 'resultWrite', component: resultWrite, meta: { layout: MainLayout } },
     {path: '/regResult', name: 'regResult', component: regResult, meta: { layout: MainLayout } },
+    {path: '/jobs/apply', name: 'jobapply', component: jobapply, meta: { layout: MainLayout } },
+    {path: '/jobs/intro', name: 'jobintro', component: jobintro, meta: { layout: MainLayout } },
+    {path: '/jobs/list', name: 'joblist', component: joblist, meta: { layout: MainLayout } },
+    {path: '/jobs/test', name: 'jobtest', component: jobtest, meta: { layout: MainLayout } }
     
-
-
+    
 ];
 
 const router = createRouter({
