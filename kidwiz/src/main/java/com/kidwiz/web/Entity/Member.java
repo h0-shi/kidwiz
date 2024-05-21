@@ -1,5 +1,7 @@
 package com.kidwiz.web.Entity;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -44,10 +46,19 @@ public class Member {
 	@Column(length = 100)
     private String majorHead;  
 	
-	@Column(length = 100)
+	@Column
     private String dept;  
 	
-	@Column(nullable = false)
+	@Column
     private String grade;
+	
+	@Column
+    private String gender;
+	
+	@Column(length = 100)
+    private String contact;
+	
+	@Column
+	private LocalDate birthDate;
 	
 }

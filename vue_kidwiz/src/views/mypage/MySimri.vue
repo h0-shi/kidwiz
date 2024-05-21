@@ -1,7 +1,7 @@
 <template>
   <div>
-  	<MenuPage />
-    <MyPageSecMenu />
+  <MenuPage />
+  <MyPageSecMenu />
     <div v-if="testResult">
       <h2>테스트 결과</h2>
       <ul>

@@ -15,9 +15,7 @@
     <section class="section s2" :style="cssAct[1]"></section>
     <section class="section s3" :style="cssAct[2]"></section>
     <section class="section s4" :style="cssAct[3]"></section>
-    <div>
-      <h1>API사용해</h1>
-    </div>
+
   </div>
 </template>
   
@@ -37,7 +35,7 @@ export default {
   },
   mounted() {
     this.cssAct[0] = { display: "block" };
-    this.select[2] = {
+    this.select[0] = {
       border: "2px solid rgb(43, 43, 165",
       "border-bottom": "none",
     };
