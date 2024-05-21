@@ -30,14 +30,14 @@
                             <div class="mb-3 form-row">
                                 <label for="counselingDate" class="form-label col-md-4">상담희망일:</label>
                                 <div class="col-md-8">
-                                    <input type="text" id="counselingDate" :value="formattedDate" readonly
+                                    <input type="text" id="counselingDate" :value="formattedSelectedDate" readonly
                                         class="form-control">
                                 </div>
                             </div>
                             <div class="mb-3 form-row">
                                 <label for="counselingTime" class="form-label col-md-4">상담희망시간:</label>
                                 <div class="col-md-8">
-                                    <input type="text" id="counselingTime" :value="formattedTime" readonly
+                                    <input type="text" id="counselingTime" :value="localSelectedTime" readonly
                                         class="form-control">
                                 </div>
                             </div>
@@ -115,7 +115,7 @@ export default {
         };
     },
     computed: {
-        formattedDate() {
+        formattedSelectedDate() {
             //return `${this.localSelectedDate} ${this.localSelectedTime ? this.localSelectedTime.time : ''}`;
             // 날짜와 시간을 함께 포맷팅하여 표시
             //return `${this.selectedDate} ${this.selectedTime}`;
@@ -139,26 +139,21 @@ export default {
 
     //240521 상담유형 값 받아오기 위해 watch 대신 created로 수정
     created() {
-        if (this.$route.query.selectedDate) {
-            this.localSelectedDate = this.$route.query.selectedDate;
-        }
-        if (this.$route.query.selectedTime) {
-            this.localSelectedTime = this.$route.query.selectedTime;
-        }
-        if (this.$route.query.selectedCounselingType) {
-            this.localSelectedCounselingType = this.$route.query.selectedCounselingType;
-        }
+        this.localSelectedDate = this.$route.query.selectedDate || '';
+        this.localSelectedTime = this.$route.query.selectedTime || '';
+        this.localSelectedCounselingType = this.$route.query.selectedCounselingType || '';
+
     },
 
 
-   // watch: {
-   //     '$route.query.selectedDate': function (newDate) {
-   //         this.localSelectedDate = newDate;
-   //     },
-   //     '$route.query.selectedTime': function (newTime) {
-   //        this.localSelectedTime = newTime;
-   //     }
-   //},
+    // watch: {
+    //     '$route.query.selectedDate': function (newDate) {
+    //         this.localSelectedDate = newDate;
+    //     },
+    //     '$route.query.selectedTime': function (newTime) {
+    //        this.localSelectedTime = newTime;
+    //     }
+    //},
 
     methods: {
         async submitForm(event) {
