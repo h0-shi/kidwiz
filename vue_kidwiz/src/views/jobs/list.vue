@@ -37,7 +37,7 @@ export default {
   },
   mounted() {
     this.cssAct[0] = { display: "block" };
-    this.select[2] = {
+    this.select[2] = {  // 여기로 아예 이동하게 만드는거야
       border: "2px solid rgb(43, 43, 165",
       "border-bottom": "none",
     };

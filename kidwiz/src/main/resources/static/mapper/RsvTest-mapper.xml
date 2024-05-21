@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kidwiz.web.DAO.RsvTestDAO">
+
+    <resultMap id="ReservationResultMap" type="com.kidwiz.web.DTO.RsvDTO">
+        <id property="rsvno" column="rsvno" />
+        <result property="sid" column="sid" />
+        <result property="proid" column="proid" />
+        <result property="ctype" column="ctype" />
+        <result property="ctime" column="ctime" />
+        <result property="cdate" column="cdate" />
+        <result property="rsvdate" column="rsvdate" />
+        <result property="rsvmemo" column="rsvmemo" />
+    </resultMap>
+
+    <select id="findRsvByProid" parameterType="int" resultMap="ReservationResultMap">
+        SELECT * FROM rsv WHERE proid = #{proid}
+    </select>
+
+</mapper>
