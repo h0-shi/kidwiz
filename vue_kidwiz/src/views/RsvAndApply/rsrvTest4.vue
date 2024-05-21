@@ -20,7 +20,7 @@
               </button>
             </div>
           </div>
-          
+
           <!-- 날짜 클릭 전에 상담 유형이 선택되지 않았을 때의 메시지 -->
           <div v-if="showCounselingTypeAlert" class="alert alert-warning">
             상담 유형을 먼저 선택해주세요.
@@ -35,7 +35,7 @@
             <h3 class="h5">{{ selectedDate }}의 예약 가능 시간</h3>
             <p v-if="isPast">당일 및 이전 날짜는 예약이 불가능합니다.</p>
             <ul class="list-group">
-              <li v-for="time in availableTimes" :key="time.id"
+              <li v-for="time in availableTimes" :key="time.time"
                 class="list-group-item d-flex justify-content-between align-items-center">
                 <label class="form-check-label">
                   <input type="radio" v-model="selectedTime" :value="time" :disabled="!time.available"
@@ -57,6 +57,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'; // Vuex에서 mapGetters 사용
 import FullCalendar from '@fullcalendar/vue3';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -81,9 +82,20 @@ export default {
       counselingTypes: ['지도교수 상담', '취업상담', '전문 상담', '심리 상담'], // 상담 유형 추가
       selectedCounselingType: '', // 선택된 상담 유형 초기화
       showCounselingTypeAlert: false, // 상담 유형 선택 알림 표시 여부
-      
-      studentId: 1, // 학생 ID (임의 값)
-      majorId: 1, // 선택된 상담사의 소속 학과 ID (임의 값)
+
+      //studentId: 24300011, // 학생 ID (임의 값)
+      majorId: null, // 상담사의 소속 학과 ID (초기값 null)
+
+      // 예약 가능한 시간대 정의
+      timeSlots: [
+        '10:00 - 11:00',
+        '11:00 - 12:00',
+        '13:00 - 14:00',
+        '14:00 - 15:00',
+        '15:00 - 16:00',
+        '16:00 - 17:00',
+        '17:00 - 18:00'
+      ],
 
       calendarOptions: {
         plugins: [dayGridPlugin, interactionPlugin],
@@ -107,6 +119,10 @@ export default {
   },
   created() {
     this.loadReservations();
+    this.fetchMajorId();
+  },
+  computed: {
+    ...mapGetters(['getAccountId']) // Vuex store의 account id getter를 사용
   },
   methods: {
     loadReservations() {
@@ -124,15 +140,34 @@ export default {
           console.error("Error fetching reservations:", error);
         });
     },
+    /*loadMajorId() {
+      axios.get(`/api/members/${this.getAccountId}`)
+        .then(response => {
+          this.majorId = response.data.major_id; // 응답에서 major_id 가져오기
+        })
+        .catch(error => {
+          console.error("Error fetching majorId:", error);
+        });
+    },*/
+    fetchMajorId() {
+      const accountId = this.getAccountId;
+      console.log("Account ID:", accountId); // 디버깅용
+      axios.get(`/api/members/${accountId}`)
+        .then(response => {
+          this.majorId = response.data.major_id; // 응답에서 major_id 가져오기
+        })
+        .catch(error => {
+          console.error("Error fetching major ID:", error);
+        });
+    },
     fetchDateInfo(info) {
 
       //상담유형 미선택 시 날짜누르면 alert
-      if (!this.selectedCounselingType) { 
+      if (!this.selectedCounselingType) {
         this.showCounselingTypeAlert = true;
         return;
       }
       this.showCounselingTypeAlert = false;
-
 
       this.selectedDate = info.dateStr;
       this.selectedTime = null;  // 시간 선택 초기화
@@ -146,14 +181,14 @@ export default {
       //    this.availableTimes = [];
       //    return;
       //  }
-      this.isPast = clickedDate < today;
+      this.isPast = clickedDate < today || clickedDate.toDateString() === today.toDateString();
       if (this.isPast) {
         this.availableTimes = [];
         return;
-      } else if (clickedDate.toDateString() === today.toDateString()) {
-        this.isPast = true; // 당일 클릭 시 isPast를 true로 설정
-        this.availableTimes = [];
-        return;
+        //} else if (clickedDate.toDateString() === today.toDateString()) {
+        //  this.isPast = true; // 당일 클릭 시 isPast를 true로 설정
+        //  this.availableTimes = [];
+        //  return;
       }
 
       //// 더미 데이터 
@@ -168,7 +203,7 @@ export default {
       //];
 
       // 예약 가능한 시간대 설정
-      const timeSlots = [
+      /* const timeSlots = [
         '10:00 - 11:00',
         '11:00 - 12:00',
         '13:00 - 14:00',
@@ -176,19 +211,26 @@ export default {
         '15:00 - 16:00',
         '16:00 - 17:00',
         '17:00 - 18:00'
-      ];
-      axios.get('/api/reservations', { params: { date: info.dateStr } })
-        .then(response => {
-          const reservedTimes = response.data.map(reservation => reservation.ctime);
-          this.availableTimes = timeSlots.map(time => ({
-            time,
-            available: !reservedTimes.includes(time)
-          }));
-        })
-        .catch(error => {
-          console.error("Error fetching available times:", error);
-          this.availableTimes = timeSlots.map(time => ({ time, available: true }));
-        });
+      ]; */
+
+      // 예약 정보를 조회하여 해당 날짜에 예약이 있는 시간대를 비활성화합니다.
+      axios.get('/api/reservations', {
+        params: {
+          date: info.dateStr,
+          counselingType: this.selectedCounselingType,
+          majorId: this.majorId  // 상담사 소속 학과 ID
+        }
+      }).then(response => {
+        const reservedTimes = response.data.map(reservation => reservation.ctime);
+        this.availableTimes = this.timeSlots.map((time, index) => ({
+          id: index + 1, // 각 시간에 고유 id를 설정
+          time,
+          available: !reservedTimes.includes(time)
+        }));
+      }).catch(error => {
+        console.error("Error fetching reservations:", error);
+        this.availableTimes = this.timeSlots.map(time => ({ time, available: true }));
+      });
 
       //axios.get('/api/available-times', { params: { date: info.dateStr } })
       //  .then(response => {
@@ -229,6 +271,15 @@ export default {
       this.showCounselingTypeAlert = false;
 
     },
+    loadMemberInfo() {
+      axios.get(`/api/reservations/members/${this.account.id}`)
+        .then(response => {
+          this.majorId = response.data.major_id; // response 데이터에서 major_id 가져오기
+        })
+        .catch(error => {
+          console.error("Error fetching member info:", error);
+        });
+    },
 
     submitReservation() {
       if (!this.selectedTime || !this.selectedCounselingType) {
@@ -237,58 +288,82 @@ export default {
       }
 
       //240517 선택한 상담 유형에 따라 신청form.vue 다른 곳으로 보내기
-      let formRoute;
-      switch (this.selectedCounselingType) {
-        case '지도교수 상담':
-          formRoute = 'applyForm1';
-          break;
-        case '취업상담':
-          formRoute = 'applyForm2';
-          break;
-        case '전문 상담':
-          formRoute = 'applyForm3';
-          break;
-        case '심리 상담':
-          formRoute = 'applyForm4';
-          break;
-        default:
-          formRoute = 'applyForm5';
-      }
+      /* let formRoute;
+       switch (this.selectedCounselingType) {
+         case '지도교수 상담':
+           formRoute = 'applyForm1';
+           break;
+         case '취업상담':
+           formRoute = 'applyForm2';
+           break;
+         case '전문 상담':
+           formRoute = 'applyForm3';
+           break;
+         case '심리 상담':
+           formRoute = 'applyForm4';
+           break;
+         default:
+           formRoute = 'applyForm5';
+       }*/
+
+      const formRouteMap = {
+        '지도교수 상담': 'applyForm1',
+        '취업상담': 'applyForm2',
+        '전문 상담': 'applyForm3',
+        '심리 상담': 'applyForm4'
+      };
+
+      const formRoute = formRouteMap[this.selectedCounselingType] || 'applyForm5';
+
+
       // 폼 제출 로직: 서버에 예약 데이터 전송
       console.log(`Reservation submitted for ${this.selectedDate} at ${this.selectedTime.time}`);
 
+
+      // 서버로 보내기 전에 데이터 콘솔에 출력하여 확인
+      const reservationData = {
+        sid: this.getAccountId,
+        proid: this.majorId,
+        ctype: this.selectedCounselingType,
+        ctime: this.selectedTime.time,
+        cdate: this.selectedDate,
+        rsvdate: new Date().toISOString().split('T')[0],
+        rsvmemo: '', // 예약 메모 초기화
+        //book_time_id: this.selectedTime.id
+      };
+
+      console.log('Reservation data being sent:', reservationData);
+
       // 서버로 보내기
-      axios.post('/api/reservations', {
-        selectedDate: this.selectedDate,
-        selectedTime: this.selectedTime.time,
-        selectedCounselingType: this.selectedCounselingType //240517 추가
-        // 기타 예약 정보
-      }).then(() => {
-        // 예약 성공 시 FullCalendar에 이벤트 추가
-        const event = {
-          title: 'Reservation',
-          start: `${this.selectedDate}T${this.selectedTime.time.split(' - ')[0]}:00`,
-          end: `${this.selectedDate}T${this.selectedTime.time.split(' - ')[1]}:00`
-        };
-        this.calendarOptions.events.push(event);
+      axios.post('/api/reservations', reservationData)
+        .then(response => {
+          console.log('Reservation response:', response);
 
-        // 예약 완료 후 페이지 이동
-        this.$router.push({
-          name: formRoute,
-          //params: {
-          //props: {
+          // 예약 성공 시 FullCalendar에 이벤트 추가
+          const event = {
+            title: 'Reservation',
+            start: `${this.selectedDate}T${this.selectedTime.time.split(' - ')[0]}:00`,
+            end: `${this.selectedDate}T${this.selectedTime.time.split(' - ')[1]}:00`
+          };
+          this.calendarOptions.events.push(event);
 
-          query: { // params, prop 대신 query 사용 - url로 값 띄우고 전달
-            selectedDate: this.selectedDate,
-            //selectedTime: this.selectedTime ? this.selectedTime.time : ''
-            selectedTime: this.selectedTime.time, // 여기에서 'time' 프로퍼티에 접근하여 문자열 형태로 전달
-            selectedCounselingType: this.selectedCounselingType
-          }
+          // 예약 완료 후 페이지 이동
+          this.$router.push({
+            name: formRoute,
+            //params: {
+            //props: {
+
+            query: { // params, prop 대신 query 사용 - url로 값 띄우고 전달
+              selectedDate: this.selectedDate,
+              //selectedTime: this.selectedTime ? this.selectedTime.time : ''
+              selectedTime: this.selectedTime.time, // 여기에서 'time' 프로퍼티에 접근하여 문자열 형태로 전달
+              selectedCounselingType: this.selectedCounselingType //240517 추가
+            }
+          });
+        }).catch(error => {
+          console.error("Error submitting reservation:", error);
+          alert("예약 중 오류가 발생했습니다.");
         });
-      }).catch(error => {
-        console.error("Error submitting reservation:", error);
-        alert("예약 중 오류가 발생했습니다.");
-      });
     },
     handleDayRender({ date, el }) {
       console.log(el);  // 개발자 도구 콘솔에서 확인 가능

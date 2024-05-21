@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.kidwiz.web.DAO.RsvDAO;
+import com.kidwiz.web.DTO.MemberDTO;
 import com.kidwiz.web.DTO.RsvDTO;
 
 import jakarta.transaction.Transactional;
@@ -69,6 +70,12 @@ import jakarta.transaction.Transactional;
 	        }
 
 	        reservationDAO.insertReservation(reservationDto);
+	    }
+	    
+	    @Override
+	    public MemberDTO getMemberById(int id) {
+	        logger.info("getMemberById 호출: {}", id);
+	        return reservationDAO.getMemberById(id);
 	    }
 	        
 	    

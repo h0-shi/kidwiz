@@ -20,4 +20,8 @@
         INSERT INTO rsv (sid, proid, ctype, ctime, cdate, rsvdate, rsvmemo)
         VALUES (#{sid}, #{proid}, #{ctype}, #{ctime}, #{cdate}, #{rsvdate}, #{rsvmemo})
     </insert>
+    
+    <select id="getMemberById" parameterType="int" resultType="com.kidwiz.web.DTO.MemberDTO">
+        SELECT * FROM members WHERE id = #{id}
+    </select>
 </mapper>

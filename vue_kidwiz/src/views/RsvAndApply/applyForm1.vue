@@ -80,6 +80,7 @@
 <script>
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { mapGetters } from 'vuex'; // Vuex에서 mapGetters 사용
 
 export default {
     props: {
@@ -100,21 +101,22 @@ export default {
     data() {
         return {
             applicationDate: new Date().toLocaleDateString(),
-            studentName: '학생 이름', // JWT를 통해 가져온 사용자 이름
-            advisor: '상담자 이름', // 학과 정보에 따른 상담자
+            studentName: '', // JWT를 통해 가져온 사용자 이름 - 초기화
+            advisor: '', // 학과 정보에 따른 상담자 - 초기화
             //counselingTypes: ['지도교수 상담', '취업상담', '전문 상담'],
             //selectedCounselingType: '지도교수 상담', // 기본값으로 초기 설정되어있게 함
-            localSelectedCounselingType: '', // 로컬 데이터 속성으로 사용
+            localSelectedCounselingType: this.selectedCounselingType, // 로컬 데이터 속성으로 사용
             requestText: '',
             textLength: 0,
 
-            localSelectedDate: '', // 로컬 데이터 속성으로 사용
-            localSelectedTime: '',
+            localSelectedDate: this.selectedDate, // 로컬 데이터 속성으로 사용
+            localSelectedTime: this.selectedTime,
 
             isSubmitting: false // 중복 제출 방지 240516
         };
     },
     computed: {
+        ...mapGetters(['getAccountId']), // Vuex store의 account id getter를 사용
         formattedSelectedDate() {
             //return `${this.localSelectedDate} ${this.localSelectedTime ? this.localSelectedTime.time : ''}`;
             // 날짜와 시간을 함께 포맷팅하여 표시
@@ -142,7 +144,7 @@ export default {
         this.localSelectedDate = this.$route.query.selectedDate || '';
         this.localSelectedTime = this.$route.query.selectedTime || '';
         this.localSelectedCounselingType = this.$route.query.selectedCounselingType || '';
-
+        this.loadUserInfo();
     },
 
 
@@ -156,6 +158,33 @@ export default {
     //},
 
     methods: {
+        async loadUserInfo() {
+            const accountId = this.getAccountId;
+            try {
+                const response = await axios.get(`/api/members/${accountId}`);
+                this.studentName = response.data.name;
+                this.advisor = response.data.majorHead;
+            } catch (error) {
+                console.error("Error fetching user info:", error);
+            }
+        },
+        fetchAdvisor() {
+            axios.get(`/api/members/${this.accountId}`)
+                .then(response => {
+                    this.advisor = response.data.major_head;
+                })
+                .catch(error => {
+                    console.error("Error fetching advisor:", error);
+                });
+        },
+        async loadAdvisorInfo() {
+            try {
+                const response = await axios.get(`/api/advisors/${this.getAccountId}`);
+                this.advisor = response.data.name; // 상담자 정보를 설정
+            } catch (error) {
+                console.error("Error fetching advisor info:", error);
+            }
+        },
         async submitForm(event) {
             event.preventDefault(); // 기본 폼 제출 방지
 
@@ -172,8 +201,8 @@ export default {
 
             // 폼 제출 로직
             const reservationData = {
-                sid: 111, // 학생 ID (예: JWT에서 추출)
-                proid: 222, // 상담자 ID (상담자 정보에서 추출)
+                sid: this.getAccountId, // 학생 ID (예: JWT에서 추출)
+                proid: this.advisor, // 상담자 ID (상담자 정보에서 추출)
                 ctype: this.localSelectedCounselingType,
                 ctime: this.localSelectedTime,
                 cdate: this.localSelectedDate,
