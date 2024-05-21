@@ -63,6 +63,9 @@ const routes = [
     {path: '/rsrvTest4', name:'rsrvTest4', component: () => import('@/views/RsvAndApply/rsrvTest4.vue'), meta: {layout : MainLayout} },
     {path: '/rsrvTest3', name:'rsrvTest3', component: () => import('@/views/RsvAndApply/rsrvTest3.vue')},
     {path: '/applyForm1', name:'applyForm1', component: () => import('@/views/RsvAndApply/applyForm1.vue'), props: route => ({ ...route.query }), meta: {layout : MainLayout}},
+    {path: '/applyForm2', name:'applyForm2', component: () => import('@/views/RsvAndApply/applyForm2.vue'), props: route => ({ ...route.query }), meta: {layout : MainLayout}},
+    {path: '/applyForm3', name:'applyForm3', component: () => import('@/views/RsvAndApply/applyForm3.vue'), props: route => ({ ...route.query }), meta: {layout : MainLayout}},
+    {path: '/applyForm4', name:'applyForm4', component: () => import('@/views/RsvAndApply/applyForm4.vue'), props: route => ({ ...route.query }), meta: {layout : MainLayout}},
     {path: '/jobConsulting', name: 'jobConsulting', component: jobConsulting, meta: {layout : MainLayout}}, // 취업상담 경로 추가
     {path: '/login', name: 'login', component: login, meta: {layout : MainLayout} }, // 로그인 경로 추가
     {path: '/mypage', name: 'mypage',component: mypage, meta: {layout : MainLayout}}, // 마이페이지
