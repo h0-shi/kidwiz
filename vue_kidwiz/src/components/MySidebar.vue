@@ -1,6 +1,6 @@
 <template>
   <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block custom-sidebar">
-    <div class="py-4 rounded-top bg-primary text-white pl-3 mb-0">
+    <div class="py-4 rounded-top text-white pl-3 mb-0" style="background-color: midnightblue;">
       <h4 class="mb-0" style="margin: 0;">메뉴</h4>
     </div>
     <div class="menu-items text-center justify-content-center  align-items-center">
@@ -65,9 +65,11 @@ export default {
   align-content: center;
 }
 
-
 .custom-sidebar .menu-item:hover {
   background-color: #dadee1;
+  /* Added styles for hover effect */
+  font-weight: bold;
+  color: midnightblue;
 }
 
 .custom-sidebar .menu-item:not(:first-child) {

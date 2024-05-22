@@ -39,9 +39,18 @@ public interface VueDAO {
 
 	public List<Map<String, Object>> getDay(Map<String, Object> dayMap);
 
-	public String getGrNo(String title);
-
 	public Map<String, Object> getMemberType(int id);
+
+	public String getUpGrNo(String gr_no);
+
+	public List<String> getGrNo(String up_gr_no);
+
+
+	public void applyGroup(Map<String, Object> map);
+
+	public int checkGroup(Map<String, Object> map);
+
+	public List<Map<String, Object>> getRsv(int id);
 
 
 }

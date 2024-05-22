@@ -2,6 +2,7 @@ package com.kidwiz.web.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -133,6 +134,34 @@ public class VueService {
 	public Map<String, Object> getMemberType(int id) {
 		// TODO Auto-generated method stub
 		return vueDAO.getMemberType(id);
+	}
+
+	public String getUpGrNo(String gr_no) {
+		// TODO Auto-generated method stub
+		return vueDAO.getUpGrNo(gr_no);
+	}
+
+	public void applyGroup(int id, String up_gr_no) {
+		// TODO Auto-generated method stub
+		
+		List<String> list = vueDAO.getGrNo(up_gr_no);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		for(String row : list) {
+			map.put("up_gr_no", row);
+			vueDAO.applyGroup(map);
+		}
+	}
+
+	public int checkGroup(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return vueDAO.checkGroup(map);
+	}
+
+	public List<Map<String, Object>> getRsv(int id) {
+		// TODO Auto-generated method stub
+		return vueDAO.getRsv(id);
 	}
 
 }

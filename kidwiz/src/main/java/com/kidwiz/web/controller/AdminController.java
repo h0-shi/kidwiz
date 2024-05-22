@@ -6,10 +6,16 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.kidwiz.web.service.AdminService;
+import com.kidwiz.web.service.JwtService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -18,6 +24,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class AdminController {
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private JwtService jwtService;
 	
 	@GetMapping("/api/admin/member")
 	public String getMember() {
@@ -53,4 +62,42 @@ public class AdminController {
 	public int changeDb(@RequestBody Map<String, Object> row) {
 		return adminService.changeDb(row);
 	}
+	
+	@PostMapping("/api/admin/admincheck")
+	public ResponseEntity admincheck(@CookieValue (value = "token", required = false) String token) {
+		//TODO: process POST request
+		
+    	// 토큰값이 유효하지 않으면
+        if (!jwtService.isValid(token)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+        
+        int check = adminService.admincheck(jwtService.getId(token));
+        
+		return new ResponseEntity<>(check,HttpStatus.OK);
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

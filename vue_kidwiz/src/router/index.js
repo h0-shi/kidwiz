@@ -124,7 +124,7 @@ const routes = [
     {path: '/cardDetail2', name: 'cardDetail2', component: cardDetail2, meta: { layout: MainLayout } },
     {path: '/cardDetail3', name: 'cardDetail3', component: cardDetail3, meta: { layout: MainLayout } },
     {path: '/resultUpdate', name: 'resultUpdate', component: resultUpdate, meta: { layout: MainLayout } },
-    
+
 
     
     

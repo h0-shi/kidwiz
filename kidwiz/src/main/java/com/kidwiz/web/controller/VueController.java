@@ -1,6 +1,7 @@
 package com.kidwiz.web.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -121,8 +123,9 @@ public class VueController {
 	@GetMapping("/api/groupDetail")
 	public String groupDetail(@RequestParam("gr_no") String gr_no) {
 		Map<String, Object> map = vueService.groupDetail(gr_no);
-
-		List<Map<String, Object>> glist = vueService.getGList(gr_no);
+		
+		
+		List<Map<String, Object>> glist = vueService.getGList(vueService.getUpGrNo(gr_no));
 		JSONObject json = new JSONObject();
 		json.put("list", map);
 		json.put("glist", glist);
@@ -171,7 +174,57 @@ public class VueController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
+	@PostMapping("/api/applyGroup")
+	public ResponseEntity applyGroup(@RequestBody Map<String, Object> list,@CookieValue(value = "token", required = false) String token) {
+		//TODO: process POST request
+
+        if (!jwtService.isValid(token)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+        
+        int id = jwtService.getId(token);
+        
+        
+        vueService.applyGroup(id,(String)list.get("up_gr_no"));
+		
+		return new ResponseEntity<>( HttpStatus.OK);
+	}
 	
+	@PostMapping("/api/checkGroup")
+	public ResponseEntity checkGroup(@RequestBody Map<String, Object> list,@CookieValue(value = "token", required = false) String token) {
+		//TODO: process POST request
+
+        if (!jwtService.isValid(token)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+        
+        int id = jwtService.getId(token);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("gr_no", list.get("gr_no"));
+		
+        int check = vueService.checkGroup(map);
+        
+		return new ResponseEntity<>(check, HttpStatus.OK);
+	}
+	
+	@GetMapping("/api/getRsv")
+	public ResponseEntity getRsv(@CookieValue(value = "token", required = false) String token) {
+
+		if (!jwtService.isValid(token)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+        
+        int id = jwtService.getId(token);
+		
+		
+		List<Map<String, Object>> list = vueService.getRsv(id);
+		
+	
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 }
 
 

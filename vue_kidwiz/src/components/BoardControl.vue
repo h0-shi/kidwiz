@@ -103,16 +103,9 @@ button {
   color: #333;
 }
 
-.table tr:nth-child(even) {
-  background-color: #2d5795;
-}
-
-.table tr:nth-child(odd) {
-  background-color: #a0a0a0;
-}
 
 .table tr:hover {
-  background-color: #a0a0a0;
+  background-color: #e4dedef3;
 }
 
 .status-sent {

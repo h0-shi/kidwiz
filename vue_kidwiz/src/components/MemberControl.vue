@@ -20,9 +20,10 @@
           <td>{{ row.major_name }}</td>
           <td>{{ row.dept }}</td>
           <td  style="text-align: center;">
-            <button @click="changeGrade(row, 1)" v-if="row.grade ==0" :class="{'status-declined':row.grade ==0,'status-sent':row.grade ==1,'status-pending':row.grade ==2}">회원탈퇴</button>
-            <button @click="changeGrade(row, 2)" v-else-if="row.grade ==1" :class="{'status-declined':row.grade ==0,'status-sent':row.grade ==1,'status-pending':row.grade ==2}">일반회원</button>
-            <button @click="changeGrade(row, 0)" v-else-if="row.grade ==2" :class="{'status-declined':row.grade ==0,'status-sent':row.grade ==1,'status-pending':row.grade ==2}">&nbsp;&nbsp;관리자&nbsp;&nbsp;</button>
+            <button @click="changeGrade(row, 1)" v-if="row.grade ==0" :class="{'status-declined':row.grade ==0,'status-sent':row.grade ==1,'status-pending':row.grade ==2,'status-admin':row.grade==3}">회원탈퇴</button>
+            <button @click="changeGrade(row, 2)" v-else-if="row.grade ==1" :class="{'status-declined':row.grade ==0,'status-sent':row.grade ==1,'status-pending':row.grade ==2,'status-admin':row.grade==3}">일반회원</button>
+            <button @click="changeGrade(row, 3)" v-else-if="row.grade ==2" :class="{'status-declined':row.grade ==0,'status-sent':row.grade ==1,'status-pending':row.grade ==2,'status-admin':row.grade==3}">&nbsp;&nbsp;교직원&nbsp;&nbsp;</button>
+            <button @click="changeGrade(row, 0)" v-else-if="row.grade ==3" :class="{'status-declined':row.grade ==0,'status-sent':row.grade ==1,'status-pending':row.grade ==2,'status-admin':row.grade==3}">&nbsp;&nbsp;관리자&nbsp;&nbsp;</button>
           </td>
         </tr>
       </tbody>
@@ -33,11 +34,14 @@
 <script>
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
   name: "MemberControl",
   setup() {
     const member = ref([]);
+    
+    const router = useRouter()
 
     onMounted(() => {
       axios.get("/api/admin/member")
@@ -47,6 +51,14 @@ export default {
         .catch((error) => {
           console.error("There was an error fetching the data:", error);
         });
+
+        axios.post("/api/admin/admincheck",{ withCredentials: true }).then((res)=>{
+          if(res.data!=1){
+            router.push({path:"/"})
+          }
+        }).catch(()=>{
+          router.push({path:"/login"})
+        })
     });
 
     const changeDbGrade = (row) =>{
@@ -99,18 +111,10 @@ button {
   color: #333;
 }
 
-.table tr:nth-child(even) {
-  background-color: #2d5795;
-}
-
-.table tr:nth-child(odd) {
-  background-color: #a0a0a0;
-}
 
 .table tr:hover {
-  background-color: #a0a0a0;
+  background-color: #e4dedef3;
 }
-
 .status-sent {
   color: white;
   background-color: #28a745;
@@ -128,6 +132,12 @@ button {
 .status-declined {
   color: white;
   background-color: #dc3545;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.status-admin {
+  color: white;
+  background-color: #495057; /* 어두운 회색 */
   padding: 5px 10px;
   border-radius: 5px;
 }

@@ -45,14 +45,14 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 	</select>
 	
 	<select id="groupDetail" parameterType="String">
-		SELECT a.coun_no,a.gr_title,a.gr_content,a.gr_apply,a.gr_oper, a.gr_del
+		SELECT a.gr_no,a.up_gr_no,a.coun_no,a.gr_title,a.gr_content,a.gr_apply,a.gr_oper, a.gr_del
 		,a.total_num,a.img,a.sex,a.major, b.name,b.major_name,b.contact  
 		FROM group_consulting a, members b WHERE a.coun_no = b.id AND gr_no =  #{gr_no}
 	</select>
 	
 	<select id="getGList" parameterType="String">
-		SELECT gr_title,CONCAT(DATE_FORMAT(gr_oper,'%Y-%m-%d %H:%i'),' ~ ',
-		DATE_FORMAT(DATE_ADD(gr_oper,INTERVAL 3 HOUR),'%Y-%m-%d %H:%i')) AS gr_oper,total_num, gr_del,round
+		SELECT gr_title,CONCAT(DATE_FORMAT(CONCAT(gr_oper," ",gr_time),'%Y-%m-%d %H:%i'),' ~ ',
+		DATE_FORMAT(DATE_ADD(CONCAT(gr_oper," ",gr_time),INTERVAL 50 MINUTE),'%Y-%m-%d %H:%i')) AS gr_oper,total_num, gr_del,round
 		FROM group_consulting WHERE up_gr_no = #{gr_no}
 	</select>
 	
@@ -81,12 +81,29 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 			SELECT DT, WEEKDAY(DT) AS DAY FROM T_TEMP_DATES GROUP BY DT HAVING DAY = #{day}
 	</select>
 	
-	<select id="getGrNo" parameterType="String">
-		SELECT gr_no FROM group_consulting WHERE gr_title = #{title}
+	<select id="getUpGrNo" parameterType="String">
+		SELECT up_gr_no FROM group_consulting WHERE gr_no = #{gr_no}
 	</select>
 	
 	<select id="getMemberType" parameterType="int">
 		SELECT dept FROM members WHERE id = #{id}
+	</select>
+	
+	<select id="getGrNo" parameterType="String">
+		SELECT gr_no FROM group_consulting WHERE up_gr_no = #{up_gr_no}
+	</select>
+	
+	<insert id="applyGroup" parameterType="Map">
+		INSERT INTO group_apply (gr_no,id) VALUES (#{up_gr_no},#{id})
+	</insert>
+	
+	
+	<select id="checkGroup" parameterType="Map">
+		SELECT count(*) FROM group_apply WHERE gr_no = #{gr_no} AND id = #{id}
+	</select>
+	
+	<select id="getRsv" parameterType="int">
+		SELECT * FROM total_rsv WHERE id = #{id}
 	</select>
 </mapper>
 
