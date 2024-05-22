@@ -7,10 +7,9 @@
             <img :src="'/images/'+list.img" style="width:100%;height: 100%;">
           </div>
           <div style="height: 50%;">
-            <span>{{ list.coun_name }}</span><br>
-            <span>{{ list.email }}</span><br>
-            <span>{{ list.mobile }}</span><br>
-            <span>{{ list.address }}</span><br>
+            <span>{{ list.name }}</span><br>
+            <span>{{ list.major_name }}</span><br>
+            <span>{{ list.contact }}</span><br>
           </div>
         </div>
 
@@ -33,7 +32,7 @@
                 <span>{{ row.gr_title }}</span><br>
                 <span>{{ row.gr_oper }}</span><br>
                 <span>0/{{ row.total_num }}</span><br>
-                <span v-if="row.con_del==1">진행중</span>
+                <span v-if="row.gr_del==1">진행중</span>
                 <span v-else>종료</span>
               </div>
               <hr>

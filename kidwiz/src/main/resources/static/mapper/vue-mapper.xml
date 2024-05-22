@@ -49,14 +49,15 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 	</select>
 	
 	<select id="groupDetail" parameterType="String">
-		SELECT a.coun_no,a.gr_title,a.gr_content,a.gr_apply,a.gr_oper,a.total_num, b.coun_name,b.email,b.mobile,b.address,a.img,a.sex,a.major   
-		FROM group_consulting a, counselor b WHERE a.coun_no = b.coun_no AND gr_no = #{gr_no}
+		SELECT a.coun_no,a.gr_title,a.gr_content,a.gr_apply,a.gr_oper, a.gr_del
+		,a.total_num,a.img,a.sex,a.major, b.name,b.major_name,b.contact  
+		FROM group_consulting a, members b WHERE a.coun_no = b.id AND gr_no =  #{gr_no}
 	</select>
 	
 	<select id="getGList" parameterType="String">
 		SELECT gr_title,CONCAT(DATE_FORMAT(gr_oper,'%Y-%m-%d %H:%i'),' ~ ',
-		DATE_FORMAT(DATE_ADD(gr_oper,INTERVAL 3 HOUR),'%Y-%m-%d %H:%i')) AS gr_oper,total_num, con_del,round
-		FROM group_consulting WHERE gr_no = #{gr_no}
+		DATE_FORMAT(DATE_ADD(gr_oper,INTERVAL 3 HOUR),'%Y-%m-%d %H:%i')) AS gr_oper,total_num, gr_del,round
+		FROM group_consulting WHERE up_gr_no = #{gr_no}
 	</select>
 	
 	<select id="totalPage" resultType="String">
@@ -88,7 +89,9 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 		SELECT gr_no FROM group_consulting WHERE gr_title = #{title}
 	</select>
 	
-	
+	<select id="getMemberType" parameterType="int">
+		SELECT dept FROM members WHERE id = #{id}
+	</select>
 </mapper>
 
 

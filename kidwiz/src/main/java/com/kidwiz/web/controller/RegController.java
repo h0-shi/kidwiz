@@ -84,4 +84,10 @@ public class RegController {
 		List<RegDTO> regResult = regService.getRegResult(regno);
 		return regResult; 
 	}
+	
+	@PostMapping("/resultUpdate")
+	public int resultUpdate(@RequestBody ResultDTO result) {
+		int update = regService.resultUpdate(result);
+		return update;
+	}
 }

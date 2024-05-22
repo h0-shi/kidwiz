@@ -96,5 +96,30 @@ public class AccountController {
 
 		return new ResponseEntity<>(null, HttpStatus.OK);
 	}
+	
+	// 비밀번호 수정
+	@PostMapping("api/account/changepassword")
+	public ResponseEntity changepassword(@RequestBody Map<String, String> params,
+			@CookieValue(value = "token") String token) {
+		
+		// 토큰 확인
+		Claims claims = jwtService.getClaims(token);
+		if(claims == null) {
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+		
+		// claims 에서 id 값 추출하기
+		int id = Integer.parseInt(claims.get("id").toString());
+		Member member = memberRepository.findById(id);
+		
+		if(member != null) {
+			member.setPassword(params.get("newPassword"));
+			memberRepository.save(member);
+			
+			return new ResponseEntity<>(member, HttpStatus.OK);
+		}
+		
+		throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+	}
 
 }

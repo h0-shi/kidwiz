@@ -24,23 +24,21 @@
       </tr>
     </table>
     <div class="d-flex justify-content-center">
-      <ul class="pagination" style="">
+      <ul class="pagination">
 
         <li class="page-item" v-if="pageMap.currentpage != 1">
           <button class="page-link" aria-label="Previous" @click="changeboard(1)">&laquo;</button>
         </li>
-        <li v-else>
-          <span>
-            <button class="page-link" disabled="disabled" aria-label="Previous">&nbsp;</button>
-          </span>
+        <li class="page-item" v-else>
+            <button class="page-link disabled" aria-label="Previous">&laquo;</button>
         </li>
 
         <li class="page-item" v-if="pageMap.currentpage != 1">
           <button class="page-link" aria-label="Previous" @click="changeboard(pageMap.currentpage - 1)">&lt;</button>
         </li>
-        <li v-else>
+        <li class="page-item" v-else>
           <span>
-            <button class="page-link" disabled="disabled" aria-label="Previous">&nbsp;</button>
+            <button class="page-link disabled" aria-label="Previous">&lt;</button>
           </span>
         </li>
 
@@ -52,9 +50,9 @@
         <li class="page-item" v-if="pageMap.currentpage != pageMap.totalpage">
             <button class="page-link" @click="changeboard(pageMap.currentpage + 1)" aria-label="Next" aria-hidden="true">&gt;</button>
         </li>
-        <li v-else>
+        <li class="page-item" v-else>
           <span>
-            <button class="page-link" disabled="disabled" aria-label="Previous">&nbsp;</button>
+            <button class="page-link disabled" aria-label="Previous">&gt;</button>
           </span>
         </li>
 
@@ -62,15 +60,15 @@
         <li class="page-item" v-if="pageMap.currentpage != pageMap.totalpage">
             <button class="page-link" @click="changeboard(pageMap.totalpage)" aria-label="Next" aria-hidden="true">&raquo;</button>
         </li>
-        <li v-else>
+        <li class="page-item" v-else>
           <span>
-            <button class="page-link" disabled="disabled" aria-label="Previous">&nbsp;</button>
+            <button class="page-link disabled" aria-label="Previous">&raquo;</button>
           </span>
         </li>
 
       </ul>
     </div>
-    <button @click="$router.push('/boardwrite')">글쓰기</button>
+    <button v-if="$store.state.account.id" @click="$router.push('/boardwrite')">글쓰기</button>
   </div>
 </template>
 

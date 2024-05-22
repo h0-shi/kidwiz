@@ -35,11 +35,15 @@
 	
 	<insert id="resultWrite" parameterType="map">
 		INSERT INTO counResult (counNum, stuNum, proNum, goal, content, summary,homework, opinion) 
-		VALUES (#{regno}, #{stuNum}, 000321, #{goal}, #{content}, #{summary}, #{homework}, #{opinion})
+		VALUES (#{regno}, #{stuNum}, #{proNum}, #{goal}, #{content}, #{summary}, #{homework}, #{opinion})
 	</insert>
 	
 	<select id="getRegResult" parameterType="String">
 		SELECT * FROM resultView WHERE regno = #{regno}
 	</select>
+	
+	<update id="resultUpdate" parameterType="Map">
+	UPDATE counResult SET goal = #{goal}, content = #{content}, summary = #{summary} ,homework = #{homework}, opinion = #{opinion}
+	</update>
 	
 </mapper>

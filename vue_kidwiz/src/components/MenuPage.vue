@@ -17,7 +17,8 @@
         <span class="top-right">
           <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
           <a to="/login" @click="logout()" v-else>로그아웃</a>
-          <router-link to="/mypage" v-if="$store.state.account.id">마이페이지</router-link>
+          <router-link to="/mypage" v-if="$store.state.account.id">| 마이페이지</router-link>
+          <a href="">| English</a>
         </span>
       </nav>
       <nav class="nav-bot boundary">
@@ -40,8 +41,9 @@
           <li><router-link to="/regRev">박시호</router-link></li>
           <li><router-link to="/rsrvTest4">예약테스트</router-link></li>
           <li><router-link to="/GroupList">박선우 집단</router-link></li>
-          <li><router-link to="/jobConsulting">취업상담</router-link></li>
-          <li><router-link to="/counseling">심리상담 안내</router-link></li>
+          <!-- <li><router-link to="/jobConsulting">취업상담</router-link></li>  -->
+          <li><router-link to="/jobs/intro">취업상담</router-link></li>
+          <li><router-link to="/simrimain">심리상담 안내</router-link></li>
           <li><router-link to="/secMenuTest">다증레이아웃</router-link></li>
         </ul>
         <ul>
@@ -55,13 +57,13 @@
           <li><router-link to="/applyForm3">applyForm3</router-link></li>
           <li><router-link to="/resultWrite">resultWrite</router-link></li>
           <li><router-link to="/regResult">regResult</router-link></li>
+          <li><router-link to="/cardNews">카드뉴스</router-link></li>
         </ul>
       </nav>
     </div>
   </div>
   </header>
   <div class="mainContainer">
-    <Main></Main>
     <main>
       <slot />
     </main>
@@ -74,13 +76,10 @@
 import store from "@/views/store";
 import router from '@/router'
 import axios from 'axios';
-import Main from '@/components/Main.vue'
 
 export default {
     name:'MenuPage',
-    component:{
-      Main,
-    },
+
     data(){
       return{
         navDisplay : 'none'
