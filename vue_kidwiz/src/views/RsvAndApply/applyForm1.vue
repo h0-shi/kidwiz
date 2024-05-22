@@ -5,7 +5,7 @@
         <div class="formContainer">
           <div class="card-body">
             <h2 class="card-title mb-4">지도 교수 상담</h2>
-            <span>상담 신청서</span>
+            <span class="formInfo">🧾 상담 신청서</span>
             <form @submit="submitForm">
               <table class="formTable">
                 <colgroup>
@@ -19,7 +19,7 @@
                     <th>상담 유형<span> *</span></th>
                     <td>지도 교수 상담</td>
                     <th>상담자<span> *</span></th>
-                    <td>지도교수 이름(수정 필)</td>
+                    <td>{{ advisor }}</td>
                   </tr>
                   <tr>
                     <th>성명<span> *</span></th>
@@ -29,21 +29,22 @@
                   </tr>
                   <tr>
                     <th>성별<span> *</span></th>
-                    <td>성별(수정 필)</td>
+                    <td v-if="gender==='M'">남자</td>
+                    <td v-if="gender==='F'">여자</td>
                     <th>소속<span> *</span></th>
-                    <td>학과(수정 필)</td>
+                    <td>{{major_name}}</td>
+                  </tr>
+                  <tr>
+                    <th>생년월일<span> *</span></th>
+                    <td>{{birth_date}}</td>
+                    <th>연락처<span> *</span></th>
+                    <td>{{contact}}</td>
                   </tr>
                   <tr>
                     <th>상담일<span> *</span></th>
                     <td>{{ selectedDate }}</td>
-                    <th>상담자<span> *</span></th>
-                    <td>{{ proName }}</td>
-                  </tr>
-                  <tr>
                     <th>상담 시간<span> *</span></th>
                     <td>{{ selectedTime }}</td>
-                    <th>상담 회기</th>
-                    <td> - </td>
                   </tr>
                   <tr>
                     <th colspan="1">상담 요청 사항<span> *</span>
@@ -58,8 +59,92 @@
                 ></textarea></td>
                   </tr>
             </tbody>                
-            </table>              
-              <button type="submit" class="btn btn-primary">신청서 제출</button>
+            </table>
+            <div class="card">
+              <div class="card-body">
+              <span class="formInfo mt-4">개인정보 수집 동의</span>
+              <hr>            
+              <div>
+                <div class="agree">담센터는 상담 및 심리검사 프로그램 진행을 위해 「개인정보보호법」 제15조(개인정보 수집·이용) 및 제23조(민감정보의 처리 제한)에 따라 귀하의 동의를 받고자 합니다. 아래 내용을 자세히 읽어보시고, 모든 내용을 이해하신 후 동의 여부를 결정하여 주시기 바랍니다.</div>
+                <div class="subTitle">1. 개인정보 수집·이용 동의
+                  <table class="agreeTable">
+                    <colgroup>
+                      <col style="width: 10%" />
+                      <col style="width: 40%" />
+                      <col style="width: 25%" />
+                      <col style="width: 25%" />
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th>구분</th>
+                        <th>수집 · 이용할 개인정보 항목</th>
+                        <th>수집 · 이용 목적</th>
+                        <th>보유 및 이용 기간</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="tac">필수</td>
+                        <td class="infoContent">
+                          1. 상담 신청서<br>
+                          <span>
+                          - 성명, 학번, 성별, 생년월일, 소속, 연락처(핸드폰), e-mail, 비상 연락처, 현주소, 휴학여부, 휴학 사유 및 기간, 기타
+                          (상담관련 서류, 심리검사자료, 녹취정보)<br>
+                          </span>
+                          2. 심리검사 답안지<br>
+                          <span>
+                          - 성명, 성별, 생년월일, 소속
+                        </span>
+                        </td>
+                        <td rowspan="2" class="infoContent">
+                          - 상담 및 심리검사 진행<br>
+                          - 상담기간 중 비상 시 업무 연락</td>
+                        <td rowspan="2" class="infoContent">
+                          o 상담신청서(미참가자) 및 심리검사 답안지 : 신청 완료된 시점으로부터 1개월<br>
+                          o 상담진행시 관련 서류 : 상담 종결 시점으로부터 7년<br>
+                          o 녹음파일 : 녹취된 시점부터 1년<br>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="tac">선택</td>
+                        <td class="infoContent">
+                          1. 상담 신청서<br>
+                          <span>
+                          - 고교졸업년도, 현재 건강상태, 입학경위, 주거지
+                        </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="agree mt-2">
+                    ※ 학생상담센터에서 실시 중인 심리검사 : MBTI, MMPI, SCT, K-IIP, U&I 학습유형검사, U&I 진로탐색검사, TCI 등 신청자는 개인정보 수집 · 이용에 대한 동의를 거부할 권리가 있습니다. 그러나, 동의를 거부할 경우 개인상담 및 심리검사 진행이 불가할 수 있습니다.
+                  </div>
+                  <div class="mt-2">
+                    <hr>
+                    <table class="radioGroup">
+                      <colgroup>
+                      <col style="width:40%">
+                      <col style="width:30%">
+                      <col style="width:30%">
+                      </colgroup>
+                      <tr>
+                        <td><span class="agreeCheck">[필수] 개인정보 수집 · 이용에 동의하십니까?</span></td>
+                        <td class="radios">
+                        <input type="radio" value="agree" v-model="agreement">
+                        <span class="agreeCheck">동의합니다.</span>                      
+                        </td>
+                        <td class="radios">
+                          <input type="radio" value="disagree" v-model="agreement">
+                          <span class="agreeCheck">동의하지 않습니다.</span>  
+                        </td>
+                      </tr>
+                    </table>                                        
+                  </div>
+                </div>
+              </div>              
+              </div>                
+            </div>
+              <button type="submit" class="btn btn-primary mt-4">신청서 제출</button>
             </form>
           </div>
         </div>
@@ -98,25 +183,29 @@ export default {
       localSelectedCounselingType: "", // 로컬 데이터 속성으로 사용
       requestText: "",
       textLength: 0,
-
+      contact:'',
+      birth_date:'',
       localSelectedDate: "", // 로컬 데이터 속성으로 사용
       localSelectedTime: "",
-
+      gender : '',
+      major_name: '',
+      agreement:'disagree',
       isSubmitting: false, // 중복 제출 방지 240516
     };
   },
   mounted() {
     this.studentName = this.$store.state.account.name;
-    this.studentID = this.$store.state.account.id;
-    console.log("학생 this.id : " + this.studentID);
-    console.log("학생 store.account.id : " + this.$store.state.account.id);
+    this.studentID = this.$store.state.account.id;    
     axios
       .get(
         `/api/reservations/members?studentID=` + this.$store.state.account.id
       )
       .then((response) => {
-        console.log(response.data);
+        this.major_name = response.data.major_name;
+        this.gender = response.data.gender;
         this.advisor = response.data.major_head;
+        this.contact =response.data.contact;
+        this.birth_date = response.data.birth_date;
         this.getProId(this.advisor); //상담자 id 가져오기 위한 변수
       })
       .catch((error) => {
@@ -206,6 +295,10 @@ export default {
         this.isSubmitting = false;
         return;
       }
+      if(`${this.agreement}`!='agree'){
+        alert("개인정보 비동의시 상담 접수가 불가합니다.");
+        return false;
+      }
       // 예약 데이터 확인
       console.log("예약 데이터:", reservationData);
 
@@ -249,10 +342,60 @@ export default {
   max-width: 600px;
   margin: auto;
 }
-
+.subTitle{
+  text-align: left;
+  margin: 10px 0;
+}
+.radioGroup{
+  width: 100%;
+}
+.agreeTable{
+  width: 100%;
+}
+.radios{
+  text-align: right;
+}
+.agreeTable tr th{
+  height: 35px;
+  border: 1px solid #c0c0c0;
+  font-weight: bold;
+  font-size: nomal;
+  text-align: center;
+}
+.infoContent{
+  padding: 5px;
+  margin-left: 10px;
+  text-align: left;  
+}
+.infoContent span{
+  font-size: smaller;
+  margin-left: 5px;
+}
+.tac{
+  text-align: center;
+}
+.agreeTable tr td{
+  height: 35px;
+  border: 1px solid #c0c0c0;
+  color: #3d3d3d;
+  font-weight: nomal;
+  font-size: small;
+}
+.formInfo{
+  display: block;
+  text-align: left;
+  font-size: larger;
+  font-weight: bold;
+  color: rgb(7, 7, 173);
+  margin: 5px 10px;
+}
 .counseling-types {
   display: flex;
   gap: 10px;
+}
+.formTable{
+  border-top: 1px solid #707070;
+  border-bottom: 1px solid #707070;
 }
 table th span{
     color : red;
@@ -266,7 +409,18 @@ table td textarea{
   border: 1px solid #ccc;
   cursor: pointer;
 }
-
+.agree{
+  margin: 0 5px;
+  font-weight: lighter;
+  font-size: smaller;
+  text-align: left;
+}
+.agreeCheck{
+  margin: 0 5px;
+  font-weight: lighter;
+  font-size: smaller;
+  text-align: left;
+}
 .counseling-type.selected {
   background-color: #4caf50;
   color: white;
