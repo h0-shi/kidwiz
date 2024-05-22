@@ -90,8 +90,8 @@ public class RsvServiceImpl implements RsvService {
 	}
 
 	@Override
-	public Integer getProId2(String CounselingType) {
-		logger.info("getProId 호출: {}", CounselingType);
-		return reservationDAO.getProId2(CounselingType);
+	public Integer getCounselorId(String CounselingType) {
+		logger.info("getCounselorId 호출: {}", CounselingType);
+		return reservationDAO.getCounselorId(CounselingType);
 	}
 }
