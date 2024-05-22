@@ -48,8 +48,9 @@ import cardDetail2 from '@/views/alpha/cardDetail2.vue';
 import cardDetail3 from '@/views/alpha/cardDetail3.vue';
 
 import adminMemberControl from '@/layout/AdminSidebar.vue';
-import MemberControl from '@/components/MemberControl.vue'
-import BoardControl from '@/components/BoardControl.vue'
+import MemberControl from '@/components/MemberControl.vue';
+import BoardControl from '@/components/BoardControl.vue';
+import resultUpdate from '@/views/regviews/resultUpdate.vue';
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 
@@ -120,6 +121,7 @@ const routes = [
     {path: '/cardDetail1', name: 'cardDetail1', component: cardDetail1, meta: { layout: MainLayout } },
     {path: '/cardDetail2', name: 'cardDetail2', component: cardDetail2, meta: { layout: MainLayout } },
     {path: '/cardDetail3', name: 'cardDetail3', component: cardDetail3, meta: { layout: MainLayout } },
+    {path: '/resultUpdate', name: 'resultUpdate', component: resultUpdate, meta: { layout: MainLayout } },
     
 
     

@@ -40,7 +40,7 @@
                     <th>상담일</th>
                     <td>{{ date }}</td>
                     <th>상담자</th>
-                    <td>위지언 (수정필요)</td>
+                    <td>{{proName}}</td>
                 </tr>
                 <tr>
                     <th>상담 시간</th>
@@ -80,7 +80,7 @@
             </tbody>
         </table>      
         <section class="btns">
-            <button class="button save">수정하기</button>            
+            <button class="button save" @click="update()">수정하기</button>            
         </section>  
         
     </form>
@@ -109,6 +109,7 @@ export default {
             times:'',
             totalTimes:'',            
             contact:'',
+            proName:'',
         }
     },
     mounted() {
@@ -130,10 +131,17 @@ export default {
             this.times = res.data[0].times;
             this.totalTimes = res.data[0].totalTimes;
             this.contact = res.data[0].contact;
-            
+            this.proName = res.data[0].proName;
         }).catch((err) => {
             console.log(err+'에러디')
         })
+    },
+    methods : {
+        update(){
+            if(confirm("일지를 수정하시겠습니까?")){
+                this.$router.push("/resultUpdate?regno="+this.regno);
+            }
+        },
     }
 }
 </script>
