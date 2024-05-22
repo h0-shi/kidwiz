@@ -1,7 +1,7 @@
 <template>
   <div>
-    <MenuPage />
-    <MyPageSecMenu />
+        <MySidebar></MySidebar>
+    <MenuPage/>
     <div class="container-fluid mt-5 pt-4">
       <div class="row">
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -42,13 +42,13 @@
 
 <script>
 import MenuPage from '@/components/MenuPage.vue';
-import MyPageSecMenu from '@/views/mypage/MyPageSecMenu.vue';
+import MySidebar from '@/components/MySidebar.vue';
 
 export default {
   name: 'MyQna',
   components: {
     MenuPage,
-    MyPageSecMenu
+    MySidebar
   },
   data() {
     return {
@@ -69,7 +69,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style >
 .container-fluid {
   padding-top: 56px;
 }

@@ -1,6 +1,5 @@
 package com.kidwiz.web.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -84,5 +83,11 @@ public class RegController {
 	public List<RegDTO> getRegResult(@RequestParam("regno") String regno){
 		List<RegDTO> regResult = regService.getRegResult(regno);
 		return regResult; 
+	}
+	
+	@PostMapping("/resultUpdate")
+	public int resultUpdate(@RequestBody ResultDTO result) {
+		int update = regService.resultUpdate(result);
+		return update;
 	}
 }

@@ -11,6 +11,11 @@ const store = createStore({
             }
         }
     },
+    getters: {
+      accountId: state => state.account.id,
+      accountEmail: state => state.account.email,
+      accountName: state => state.account.name
+    },
     mutations: {
         setAccount(state, payload) {
             // id 값 payload 에 설정하겠다

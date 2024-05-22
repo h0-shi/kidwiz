@@ -53,4 +53,8 @@ public class RegService {
 		return regDAO.oneTimeRegInsert(test);
 	}
 
+	public int resultUpdate(ResultDTO result) {
+		return regDAO.resultUpdate(result);
+	}
+
 }

@@ -1,8 +1,12 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <MySidebar class="col-md-3 bg-light" />
-
+  <div>
+        <MySidebar></MySidebar>
+    <MenuPage/>
+    <div class="container-fluid mt-5 pt-4">
+      <div class="row">        
+        <div class="col-md-2">
+          <!-- 이 부분은 사이드바의 위치를 나타냅니다 -->
+        </div>
       <div class="col-md-9">
         <div v-if="testResult" class="card mt-4">
           <div class="card-header">
@@ -34,18 +38,21 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
-import MySidebar from '@/components/MySidebar.vue';
 import { useStore } from 'vuex';
+import MySidebar from '@/components/MySidebar.vue';
+import MenuPage from '@/components/MenuPage.vue';
 
 export default {
   name: 'MySimri',
   components: {
     MySidebar,
+    MenuPage
   },
 
   setup() {
@@ -108,13 +115,15 @@ export default {
 </script>
 
 
-<style scoped>
-.container-fluid {
-  padding-top: 56px;
-  /* Adjust based on the height of HeaderMenu */
+<style >
+.card {
+  margin-top: 20px;
 }
 
-.card {
+.container-fluid {
+  padding-top: 56px; 
+}
+.table {
   margin-top: 20px;
 }
 </style>

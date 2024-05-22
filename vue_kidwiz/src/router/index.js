@@ -21,7 +21,9 @@ import login from "@/views/LoginPage.vue";
 import jobConsulting from "@/views/JobConsulting.vue"; // 취업상담
 import mypage from "@/views/mypage/MyPage.vue";
 import MyConsultations from '@/views/mypage/MyConsultations.vue';
+import StudentConsultations from '@/views/mypage/StudentConsultations.vue';
 import MyGroupConsulte from '@/views/mypage/MyGroupConsulte.vue';
+import MyInfo from '@/views/mypage/MyInfo.vue';
 import MyQna from '@/views/mypage/MyQna.vue';
 import MyReviews from '@/views/mypage/MyReviews.vue';
 import MySimriResult from '@/views/mypage/MySimriResult.vue';
@@ -47,8 +49,9 @@ import cardDetail2 from '@/views/alpha/cardDetail2.vue';
 import cardDetail3 from '@/views/alpha/cardDetail3.vue';
 
 import adminMemberControl from '@/layout/AdminSidebar.vue';
-import MemberControl from '@/components/MemberControl.vue'
-import BoardControl from '@/components/BoardControl.vue'
+import MemberControl from '@/components/MemberControl.vue';
+import BoardControl from '@/components/BoardControl.vue';
+import resultUpdate from '@/views/regviews/resultUpdate.vue';
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 
@@ -101,8 +104,10 @@ const routes = [
     {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : MainLayout}},
     {path: '/mypage', name: 'mypage', component: mypage, meta: {layout : MainLayout}},
     {path: '/myconsultations', name: 'myconsultations', component: MyConsultations, meta: { layout: MainLayout } },
+    {path: '/StudentConsultations', name: 'StudentConsultations', component: StudentConsultations, meta: { layout: MainLayout } },
     {path: '/mygroup', name: 'mygroup', component: MyGroupConsulte, meta: { layout: MainLayout } },
     {path: '/myqna', name: 'myqna', component: MyQna, meta: { layout: MainLayout } },
+    {path: '/myinfo', name: 'myinfo', component: MyInfo, meta: { layout: MainLayout } },
     {path: '/myreviews', name: 'myreviews', component: MyReviews, meta: { layout: MainLayout } },
     {path: '/mysimri', name: 'mysimri', component: MySimriResult, meta: { layout: MainLayout } },
     {path: '/mysimrireserve', name: 'mysimrireserve', component: MySimriReserve, meta: { layout: MainLayout } },
@@ -118,6 +123,7 @@ const routes = [
     {path: '/cardDetail1', name: 'cardDetail1', component: cardDetail1, meta: { layout: MainLayout } },
     {path: '/cardDetail2', name: 'cardDetail2', component: cardDetail2, meta: { layout: MainLayout } },
     {path: '/cardDetail3', name: 'cardDetail3', component: cardDetail3, meta: { layout: MainLayout } },
+    {path: '/resultUpdate', name: 'resultUpdate', component: resultUpdate, meta: { layout: MainLayout } },
     
 
     

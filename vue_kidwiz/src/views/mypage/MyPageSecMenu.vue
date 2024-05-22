@@ -1,112 +1,55 @@
 <template>
   <div>
-    <br />
-    <div class="sbmContainer boundary">
-      <table class="subMenu">
-        <tr>
-          <th :style="select[0]">
-            <router-link :to="{ name: 'mypage' }" class="router-link" @click="handleClick(0, 'mypage', $event)">나의 정보 관리</router-link>
-          </th>
-          <!-- <th :style="select[1]" @click="displayAct(1)">나의 상담 내역</th> -->
-          <th :style="select[1]">
-            <router-link :to="{ name: 'myconsultations' }" class="router-link" @click="handleClick(1, 'myconsultations', $event)">나의 상담 내역</router-link>
-          </th>
-          <!-- <th :style="select[2]" @click="displayAct(2)">비교과(집단 상담)내역</th> -->
-          <th :style="select[2]">
-            <router-link :to="{ name: 'mysimri' }" class="router-link" @click="handleClick(2, 'mysimri', $event)">나의 심리검사 결과</router-link>
-          </th>
-          <!-- <th :style="select[3]" @click="displayAct(3)">나의 심리검사 결과</th> -->
-          <th :style="select[3]">
-            <router-link :to="{ name: 'mysimri' }" class="router-link" @click="handleClick(3, 'mysimri')">나의 심리검사 결과</router-link>
-          </th>
-          <!-- <th :style="select[4]" @click="displayAct(4)">나의 문의 내역</th> -->
-          <th :style="select[4]">
-            <router-link :to="{ name: 'myqna' }" class="router-link" @click="handleClick(4, 'myqna', $event)">나의 문의 내역</router-link>
-          </th>
-        </tr>
-      </table>
+    <div class="container-fluid mt-5 pt-4">
+      <div class="row">
+        <MenuPage/>
+        <MySidebar></MySidebar>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <h1> 아래는 예시입니다. 수정 필수! </h1><br><hr>
+          <h1 class="mb-4">마이페이지입니다</h1>
+          <div class="mt-4">
+            <p>현재 로그인한 사용자 id: <strong>{{ $store.state.account.id }}</strong></p>
+            <p>현재 로그인한 사용자 email: <strong>{{ $store.state.account.email }}</strong></p>
+            <p>현재 로그인한 사용자 name: <strong>{{ $store.state.account.name }}</strong></p>
+          </div>
+        </main>
+      </div>
     </div>
-    <section class="section s1" :style="cssAct[0]"></section>
-    <section class="section s2" :style="cssAct[1]"></section>
-    <section class="section s3" :style="cssAct[2]"></section>
-    <section class="section s4" :style="cssAct[3]"></section>
-    <section class="section s4" :style="cssAct[4]"></section>
   </div>
 </template>
-  
-  <script>
+
+<script>
+import MySidebar from '@/components/MySidebar.vue';
+import MenuPage from '@/components/MenuPage.vue';
+
+
 export default {
-  data() {
-    return {
-      act: "none",
-      cssAct: [
-        { display: "none" },
-        { display: "none" },
-        { display: "none" },
-        { display: "none" },
-        { display: "none" },
-      ],
-      select: [{}, {}, {}, {}, {}],
-    };
-  },
-  mounted() {
-    this.cssAct[0] = { display: "block" };
-    this.select[0] = {
-      border: "2px solid rgb(43, 43, 165",
-      "border-bottom": "none",
-    };
-  },
-  methods: {
-    handleClick(num, routeName) {
-      this.displayAct(num);
-      this.$router.push({ name: routeName });
-    },
-    displayAct(num) {
-      this.cssAct = this.cssAct.map((style, i) => {
-        if (i == num) {
-          return { display: "block" };
-        }
-        return { display: "none" };
-      });
-      this.select = this.select.map((style, i) => {
-        if (i == num) {
-          return {
-            border: "2px solid rgb(43, 43, 165",
-            "border-bottom": "none",
-          };
-        }
-      });
-    },
-  },
-};
+  name: 'MyPage',
+  components: {
+    MySidebar,
+    MenuPage
+  }
+}
 </script>
-  
-  <style>
-.sbmContainer {
-  width: 100%;
-  margin-bottom: 50px;
+
+<style scoped>
+.container-fluid {
+  padding-top: 56px; 
 }
-.subMenu {
-  width: 100%;
-  margin: auto;
-  table-layout: fixed;
+.sidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  height: calc(100vh - 56px);
+  padding-top: 1rem;
+  overflow-x: hidden;
+  overflow-y: auto; 
 }
-.subMenu tr th {
-  width: 20%;
-  height: 55px;
-  border-bottom: 2px solid rgb(43, 43, 165);
-  text-align: center;
+.sidebar .nav-link {
+  font-weight: 500;
+  color: #333;
 }
-.boundary {
-  width: 100%;
-  max-width: 1200px;
-  padding: 0 auto;
-}
-.router-link {
-  display: block;
-  height: 70%;
-  width: 100%;
-  text-decoration: none;
-  color: inherit;
+.sidebar .nav-link:hover {
+  color: #007bff;
 }
 </style>

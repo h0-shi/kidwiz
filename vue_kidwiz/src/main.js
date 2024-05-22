@@ -8,6 +8,7 @@ import BootstrapVue3	from 'bootstrap-vue-3'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
+import '@/assets/css/styles.css';
 
 //데이터피크 전역 사용
 import VueDatePicker from '@vuepic/vue-datepicker';
