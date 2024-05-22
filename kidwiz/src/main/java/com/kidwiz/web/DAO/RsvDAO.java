@@ -12,10 +12,11 @@ import com.kidwiz.web.DTO.RsvDTO;
 @Mapper
 public interface RsvDAO {
 
-    List<RsvDTO> getAllReservations();
+    List<RsvDTO> getAllReservations(RsvDTO rsv);
     void insertReservation(RsvDTO reservation);
     
-
     MemberDTO getMemberById(int id);
+    
+    Integer getProId(String majorHead);
 
 }

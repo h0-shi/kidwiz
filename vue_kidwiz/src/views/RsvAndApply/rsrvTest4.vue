@@ -112,7 +112,7 @@ export default {
         },
         events: [],
         eventClick: this.handleEventClick,
-        dateClick: this.fetchDateInfo, // 수정: dateClick 핸들러를 Ajax 호출 함수로 변경
+        dateClick: this.fetchDateInfo, 
         dayCellDidMount: this.handleDayMount
       }
     };
@@ -171,6 +171,7 @@ export default {
 
       this.selectedDate = info.dateStr;
       this.selectedTime = null;  // 시간 선택 초기화
+      this.availableTimes = [];  // 추가: 이전 날짜의 시간이 남아있지 않도록 초기화
 
       const today = new Date();
       today.setHours(0, 0, 0, 0);
@@ -183,7 +184,6 @@ export default {
       //  }
       this.isPast = clickedDate < today || clickedDate.toDateString() === today.toDateString();
       if (this.isPast) {
-        this.availableTimes = [];
         return;
         //} else if (clickedDate.toDateString() === today.toDateString()) {
         //  this.isPast = true; // 당일 클릭 시 isPast를 true로 설정
@@ -214,12 +214,8 @@ export default {
       ]; */
 
       // 예약 정보를 조회하여 해당 날짜에 예약이 있는 시간대를 비활성화합니다.
-      axios.get('/api/reservations', {
-        params: {
-          date: info.dateStr,
-          counselingType: this.selectedCounselingType,
-          majorId: this.majorId  // 상담사 소속 학과 ID
-        }
+      axios.get('http://localhost:3000/api/reservations?date='+this.selectedDate+"&type="+this.selectedCounselingType, {
+
       }).then(response => {
         const reservedTimes = response.data.map(reservation => reservation.ctime);
         this.availableTimes = this.timeSlots.map((time, index) => ({
@@ -270,6 +266,11 @@ export default {
       this.selectedCounselingType = type;
       this.showCounselingTypeAlert = false;
 
+      if (this.selectedDate) {
+      // 날짜가 이미 선택된 상태라면, 해당 날짜의 예약 가능 시간을 다시 조회
+      this.fetchDateInfo({ dateStr: this.selectedDate, dayEl: document.querySelector('.fc-day[data-date="' + this.selectedDate + '"]') });
+    }
+
     },
     loadMemberInfo() {
       axios.get(`/api/reservations/members/${this.account.id}`)
@@ -315,11 +316,68 @@ export default {
 
       const formRoute = formRouteMap[this.selectedCounselingType] || 'applyForm5';
 
+      
+
+
+      axios.get(`/api/advisors/${this.majorId}`)
+    .then(response => {
+      const advisor = response.data;
+
+      // 상담자 정보가 있는지 확인
+      if (!advisor) {
+        alert("상담자 정보를 불러오는 데 실패했습니다.");
+        return;
+      }
+
+      const reservationData = {
+        sid: this.getAccountId,
+        proid: this.majorId,
+        ctype: this.selectedCounselingType,
+        ctime: this.selectedTime.time,
+        cdate: this.selectedDate,
+        rsvdate: new Date().toISOString().split('T')[0],
+        rsvmemo: ''
+      };
+
+      console.log('Reservation data being sent:', reservationData);
+
+      axios.post('/api/reservations', reservationData)
+        .then(response => {
+          console.log('Reservation response:', response);
+
+          const event = {
+            title: 'Reservation',
+            start: `${this.selectedDate}T${this.selectedTime.time.split(' - ')[0]}:00`,
+            end: `${this.selectedDate}T${this.selectedTime.time.split(' - ')[1]}:00`
+          };
+          this.calendarOptions.events.push(event);
+
+          this.$router.push({
+            name: formRoute,
+            query: {
+              selectedDate: this.selectedDate,
+              selectedTime: this.selectedTime.time,
+              selectedCounselingType: this.selectedCounselingType,
+            }
+          });
+        })
+        .catch(error => {
+          console.error("Error submitting reservation:", error);
+          alert("예약 중 오류가 발생했습니다.");
+        });
+    })
+    .catch(error => {
+      console.error("Error fetching advisor information:", error);
+      // 이 부분에서는 오류 메시지를 출력하지 않습니다.
+    });
+
+
+
 
       // 폼 제출 로직: 서버에 예약 데이터 전송
       console.log(`Reservation submitted for ${this.selectedDate} at ${this.selectedTime.time}`);
 
-
+        
       // 서버로 보내기 전에 데이터 콘솔에 출력하여 확인
       const reservationData = {
         sid: this.getAccountId,
@@ -338,6 +396,8 @@ export default {
       axios.post('/api/reservations', reservationData)
         .then(response => {
           console.log('Reservation response:', response);
+
+
 
           // 예약 성공 시 FullCalendar에 이벤트 추가
           const event = {
@@ -389,7 +449,7 @@ export default {
     close() {
       this.$emit('update:modelValue', false);
     }
-
   }
 }
+
 </script>
