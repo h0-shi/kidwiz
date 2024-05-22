@@ -102,8 +102,7 @@ export default {
             birth_date:'',
             times:'',
             totalTimes:'',            
-            contact:'',
-            proName:'',
+            contact:'',            
             resultForm : {                
                 regno : '',
                 stuNum: '',
@@ -112,6 +111,7 @@ export default {
                 summary:'',
                 homework:'',
                 opinion:'',
+                proNum:'',
             }
         }
     },
@@ -120,7 +120,7 @@ export default {
         axios.get('http://localhost:3000/regResult?regno='+this.resultForm.regno).then((res) => {                    
             console.log(res.data[0]);
             this.resultForm.stuNum = res.data[0].stuNum;            
-            this.proName = res.data[0].proName;
+            this.resultForm.proName = res.data[0].proName;
             this.date = res.data[0].date;
             this.time = res.data[0].time;
             this.times = res.data[0].times;

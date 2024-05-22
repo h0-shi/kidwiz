@@ -35,7 +35,7 @@
 	
 	<insert id="resultWrite" parameterType="map">
 		INSERT INTO counResult (counNum, stuNum, proNum, goal, content, summary,homework, opinion) 
-		VALUES (#{regno}, #{stuNum}, 000321, #{goal}, #{content}, #{summary}, #{homework}, #{opinion})
+		VALUES (#{regno}, #{stuNum}, #{proNum}, #{goal}, #{content}, #{summary}, #{homework}, #{opinion})
 	</insert>
 	
 	<select id="getRegResult" parameterType="String">
