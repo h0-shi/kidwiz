@@ -8,9 +8,9 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-xl-2 col-lg-3 sidebar position-fixed">
-            <router-link to="/admin" class="navbar-brand text-white text-center d-block mx-auto py-3 mb-4 bottom-border">아무이름</router-link>
+            <router-link to="/admin" class="navbar-brand text-white text-center d-block mx-auto py-3 mb-4 bottom-border">KIDWIZ</router-link>
             <div class="bottom-border pb-3">
-              <h5 class="text-white">이름</h5>
+              <h5 class="text-white">{{$store.state.account.id}}</h5>
             </div>
             <ul class="navbar-nav flex-column mt-4">
               <li class="nav-item">

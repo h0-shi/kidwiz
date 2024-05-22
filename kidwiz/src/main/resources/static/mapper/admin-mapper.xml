@@ -24,4 +24,8 @@
 	        <if test="table_name == 'faq_question'">question_id = #{pri_no}</if>
 	    </where>
 	</update>
+	
+	<select id="admincheck" parameterType="int">
+		SELECT count(*) FROM members WHERE id = #{id} AND grade = 3
+	</select>
 </mapper>

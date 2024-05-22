@@ -44,4 +44,9 @@ public class AdminService {
 		return adminDAO.changeDb(row);
 	}
 
+	public int admincheck(int id) {
+		// TODO Auto-generated method stub
+		return adminDAO.admincheck(id);
+	}
+
 }

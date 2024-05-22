@@ -34,11 +34,14 @@
 <script>
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export default {
   name: "MemberControl",
   setup() {
     const member = ref([]);
+    
+    const router = useRouter()
 
     onMounted(() => {
       axios.get("/api/admin/member")
@@ -48,6 +51,14 @@ export default {
         .catch((error) => {
           console.error("There was an error fetching the data:", error);
         });
+
+        axios.post("/api/admin/admincheck",{ withCredentials: true }).then((res)=>{
+          if(res.data!=1){
+            router.push({path:"/"})
+          }
+        }).catch(()=>{
+          router.push({path:"/login"})
+        })
     });
 
     const changeDbGrade = (row) =>{
@@ -100,18 +111,10 @@ button {
   color: #333;
 }
 
-.table tr:nth-child(even) {
-  background-color: #2d5795;
-}
-
-.table tr:nth-child(odd) {
-  background-color: #a0a0a0;
-}
 
 .table tr:hover {
-  background-color: #a0a0a0;
+  background-color: #e4dedef3;
 }
-
 .status-sent {
   color: white;
   background-color: #28a745;
