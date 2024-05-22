@@ -57,6 +57,7 @@
           <li><router-link to="/applyForm3">applyForm3</router-link></li>
           <li><router-link to="/resultWrite">resultWrite</router-link></li>
           <li><router-link to="/regResult">regResult</router-link></li>
+          <li><router-link to="/cardNews">카드뉴스</router-link></li>
         </ul>
       </nav>
     </div>
@@ -78,8 +79,7 @@ import axios from 'axios';
 
 export default {
     name:'MenuPage',
-    component:{
-    },
+
     data(){
       return{
         navDisplay : 'none'

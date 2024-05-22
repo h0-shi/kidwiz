@@ -9,16 +9,16 @@
                         <!--<form @submit.prevent="submitForm">-->
                         <form @submit="submitForm">
 
-                            <div class="mb-3">
-                                <!-- <label class="form-label col-md-4">상담 유형: </label> -->
-                                <div class="btn-group" role="group" aria-label="Counseling Types">
+                            <!-- <div class="mb-3"> -->
+                            <!-- <label class="form-label col-md-4">상담 유형: </label> -->
+                            <!--     <div class="btn-group" role="group" aria-label="Counseling Types">
                                     <button type="button" v-for="type in counselingTypes" :key="type"
                                         class="counseling-type" :class="{ 'selected': selectedCounselingType === type }"
                                         @click="selectCounselingType(type)">
                                         {{ type }}
                                     </button>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="mb-3 form-row">
                                 <label for="applicationDate" class="form-label col-md-4">신청일:</label>
@@ -30,14 +30,21 @@
                             <div class="mb-3 form-row">
                                 <label for="counselingDate" class="form-label col-md-4">상담희망일:</label>
                                 <div class="col-md-8">
-                                    <input type="text" id="counselingDate" :value="formattedDate" readonly
+                                    <input type="text" id="counselingDate" :value="formattedSelectedDate" readonly
                                         class="form-control">
                                 </div>
                             </div>
                             <div class="mb-3 form-row">
                                 <label for="counselingTime" class="form-label col-md-4">상담희망시간:</label>
                                 <div class="col-md-8">
-                                    <input type="text" id="counselingTime" :value="formattedTime" readonly
+                                    <input type="text" id="counselingTime" :value="localSelectedTime" readonly
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="mb-3 form-row">
+                                <label for="counselingType" class="form-label col-md-4">상담 유형:</label>
+                                <div class="col-md-8">
+                                    <input type="text" id="counselingType" :value="selectedCounselingType" readonly
                                         class="form-control">
                                 </div>
                             </div>
@@ -83,6 +90,10 @@ export default {
         selectedTime: {
             type: String,
             required: true
+        },
+        selectedCounselingType: {
+            type: String,
+            required: true
         }
 
     },
@@ -91,28 +102,29 @@ export default {
             applicationDate: new Date().toLocaleDateString(),
             studentName: '학생 이름', // JWT를 통해 가져온 사용자 이름
             advisor: '상담자 이름', // 학과 정보에 따른 상담자
-            counselingTypes: ['지도교수 상담', '취업상담', '전문 상담'],
-            selectedCounselingType: '지도교수 상담', // 기본값으로 초기 설정되어있게 함
+            //counselingTypes: ['지도교수 상담', '취업상담', '전문 상담'],
+            //selectedCounselingType: '지도교수 상담', // 기본값으로 초기 설정되어있게 함
+            localSelectedCounselingType: '', // 로컬 데이터 속성으로 사용
             requestText: '',
             textLength: 0,
 
-            localSelectedDate: this.selectedDate, // 로컬 데이터 속성으로 사용
-            localSelectedTime: this.selectedTime,
+            localSelectedDate: '', // 로컬 데이터 속성으로 사용
+            localSelectedTime: '',
 
             isSubmitting: false // 중복 제출 방지 240516
         };
     },
     computed: {
-        formattedDate() {
+        formattedSelectedDate() {
             //return `${this.localSelectedDate} ${this.localSelectedTime ? this.localSelectedTime.time : ''}`;
             // 날짜와 시간을 함께 포맷팅하여 표시
             //return `${this.selectedDate} ${this.selectedTime}`;
-            const date = new Date(this.selectedDate);
+            const date = new Date(this.localSelectedDate);
             return date.toLocaleDateString();
         },
         formattedTime() {
             // 시간만 반환하도록 포맷팅
-            return this.selectedTime;
+            return this.localSelectedtime;
         }
     },
     // created() {
@@ -124,14 +136,25 @@ export default {
     //         this.selectedTime = this.$route.query.selectedTime;
     //     }
     // },
-    watch: {
-        '$route.query.selectedDate': function (newDate) {
-            this.localSelectedDate = newDate;
-        },
-        '$route.query.selectedTime': function (newTime) {
-            this.localSelectedTime = newTime;
-        }
+
+    //240521 상담유형 값 받아오기 위해 watch 대신 created로 수정
+    created() {
+        this.localSelectedDate = this.$route.query.selectedDate || '';
+        this.localSelectedTime = this.$route.query.selectedTime || '';
+        this.localSelectedCounselingType = this.$route.query.selectedCounselingType || '';
+
     },
+
+
+    // watch: {
+    //     '$route.query.selectedDate': function (newDate) {
+    //         this.localSelectedDate = newDate;
+    //     },
+    //     '$route.query.selectedTime': function (newTime) {
+    //        this.localSelectedTime = newTime;
+    //     }
+    //},
+
     methods: {
         async submitForm(event) {
             event.preventDefault(); // 기본 폼 제출 방지
@@ -140,18 +163,18 @@ export default {
             this.isSubmitting = true;
 
             // 상담 유형이 선택되지 않은 경우 경고 메시지 표시(240516 기본값 만들어서 이제 필요 없음)
-            //
-            if (!this.selectedCounselingType) {
-                alert("상담 유형 선택은 필수 사항입니다.");
-                this.isSubmitting = false;
-                return;
-            }
+            // 240520 이제 신청페이지에서 선택하므로 삭제
+            //if (!this.selectedCounselingType) {
+            //    alert("상담 유형 선택은 필수 사항입니다.");
+            //    this.isSubmitting = false;
+            //    return;
+            //}
 
             // 폼 제출 로직
             const reservationData = {
                 sid: 111, // 학생 ID (예: JWT에서 추출)
                 proid: 222, // 상담자 ID (상담자 정보에서 추출)
-                ctype: this.selectedCounselingType,
+                ctype: this.localSelectedCounselingType,
                 ctime: this.localSelectedTime,
                 cdate: this.localSelectedDate,
                 rsvdate: new Date().toISOString().split('T')[0],
@@ -199,10 +222,8 @@ export default {
 
         updateTextLength() {
             this.textLength = this.requestText.length;
-        },
-        selectCounselingType(type) {
-            this.selectedCounselingType = type;
         }
+
     }
 }
 </script>
