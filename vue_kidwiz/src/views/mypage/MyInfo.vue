@@ -23,17 +23,15 @@
             <label for="name">이름*</label>
             <span class="text-value">{{ $store.state.account.name }}</span>
           </div>
-          <hr class="line"/>
+          
           <div class="form-group">
             <label for="id">아이디(학번)*</label>
             <span class="text-value">{{ $store.state.account.id }}</span>
           </div>
-          <hr class="line"/>
           <div class="form-group">
             <label for="phone">휴대폰 번호*</label>
             <span class="text-value">{{ $store.state.account.email }}</span>
           </div>
-          <hr class="line"/>
           <div class="form-group">
             <label for="password">새 비밀번호*</label>
             <input type="password" @keyup.enter="changePassword" v-model="form.newPassword" placeholder="새 비밀번호" />
@@ -97,8 +95,6 @@ export default {
 .table {
   margin-top: 20px;
 }
-
-
 .content {
   padding: 20px;
 }

@@ -1,5 +1,5 @@
 <template>
-  <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar">
+  <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark custom-sidebar">
     <div class="pt-5">
       <div class="user-welcome mb-4 text-light">
   <h4 class="mb-0" >
@@ -62,9 +62,10 @@ export default {
 </script>
 
 <style>
-.sidebar {
-  margin-top: 120px;
+/* scoped 스타일을 제거하여 전역으로 적용 */
+.custom-sidebar {
   position: fixed;
+  margin-top: 100px;
   top: 0;
   left: 0;
   width: 250px;
@@ -76,7 +77,7 @@ export default {
   border-right: 1px solid #333;
 }
 
-.sidebar .nav-link {
+.custom-sidebar .nav-link {
   font-weight: 500;
   color: #fff;
   display: flex;
@@ -84,23 +85,26 @@ export default {
   gap: 10px;
 }
 
-.sidebar .nav-link:hover {
+.custom-sidebar .nav-link:hover {
   color: #ddd;
 }
 
-.sidebar .user-welcome {
+.custom-sidebar .user-welcome {
   padding: 1rem;
   border-bottom: 1px solid #333;
 }
 
-.sidebar .user-welcome h4 {
+.custom-sidebar .user-welcome h4 {
   font-size: 1.2rem;
   font-weight: bold;
   margin-bottom: 0; /* 여백을 없애기 위해 0으로 조절 */
 }
 
-.sidebar .user-welcome p {
+.custom-sidebar .user-welcome p {
   font-size: 0.9rem;
   margin-bottom: 0; /* 여백을 없애기 위해 0으로 조절 */
+}
+.custom-sidebar .nav-item {
+  margin-left: 40px; /* 원하는 만큼의 좌측 마진 설정 */
 }
 </style>

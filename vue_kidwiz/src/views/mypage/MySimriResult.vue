@@ -1,9 +1,12 @@
 <template>
   <div>
+        <MySidebar></MySidebar>
     <MenuPage/>
     <div class="container-fluid mt-5 pt-4">
-        <MySidebar></MySidebar>
-      <div class="row">
+      <div class="row">        
+        <div class="col-md-2">
+          <!-- 이 부분은 사이드바의 위치를 나타냅니다 -->
+        </div>
       <div class="col-md-9">
         <div v-if="testResult" class="card mt-4">
           <div class="card-header">
@@ -119,5 +122,8 @@ export default {
 
 .container-fluid {
   padding-top: 56px; 
+}
+.table {
+  margin-top: 20px;
 }
 </style>

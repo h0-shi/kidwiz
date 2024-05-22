@@ -1,9 +1,9 @@
 <template>
   <div>
+        <MySidebar></MySidebar>
     <MenuPage/>
     <div class="container-fluid mt-5 pt-4">
       <div class="row">
-        <MySidebar></MySidebar>
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
           <h1> 아래는 예시입니다. 수정 필수! </h1><br>
           <hr>
