@@ -36,19 +36,19 @@
                 <table class="table stu" v-if="responseData && responseData.length > 0">
                     <thead>
                         <tr>
-                            <th scope="col">번호</th>
+                            <th>회차</th>
                             <th scope="col">학번</th>
                             <th scope="col">날짜</th>
-                            <th scope="col">시간</th>
+                            <th scope="col">시간</th>                            
                             <th>일지 작성 여부</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="row in responseData" :key="row.regno"> 
-                            <td scope="row">{{ row.rownum }}</td>
+                            <td>{{row.times}}회차</td>
                             <td>{{ row.stuNum }}</td>
-                            <td>{{ row.date }}</td>
-                            <td>{{ row.time }}</td>
+                            <td>{{ row.date }}</td>                            
+                            <td>{{row.time}}</td>
                             <td v-if="row.writed === 0">
                                 <button class="save" @click="regWrite(row)">일지 작성</button>
                             </td>
@@ -132,9 +132,6 @@
             }
         },
         mounted(){
-            if(this.$store.state.account.id == 0){
-                alert("로그인 됨");
-            }
             axios.get('http://localhost:3000/regTotalCount').then((res) => {  
                 this.totalCount = res.data;
                 console.log(this.totalCount);
@@ -166,6 +163,9 @@
             regDetail(reg){
                 console.log(reg.reg_no);
                 this.$router.push('/regResult?regno='+reg.regno);
+            },
+            regWrite(reg){
+                this.$router.push('/resultWrite?regno='+reg.regno);
             },
             async modalOpen(reg_no, stuNum){
                 console.log(this.modalCheck==false)
@@ -209,7 +209,7 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 550px;
+        width: 800px;
         background: #fff;
         border-radius: 10px;
         padding: 20px;

@@ -30,14 +30,14 @@
                             <div class="mb-3 form-row">
                                 <label for="counselingDate" class="form-label col-md-4">상담희망일:</label>
                                 <div class="col-md-8">
-                                    <input type="text" id="counselingDate" :value="formattedDate" readonly
+                                    <input type="text" id="counselingDate" :value="formattedSelectedDate" readonly
                                         class="form-control">
                                 </div>
                             </div>
                             <div class="mb-3 form-row">
                                 <label for="counselingTime" class="form-label col-md-4">상담희망시간:</label>
                                 <div class="col-md-8">
-                                    <input type="text" id="counselingTime" :value="formattedTime" readonly
+                                    <input type="text" id="counselingTime" :value="localSelectedTime" readonly
                                         class="form-control">
                                 </div>
                             </div>
@@ -100,7 +100,8 @@ export default {
     data() {
         return {
             applicationDate: new Date().toLocaleDateString(),
-            studentName: '학생 이름', // JWT를 통해 가져온 사용자 이름
+            studentName: this.$store.state.account.name, // JWT를 통해 가져온 사용자 이름
+            //studentID: '학생 ID', // JWT를 통해 가져온 사용자 ID
             advisor: '상담자 이름', // 학과 정보에 따른 상담자
             //counselingTypes: ['지도교수 상담', '취업상담', '전문 상담'],
             //selectedCounselingType: '지도교수 상담', // 기본값으로 초기 설정되어있게 함
@@ -114,8 +115,23 @@ export default {
             isSubmitting: false // 중복 제출 방지 240516
         };
     },
+    mounted() {
+        this.studentName = this.$store.state.account.name;
+        this.studentID = this.$store.state.account.id;
+        console.log("학생 this.id : "+ this.studentID)
+        console.log("학생 store.account.id : "+ this.$store.state.account.id)
+        axios.get(`/api/reservations/members?studentID=` + this.$store.state.account.id)
+            .then(response => {
+                this.advisor = response.data.major_head;
+                this.getProId(this.advisor); //상담자 id 가져오기 위한 변수
+            })
+            .catch(error => {
+                console.error('Error fetching advisor:', error);
+                this.advisor = '상담자 정보를 불러오는 데 실패했습니다.';
+            });
+    },
     computed: {
-        formattedDate() {
+        formattedSelectedDate() {
             //return `${this.localSelectedDate} ${this.localSelectedTime ? this.localSelectedTime.time : ''}`;
             // 날짜와 시간을 함께 포맷팅하여 표시
             //return `${this.selectedDate} ${this.selectedTime}`;
@@ -139,33 +155,45 @@ export default {
 
     //240521 상담유형 값 받아오기 위해 watch 대신 created로 수정
     created() {
-        if (this.$route.query.selectedDate) {
-            this.localSelectedDate = this.$route.query.selectedDate;
-        }
-        if (this.$route.query.selectedTime) {
-            this.localSelectedTime = this.$route.query.selectedTime;
-        }
-        if (this.$route.query.selectedCounselingType) {
-            this.localSelectedCounselingType = this.$route.query.selectedCounselingType;
-        }
+        this.localSelectedDate = this.$route.query.selectedDate || '';
+        this.localSelectedTime = this.$route.query.selectedTime || '';
+        this.localSelectedCounselingType = this.$route.query.selectedCounselingType || '';
+
     },
 
 
-   // watch: {
-   //     '$route.query.selectedDate': function (newDate) {
-   //         this.localSelectedDate = newDate;
-   //     },
-   //     '$route.query.selectedTime': function (newTime) {
-   //        this.localSelectedTime = newTime;
-   //     }
-   //},
+    // watch: {
+    //     '$route.query.selectedDate': function (newDate) {
+    //         this.localSelectedDate = newDate;
+    //     },
+    //     '$route.query.selectedTime': function (newTime) {
+    //        this.localSelectedTime = newTime;
+    //     }
+    //},
 
     methods: {
+        async getProId(majorHead) {
+            try {
+            const encodedMajorHead = encodeURIComponent(majorHead); // URL 인코딩
+            const response = await axios.get(`/api/reservations/getProId?majorHead=` + encodedMajorHead);
+            this.proid = response.data;
+            } catch (error) {
+                console.error('Error fetching ProId:', error);
+                this.proid = null;
+            }
+            console.log("현시점 majorHead : "+majorHead)
+            console.log("현시점 proid : "+this.proid)
+        },
         async submitForm(event) {
             event.preventDefault(); // 기본 폼 제출 방지
 
             if (this.isSubmitting) return; // 중복 제출 방지 240516
             this.isSubmitting = true;
+
+            // proid가 설정될 때까지 기다림
+            while (this.proid === null) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
 
             // 상담 유형이 선택되지 않은 경우 경고 메시지 표시(240516 기본값 만들어서 이제 필요 없음)
             // 240520 이제 신청페이지에서 선택하므로 삭제
@@ -174,11 +202,12 @@ export default {
             //    this.isSubmitting = false;
             //    return;
             //}
-
+            
+            console.log("제출시점 proid : "+this.proid)
             // 폼 제출 로직
             const reservationData = {
-                sid: 111, // 학생 ID (예: JWT에서 추출)
-                proid: 222, // 상담자 ID (상담자 정보에서 추출)
+                sid: this.studentID, // 학생 ID (예: JWT에서 추출)
+                proid: this.proid, // 상담자 ID (상담자 정보에서 추출)
                 ctype: this.localSelectedCounselingType,
                 ctime: this.localSelectedTime,
                 cdate: this.localSelectedDate,

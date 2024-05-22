@@ -29,10 +29,6 @@ public class RegService {
 		return regDAO.timetable();
 	}
 
-	public int regSubmit(RegDTO application) {
-		return regDAO.regSubmit(application);
-	}
-
 	public int regTotalCount() {
 		return regDAO.regTotalCount();
 	}
@@ -51,6 +47,14 @@ public class RegService {
 
 	public List<RegDTO> getRegResult(String regno) {
 		return regDAO.getRegResult(regno);
+	}
+
+	public int oneTimeRegInsert(RegDTO test) {
+		return regDAO.oneTimeRegInsert(test);
+	}
+
+	public int resultUpdate(ResultDTO result) {
+		return regDAO.resultUpdate(result);
 	}
 
 }

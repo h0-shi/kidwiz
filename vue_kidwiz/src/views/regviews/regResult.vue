@@ -11,8 +11,8 @@
                 <col style="width:34%">
             </colgroup>
             <tbody>
-                <tr>
-                    <th colspan="4" class="cellType">내담자 정보</th>
+                <tr class="cellType">
+                    <th colspan="4">내담자 정보</th>
                 </tr>
                 <tr>
                     <th>내담자 성명</th>
@@ -22,38 +22,34 @@
                 </tr>
                 <tr>
                     <th>성별</th>
-                    <td>남자</td>
+                    <td v-if="gender==='F'">여성</td>
+                    <td v-if="gender==='M'">남성</td>
                     <th>소속</th>
                     <td>{{major}}</td>
                 </tr>
                 <tr>
                     <th>생년월일</th>
-                    <td>2000.03.21 (수정필요)</td>
+                    <td>{{birth_date}}</td>
                     <th>연락처</th>
-                    <td>010-8942-5728(수정필요)</td>
+                    <td>{{contact}}</td>
                 </tr>
-                <tr>
-                    <th colspan="4" class="cellType">상담 정보</th>
+                <tr class="cellType">
+                    <th colspan="4">상담 정보</th>
                 </tr>
                 <tr>
                     <th>상담일</th>
                     <td>{{ date }}</td>
                     <th>상담자</th>
-                    <td>위지언 (수정필요)</td>
+                    <td>{{proName}}</td>
                 </tr>
                 <tr>
                     <th>상담 시간</th>
                     <td>{{time}}</td>
                     <th>상담 회기</th>
-                    <td>3/10회기 (수정필요)</td>
+                    <td>{{times}}/{{totalTimes}} 회기</td>
                 </tr>
-                <tr>
-                    <th class="summary">지난 회기 과제 / 요약</th>
-                    <td colspan="3">
-                        과제 : 뭐시기(수정필요)
-                        <br><br> 
-                        요약 : 저시기(수정필요)
-                    </td>
+                <tr class="cellType">
+                    <th colspan="4">상담 일지</th>
                 </tr>
                 <tr>
                     <th>회기 상담 목표</th>
@@ -61,8 +57,8 @@
                 </tr>
                 <tr>
                     <th class="resultContent">진행 내용</th>
-                    <td colspan="3">
-                        {{content}}
+                    <td colspan="3" v-html="content">
+                        
                     </td>
                 </tr>
                 <tr>
@@ -84,7 +80,7 @@
             </tbody>
         </table>      
         <section class="btns">
-            <button class="button save">수정하기</button>            
+            <button class="button save" @click="update()">수정하기</button>            
         </section>  
         
     </form>
@@ -108,33 +104,44 @@ export default {
             summary:'',
             homework:'',
             opinion:'',
+            gender:'',
+            birth_date:'',
+            times:'',
+            totalTimes:'',            
+            contact:'',
+            proName:'',
         }
     },
     mounted() {
         this.regno = this.$route.query.regno;
         axios.get('http://localhost:3000/getRegResult?regno='+this.regno).then((res) => {
+            console.log(res.data[0]);
+            this.stuName = res.data[0].name;
+            this.date = res.data[0].date;
+            this.time = res.data[0].time;
+            this.major = res.data[0].major_name;
+            this.stuNum = res.data[0].stuNum;
             this.goal = res.data[0].goal;
+            this.homework = res.data[0].homework;
             this.content = res.data[0].content;
             this.summary = res.data[0].summary;
-            this.homework = res.data[0].homework;
-            this.opinion = res.data[0].opinion;            
-            axios.get('http://localhost:3000/regResult?regno='+this.regno).then((res2) => {                        
-                console.log(res2.data[0]);
-                this.stuNum=res2.data[0].stuNum;
-                this.date = res2.data[0].date;
-                this.time = res2.data[0].time;
-                axios.get('http://localhost:3000/memberDetail?stuNum='+this.stuNum).then((response)=>{
-                    this.stuName = response.data[0].name;
-                    this.major = response.data[0].major_name;                    
-                }).catch((error) => {
-                    console.log(error);
-                })
-            }).catch((err) => {
-                console.log(err+'에러디');
-        })
+            this.opinion = res.data[0].opinion;
+            this.gender = res.data[0].gender;
+            this.birth_date = res.data[0].birth_date;
+            this.times = res.data[0].times;
+            this.totalTimes = res.data[0].totalTimes;
+            this.contact = res.data[0].contact;
+            this.proName = res.data[0].proName;
         }).catch((err) => {
             console.log(err+'에러디')
         })
+    },
+    methods : {
+        update(){
+            if(confirm("일지를 수정하시겠습니까?")){
+                this.$router.push("/resultUpdate?regno="+this.regno);
+            }
+        },
     }
 }
 </script>
@@ -170,7 +177,8 @@ export default {
     height: 100px;
 }
 .cellType{
-    height: 30px !important;
+    height: 35px !important;
+    background-color: #dadada;
 }
 .btns{
     text-align: right;

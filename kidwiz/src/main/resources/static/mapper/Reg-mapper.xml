@@ -5,20 +5,20 @@
 		UPDATE reg_consulting SET stat = '1' WHERE reg_no = #{reg_no} 
 	</update>
 	
-	<insert id="regconInsert" parameterType="map">
-		INSERT INTO reg_consulting (stuNum) VALUES (#{stuNum})
+	<insert id="regconInsert" parameterType="Map" keyColumn="sub_no" keyProperty="sub_no" useGeneratedKeys="true">
+		INSERT INTO reg_consulting (stuNum, pro) VALUES (#{stuNum}, #{proNum}) 
 	</insert>
 	
 	<select id="regDetail" parameterType="map" resultType="map">
-		SELECT ROW_NUMBER() OVER (ORDER BY DATE) as rownum, regno, stuNum, DATE, TIME, reg_no, writed FROM testView WHERE reg_no=#{rgno}
+		SELECT * FROM regInfoView WHERE reg_no=#{rgno}
 	</select>
 	
 	<select id="timetable" resultType="map">
 		select * from timeTest
 	</select>
 	
-	<insert id="regSubmit" parameterType="map">
-		INSERT INTO timeTestReg (stuNum, date, time, reg_no, memo) VALUES (#{stuNum}, #{date}, #{time}, #{regno}, #{memo})
+	<insert id="oneTimeRegInsert" parameterType="map">
+		INSERT INTO timeTestReg (stuNum, date, time, reg_no, memo) VALUES (#{stuNum}, #{date}, #{time}, #{reg_no}, #{memo})
 	</insert>
 	
 	<select id="regTotalCount">
@@ -26,7 +26,7 @@
 	</select>
 	
 	<select id="regResult" parameterType="String">
-		SELECT * FROM timeTestReg WHERE regno = #{regno}
+		SELECT * FROM regInfoView WHERE regno = #{regno}
 	</select>
 	
 	<select id="memberDetail" parameterType="String">
@@ -35,11 +35,15 @@
 	
 	<insert id="resultWrite" parameterType="map">
 		INSERT INTO counResult (counNum, stuNum, proNum, goal, content, summary,homework, opinion) 
-		VALUES (#{regno}, #{stuNum}, 000321, #{goal}, #{content}, #{summary}, #{homework}, #{opinion})
+		VALUES (#{regno}, #{stuNum}, #{proNum}, #{goal}, #{content}, #{summary}, #{homework}, #{opinion})
 	</insert>
 	
 	<select id="getRegResult" parameterType="String">
-		SELECT * FROM counResult WHERE counNum = #{regno}
+		SELECT * FROM resultView WHERE regno = #{regno}
 	</select>
+	
+	<update id="resultUpdate" parameterType="Map">
+	UPDATE counResult SET goal = #{goal}, content = #{content}, summary = #{summary} ,homework = #{homework}, opinion = #{opinion}
+	</update>
 	
 </mapper>

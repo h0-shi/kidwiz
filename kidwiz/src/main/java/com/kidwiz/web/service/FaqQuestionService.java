@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.kidwiz.web.DTO.FaqQuestion;
@@ -42,5 +44,9 @@ public class FaqQuestionService {
     public void deleteQuestion(Long id) {
         faqQuestionRepository.deleteById(id);
     }
+    
+	public Page<FaqQuestion> getQuestionsPaged(Pageable pageable) {
+		return faqQuestionRepository.findAll(pageable);
+	}
 }
 

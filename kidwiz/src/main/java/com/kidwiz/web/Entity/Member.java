@@ -1,5 +1,7 @@
 package com.kidwiz.web.Entity;
 
+import java.time.LocalDate;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -18,24 +20,24 @@ public class Member {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@Column(nullable = false, length = 100)
+	@Column(length = 100)
 	private String email;
 
 	// password 는 json 변환 시 제외
 	@JsonIgnore
-	@Column(nullable = false, length = 100)
+	@Column(length = 100)
 	private String password;
 	
-	@Column(nullable = false, length = 100)
+	@Column(length = 100)
     private String name;  
 	
-	@Column(length = 100)
+	@Column
     private int enteryear;
 	
-	@Column(length = 100)
+	@Column
     private int mno;
 	
-	@Column(length = 100)
+	@Column
     private int majorId;  
 	
 	@Column(length = 100)
@@ -44,10 +46,19 @@ public class Member {
 	@Column(length = 100)
     private String majorHead;  
 	
-	@Column(length = 100)
+	@Column
     private String dept;  
 	
-	@Column(nullable = false)
+	@Column(length = 100)
     private String grade;
+	
+	@Column
+    private String gender;
+	
+	@Column(length = 100)
+    private String contact;
+	
+	@Column
+	private LocalDate birthDate;
 	
 }

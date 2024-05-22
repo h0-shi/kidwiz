@@ -21,9 +21,7 @@ public interface RegDAO {
 	public List<RegDTO> regDetail(String rgno);
 
 	public List<Map<String, Object>> timetable();
-
-	public int regSubmit(RegDTO application);
-
+	
 	public int regTotalCount();
 
 	public List<RegDTO> regResult(String regno);
@@ -33,5 +31,9 @@ public interface RegDAO {
 	public int resultWrite(ResultDTO result);
 
 	public List<RegDTO> getRegResult(String regno);
+
+	public int oneTimeRegInsert(RegDTO test);
+
+	public int resultUpdate(ResultDTO result);
 
 }

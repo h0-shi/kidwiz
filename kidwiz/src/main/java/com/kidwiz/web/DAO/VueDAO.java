@@ -43,5 +43,7 @@ public interface VueDAO {
 
 	public String getGrNo(String title);
 
+	public Map<String, Object> getMemberType(int id);
+
 
 }

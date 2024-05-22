@@ -1,6 +1,5 @@
 package com.kidwiz.web.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -26,13 +25,11 @@ public class RegController {
 	@Autowired
 	private RegService regService;
 	
-	@PostMapping("/testPost")
-	public String postTest(@RequestBody RegDTO test) {
+	@PostMapping("/regconInsert")
+	public int postTest(@RequestBody RegDTO test) {
 		vueService.regconInsert(test);
-		System.out.println("-------------");
-		System.out.println(test.getMajor());
-		System.out.println(test.getTeacher());
-		return "실험중";
+		test.setReg_no("reg-"+String.format("%05d", test.getSub_no()));
+		return regService.oneTimeRegInsert(test);
 	}
 	
 	@PostMapping("/accept")
@@ -55,7 +52,7 @@ public class RegController {
 	
 	@PostMapping("/regSubmit")
 	public int regSubmit(@RequestBody RegDTO application) {
-		return regService.regSubmit(application);
+		return regService.oneTimeRegInsert(application);
 	}
 	
 	@GetMapping("/regTotalCount")
@@ -86,5 +83,11 @@ public class RegController {
 	public List<RegDTO> getRegResult(@RequestParam("regno") String regno){
 		List<RegDTO> regResult = regService.getRegResult(regno);
 		return regResult; 
+	}
+	
+	@PostMapping("/resultUpdate")
+	public int resultUpdate(@RequestBody ResultDTO result) {
+		int update = regService.resultUpdate(result);
+		return update;
 	}
 }
