@@ -7,7 +7,9 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,15 +17,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kidwiz.web.DTO.ResultData;
+import com.kidwiz.web.service.JwtService;
 import com.kidwiz.web.service.VueService;
 import com.kidwiz.web.util.Util;
 
 @CrossOrigin
 @RestController
 public class VueController {
+	
+	@Autowired
+	private JwtService jwtService;
 	
 	@Autowired
 	private VueService vueService;
@@ -171,6 +177,21 @@ public class VueController {
 		
         return "성공";
     }
+	
+	@PostMapping("/api/getMemberType")
+	public ResponseEntity getMemberType(@CookieValue(value = "token", required = false) String token) {
+		//TODO: process POST request
+		
+		if (!jwtService.isValid(token)) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
+		
+		int id = jwtService.getId(token);
+		System.out.println(id);
+		Map<String,Object> list = vueService.getMemberType(id);
+		
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
 	
 	
 }

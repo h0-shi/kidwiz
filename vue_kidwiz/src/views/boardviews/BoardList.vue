@@ -68,7 +68,7 @@
 
       </ul>
     </div>
-    <button @click="$router.push('/boardwrite')">글쓰기</button>
+    <button v-if="$store.state.account.id" @click="$router.push('/boardwrite')">글쓰기</button>
   </div>
 </template>
 
