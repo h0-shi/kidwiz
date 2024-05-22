@@ -32,32 +32,40 @@
       </nav>
     <div class="secNav boundary" :style="{display: navDisplay}" @mouseover="navAct()" @mouseleave="navDead()">
       <nav class="nav-sec">
-        <ul>
+        <ul name="introduce">
           <li><router-link to="/listTest">DB테스트</router-link></li>
           <li><router-link to="/BoardList">박선우</router-link></li>
           <li><router-link to="/insertTest">insert 테스트</router-link></li>
+          <li> </li>
+          <li> </li>
         </ul>
-        <ul>
-          <li><router-link to="/regRev">박시호</router-link></li>
-          <li><router-link to="/rsrvTest4">예약테스트</router-link></li>
-          <li><router-link to="/GroupList">박선우 집단</router-link></li>
-          <!-- <li><router-link to="/jobConsulting">취업상담</router-link></li>  -->
-          <li><router-link to="/jobs/intro">취업상담</router-link></li>
-          <li><router-link to="/simrimain">심리상담 안내</router-link></li>
+        <ul name="counselors">
+          <li><router-link to="/counselorList">상담사 소개</router-link></li>
+          <li><router-link to="/rsrvTest4">예약테스트</router-link></li>          
           <li><router-link to="/secMenuTest">다증레이아웃</router-link></li>
+          <li></li>
+          <li></li>
         </ul>
-        <ul>
-          <li><router-link to="/counselorshow">상담사 소개</router-link></li>
-          <li><router-link to="/test">Test</router-link></li>
-          <li><router-link to="/faq">FAQ</router-link></li>
-          <li><router-link to="/contact">Contact</router-link></li>
+        <ul name="counsel">
+          <li><router-link to="/GroupList">박선우 집단</router-link></li>
+          <li><router-link to="/jobs/intro">취업상담</router-link></li>
+          <li><router-link to="/simrimain">심리상담 안내</router-link></li>          
           <li><router-link to="/admin">관리자페이지</router-link></li>
+          <li></li>
         </ul>
-        <ul>
+        <ul name="alpha">
+          <li><router-link to="/cardNews">카드뉴스</router-link></li>
           <li><router-link to="/applyForm3">applyForm3</router-link></li>
           <li><router-link to="/resultWrite">resultWrite</router-link></li>
           <li><router-link to="/regResult">regResult</router-link></li>
-          <li><router-link to="/cardNews">카드뉴스</router-link></li>
+          <li></li>
+        </ul>
+        <ul name="notice">
+          <li><router-link to="/faq">FAQ</router-link></li>
+          <li><router-link to="/contact">Contact</router-link></li>
+          <li><router-link to="/test">Test</router-link></li>
+          <li></li>
+          <li></li>
         </ul>
       </nav>
     </div>
@@ -150,11 +158,12 @@ export default {
   width: 20%;
   padding: 0;
   float: left;
+  border-left: 1px solid #d6d6d6;
 }
 .nav-sec ul li{
   list-style-type: none;
   text-decoration: none;
-  margin-top: 10px;
+  margin-top: 10px;  
 }
 .top-left{
   margin-right: auto;
