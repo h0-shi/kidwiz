@@ -104,4 +104,7 @@ export default {
   font-size: 0.9rem;
   margin-bottom: 0; /* 여백을 없애기 위해 0으로 조절 */
 }
+.custom-sidebar .nav-item {
+  margin-left: 40px; /* 원하는 만큼의 좌측 마진 설정 */
+}
 </style>
