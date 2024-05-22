@@ -42,4 +42,8 @@
 		SELECT * FROM resultView WHERE regno = #{regno}
 	</select>
 	
+	<update id="resultUpdate" parameterType="Map">
+	UPDATE counResult SET goal = #{goal}, content = #{content}, summary = #{summary} ,homework = #{homework}, opinion = #{opinion}
+	</update>
+	
 </mapper>

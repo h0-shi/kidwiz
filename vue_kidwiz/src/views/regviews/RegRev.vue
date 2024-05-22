@@ -48,7 +48,7 @@
                             <td>{{row.times}}회차</td>
                             <td>{{ row.stuNum }}</td>
                             <td>{{ row.date }}</td>                            
-                            <td>{{ row.time }}</td>                            
+                            <td>{{row.time}}</td>
                             <td v-if="row.writed === 0">
                                 <button class="save" @click="regWrite(row)">일지 작성</button>
                             </td>

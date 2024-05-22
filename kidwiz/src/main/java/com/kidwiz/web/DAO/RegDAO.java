@@ -34,4 +34,6 @@ public interface RegDAO {
 
 	public int oneTimeRegInsert(RegDTO test);
 
+	public int resultUpdate(ResultDTO result);
+
 }

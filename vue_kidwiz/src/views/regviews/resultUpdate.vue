@@ -116,22 +116,26 @@ export default {
         }
     },
     mounted() {
-        this.resultForm.regno = this.$route.query.regno;
-        axios.get('http://localhost:3000/regResult?regno='+this.resultForm.regno).then((res) => {                    
-            console.log(res.data[0]);
-            this.resultForm.stuNum = res.data[0].stuNum;            
-            this.proName = res.data[0].proName;
+        this.regno = this.$route.query.regno;
+        axios.get('http://localhost:3000/getRegResult?regno='+this.regno).then((res) => {            
+            this.stuName = res.data[0].name;
             this.date = res.data[0].date;
             this.time = res.data[0].time;
+            this.major = res.data[0].major_name;
+            this.stuNum = res.data[0].stuNum;
+            this.resultForm.goal = res.data[0].goal;
+            this.resultForm.homework = res.data[0].homework;
+            this.resultForm.content = res.data[0].content;
+            this.resultForm.summary = res.data[0].summary;
+            this.resultForm.opinion = res.data[0].opinion;
+            this.gender = res.data[0].gender;
+            this.birth_date = res.data[0].birth_date;
             this.times = res.data[0].times;
             this.totalTimes = res.data[0].totalTimes;
-            this.stuName = res.data[0].name;
-            this.major = res.data[0].major_name;
-            this.gender = res.data[0].gender;
             this.contact = res.data[0].contact;
-            this.birth_date = res.data[0].birth_date;
+            this.proName = res.data[0].proName;
         }).catch((err) => {
-            console.log(err+'에러디');
+            console.log(err+'에러디')
         })
     },
     methods: {
@@ -140,9 +144,9 @@ export default {
             if(!confirm("일지를 저장하시겠습니까?")){
                 return false;
             }
-            axios.post('http://localhost:3000/resultWrite',this.resultForm).then((res) => {
+            axios.post('http://localhost:3000/resultUpdate',this.resultForm).then((res) => {
                 console.log(res);
-                this.$router.push("/regResult?regno="+this.resultForm.regno);
+                this.$router.push("/regResult?regno="+this.regno);
             }).catch((err) => {
                 console.log(err);
             })
