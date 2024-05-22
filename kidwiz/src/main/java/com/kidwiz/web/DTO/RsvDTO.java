@@ -10,7 +10,7 @@ import lombok.Setter;
 public class RsvDTO {
 
     private int rsvno;
-    private int sid;
+    private int sid, state;
     private int proid;
     private String ctype, date;
     private String ctime;

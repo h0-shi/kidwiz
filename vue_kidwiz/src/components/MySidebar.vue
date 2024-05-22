@@ -22,6 +22,12 @@
           </router-link>
         </li>
         <li class="nav-item">
+          <router-link class="nav-link text-light" :to="{ name: 'StudentConsultations' }">
+            <i class="fas fa-star"></i>
+            나의 상담 내역(학생용)
+          </router-link>
+        </li>
+        <li class="nav-item">
           <router-link class="nav-link text-light" :to="{ name: 'mygroup' }">
             <i class="fas fa-users"></i>
             비교과(집단 상담)내역
