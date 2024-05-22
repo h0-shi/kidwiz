@@ -3,19 +3,12 @@
 
 <mapper namespace="com.kidwiz.web.DAO.RsvTestDAO">
 
-    <resultMap id="ReservationResultMap" type="com.kidwiz.web.DTO.RsvDTO">
-        <id property="rsvno" column="rsvno" />
-        <result property="sid" column="sid" />
-        <result property="proid" column="proid" />
-        <result property="ctype" column="ctype" />
-        <result property="ctime" column="ctime" />
-        <result property="cdate" column="cdate" />
-        <result property="rsvdate" column="rsvdate" />
-        <result property="rsvmemo" column="rsvmemo" />
-    </resultMap>
-
-    <select id="findRsvByProid" parameterType="int" resultMap="ReservationResultMap">
-        SELECT * FROM rsv WHERE proid = #{proid}
-    </select>
+	<select id="findRsvByProid" parameterType="int">
+		SELECT r.*, m.name as name
+		FROM rsv r
+		INNER JOIN members m ON r.sid = m.id
+		WHERE r.proid = #{proid}
+		ORDER BY r.cdate ASC, STR_TO_DATE(r.ctime, '%H:%i') ASC;
+	</select>
 
 </mapper>

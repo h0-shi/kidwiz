@@ -1,8 +1,9 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <MySidebar class="col-md-3 bg-light" />
-
+  <div>
+    <MenuPage/>
+    <div class="container-fluid mt-5 pt-4">
+      <div class="row">
+        <MySidebar></MySidebar>
       <div class="col-md-9">
         <div v-if="testResult" class="card mt-4">
           <div class="card-header">
@@ -34,18 +35,21 @@
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <script>
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
-import MySidebar from '@/components/MySidebar.vue';
 import { useStore } from 'vuex';
+import MySidebar from '@/components/MySidebar.vue';
+import MenuPage from '@/components/MenuPage.vue';
 
 export default {
   name: 'MySimri',
   components: {
     MySidebar,
+    MenuPage
   },
 
   setup() {

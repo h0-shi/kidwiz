@@ -7,12 +7,10 @@
 </template>
 
 <script>
-import MenuPage from '@/components/MenuPage.vue';
 import MyPageSecMenu from '@/views/jobs/jobSecMenu.vue';
 
 export default {
   components: {
-    MenuPage,
     MyPageSecMenu
   }
 };

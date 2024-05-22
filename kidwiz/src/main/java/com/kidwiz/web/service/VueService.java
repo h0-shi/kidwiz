@@ -122,9 +122,8 @@ public class VueService {
 			
 			map.put("g_oper", map2.get("DT"));
 			if(i == 0 ) {
+				map.put("up_gr_no",map.get("gr_no"));
 				vueDAO.createGroup(map);
-				up_gr_no = vueDAO.getGrNo((String)map.get("g_title"));
-				map.put("up_gr_no", up_gr_no);
 				i++;
 			} else{
 				map.put("round", i);
@@ -133,6 +132,11 @@ public class VueService {
 			}
 			
 		}
+	}
+
+	public Map<String, Object> getMemberType(int id) {
+		// TODO Auto-generated method stub
+		return vueDAO.getMemberType(id);
 	}
 
 }

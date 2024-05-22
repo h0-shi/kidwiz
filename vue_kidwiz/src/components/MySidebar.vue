@@ -6,7 +6,7 @@
       </div>
         <ul class="nav flex-column">
           <li class="nav-item">
-            <router-link class="nav-link" :to="{ name: 'mypage' }">나의 정보 관리</router-link>
+            <router-link class="nav-link" :to="{ name: 'myinfo' }">나의 정보 관리</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" :to="{ name: 'myconsultations' }">나의 상담 내역</router-link>
@@ -38,7 +38,9 @@
   };
   </script>
   
-  <style scoped>
+  <style>
+  @import '@/assets/css/styles.css';
+
   .sidebar {
     position: -webkit-sticky;
     position: sticky;
