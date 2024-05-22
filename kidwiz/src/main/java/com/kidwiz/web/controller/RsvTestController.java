@@ -1,6 +1,7 @@
 package com.kidwiz.web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,7 @@ public class RsvTestController {
         int proid = jwtService.getId(token);
         
         // proid로 예약 데이터 가져오기
-        List<RsvDTO> rsvs = rsvTestService.getRsvsByProid(proid);
+        List<Map<String,Object>> rsvs = rsvTestService.getRsvsByProid(proid);
         
         return new ResponseEntity<>(rsvs, HttpStatus.OK);
         

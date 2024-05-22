@@ -101,20 +101,26 @@ export default {
       <table>
       <thead>
           <tr>
+              <th>번호</th>
               <th>신청자 학번</th>
               <th>신청자 이름</th>
               <th>예약 일자</th>
               <th>상담 희망일</th>
               <th>상담 희망시간</th>
+              <th>상담 상태</th>
+              <th>상담 일지</th>
           </tr>
       </thead>
       <tbody>
           <tr v-for="rsv in state.rsvs" v-bind:key="rsv.id">
+              <th>{{ rsv.rsvno }}</th>
               <td>{{ rsv.sid }}</td>
               <td>{{ rsv.name }}</td>
               <td>{{ rsv.rsvdate }}</td>
               <td>{{ rsv.cdate }}</td>
               <td>{{ rsv.ctime }}</td>
+              <td> 상담 상태 만들어??</td>
+              <td><button @click="addToCart(rsv.rsvno)">상담일지 작성</button></td>
           </tr>
       </tbody>
     </table>
@@ -137,6 +143,7 @@ export default {
     axios.get('http://localhost:3000/api/rsv/test', { withCredentials: true })
     .then(response => {
     state.rsvs = response.data;
+    console.log(response.data);
     })
     };
 
