@@ -3,7 +3,10 @@ package com.kidwiz.web.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,8 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kidwiz.web.DTO.MemberDTO;
 import com.kidwiz.web.DTO.RegDTO;
 import com.kidwiz.web.DTO.ResultDTO;
+import com.kidwiz.web.service.JwtService;
 import com.kidwiz.web.service.RegService;
 import com.kidwiz.web.service.VueService;
+import com.kidwiz.web.util.Util;
 
 @RestController
 public class RegController {
@@ -24,6 +29,28 @@ public class RegController {
 	
 	@Autowired
 	private RegService regService;
+	
+	@Autowired
+	private JwtService jwtService;
+	
+	@GetMapping("/regRev")
+	public String regRev(@RequestParam(name="page", required = false) String page, @RequestParam(name="total", required = false) String total) {
+		System.out.println(page==null);		
+		if(page==null) {
+			page="1";
+		}
+		if(total == null) {
+			total = "1";
+		}
+		Map<String, Object> pageMap = Util.pageMap(Integer.parseInt(total),Integer.parseInt(page));
+		List<Map<String, Object>> list = regService.regRev(pageMap);
+		JSONObject json = new JSONObject();
+		JSONArray arr = new JSONArray(list);
+		json.put("list", arr);
+		json.put("pageMap", pageMap);
+		
+		return json.toString();
+	}
 	
 	@PostMapping("/regconInsert")
 	public int postTest(@RequestBody RegDTO test) {
@@ -52,6 +79,7 @@ public class RegController {
 	
 	@PostMapping("/regSubmit")
 	public int regSubmit(@RequestBody RegDTO application) {
+		System.out.println(application.getProNum()+"여기야*-*--*--*-");
 		return regService.oneTimeRegInsert(application);
 	}
 	
@@ -62,8 +90,7 @@ public class RegController {
 	
 	@GetMapping("/regResult")
 	public List<RegDTO> regResult(@RequestParam("regno") String regno){
-		List<RegDTO> result = regService.regResult(regno);
-		
+		List<RegDTO> result = regService.regResult(regno);		
 		return result;
 	}
 	
@@ -90,4 +117,29 @@ public class RegController {
 		int update = regService.resultUpdate(result);
 		return update;
 	}
+	
+	@GetMapping("/regAcess")
+	public int regAcess(@CookieValue(value = "token", required = false) String token) {
+		if(token == null) {
+			return 0;
+		}		
+		int id = jwtService.getId(token);
+		String major = regService.getMajor(id);		
+		if(major.equals("전문상담")) {
+			return 1;
+		} else {
+			return 0;
+		}		
+	}
+	
+	@GetMapping("/getLastTime")
+	public int getLastTime(@RequestParam("regno") String regno) {
+		String currentTime = regService.getLastTime(regno);
+		int lastTime = Integer.parseInt(currentTime)+1;
+		if(lastTime > 10) {
+			return 0;
+		}
+		return lastTime;
+	}
+	
 }

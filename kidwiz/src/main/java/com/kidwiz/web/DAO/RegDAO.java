@@ -36,4 +36,10 @@ public interface RegDAO {
 
 	public int resultUpdate(ResultDTO result);
 
+	public String getMajor(int id);
+
+	public List<Map<String, Object>> regRev(Map<String, Object> pageMap);
+
+	public String getLastTime(String regno);
+
 }

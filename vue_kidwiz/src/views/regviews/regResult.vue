@@ -114,8 +114,7 @@ export default {
     },
     mounted() {
         this.regno = this.$route.query.regno;
-        axios.get('http://localhost:3000/getRegResult?regno='+this.regno).then((res) => {
-            console.log(res.data[0]);
+        axios.get('http://localhost:3000/getRegResult?regno='+this.regno).then((res) => {            
             this.stuName = res.data[0].name;
             this.date = res.data[0].date;
             this.time = res.data[0].time;

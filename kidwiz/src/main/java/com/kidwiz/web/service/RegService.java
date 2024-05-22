@@ -57,4 +57,16 @@ public class RegService {
 		return regDAO.resultUpdate(result);
 	}
 
+	public String getMajor(int id) {
+		return regDAO.getMajor(id);
+	}
+
+	public List<Map<String, Object>> regRev(Map<String, Object> pageMap) {
+		return regDAO.regRev(pageMap);
+	}
+
+	public String getLastTime(String regno) {
+		return regDAO.getLastTime(regno);
+	}
+
 }

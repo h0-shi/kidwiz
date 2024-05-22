@@ -57,10 +57,6 @@
       </div>
     </div>
     <form @submit.prevent="regSubmit" id="application">
-      <input type="text" name="stuNum" v-model="application.stuNum">
-      <input type="text" name="date" v-model="application.date">
-      <input type="text" name="time" v-model="application.time">
-      <input type="text" name="reg_no" v-model="application.reg_no">
       <textarea name="memo" v-model="application.memo"></textarea>
       <button type="submit">신청하기</button>
     </form>
@@ -73,8 +69,29 @@ import axios from "axios";
 
 export default {
   mounted(){
-    this.application.stuNum = this.$route.query.stuNum;
-    this.application.reg_no = this.$route.query.regno;
+    axios.get('http://localhost:3000/regAcess',{ withCredentials: true }).then((res)=> {                
+                if(res.data < 1){
+                    alert("접근할 수 없습니다.");
+                    window.close();
+                } else {                  
+                  this.application.stuNum = this.$route.query.stuNum;
+                  this.application.reg_no = this.$route.query.regno;
+                  this.application.proNum = this.$store.state.account.id;
+                  axios.get('http://localhost:3000/getLastTime?regno='+this.application.reg_no).then((res) => {      
+                    if(res.data < 1){
+                      alert("모든 회기가 종료된 상담입니다.");
+                      window.close();
+                    } else {
+                      this.application.times = res.data;
+                    }
+                  }).catch((err) => {
+                    console.log(err);
+                  })
+                }
+            }).catch((err) => {
+                alert(err+"에러 발생");
+                window.close();
+            })
   },
   data(){
     return{
@@ -84,10 +101,12 @@ export default {
       availableTime: [],
       application: {
         stuNum: '',
+        proNum: '',
         date: '',
         time: '',
         reg_no: '',
         memo:'',
+        times:'',
       },
     };
   },
@@ -208,25 +227,28 @@ export default {
         this.application.time = '';
 
         const response = await axios.get('http://localhost:3000/timetable');
-        this.availableTime = response.data;
+        console.log("일단은 여기다------------");
         console.log(response.data);
+        this.availableTime = response.data;
+        
       } catch(error) {
         console.log(error);
       }
       this.isSelected = rowIndex+''+cellIndex;
       this.selectedDate = date;
       this.application.date = this.selectedDate;
-      console.log(date);
+      console.log(this.application.date);
     },
     async regSubmit(){
-      console.log(this.application);
       const today = new Date();
+      alert(this.application.times);
       if(this.application.date < today){
-        alert("오늘보다 이전 날짜로 지정 할 수 없습니다.");
+        alert("오늘보다 이전 날짜로 지정 할 수 없습니다.");        
         return false;
       }
+
       if(this.application.date.length<1 || this.application.time.length<1
-        || this.application.stuNum.length<1 || this.application.regno.length<1) {
+        || this.application.stuNum.length<1 || this.application.reg_no.length<1) {
         alert("다시 선택해주세요");
         return false;
       }
@@ -248,7 +270,7 @@ export default {
       //window.close();
     },
     selectTime(time){
-      this.application.time = time.time;
+      this.application.time = time.code;
       this.active = time.time;
     }
   }

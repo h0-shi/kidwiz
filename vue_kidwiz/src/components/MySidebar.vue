@@ -11,6 +11,9 @@
         <router-link class="nav-link text-dark" :to="{ name: 'myconsultations' }">나의 상담 내역</router-link>
       </div>
       <div class="menu-item text-center">
+        <router-link class="nav-link text-dark" :to="{ name: 'StudentConsultations' }">나의 상담 내역(학생용)</router-link>
+      </div>
+      <div class="menu-item text-center">
         <router-link class="nav-link text-dark" :to="{ name: 'mygroup' }">비교과(집단 상담)내역</router-link>
       </div>
       <div class="menu-item text-center">

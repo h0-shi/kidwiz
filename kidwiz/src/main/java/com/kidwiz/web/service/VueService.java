@@ -22,10 +22,6 @@ public class VueService {
 	@Autowired
 	private RegDAO regDAO;
 	
-	public List<Map<String, Object>> list(Map<String, Object> pageMap) {
-		return vueDAO.boardList(pageMap);
-	}
-
 	public List<Map<String, Object>> getBoard(Map<String, Object> pageMap) {
 		return vueDAO.getBoard(pageMap);
 	}
