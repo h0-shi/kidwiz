@@ -88,13 +88,13 @@ export default {
 
       // 예약 가능한 시간대 정의
       timeSlots: [
-        '10:00 - 11:00',
-        '11:00 - 12:00',
-        '13:00 - 14:00',
-        '14:00 - 15:00',
-        '15:00 - 16:00',
-        '16:00 - 17:00',
-        '17:00 - 18:00'
+        { code: 'A', time: '10:00 - 11:00' },
+        { code: 'B', time: '11:00 - 12:00' },
+        { code: 'C', time: '13:00 - 14:00' },
+        { code: 'D', time: '14:00 - 15:00' },
+        { code: 'E', time: '15:00 - 16:00' },
+        { code: 'F', time: '16:00 - 17:00' },
+        { code: 'G', time: '17:00 - 18:00' }
       ],
 
       calendarOptions: {
@@ -112,7 +112,7 @@ export default {
         },
         events: [],
         eventClick: this.handleEventClick,
-        dateClick: this.fetchDateInfo, 
+        dateClick: this.fetchDateInfo,
         dayCellDidMount: this.handleDayMount
       }
     };
@@ -213,15 +213,16 @@ export default {
         '17:00 - 18:00'
       ]; */
 
-      // 예약 정보를 조회하여 해당 날짜에 예약이 있는 시간대를 비활성화합니다.
-      axios.get('http://localhost:3000/api/reservations?date='+this.selectedDate+"&type="+this.selectedCounselingType, {
+      // 예약 정보를 조회하여 해당 날짜에 예약이 있는 시간대를 비활성화
+      axios.get('http://localhost:3000/api/reservations?date=' + this.selectedDate + "&type=" + this.selectedCounselingType, {
 
       }).then(response => {
         const reservedTimes = response.data.map(reservation => reservation.ctime);
-        this.availableTimes = this.timeSlots.map((time, index) => ({
+        this.availableTimes = this.timeSlots.map((slot, index) => ({
           id: index + 1, // 각 시간에 고유 id를 설정
-          time,
-          available: !reservedTimes.includes(time)
+          time: slot.time,
+          code: slot.code,
+          available: !reservedTimes.includes(slot.time)
         }));
       }).catch(error => {
         console.error("Error fetching reservations:", error);
@@ -267,9 +268,9 @@ export default {
       this.showCounselingTypeAlert = false;
 
       if (this.selectedDate) {
-      // 날짜가 이미 선택된 상태라면, 해당 날짜의 예약 가능 시간을 다시 조회
-      this.fetchDateInfo({ dateStr: this.selectedDate, dayEl: document.querySelector('.fc-day[data-date="' + this.selectedDate + '"]') });
-    }
+        // 날짜가 이미 선택된 상태라면, 해당 날짜의 예약 가능 시간을 다시 조회
+        this.fetchDateInfo({ dateStr: this.selectedDate, dayEl: document.querySelector('.fc-day[data-date="' + this.selectedDate + '"]') });
+      }
 
     },
     loadMemberInfo() {
@@ -316,60 +317,63 @@ export default {
 
       const formRoute = formRouteMap[this.selectedCounselingType] || 'applyForm5';
 
-      
+
 
 
       axios.get(`/api/advisors/${this.majorId}`)
-    .then(response => {
-      const advisor = response.data;
-
-      // 상담자 정보가 있는지 확인
-      if (!advisor) {
-        alert("상담자 정보를 불러오는 데 실패했습니다.");
-        return;
-      }
-
-      const reservationData = {
-        sid: this.getAccountId,
-        proid: this.majorId,
-        ctype: this.selectedCounselingType,
-        ctime: this.selectedTime.time,
-        cdate: this.selectedDate,
-        rsvdate: new Date().toISOString().split('T')[0],
-        rsvmemo: ''
-      };
-
-      console.log('Reservation data being sent:', reservationData);
-
-      axios.post('/api/reservations', reservationData)
         .then(response => {
-          console.log('Reservation response:', response);
+          const advisor = response.data;
 
-          const event = {
-            title: 'Reservation',
-            start: `${this.selectedDate}T${this.selectedTime.time.split(' - ')[0]}:00`,
-            end: `${this.selectedDate}T${this.selectedTime.time.split(' - ')[1]}:00`
+          // 상담자 정보가 있는지 확인
+          if (!advisor) {
+            alert("상담자 정보를 불러오는 데 실패했습니다.");
+            return;
+          }
+
+          //예약 데이터 담기
+          const reservationData = {
+            sid: this.getAccountId,
+            proid: this.majorId,
+            ctype: this.selectedCounselingType,
+            ctime: this.selectedTime.time,
+            ctimecode: this.selectedTime.code, //시간 코드(A~G)
+            cdate: this.selectedDate,
+            rsvdate: new Date().toISOString().split('T')[0],
+            rsvmemo: ''
           };
-          this.calendarOptions.events.push(event);
 
-          this.$router.push({
-            name: formRoute,
-            query: {
-              selectedDate: this.selectedDate,
-              selectedTime: this.selectedTime.time,
-              selectedCounselingType: this.selectedCounselingType,
-            }
-          });
+          console.log('Reservation data being sent:', reservationData);
+
+          //예약 데이터 보내기
+          axios.post('/api/reservations', reservationData)
+            .then(response => {
+              console.log('Reservation response:', response);
+
+              const event = {
+                title: 'Reservation',
+                start: `${this.selectedDate}T${this.selectedTime.time.split(' - ')[0]}:00`,
+                end: `${this.selectedDate}T${this.selectedTime.time.split(' - ')[1]}:00`
+              };
+              this.calendarOptions.events.push(event);
+
+              this.$router.push({
+                name: formRoute,
+                query: {
+                  selectedDate: this.selectedDate,
+                  selectedTime: this.selectedTime.time,
+                  selectedCounselingType: this.selectedCounselingType,
+                }
+              });
+            })
+            .catch(error => {
+              console.error("Error submitting reservation:", error);
+              alert("예약 중 오류가 발생했습니다.");
+            });
         })
         .catch(error => {
-          console.error("Error submitting reservation:", error);
-          alert("예약 중 오류가 발생했습니다.");
+          console.error("Error fetching advisor information:", error);
+          // 이 부분에서는 오류 메시지를 출력하지 않습니다.
         });
-    })
-    .catch(error => {
-      console.error("Error fetching advisor information:", error);
-      // 이 부분에서는 오류 메시지를 출력하지 않습니다.
-    });
 
 
 
@@ -377,7 +381,7 @@ export default {
       // 폼 제출 로직: 서버에 예약 데이터 전송
       console.log(`Reservation submitted for ${this.selectedDate} at ${this.selectedTime.time}`);
 
-        
+
       // 서버로 보내기 전에 데이터 콘솔에 출력하여 확인
       const reservationData = {
         sid: this.getAccountId,

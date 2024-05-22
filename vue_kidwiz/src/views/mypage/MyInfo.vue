@@ -1,59 +1,72 @@
- <template>
+<template>
   <div>
-        <MySidebar></MySidebar>
+    <MySidebar></MySidebar>
     <MenuPage/>
     <div class="container-fluid mt-5 pt-4">
-      <div class="row">
-        <main class="main-content">
-        <h1 class="mb-4">마이페이지입니다</h1>
-        <div>
-          <div class="mt-4">
-            <p>현재 로그인한 사용자 id: <strong>{{ $store.state.account.id }}</strong></p>
-            <p>현재 로그인한 사용자 email: <strong>{{ $store.state.account.email }}</strong></p>
-            <p>현재 로그인한 사용자 name: <strong>{{ $store.state.account.name }}</strong></p>
+  <div class="row">
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="main-content">
+        <div class="section">
+          <h1 class="mb-4">마이페이지입니다</h1>
+          <div>
+            <div class="mt-4">
+              <p>현재 로그인한 사용자 id: <strong>{{ $store.state.account.id }}</strong></p>
+              <p>현재 로그인한 사용자 email: <strong>{{ $store.state.account.email }}</strong></p>
+              <p>현재 로그인한 사용자 name: <strong>{{ $store.state.account.name }}</strong></p>
+            </div>
           </div>
         </div>
-
-        <div>
-        <h2>비밀번호 수정</h2>
-        <p class="note">변경된 개인 정보를 정확히 입력해주시기 바랍니다</p>
-        <p class="note">이름 및 휴대폰 번호가 변경된 경우는 상담센터에 문의해주세요</p>
-        <form class="info-form">
-          <div class="form-group">
-            <label for="name">이름*</label>
-            <span class="text-value">{{ $store.state.account.name }}</span>
+        <hr>
+        <div class="section">
+          <div>
+            <h2>비밀번호 수정</h2>
+            <p class="note">변경된 개인 정보를 정확히 입력해주시기 바랍니다</p>
+            <p class="note">이름 및 휴대폰 번호가 변경된 경우는 상담센터에 문의해주세요</p>
+            <form class="info-form">
+              <div class="form-group">
+                <label for="name">이름*</label>
+                <span class="text-value">{{ $store.state.account.name }}</span>
+              </div>
+              <hr>
+              <div class="form-group">
+                <label for="id">아이디(학번)*</label>
+                <span class="text-value">{{ $store.state.account.id }}</span>
+              </div>
+              <hr>
+              <div class="form-group">
+                <label for="phone">휴대폰 번호*</label>
+                <span class="text-value">{{ $store.state.account.email }}</span>
+              </div>
+              <hr>
+              <div class="form-group">
+                <label for="password">새 비밀번호*</label>
+                <input type="password" @keyup.enter="changePassword" v-model="form.newPassword" placeholder="새 비밀번호" />
+              </div>
+              <hr>
+              <div class="form-group">
+                <label for="confirm-password">비밀번호 확인*</label>
+                <input type="password" @keyup.enter="changePassword" v-model="form.newPasswordCheck" placeholder="새 비밀번호 확인" />
+              </div>
+              <hr>
+              <button type="button" class="btn btn-change" @click="changePassword">변경</button>
+            </form>
           </div>
-          
-          <div class="form-group">
-            <label for="id">아이디(학번)*</label>
-            <span class="text-value">{{ $store.state.account.id }}</span>
-          </div>
-          <div class="form-group">
-            <label for="phone">휴대폰 번호*</label>
-            <span class="text-value">{{ $store.state.account.email }}</span>
-          </div>
-          <div class="form-group">
-            <label for="password">새 비밀번호*</label>
-            <input type="password" @keyup.enter="changePassword" v-model="form.newPassword" placeholder="새 비밀번호" />
-          </div>
-          <div class="form-group">
-            <label for="confirm-password">비밀번호 확인*</label>
-            <input type="password" @keyup.enter="changePassword" v-model="form.newPasswordCheck" placeholder="새 비밀번호 확인" />
-          </div>
-          <button type="button" class="btn btn-change" @click="changePassword">변경</button>
-        </form>
+        </div>
       </div>
-      </main>
-    </div>
-    </div>
+    </main>
   </div>
+</div>
+</div>
+
 </template>
+
 
 <script>
 import axios from "axios";
 import router from '@/router';
 import MySidebar from '@/components/MySidebar.vue';
 import MenuPage from '@/components/MenuPage.vue';
+
 export default {
   name: 'MyInfo',
   components: {
@@ -87,17 +100,8 @@ export default {
 };
 </script>
 
-<style>
-
-.container-fluid {
-  padding-top: 56px; 
-}
-.table {
-  margin-top: 20px;
-}
-.content {
-  padding: 20px;
-}
+<style scoped>
+/* 스타일 추가 */
 .main-content {
   border: 1px solid #ccc;
   padding: 20px;
@@ -136,11 +140,6 @@ export default {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
-.line {
-  border: none;
-  border-top: 1px solid #ccc;
-  margin: 15px 0;
-}
 .btn {
   display: inline-block;
   padding: 10px 20px;
@@ -154,6 +153,4 @@ export default {
 .btn.btn-change {
   background-color: #555;
 }
-</style> 
-
-  
+</style>
