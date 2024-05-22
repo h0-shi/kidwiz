@@ -1,9 +1,9 @@
  <template>
   <div>
+        <MySidebar></MySidebar>
     <MenuPage/>
     <div class="container-fluid mt-5 pt-4">
       <div class="row">
-        <MySidebar></MySidebar>
         <main class="main-content">
         <h1 class="mb-4">마이페이지입니다</h1>
         <div>
@@ -89,7 +89,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+
+.container-fluid {
+  padding-top: 56px; 
+}
+.table {
+  margin-top: 20px;
+}
+
+
 .content {
   padding: 20px;
 }

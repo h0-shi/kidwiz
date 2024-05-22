@@ -2,8 +2,8 @@
   <div>
     <MenuPage/>
     <div class="container-fluid mt-5 pt-4">
-      <div class="row">
         <MySidebar></MySidebar>
+      <div class="row">
       <div class="col-md-9">
         <div v-if="testResult" class="card mt-4">
           <div class="card-header">
@@ -112,13 +112,12 @@ export default {
 </script>
 
 
-<style scoped>
-.container-fluid {
-  padding-top: 56px;
-  /* Adjust based on the height of HeaderMenu */
-}
-
+<style >
 .card {
   margin-top: 20px;
+}
+
+.container-fluid {
+  padding-top: 56px; 
 }
 </style>

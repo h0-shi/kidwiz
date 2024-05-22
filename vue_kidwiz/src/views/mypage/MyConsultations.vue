@@ -68,7 +68,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .container-fluid {
   padding-top: 56px;
 }
