@@ -81,7 +81,7 @@
         </table>      
         <section class="btns">
             <button class="button save">저장</button>
-            <button class="button cancel">취소</button>
+            <button class="button cancel" @click="cancel()">취소</button>
         </section>  
         
     </form>
@@ -134,6 +134,7 @@ export default {
             this.totalTimes = res.data[0].totalTimes;
             this.contact = res.data[0].contact;
             this.proName = res.data[0].proName;
+            this.resultForm.content = this.resultForm.content.replaceAll(/<br>/g,'\n');
         }).catch((err) => {
             console.log(err+'에러디')
         })
@@ -151,6 +152,11 @@ export default {
                 console.log(err);
             })
             console.log(this.resultForm);
+        },
+        cancel(){
+            if(confirm("수정을 취소하시겠습니까?")){
+                this.$router.push("/regResult?regno="+this.regno);
+            }
         }
     }
 }

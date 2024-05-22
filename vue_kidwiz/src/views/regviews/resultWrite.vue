@@ -81,7 +81,6 @@
         </table>      
         <section class="btns">
             <button class="button save">저장</button>
-            <button class="button cancel">취소</button>
         </section>  
         
     </form>
