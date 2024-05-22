@@ -38,7 +38,9 @@
   };
   </script>
   
-  <style scoped>
+  <style>
+  @import '@/assets/css/styles.css';
+
   .sidebar {
     position: -webkit-sticky;
     position: sticky;

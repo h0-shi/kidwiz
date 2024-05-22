@@ -1,6 +1,6 @@
 <template>
   <div>
-    <HeaderMenu></HeaderMenu>
+    <MenuPage/>
     <div class="container-fluid mt-5 pt-4">
       <div class="row">
         <MySidebar></MySidebar>
