@@ -35,7 +35,7 @@
 	</select>
 	
 	<select id="memberDetail" parameterType="String">
-		SELECT * FROM members WHERE id = #{stuNum}
+		SELECT * FROM members WHERE id = #{id}
 	</select>
 	
 	<insert id="resultWrite" parameterType="map">
@@ -55,8 +55,8 @@
 		SELECT major_name FROM members WHERE id = #{id}
 	</select>
 	
-	<select id="getLastTime" parameterType="String">
-		SELECT currentTimes from regview WHERE reg_no = #{regno}
+	<select id="getRegInfo" parameterType="String">
+		SELECT * from regview WHERE reg_no = #{regno}
 	</select>
 	
 </mapper>

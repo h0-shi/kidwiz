@@ -146,7 +146,12 @@
             }
         },
         mounted(){
-            axios.get('http://localhost:3000/regAcess',{ withCredentials: true }).then((res)=> {                
+           this.accessCheck();
+           this.getTotalCount();            
+        },
+        methods:{
+            async accessCheck(){
+                await axios.get('http://localhost:3000/regAcess',{ withCredentials: true }).then((res)=> {                
                 if(res.data < 1){
                     alert("접근할 수 없습니다.");
                     this.$router.push("/");
@@ -154,8 +159,10 @@
             }).catch((err) => {
                 alert(err+"에러 발생");
                 this.$router.push("/");
-            }),
-            axios.get('http://localhost:3000/regTotalCount').then((res) => {  
+            })
+            },
+            async getTotalCount(){
+                axios.get('http://localhost:3000/regTotalCount').then((res) => {  
                 this.totalCount = res.data;                
                 axios.get('http://localhost:3000/regRev?total='+this.totalCount).then((res) => {
                     console.log(res.data);
@@ -163,8 +170,7 @@
                 this.pageMap = res.data.pageMap;                
                 })
             })
-        },
-        methods:{
+            },
             al(item,stat){
                 var arrJson = {'reg_no':item.reg_no, 'stat':stat};            
                 axios.post('http://localhost:3000/accept',arrJson).then((res)=>{

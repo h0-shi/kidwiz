@@ -6,6 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.kidwiz.web.DTO.Counselor;
+
 @Repository
 @Mapper
 public interface VueDAO {
@@ -51,6 +53,8 @@ public interface VueDAO {
 	public int checkGroup(Map<String, Object> map);
 
 	public List<Map<String, Object>> getRsv(int id);
+
+	public List<Counselor> counselorList();
 
 
 }

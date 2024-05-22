@@ -95,8 +95,9 @@ public class RegController {
 	}
 	
 	@GetMapping("/memberDetail")
-	public List<MemberDTO> memberDetail(@RequestParam("stuNum") String stuNum){
-		List<MemberDTO> memberDetail = regService.memberDetail(stuNum);
+	public List<MemberDTO> memberDetail(@RequestParam("id") String id){
+		List<MemberDTO> memberDetail = regService.memberDetail(id);
+		System.out.println("-*-*-*-*-*-*-*--*-*-*-*-");
 		return memberDetail;
 	}
 	
@@ -123,7 +124,12 @@ public class RegController {
 		if(token == null) {
 			return 0;
 		}		
+		
 		int id = jwtService.getId(token);
+		if(id == 0) {
+			return 0;
+		}
+		
 		String major = regService.getMajor(id);		
 		if(major.equals("전문상담")) {
 			return 1;
@@ -132,14 +138,10 @@ public class RegController {
 		}		
 	}
 	
-	@GetMapping("/getLastTime")
-	public int getLastTime(@RequestParam("regno") String regno) {
-		String currentTime = regService.getLastTime(regno);
-		int lastTime = Integer.parseInt(currentTime)+1;
-		if(lastTime > 10) {
-			return 0;
-		}
-		return lastTime;
+	@GetMapping("/getRegInfo")
+	public Map<String, Object> getRegInfo(@RequestParam("regno") String regno) {
+		Map<String, Object> map = regService.getRegInfo(regno);		
+		return map;
 	}
 	
 }

@@ -8,7 +8,7 @@ import lombok.Data;
 public class MemberDTO {
 	
 	private String name, major_name, major_head, gender, contact;
-	private int id;
+	private int id, grade;
 	private LocalDate birth_date;
 
 }

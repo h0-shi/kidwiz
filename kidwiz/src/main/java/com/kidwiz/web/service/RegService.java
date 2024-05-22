@@ -37,8 +37,8 @@ public class RegService {
 		return regDAO.regResult(regno);
 	}
 
-	public List<MemberDTO> memberDetail(String stuNum) {
-		return regDAO.memberDetail(stuNum);
+	public List<MemberDTO> memberDetail(String id) {
+		return regDAO.memberDetail(id);
 	}
 
 	public int resultWrite(ResultDTO result) {
@@ -65,8 +65,8 @@ public class RegService {
 		return regDAO.regRev(pageMap);
 	}
 
-	public String getLastTime(String regno) {
-		return regDAO.getLastTime(regno);
+	public Map<String, Object> getRegInfo(String regno) {
+		return regDAO.getRegInfo(regno);
 	}
 
 }

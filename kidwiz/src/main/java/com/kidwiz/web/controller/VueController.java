@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kidwiz.web.DTO.Counselor;
 import com.kidwiz.web.service.JwtService;
 import com.kidwiz.web.service.VueService;
 import com.kidwiz.web.util.Util;
@@ -215,15 +216,15 @@ public class VueController {
 		if (!jwtService.isValid(token)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
-        
         int id = jwtService.getId(token);
-		
-		
-		List<Map<String, Object>> list = vueService.getRsv(id);
-		
-	
-		
+		List<Map<String, Object>> list = vueService.getRsv(id);	
 		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("/counselorList")
+	public List<Counselor> counselorList(){
+		List<Counselor> counselorList = vueService.counselorList();
+		return counselorList;
 	}
 }
 

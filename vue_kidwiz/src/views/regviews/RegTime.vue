@@ -69,29 +69,18 @@ import axios from "axios";
 
 export default {
   mounted(){
+    this.application.stuNum = this.$route.query.stuNum;
+    this.application.reg_no = this.$route.query.regno;
     axios.get('http://localhost:3000/regAcess',{ withCredentials: true }).then((res)=> {                
                 if(res.data < 1){
                     alert("접근할 수 없습니다.");
                     window.close();
-                } else {                  
-                  this.application.stuNum = this.$route.query.stuNum;
-                  this.application.reg_no = this.$route.query.regno;
-                  this.application.proNum = this.$store.state.account.id;
-                  axios.get('http://localhost:3000/getLastTime?regno='+this.application.reg_no).then((res) => {      
-                    if(res.data < 1){
-                      alert("모든 회기가 종료된 상담입니다.");
-                      window.close();
-                    } else {
-                      this.application.times = res.data;
-                    }
-                  }).catch((err) => {
-                    console.log(err);
-                  })
                 }
             }).catch((err) => {
                 alert(err+"에러 발생");
                 window.close();
-            })
+            }),
+    this.getLastTimes(this.application.reg_no);
   },
   data(){
     return{
@@ -216,6 +205,21 @@ export default {
     };
   },
   methods: {
+    getLastTimes(regno){
+      axios.get('http://localhost:3000/getRegInfo?regno='+regno).then((res) => {      
+        console.log(res.data);
+            if(res.data.currentTimes >= 10){
+            alert("모든 회기가 종료된 상담입니다.");
+              window.close();
+            } else {
+              this.application.times = res.data.currentTimes+1;
+              this.application.proNum = res.data.pro;
+            }
+          }).catch((err) => {
+            console.log(err);
+          })
+    }
+    ,
     async selectDay(rowIndex,cellIndex,date){
       try {
         const today = new Date(); 

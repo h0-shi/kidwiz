@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.kidwiz.web.DAO.RegDAO;
 import com.kidwiz.web.DAO.VueDAO;
+import com.kidwiz.web.DTO.Counselor;
 import com.kidwiz.web.DTO.RegDTO;
 
 @Service
@@ -162,6 +163,10 @@ public class VueService {
 	public List<Map<String, Object>> getRsv(int id) {
 		// TODO Auto-generated method stub
 		return vueDAO.getRsv(id);
+	}
+
+	public List<Counselor> counselorList() {
+		return vueDAO.counselorList();
 	}
 
 }
