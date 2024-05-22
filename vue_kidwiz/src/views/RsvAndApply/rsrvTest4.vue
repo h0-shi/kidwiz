@@ -320,20 +320,41 @@ export default {
 
 
 
-      axios.get(`/api/advisors/${this.majorId}`)
-        .then(response => {
-          const advisor = response.data;
+      // axios.get(`/api/advisors/${this.majorId}`)
+      //  .then(response => {
+      //   const advisor = response.data;
 
           // 상담자 정보가 있는지 확인
-          if (!advisor) {
-            alert("상담자 정보를 불러오는 데 실패했습니다.");
-            return;
-          }
+      //   if (!advisor) {
+      //      alert("상담자 정보를 불러오는 데 실패했습니다.");
+      //      return;
+      //    } 
+
+        // 240522 상담 유형에 따라 적절한 상담자 ID 가져오기
+
+        let idPromise;
+        if (this.selectedCounselingType === '지도교수 상담') {
+            idPromise = axios.get(`/api/reservations/getProId`, {
+                params: { majorHead: this.majorId }
+            });
+        } else {
+            idPromise = axios.get(`/api/reservations/getCounselorId`, {
+                params: { CounselingType: this.selectedCounselingType }
+            });
+        }
+
+        idPromise.then(response => {
+            const proid = response.data;
+
+            if (!proid) {
+                alert("상담자 정보를 불러오는 데 실패했습니다.");
+                return;
+            }
 
           //예약 데이터 담기
           const reservationData = {
             sid: this.getAccountId,
-            proid: this.majorId,
+            proid: proid, // this.majorId, 에서 수정
             ctype: this.selectedCounselingType,
             ctime: this.selectedTime.time,
             ctimecode: this.selectedTime.code, //시간 코드(A~G)
@@ -383,7 +404,8 @@ export default {
       console.log('폼 제출 로직에 값 확인-------------------------------------------')
       console.log(`예약날짜 ${this.selectedDate} 시간 ${this.selectedTime.time} 시간코드 ${this.selectedTime.code}`);
 
-
+        
+     
       // 서버로 보내기 전에 데이터 콘솔에 출력하여 확인
       const reservationData = {
         sid: this.getAccountId,
@@ -402,7 +424,7 @@ export default {
       axios.post('/api/reservations', reservationData)
         .then(response => {
           console.log('Reservation response:', response);
-
+          
 
 
           // 예약 성공 시 FullCalendar에 이벤트 추가
