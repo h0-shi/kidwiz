@@ -94,6 +94,10 @@ export default {
         selectedCounselingType: {
             type: String,
             required: true
+        },
+        ctimecode: { //시간 code 받음
+            type: String,
+            required: true
         }
 
     },
@@ -118,12 +122,12 @@ export default {
     mounted() {
         this.studentName = this.$store.state.account.name;
         this.studentID = this.$store.state.account.id;
-        console.log("학생 this.id : "+ this.studentID)
-        console.log("학생 store.account.id : "+ this.$store.state.account.id)
+        console.log("학생 this.id : " + this.studentID)
+        console.log("학생 store.account.id : " + this.$store.state.account.id)
         axios.get(`/api/reservations/members?studentID=` + this.$store.state.account.id)
             .then(response => {
                 this.advisor = response.data.major_head;
-                this.getProId(this.advisor); //상담자 id 가져오기 위한 변수
+                this.getProId2(this.advisor); //상담자 id 가져오기 위한 변수
             })
             .catch(error => {
                 console.error('Error fetching advisor:', error);
@@ -158,7 +162,10 @@ export default {
         this.localSelectedDate = this.$route.query.selectedDate || '';
         this.localSelectedTime = this.$route.query.selectedTime || '';
         this.localSelectedCounselingType = this.$route.query.selectedCounselingType || '';
+        const ctimecode = this.$route.query.ctimecode;
 
+        // 예약페이지에서 ctimecode 값 잘 받아왔는지 확인
+        console.log("예약시간 코드 값 : ", ctimecode);
     },
 
 
@@ -172,17 +179,17 @@ export default {
     //},
 
     methods: {
-        async getProId(majorHead) {
+        async getProId2(CounselingType) {
             try {
-            const encodedMajorHead = encodeURIComponent(majorHead); // URL 인코딩
-            const response = await axios.get(`/api/reservations/getProId?majorHead=` + encodedMajorHead);
-            this.proid = response.data;
+                const encodedMajorHead = encodeURIComponent(CounselingType); // URL 인코딩
+                const response = await axios.get(`/api/reservations/getProId?majorHead=` + encodedMajorHead);
+                this.proid2 = response.data;
             } catch (error) {
                 console.error('Error fetching ProId:', error);
-                this.proid = null;
+                this.proid2 = null;
             }
-            console.log("현시점 majorHead : "+majorHead)
-            console.log("현시점 proid : "+this.proid)
+            console.log("현시점 CounselingType : " + CounselingType)
+            console.log("현시점 proid : " + this.proid2)
         },
         async submitForm(event) {
             event.preventDefault(); // 기본 폼 제출 방지
@@ -202,14 +209,14 @@ export default {
             //    this.isSubmitting = false;
             //    return;
             //}
-            
-            console.log("제출시점 proid : "+this.proid)
+
+            console.log("제출시점 proid : " + this.proid)
             // 폼 제출 로직
             const reservationData = {
                 sid: this.studentID, // 학생 ID (예: JWT에서 추출)
                 proid: this.proid, // 상담자 ID (상담자 정보에서 추출)
                 ctype: this.localSelectedCounselingType,
-                ctime: this.localSelectedTime,
+                ctime: this.ctimecode,
                 cdate: this.localSelectedDate,
                 rsvdate: new Date().toISOString().split('T')[0],
                 rsvmemo: this.requestText

@@ -79,7 +79,7 @@ export default {
       isPast: false,
       showModal: false, // 모달창 표시 여부
       currentEvent: {}, // 현재 이벤트 객체
-      counselingTypes: ['지도교수 상담', '취업상담', '전문 상담', '심리 상담'], // 상담 유형 추가
+      counselingTypes: ['지도교수 상담', '취업상담', '전문상담', '심리상담'], // 상담 유형 추가
       selectedCounselingType: '', // 선택된 상담 유형 초기화
       showCounselingTypeAlert: false, // 상담 유형 선택 알림 표시 여부
 
@@ -362,6 +362,7 @@ export default {
                   selectedDate: this.selectedDate,
                   selectedTime: this.selectedTime.time,
                   selectedCounselingType: this.selectedCounselingType,
+                  ctimecode: this.selectedTime.code
                 }
               });
             })
@@ -379,7 +380,8 @@ export default {
 
 
       // 폼 제출 로직: 서버에 예약 데이터 전송
-      console.log(`Reservation submitted for ${this.selectedDate} at ${this.selectedTime.time}`);
+      console.log('폼 제출 로직에 값 확인-------------------------------------------')
+      console.log(`예약날짜 ${this.selectedDate} 시간 ${this.selectedTime.time} 시간코드 ${this.selectedTime.code}`);
 
 
       // 서버로 보내기 전에 데이터 콘솔에 출력하여 확인
@@ -387,7 +389,7 @@ export default {
         sid: this.getAccountId,
         proid: this.majorId,
         ctype: this.selectedCounselingType,
-        ctime: this.selectedTime.time,
+        ctime: this.selectedTime.code,
         cdate: this.selectedDate,
         rsvdate: new Date().toISOString().split('T')[0],
         rsvmemo: '', // 예약 메모 초기화
@@ -421,7 +423,8 @@ export default {
               selectedDate: this.selectedDate,
               //selectedTime: this.selectedTime ? this.selectedTime.time : ''
               selectedTime: this.selectedTime.time, // 여기에서 'time' 프로퍼티에 접근하여 문자열 형태로 전달
-              selectedCounselingType: this.selectedCounselingType //240517 추가
+              selectedCounselingType: this.selectedCounselingType, //240517 추가
+              ctimecode: this.selectedTime.code //240522 시간 코드 보내기 추가
             }
           });
         }).catch(error => {

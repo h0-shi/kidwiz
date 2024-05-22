@@ -18,5 +18,6 @@ public interface RsvDAO {
     MemberDTO getMemberById(int id);
     
     Integer getProId(String majorHead);
+	Integer getProId2(String CounselingType);
 
 }

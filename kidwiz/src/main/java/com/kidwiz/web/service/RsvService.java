@@ -14,4 +14,5 @@ public interface RsvService {
     MemberDTO getMemberById(int id);
 	List<RsvDTO> getAllReservations(RsvDTO rsv);
 	Integer getProId(String majorHead);
+	Integer getProId2(String CounselingType);
 }

@@ -88,4 +88,10 @@ public class RsvServiceImpl implements RsvService {
 		logger.info("getProId 호출: {}", majorHead);
 		return reservationDAO.getProId(majorHead);
 	}
+
+	@Override
+	public Integer getProId2(String CounselingType) {
+		logger.info("getProId 호출: {}", CounselingType);
+		return reservationDAO.getProId2(CounselingType);
+	}
 }

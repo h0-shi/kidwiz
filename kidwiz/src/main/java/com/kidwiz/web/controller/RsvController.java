@@ -71,4 +71,15 @@ public class RsvController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
+    
+    @GetMapping("/getProId2")
+    public ResponseEntity<Integer> getProId2(@RequestParam("CounselingType") String CounselingType) {
+        logger.info("getProId 호출: {}", CounselingType);
+        Integer proId2 = reservationService.getProId2(CounselingType);
+        if (proId2 != null) {
+            return ResponseEntity.ok(proId2);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
 }
