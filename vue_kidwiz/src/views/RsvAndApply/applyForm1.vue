@@ -183,7 +183,8 @@ export default {
             applicationDate: new Date().toLocaleDateString(),
             studentName: this.$store.state.account.name, // JWT를 통해 가져온 사용자 이름
             //studentID: '학생 ID', // JWT를 통해 가져온 사용자 ID
-            advisor: "상담자 이름", // 학과 정보에 따른 상담자
+            advisor: "", // 학과 정보에 따른 상담자
+            advisorId: null, // 추가: advisorId 데이터 속성
             //counselingTypes: ['지도교수 상담', '취업상담', '전문 상담'],
             //selectedCounselingType: '지도교수 상담', // 기본값으로 초기 설정되어있게 함
             localSelectedCounselingType: "", // 로컬 데이터 속성으로 사용
@@ -202,22 +203,31 @@ export default {
     mounted() {
         this.studentName = this.$store.state.account.name;
         this.studentID = this.$store.state.account.id;
-        axios
-            .get(
-                `/api/reservations/members?studentID=` + this.$store.state.account.id
-            )
+        axios.get(`/api/reservations/members?studentID=` + this.$store.state.account.id)
             .then((response) => {
                 this.major_name = response.data.major_name;
                 this.gender = response.data.gender;
                 this.advisor = response.data.major_head;
                 this.contact = response.data.contact;
                 this.birth_date = response.data.birth_date;
-                this.getProId(this.advisor); //상담자 id 가져오기 위한 변수
+                //this.getProId(this.major_head); //상담자 id 가져오기 위한 변수
+
+                // 상담자 ID 가져오기
+                /*
+                if (this.localSelectedCounselingType === '지도교수 상담') {
+                    this.getProId(this.advisor);
+                } else {
+                    this.getProId(this.localSelectedCounselingType);
+                }*/
+
+                this.fetchAdvisorId();
+
             })
             .catch((error) => {
                 console.error("Error fetching advisor:", error);
                 this.advisor = "상담자 정보를 불러오는 데 실패했습니다.";
             });
+
     },
     computed: {
         formattedSelectedDate() {
@@ -254,19 +264,32 @@ export default {
         console.log("예약시간 코드 값 : ", ctimecode);
     },
     methods: {
+        async fetchAdvisorId() {
+            try {
+                const response = await axios.get(`/api/reservations/getAdvisorId?counselingType=${this.selectedCounselingType}&majorHead=${this.major_head}`);
+                this.advisorId = response.data;
+                //this.advisor = response.data.name;
+            } catch (error) {
+                console.error("Error fetching AdvisorId:", error);
+                this.advisor = "상담자 정보를 불러오는 데 실패했습니다.";
+            }
+
+            console.log("advisorID 가져왔을 때 : " + this.advisorId);
+        },
         async getProId(majorHead) {
             try {
                 const encodedMajorHead = encodeURIComponent(majorHead); // URL 인코딩
-                const response = await axios.get(
-                    `/api/reservations/getProId?majorHead=` + encodedMajorHead
-                );
-                this.proid = response.data;
+                const response = await axios.get(`/api/reservations/getProId?majorHead=` + encodedMajorHead);
+
+                this.proid = response.data.proid;
             } catch (error) {
                 console.error("Error fetching ProId:", error);
                 this.proid = null;
             }
+
             console.log("현시점 majorHead : " + majorHead);
             console.log("현시점 proid : " + this.proid);
+            console.log("현시점 advisorID : " + this.advisorId);
         },
         async submitForm(event) {
             event.preventDefault(); // 기본 폼 제출 방지
@@ -287,11 +310,11 @@ export default {
             //    return;
             //}
 
-            console.log("제출시점 proid : " + this.proid);
+            console.log("제출시점 advisorId : " + this.advisorId);
             // 폼 제출 로직
             const reservationData = {
                 sid: this.studentID, // 학생 ID (예: JWT에서 추출)
-                proid: this.proid, // 상담자 ID (상담자 정보에서 추출)
+                proid: this.advisorId, // 상담자 ID (상담자 정보에서 추출)
                 ctype: this.localSelectedCounselingType,
                 //ctime: this.localSelectedTime,
                 ctime: this.ctimecode,
@@ -306,8 +329,9 @@ export default {
                 this.isSubmitting = false;
                 return;
             }
-            if (`${this.agreement}` != 'agree') {
+            if (`${this.agreement}` !== 'agree') {
                 alert("개인정보 비동의시 상담 접수가 불가합니다.");
+                this.isSubmitting = false;
                 return false;
             }
             // 예약 데이터 확인
@@ -343,7 +367,14 @@ export default {
         updateTextLength() {
             this.textLength = this.requestText.length;
         },
-    },
+    }, watch: {
+        localSelectedCounselingType() {
+            this.fetchAdvisorId();
+        },
+        advisor() {
+            this.fetchAdvisorId();
+        }
+    }
 };
 </script>
 
