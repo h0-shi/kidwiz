@@ -12,7 +12,7 @@ public interface RsvService {
     void createReservation(RsvDTO reservationDto);
 
     MemberDTO getMemberById(int id);
-	//List<RsvDTO> getAllReservations(RsvDTO rsv);
+    //List<RsvDTO> getAllReservations(RsvDTO rsv);
 	Integer getProId(String majorHead);
 	Integer getCounselorId(String CounselingType);
 }

@@ -218,16 +218,24 @@ export default {
 
       }).then(response => {
         const reservedTimes = response.data.map(reservation => reservation.ctime);
-        this.availableTimes = this.timeSlots.map((slot, index) => ({
-          id: index + 1, // 각 시간에 고유 id를 설정
-          time: slot.time,
-          code: slot.code,
-          available: !reservedTimes.includes(slot.time)
+        //this.availableTimes = this.timeSlots.map((slot, index) => ({
+        //  id: index + 1, // 각 시간에 고유 id를 설정
+        //  time: slot.time,
+        //  code: slot.code,
+        this.availableTimes = this.timeSlots.map(slot => ({
+      ...slot,
+
+          available: !reservedTimes.includes(slot.code)
         }));
       }).catch(error => {
         console.error("Error fetching reservations:", error);
-        this.availableTimes = this.timeSlots.map(time => ({ time, available: true }));
-      });
+        //this.availableTimes = this.timeSlots.map(time => ({ time, available: true }));
+      //});
+      this.availableTimes = this.timeSlots.map(slot => ({
+      ...slot,
+      available: true
+    }));
+  });
 
       //axios.get('/api/available-times', { params: { date: info.dateStr } })
       //  .then(response => {

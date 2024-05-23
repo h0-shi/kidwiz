@@ -61,27 +61,38 @@ public class RsvServiceImpl implements RsvService {
 		}
 
 		// 240517 유효성 검사를 통과하지 못한 경우 데이터베이스에 삽입하지 않음
-		if (reservationDto.getSid() == 0 || reservationDto.getProid() == 0 || reservationDto.getCtype() == null
-				|| reservationDto.getCtime() == null || reservationDto.getCdate() == null
-				|| reservationDto.getRsvdate() == null || reservationDto.getRsvmemo() == null) {
-			logger.error("유효성 검사를 통과하지 못했습니다.");
-			return;
+		//if (reservationDto.getSid() == 0 || reservationDto.getProid() == 0 || reservationDto.getCtype() == null
+		//		|| reservationDto.getCtime() == null || reservationDto.getCdate() == null
+		//		|| reservationDto.getRsvdate() == null || reservationDto.getRsvmemo() == null) {
+		//	logger.error("유효성 검사를 통과하지 못했습니다.");
+		//	return;
+		//}
+		
+		//240523 수정
+		if (reservationDto == null || reservationDto.getSid() == 0 || reservationDto.getProid() == 0 ||
+	            reservationDto.getCtype() == null || reservationDto.getCtype().isEmpty() ||
+	            reservationDto.getCtime() == null || reservationDto.getCtime().isEmpty() ||
+	            reservationDto.getCdate() == null || reservationDto.getRsvdate() == null || 
+	            reservationDto.getRsvmemo() == null || reservationDto.getRsvmemo().isEmpty()) {
+	            logger.error("유효성 검사를 통과하지 못했습니다.");
+	            return;
 		}
-
 		reservationDAO.insertReservation(reservationDto);
 	}
 
+
+	@Override
+	public List<RsvDTO> getAllReservations(String type, String date) {
+        logger.info("getAllReservations 호출: type={}, date={}", type, date);
+		return reservationDAO.getAllReservations(type, date);
+	}
+	
 	@Override
 	public MemberDTO getMemberById(int id) {
 		logger.info("getMemberById 호출: {}", id);
 		return reservationDAO.getMemberById(id);
 	}
 
-	@Override
-	public List<RsvDTO> getAllReservations(String type, String date) {
-		logger.info("getAllReservations type이랑 date 변수로 호출");
-		return null;
-	}
 
 	@Override
 	public Integer getProId(String majorHead) {
