@@ -33,7 +33,9 @@
                   <td>{{ rsv.ctime }}</td>
                   <td>상담 상태 만들어??</td>
                   <td>
-                    <button @click="addToCart(rsv.rsvno)">상담일지 작성</button>
+                    <router-link :to="`/ProResultWrite/${rsv.rsvno}`">
+                      <button>상담일지 작성</button>
+                    </router-link>
                   </td>
                 </tr>
               </tbody>
@@ -65,7 +67,7 @@ export default {
 
     const load = () => {
       axios
-        .get("http://localhost:3000/api/rsv/test", { withCredentials: true })
+        .get("http://localhost:3000/api/rsv/list", { withCredentials: true })
         .then((response) => {
           state.rsvs = response.data;
           console.log(response.data);

@@ -8,8 +8,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Mapper
-public interface RsvTestDAO {
+public interface RsvProDAO {
 
 	List<Map<String,Object>> findRsvByProid(int proid);
+
+	Map<String, Object> findRsvInfoByRsvno(Integer rsvno);
 
 }

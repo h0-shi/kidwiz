@@ -73,7 +73,7 @@
 
 
 <script>
-import store from "@/views/store";
+import store from "@/store.js";
 import router from '@/router'
 import axios from 'axios';
 
@@ -191,4 +191,4 @@ a:active {
   margin-top: 185px;
 }
 
-</style>
+</style>@/store@/store.js

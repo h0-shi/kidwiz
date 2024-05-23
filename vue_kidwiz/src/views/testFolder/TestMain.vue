@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import store from "@/views/store";
+import store from "@/store";
 
 export default {
   name: 'TestPage',
@@ -36,3 +36,4 @@ export default {
   }
 };
 </script>
+@/store@/views/store@/store

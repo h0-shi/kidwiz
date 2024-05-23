@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.kidwiz.web.DAO.RsvTestDAO">
+<mapper namespace="com.kidwiz.web.DAO.RsvProDAO">
 
 	<select id="findRsvByProid" parameterType="int">
 		SELECT r.*, m.name as name
@@ -11,4 +11,9 @@
 		ORDER BY r.cdate ASC, STR_TO_DATE(r.ctime, '%H:%i') ASC;
 	</select>
 
+	<select id="findRsvInfoByRsvno" parameterType="int">
+		SELECT * FROM ProResultWriteInfo
+		WHERE rsvno = #{rsvno}
+	</select>
+	
 </mapper>
