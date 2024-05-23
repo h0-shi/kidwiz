@@ -65,6 +65,8 @@ public class RsvController {
 	@GetMapping("/getProId")
 	public ResponseEntity<Integer> getProId(@RequestParam("majorHead") String majorHead) {
 		logger.info("getProId 호출: {}", majorHead);
+		System.out.println("-----------------------------");
+		System.out.println(majorHead);
 		Integer proId = reservationService.getProId(majorHead);
 		if (proId != null) {
 			return ResponseEntity.ok(proId);
