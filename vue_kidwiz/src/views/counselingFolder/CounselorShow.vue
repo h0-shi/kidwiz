@@ -1,6 +1,8 @@
 <template>
   <div>
     <MenuPage />
+    <div class="boundary">
+    <h1 class="title">심리 상담</h1>
     <SimriSecMenu />
     <div class="container py-6 px-lg-7 rounded shadow-lg mt-5">
       <div class="row justify-content-center">
@@ -64,6 +66,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
 </template>
 
@@ -146,5 +149,11 @@ export default {
 
 .btn {
   font-size: 1.2rem;
+}
+.title{
+  text-align: left;
+  font-family: 'sj';
+  margin-left: 15px;
+  margin-bottom: 40px;
 }
 </style>

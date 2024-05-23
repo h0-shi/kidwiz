@@ -1,12 +1,15 @@
 <template>
   <div>
     <MenuPage />
+    <div class="boundary">
+    <h1 class="title">심리 상담</h1>
     <SimriSecMenu />
     <h1>Contact 게시판 입니다. 위치 지도 불러오기</h1>
 
     <div class="mt-2">
     <div id="map" style="width: 500px; height: 400px"></div>
   </div>
+</div>
   </div>
 </template>
 
@@ -72,3 +75,11 @@ export default {
 }
 </script>
 
+<style>
+.title{
+  text-align: left;
+  font-family: 'sj';
+  margin-left: 15px;
+  margin-bottom: 40px;
+}
+</style>

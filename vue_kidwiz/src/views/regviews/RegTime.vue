@@ -20,7 +20,7 @@
         <thead>
             <tr>
                 <!-- 요일 = daysOfWeek -->
-                <th v-for="day in daysOfWeek" :key="day">{{ day }}</th>
+                <th v-for="(day) in daysOfWeek" :key="day">{{ day }}</th>
             </tr>
             </thead>
             <tbody>
@@ -28,7 +28,7 @@
               <td
                 v-for="(day, cellIndex) in week"
                 :key="cellIndex"
-                :class="[{
+                :class="[{                
                   'current-day': isCurrentDay(day.date),
                   disabled: pastDate(day.date),
                 },

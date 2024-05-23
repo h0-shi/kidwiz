@@ -54,6 +54,7 @@ import adminMemberControl from '@/layout/AdminSidebar.vue';
 import MemberControl from '@/components/MemberControl.vue';
 import BoardControl from '@/components/BoardControl.vue';
 import resultUpdate from '@/views/regviews/resultUpdate.vue';
+import regIntroduce from '@/views/regviews/regIntroduce.vue';
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 import axios from 'axios';
@@ -98,6 +99,7 @@ const routes = [
     {path: '/test',name: 'Test',component: TestMain, meta: {layout : MainLayout}},
     {path: '/test/career',name: 'CareerTest',component: CareerTest, meta: {layout : MainLayout}},
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : MainLayout}},
+    {path: '/regIntroduce', name: 'regIntroduce',component: regIntroduce, meta: {layout : MainLayout}},
 
 
 

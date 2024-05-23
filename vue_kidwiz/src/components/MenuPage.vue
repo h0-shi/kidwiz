@@ -50,6 +50,7 @@
           <li><router-link to="/GroupList">박선우 집단</router-link></li>
           <li><router-link to="/jobs/intro">취업상담</router-link></li>
           <li><router-link to="/counseling">심리상담 안내</router-link></li>          
+          <li><router-link to="/regIntroduce">전문 상담  </router-link></li>
           <li><router-link to="/admin">관리자페이지</router-link></li>
           <li></li>
         </ul>
