@@ -1,20 +1,24 @@
 <template>
-  <div>
+  <div class="boundary text-start p-3 border" style="border-radius: 10px;">
     <div>
-      제목 : {{ detail.btitle }}
-      <button @click="del(requestBody.bno)">삭제</button>
-      <button @click="update()">수정</button>
-      <br>
-      글쓴이 : {{ detail.writer }}
+      <div><h1>{{ detail.btitle }}</h1></div>
+      <div>
+        <div>{{ detail.writer }}</div>
+        <small class="text-secondary">{{ detail.bdate }}</small>
+      </div>
+      <hr>
+    </div>
+    <div style="height: 400px;">
+    {{ detail.bcontent }}<br>
     </div>
     <div>
-      내용 : {{ detail.bcontent }}<br>
-      기본키 :{{ detail.bno }}<br>
-      상위 :{{ detail.up_bno }}<br>
-      뎁스 :{{ detail.depth }}<br>
-      순서 : {{ detail.ordernum }}<br>
+      <hr>
+      <div class="text-end">
+        <button class="btn btn-danger me-2" @click="del(requestBody.bno)">삭&nbsp;제</button>
+        <button class="btn btn-warning me-2" @click="update()">수&nbsp;정</button>
+        <button v-if="check" class="btn btn-success me-2" @click="reply()">답변글</button>
+      </div>
     </div>
-    <button @click="reply()">답변글</button>
   </div>
 </template>
 
@@ -35,12 +39,24 @@ export default {
         up_bno:null,
         depth:null,
         ordernum:null
-      }
+      },check:false
     }
   },mounted(){
     this.boardDetail()
+    this.counselorcheck()
   },
   methods:{
+
+    counselorcheck(){
+      axios.post("/api/counselorcheck",{withCredentials:true}).then((res)=>{
+        if(res.data ==1){
+          this.check = true
+        }else{
+          this.check = false
+        }
+      })
+    },
+
     boardDetail(){
       axios.get("/api/boardDetail?bno="+this.requestBody.bno).then((res)=>{
         this.detail = res.data.list

@@ -3,22 +3,30 @@
 <mapper namespace="com.kidwiz.web.DAO.VueDAO">
 	
 	<select id='getBoard' resultType="Map">
-		SELECT ROW_NUMBER() OVER(ORDER BY if(up_bno='0',bno,up_bno) DESC,ordernum ASC) AS no,bno,writer, btitle,
-		if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bdate,'%H:%i'),DATE_FORMAT(bdate,'%Y-%m-%d')) AS bdate,depth 
-  		FROM board_consulting LIMIT #{startRow},10;
+		SELECT ROW_NUMBER() OVER(ORDER BY up_bno DESC,ordernum ASC,depth asc) AS no,
+		bno,writer,btitle, IF(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'), DATE_FORMAT(bdate,'%H:%i'), DATE_FORMAT(bdate,'%Y-%m-%d')) AS bdate,
+    	up_bno,depth,ordernum,(SELECT COUNT(*) FROM board_consulting WHERE up_bno = b.bno) AS checkUp 
+		FROM board_consulting b LIMIT #{startRow}, 10;
 	</select>
 	
 	<insert id="boardWrite" parameterType="Map">
-		INSERT INTO board_consulting (writer,btitle,bcontent) VALUES (#{writer},#{title},#{content})
+	    INSERT INTO board_consulting (writer, btitle, bcontent) VALUES (#{writer}, #{title}, #{content})
 	</insert>
+	
+	<select id="boardWriteAfter" parameterType="Map">
+	        SELECT bno FROM board_consulting WHERE btitle = #{title} AND writer = #{writer} AND bcontent = #{content}
+	</select>
+	
+	<update id="boardInsertUpdate" parameterType="Map">
+		UPDATE board_consulting SET up_bno = #{bno} WHERE bno = #{bno}
+	</update>
 	
 	<insert id="write" parameterType="Map">
 		INSERT INTO Temp (name, age) VALUES (#{name}, #{age})
 	</insert>
 	
 	<select id="boardDetail" resultType="Map">
-		SELECT bno,writer, btitle,bcontent,up_bno,depth,ordernum,
-if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bdate,'%H:%i'),DATE_FORMAT(bdate,'%Y-%m-%d')) AS bdate
+		SELECT bno,writer, btitle,bcontent,up_bno,depth,ordernum,DATE_FORMAT(bdate,"%Y-%m-%d %H:%i") AS bdate
   FROM board_consulting WHERE bno = #{bno};
 	</select>
 	
@@ -31,8 +39,15 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 	</update>
 	
 	<insert id="boardReply" parameterType="Map">
-		INSERT INTO board_consulting (btitle,depth,ordernum,writer,bcontent,up_bno) VALUES (#{btitle},#{depth}+1,#{ordernum}+1,#{writer},#{bcontent},#{bno})
+		INSERT INTO board_consulting (btitle, depth, ordernum, writer, bcontent, up_bno)
+    VALUES (#{btitle}, #{depth} + 1,#{ordernum},#{writer}, #{bcontent}, #{up_bno})
 	</insert>
+	
+	<select id="getOrdernum" resultType="int">
+    SELECT COALESCE(MAX(ordernum), 0) + 1 
+    FROM board_consulting 
+    WHERE up_bno = #{bno} 
+  </select>
 	
 	<select id="getPath" parameterType="String">
 		SELECT up_bno, depth, ordernum 
@@ -41,7 +56,9 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 	</select>
 	
 	<select id="getGroupList" resultType="Map">
-		SELECT gr_no,coun_no,gr_title,gr_content,gr_apply,CONCAT(gr_oper," ",gr_time) AS gr_oper,total_num,img FROM group_consulting ORDER BY gr_no DESC LIMIT #{startRow},8
+		SELECT gr_no,coun_no,gr_title,gr_content,gr_apply,
+		CONCAT(gr_oper," ",gr_time) AS gr_oper, total_num,img 
+		FROM group_consulting ORDER BY gr_no DESC LIMIT #{startRow},8
 	</select>
 	
 	<select id="groupDetail" parameterType="String">
@@ -52,8 +69,9 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 	
 	<select id="getGList" parameterType="String">
 		SELECT gr_title,CONCAT(DATE_FORMAT(CONCAT(gr_oper," ",gr_time),'%Y-%m-%d %H:%i'),' ~ ',
-		DATE_FORMAT(DATE_ADD(CONCAT(gr_oper," ",gr_time),INTERVAL 50 MINUTE),'%Y-%m-%d %H:%i')) AS gr_oper,total_num, gr_del,round
-		FROM group_consulting WHERE up_gr_no = #{gr_no}
+		DATE_FORMAT(DATE_ADD(CONCAT(gr_oper," ",gr_time),INTERVAL 50 MINUTE),'%Y-%m-%d %H:%i')) AS gr_oper,
+		total_num,(SELECT COUNT(*) FROM group_apply WHERE gr_no = b. gr_no) as apply_people, gr_del,round
+		FROM group_consulting b WHERE up_gr_no = #{gr_no}
 	</select>
 	
 	<select id="totalPage" resultType="String">
@@ -63,9 +81,6 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 		SELECT COUNT(*) FROM group_consulting
 	</select>
 	
-	<select id="getCoun" parameterType="String">
-		SELECT coun_name FROM counselor WHERE coun_id=#{id}
-	</select>
 	
 	<insert id="createGroup" parameterType="Map">
 		INSERT INTO group_consulting (coun_no,up_gr_no,gr_title,gr_content,gr_apply,gr_oper,total_num,round,img,sex,major,gr_time) 
@@ -108,5 +123,9 @@ if(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'),DATE_FORMAT(bda
 	
 	<select id="counselorList" resultType="Map">
 		SELECT * FROM counselorList
+	</select>
+	
+	<select id="counselorcheck" parameterType="int">
+		SELECT count(*) FROM members WHERE id = #{id} AND grade = 2
 	</select>
 </mapper>

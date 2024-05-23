@@ -57,6 +57,7 @@ import resultUpdate from '@/views/regviews/resultUpdate.vue';
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 import axios from 'axios';
+import store from '@/store';
 
 const routes = [
     {path: '/', component: mainPage, meta: {layout : MainLayout}},    
@@ -64,11 +65,29 @@ const routes = [
     {path: '/testVue', name:'testVue', component: testVue, meta: {layout : MainLayout}},
     {path: '/listTest', name:'listTest', component: listTest, meta: {layout : MainLayout}},
     {path:'/BoardList', name:'BoardList', component: BoardList, meta: {layout : MainLayout}},
-    {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite, meta: {layout : MainLayout}},
+    {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite, meta: {layout : MainLayout},
+    beforeEnter: (to,from,next) =>{
+      if(store.state.account.id!=null){
+        next()
+      }else{
+        next('/')
+      }
+    }},
     {path: '/insertTest', name:'insertTest', component: insertTest, meta: {layout : MainLayout}},
     {path:"/boardDetail", name:"boardDetail", component: boardDetail, meta: {layout : MainLayout}},
     {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate, meta: {layout : MainLayout}},
-    {path:"/groupCreate", name:"/groupCreate", component:()=> import("@/views/groupviews/groupCreate.vue"), meta: {layout : MainLayout}},
+
+
+    {path:"/groupCreate", name:"/groupCreate", component:()=> import("@/views/groupviews/groupCreate.vue"), meta: {layout : MainLayout},
+    beforeEnter: (to,from,next) =>{
+      if(store.state.account.id!=null){
+        next()
+      }else{
+        next('/')
+      }
+    }},
+
+
     {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue'), meta: {layout : MainLayout}},
     {path: '/regTime', component: () => import('@/views/regviews/RegTime.vue'), meta: { layout:pop}},
     {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue'), meta: {layout : MainLayout}},
