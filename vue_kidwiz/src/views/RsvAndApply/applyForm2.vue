@@ -212,7 +212,7 @@ export default {
                 this.advisor = response.data.major_head;
                 this.contact = response.data.contact;
                 this.birth_date = response.data.birth_date;
-                this.getProId(this.advisor); //상담자 id 가져오기 위한 변수
+                //this.getProId(this.advisor); //상담자 id 가져오기 위한 변수
             })
             .catch((error) => {
                 console.error("Error fetching advisor:", error);
@@ -261,7 +261,8 @@ export default {
                 const response = await axios.get(
                     `/api/reservations/getCounselorId?CounselingType=` + encodedCounselingType
                 );
-                this.CounselingType = response.data;
+                //this.CounselingType = response.data;
+            this.proid = response.data;
             } catch (error) {
                 console.error("Error fetching ProId:", error);
                 this.proid = null;

@@ -78,12 +78,12 @@ public class RsvController {
 
 	@GetMapping("/getCounselorId")
 	public ResponseEntity<Integer> getCounselorId(@RequestParam("CounselingType") String CounselingType) {
-		logger.info("getCounselorId 호출: {}", CounselingType);
-		Integer counselorId = reservationService.getCounselorId(CounselingType);
-		if (counselorId != null) {
-			return ResponseEntity.ok(counselorId);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
+	    logger.info("getCounselorId 호출: {}", CounselingType);
+	    Integer counselorId = reservationService.getCounselorId(CounselingType);
+	    if (counselorId != null) {
+	        return ResponseEntity.ok(counselorId);
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+	    }
 	}
 }
