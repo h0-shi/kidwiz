@@ -1,29 +1,33 @@
-
-
-
 <template>
     <div class="container">
+        <my-sidebar></my-sidebar>
         <h1>정기상담 예약 조회</h1>
         <table class="table regRev">
             <thead>
                 <tr>
                     <th scope="col">번호</th>
                     <th scope="col">학번</th>
-                    <th scope="col">상태</th>
+                    <th scope="col">학과</th>
+                    <th scope="col">이름</th>
+                    <th scope="col">시작일</th>
+                    <th scope="col">최근 상담 진행일</th>
+                    <th scope="col">회차 정보</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="n in list" v-bind:key="n.reg_no" v-bind:class="[n.reg_no+'tr']" @click="modalOpen(n.reg_no,n.stuNum)">
                     <td scope="row">{{n.reg_no }}</td>
                     <td>{{ n.stuNum }}</td>
+                    <td>{{n.major_name}}</td>
+                    <td>{{ n.name }}</td>
+                    <td>{{ n.first }}</td>
+                    <td>{{ n.last }}</td>
+                    <td>{{ n.currentTimes }} / 10 회기</td>
                     <td v-if=" n.stat === '0'" v-bind:class="[n.reg_no+'stat']" >
                         <button @click="al(n, 1)" >승인</button>
                         <button>거절</button>
                     </td>
                     <td v-if=" n.stat === '1' " v-bind:class="[n.no+'stat']">승인완료</td>
-                    <td>
-                        <button @click="modalOpen">자세히보기</button>
-                    </td>
                 </tr>
             </tbody>
         </table>
@@ -118,8 +122,13 @@
     </template>
     
     <script>
+    import MySidebar from '@/components/MySidebar.vue';
     import axios from 'axios'
+
     export default {
+        components: {
+            MySidebar,
+        },  
         data(){
             return{
                 list:[],
@@ -129,20 +138,39 @@
                 totalCount:'',
                 pageMap: [],
                 writed:'',
+                major_name: '',
+                name:'',
+                first:'',
+                lsat:'',
+                currentTimes:'',
             }
         },
         mounted(){
-            axios.get('http://localhost:3000/regTotalCount').then((res) => {  
-                this.totalCount = res.data;
-                console.log(this.totalCount);
-                
-                axios.get('http://localhost:3000/test?total='+this.totalCount).then((res) => {
-                this.list = res.data.list;
-                this.pageMap = res.data.pageMap;
-                })
-            })
+           this.accessCheck();
+           this.getTotalCount();            
         },
         methods:{
+            async accessCheck(){
+                await axios.get('http://localhost:3000/regAcess',{ withCredentials: true }).then((res)=> {                
+                if(res.data < 1){
+                    alert("접근할 수 없습니다.");
+                    this.$router.push("/");
+                }
+            }).catch((err) => {
+                alert(err+"에러 발생");
+                this.$router.push("/");
+            })
+            },
+            async getTotalCount(){
+                axios.get('http://localhost:3000/regTotalCount').then((res) => {  
+                this.totalCount = res.data;                
+                axios.get('http://localhost:3000/regRev?total='+this.totalCount).then((res) => {
+                    console.log(res.data);
+                this.list = res.data.list;
+                this.pageMap = res.data.pageMap;                
+                })
+            })
+            },
             al(item,stat){
                 var arrJson = {'reg_no':item.reg_no, 'stat':stat};            
                 axios.post('http://localhost:3000/accept',arrJson).then((res)=>{
@@ -153,7 +181,7 @@
                 })
             },
             changegroup(page){
-            axios.get("http://localhost:3000/test?total="+this.totalCount+"&page="+page).then((res)=>{
+            axios.get("http://localhost:3000/regRev?total="+this.totalCount+"&page="+page).then((res)=>{
                 this.list=res.data.list
                 this.pageMap=res.data.pageMap
             }).catch((err)=>{

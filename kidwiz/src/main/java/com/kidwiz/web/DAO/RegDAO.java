@@ -26,7 +26,7 @@ public interface RegDAO {
 
 	public List<RegDTO> regResult(String regno);
 
-	public List<MemberDTO> memberDetail(String stuNum);
+	public List<MemberDTO> memberDetail(String id);
 
 	public int resultWrite(ResultDTO result);
 
@@ -35,5 +35,11 @@ public interface RegDAO {
 	public int oneTimeRegInsert(RegDTO test);
 
 	public int resultUpdate(ResultDTO result);
+
+	public String getMajor(int id);
+
+	public List<Map<String, Object>> regRev(Map<String, Object> pageMap);
+
+	public Map<String, Object> getRegInfo(String regno);
 
 }

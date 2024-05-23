@@ -6,11 +6,11 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.kidwiz.web.DTO.Counselor;
+
 @Repository
 @Mapper
 public interface VueDAO {
-	public List<Map<String, Object>> boardList(Map<String, Object> pageMap);
-
 	public List<Map<String, Object>> getBoard(Map<String, Object> pageMap);
 
 	public int boardWrite(Map<String, Object> map);
@@ -53,6 +53,8 @@ public interface VueDAO {
 	public int checkGroup(Map<String, Object> map);
 
 	public List<Map<String, Object>> getRsv(int id);
+
+	public List<Counselor> counselorList();
 
 
 }

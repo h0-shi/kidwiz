@@ -9,6 +9,7 @@ import lombok.Setter;
 @Setter
 public class RegDTO {
 	
+ private char code;
  private String name, major_name, teacher, reg_no, time, regno, memo, proName; 
  private String content, goal, summary, homework, opinion, contact, gender, birth_date;
  private int age, stuNum, proNum, times, totalTimes, sub_no;

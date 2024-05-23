@@ -16,7 +16,7 @@
 <script>
 import {reactive} from "vue";
 import axios from "axios";
-import store from "@/views/store";
+import store from "@/store";
 import router from '@/router'
 
 export default {
@@ -102,4 +102,4 @@ p {
   cursor: pointer;
   width: 100%;
 }
-</style>
+</style>@/store@/views/store@/store

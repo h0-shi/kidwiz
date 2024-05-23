@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kidwiz.web.DTO.Counselor;
 import com.kidwiz.web.service.JwtService;
 import com.kidwiz.web.service.VueService;
 import com.kidwiz.web.util.Util;
@@ -35,28 +36,6 @@ public class VueController {
 	
 	@Autowired
 	private VueService vueService;
-	
-	
-	@GetMapping("/test")
-	public String test(@RequestParam(name="page", required = false) String page, @RequestParam(name="total", required = false) String total) {
-		System.out.println(page==null);		
-		if(page==null) {
-			System.out.println("???????");
-			page="1";
-		}
-		if(total == null) {
-			total = "1";
-		}
-		System.out.println(total+"변환 안됨");
-		Map<String, Object> pageMap = Util.pageMap(Integer.parseInt(total),Integer.parseInt(page));
-		List<Map<String, Object>> list = vueService.list(pageMap);
-		JSONObject json = new JSONObject();
-		JSONArray arr = new JSONArray(list);
-		json.put("list", arr);
-		json.put("pageMap", pageMap);
-		
-		return json.toString();
-	}
 	
 	@GetMapping("/")
 	public String index() {
@@ -237,15 +216,15 @@ public class VueController {
 		if (!jwtService.isValid(token)) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         }
-        
         int id = jwtService.getId(token);
-		
-		
-		List<Map<String, Object>> list = vueService.getRsv(id);
-		
-	
-		
+		List<Map<String, Object>> list = vueService.getRsv(id);	
 		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+	
+	@GetMapping("/counselorList")
+	public List<Counselor> counselorList(){
+		List<Counselor> counselorList = vueService.counselorList();
+		return counselorList;
 	}
 }
 

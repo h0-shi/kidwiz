@@ -59,8 +59,8 @@
                 ></textarea></td>
                   </tr>
             </tbody>                
-            </table>
-            <div class="card">
+            </table>            
+            <div class="card mt-3">
               <div class="card-body">
               <span class="formInfo mt-4">개인정보 수집 동의</span>
               <hr>            
