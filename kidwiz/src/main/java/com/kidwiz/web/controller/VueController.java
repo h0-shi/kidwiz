@@ -226,6 +226,21 @@ public class VueController {
 		List<Counselor> counselorList = vueService.counselorList();
 		return counselorList;
 	}
+	
+	@PostMapping("/api/counselorcheck")
+	public ResponseEntity counselorcheck(@CookieValue(value = "token", required = false) String token) {
+		//TODO: process POST request
+		int check = 0;
+		
+		if(!jwtService.isValid(token)) {
+			return new ResponseEntity<>(check,HttpStatus.OK);
+		}
+		
+		
+		check = vueService.counselorcheck(jwtService.getId(token));
+		return new ResponseEntity<>(check,HttpStatus.OK);
+	}
+	
 }
 
 

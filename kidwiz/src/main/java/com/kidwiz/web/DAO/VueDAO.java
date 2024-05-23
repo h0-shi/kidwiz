@@ -35,7 +35,6 @@ public interface VueDAO {
 
 	public int totalGPage();
 
-	public Map<String, Object> getCoun(String id);
 
 	public void createGroup(Map<String, Object> map);
 
@@ -55,6 +54,14 @@ public interface VueDAO {
 	public List<Map<String, Object>> getRsv(int id);
 
 	public List<Counselor> counselorList();
+
+	public int counselorcheck(int id);
+
+	public Object getOrdernum(Map<String, Object> map);
+
+	public int boardInsertUpdate(Map<String, Object> map);
+
+	public String boardWriteAfter(Map<String, Object> map);
 
 
 }

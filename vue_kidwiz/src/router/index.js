@@ -58,6 +58,8 @@ import BoardControl from '@/components/BoardControl.vue';
 import resultUpdate from '@/views/regviews/resultUpdate.vue';
 
 import { createRouter,createWebHashHistory } from 'vue-router';
+import axios from 'axios';
+import store from '@/store';
 
 const routes = [
     {path: '/', component: mainPage, meta: {layout : MainLayout}},    
@@ -65,11 +67,29 @@ const routes = [
     {path: '/testVue', name:'testVue', component: testVue, meta: {layout : MainLayout}},
     {path: '/listTest', name:'listTest', component: listTest, meta: {layout : MainLayout}},
     {path:'/BoardList', name:'BoardList', component: BoardList, meta: {layout : MainLayout}},
-    {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite, meta: {layout : MainLayout}},
+    {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite, meta: {layout : MainLayout},
+    beforeEnter: (to,from,next) =>{
+      if(store.state.account.id!=null){
+        next()
+      }else{
+        next('/')
+      }
+    }},
     {path: '/insertTest', name:'insertTest', component: insertTest, meta: {layout : MainLayout}},
     {path:"/boardDetail", name:"boardDetail", component: boardDetail, meta: {layout : MainLayout}},
     {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate, meta: {layout : MainLayout}},
-    {path:"/groupCreate", name:"/groupCreate", component:()=> import("@/views/groupviews/groupCreate.vue"), meta: {layout : MainLayout}},
+
+
+    {path:"/groupCreate", name:"/groupCreate", component:()=> import("@/views/groupviews/groupCreate.vue"), meta: {layout : MainLayout},
+    beforeEnter: (to,from,next) =>{
+      if(store.state.account.id!=null){
+        next()
+      }else{
+        next('/')
+      }
+    }},
+
+
     {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue'), meta: {layout : MainLayout}},
     {path: '/regTime', component: () => import('@/views/regviews/RegTime.vue'), meta: { layout:pop}},
     {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue'), meta: {layout : MainLayout}},
@@ -101,9 +121,40 @@ const routes = [
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : MainLayout}},
 
 
-    {path: '/admin', name: 'admin',component: MemberControl,meta:{layout:adminMemberControl}},
-    {path: '/adminMemberControl', name: 'adminMemberControl',component: MemberControl,meta:{layout:adminMemberControl}},
-    {path: '/adminBoardControl', name: 'adminBoardControl',component: BoardControl,meta:{layout:adminMemberControl}},
+
+    {path: '/admin', name: 'admin',component: MemberControl,meta:{layout:adminMemberControl},
+      beforeEnter:async (to,from,next) =>{
+        const check = await userPermission();
+        if(check){
+          next()
+        } else{
+          next('/')
+        }
+      }
+  },
+    {path: '/adminMemberControl', name: 'adminMemberControl',component: MemberControl,meta:{layout:adminMemberControl},
+    beforeEnter:async (to,from,next) =>{
+      const check = await userPermission();
+      if(check){
+        next()
+      } else{
+        next('/')
+      }
+    }
+  },
+    {path: '/adminBoardControl', name: 'adminBoardControl',component: BoardControl,meta:{layout:adminMemberControl},
+    beforeEnter:async (to,from,next) =>{
+      const check = await userPermission();
+      if(check){
+        next()
+      } else{
+        next('/')
+      }
+    }
+  },
+  
+
+
 
     
     {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : MainLayout}},
@@ -142,5 +193,21 @@ const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes
 });
+
+
+async function userPermission(){
+  try {
+    const res = await axios.post("/api/admin/admincheck", {}, { withCredentials: true });
+    if (res.data == 1) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error checking user permission:", error);
+    return false;
+  }
+}
+
 
 export default router;
