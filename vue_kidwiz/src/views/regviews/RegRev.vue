@@ -51,7 +51,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="row in responseData" :key="row.regno"> 
-                            <td>{{row.times}}회차</td>
+                            <td>{{row.times}}회기</td>
                             <td>{{ row.stuNum }}</td>
                             <td>{{ row.date }}</td>                            
                             <td>{{row.time}}</td>
@@ -146,6 +146,7 @@
                 first:'',
                 lsat:'',
                 currentTimes:'',
+                popupWindow : null
             }
         },
         mounted(){
@@ -209,7 +210,10 @@
                 console.log(this.regno);
             },
             btnPopup(regno,stuNum){
-                window.open("#/regTime?stuNum="+stuNum+"&regno="+regno,"_blank","width=950,height=500");
+                if(this.popupWindow && !this.popupWindow.closed){
+                    this.popupWindow.close();
+                }
+                this.popupWindow = window.open("#/regTime?stuNum="+stuNum+"&regno="+regno,"popup","width=1200,height=660");
             },
             async getData(reg_no){
                 try{

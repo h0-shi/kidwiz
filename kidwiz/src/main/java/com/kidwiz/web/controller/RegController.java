@@ -144,4 +144,15 @@ public class RegController {
 		return map;
 	}
 	
+	@GetMapping("/regReservations")
+	public List<RegDTO> regReservations(@RequestParam("date") String date){
+		List<RegDTO> regReservations = regService.regReservations(date);
+		return regReservations;
+	}
+	
+	@GetMapping("/getCounselorInfo")
+	public Map<String, Object> getCounselorInfo(@RequestParam("id") String id){
+		Map<String, Object> map = regService.getCounselorInfo(id);
+		return map;
+	}
 }

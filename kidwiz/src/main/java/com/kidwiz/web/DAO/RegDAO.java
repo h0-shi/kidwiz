@@ -42,4 +42,8 @@ public interface RegDAO {
 
 	public Map<String, Object> getRegInfo(String regno);
 
+	public List<RegDTO> regReservations(String date);
+
+	public Map<String, Object> getCounselorInfo(String id);
+
 }

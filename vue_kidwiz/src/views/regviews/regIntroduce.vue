@@ -4,8 +4,8 @@
         <h1 class="title">개인 상담</h1>
         <table class="subMenu">
             <tr>
-                <th :style="select[0]" @click="displayAct(0)">개인상담이란?</th>
-                <th :style="select[1]" @click="displayAct(1)">상담사 소개</th>
+                <th :style="select[0]" @click="this.$router.push('regIntroduce')">개인상담이란?</th>
+                <th :style="select[1]" @click="this.$router.push('regCounselor')">상담사 소개</th>
                 <th :style="select[2]" @click="displayAct(2)">여긴 뭐넣지~?</th>
                 <th :style="select[3]" @click="displayAct(3)">상담 신청</th>
             </tr>

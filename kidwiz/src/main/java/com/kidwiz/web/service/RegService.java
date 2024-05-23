@@ -69,4 +69,12 @@ public class RegService {
 		return regDAO.getRegInfo(regno);
 	}
 
+	public List<RegDTO> regReservations(String date) {
+		return regDAO.regReservations(date);
+	}
+
+	public Map<String, Object> getCounselorInfo(String id) {
+		return regDAO.getCounselorInfo(id);
+	}
+
 }

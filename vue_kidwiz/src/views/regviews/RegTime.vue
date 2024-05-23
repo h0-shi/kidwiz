@@ -1,93 +1,107 @@
 <template>
-  <div>
-    <h1>{{stuNum}}</h1>
-    <div class="rsv-container">
-    <div class="calendar-container">
-        <div class="calendar-header">
-        <div class="prev-month" @click="prevMonth">
-            <span>이전 달</span>
+  <div class="container calendar-wrapper my-5">
+    <h2 class="text-center mb-4 bigTitle">{{name}} ({{ application.stuNum }}) 상담 신청</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="calendar-container mb-4">
+          <FullCalendar :options="calendarOptions" id="calendar"></FullCalendar>
         </div>
-        <!-- 현재 년/월 -->
-        <div class="current-month">
-            {{ currentYear }}년 {{ currentMonth }}월
-        </div>
-        <div class="next-month" @click="nextMonth">
-            <span>다음 달</span>
-        </div>
-        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="available-times p-3 border rounded">
 
-        <table class="calendar">
-        <thead>
-            <tr>
-                <!-- 요일 = daysOfWeek -->
-                <th v-for="(day) in daysOfWeek" :key="day">{{ day }}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(week, rowIndex) in calendar" :key="rowIndex">
-              <td
-                v-for="(day, cellIndex) in week"
-                :key="cellIndex"
-                :class="[{                
-                  'current-day': isCurrentDay(day.date),
-                  disabled: pastDate(day.date),
-                },
-                {'selected' : isSelected === rowIndex+''+cellIndex}]"
-                @click="selectDay(rowIndex, cellIndex, day.date)"
-              >
-                {{ day.day }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="available-times-container">
-        <table>
-          <thead>
-            <tr>
-              <th>예약 가능 시간</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(time, index) in availableTime" :key="time">
-              <td v-if="selectedDate" :class="{selected : active == time.time}" @click="selectTime(time,index)">{{ time.time }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+          <!-- 240517 상담 유형 선택 추가 -->
+          <div class="counseling-type-selection mb-3">            
+            <div role="group" aria-label="Counseling Types">
+              <h4 class="title">전문상담 예약 ( {{ selectedDate }} )</h4>
+            </div>
+          </div>
+          <!-- 날짜가 선택되지 않았을 때의 메시지 -->
+          <div v-if="!selectedDate && !showCounselingTypeAlert" class="alert alert-info">
+            희망하는 날짜를 선택하시면 <br> 예약 가능 시간이 나타납니다.
+          </div>
+          <!-- 날짜가 선택되었을 때의 메시지 -->
+          <div v-else>
+            <p v-if="isPast">당일 및 이전 날짜는 예약이 불가능합니다.</p>
+            <ul class="list-group box">
+              <li v-for="time in availableTimes" :key="time.time"
+                class="list-group-item d-flex justify-content-between align-items-center">
+                <label class="form-check-label">
+                  <input type="radio" v-model="selectedTime" :value="time" :disabled="!time.available"
+                    class="form-check-input me-2">
+                  {{ time.time }}
+                </label>
+                <span class="badge" :class="{ 'bg-success': time.available, 'bg-secondary': !time.available }">
+                  {{ time.available ? '예약 가능' : '예약 불가' }}
+                </span>
+              </li>
+            </ul>            
+            <button v-if="!isPast && availableTimes.some(t => t.available)" @click="submitReservation" class="submitBtn">신청하기</button>
+          </div>
+        </div>
+        <textarea class="memo" v-model="application.memo" placeholder="메모 작성"></textarea>
+      </div>      
     </div>
-    <form @submit.prevent="regSubmit" id="application">
-      <textarea name="memo" v-model="application.memo"></textarea>
-      <button type="submit">신청하기</button>
-    </form>
   </div>
 </template>
 
 <script>
-import { ref, computed } from "vue";
-import axios from "axios";
+import { mapGetters } from 'vuex'; // Vuex에서 mapGetters 사용
+import FullCalendar from '@fullcalendar/vue3';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
+import axios from 'axios';
+import '../../css/calendar.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default {
-  mounted(){
-    this.application.stuNum = this.$route.query.stuNum;
-    this.application.reg_no = this.$route.query.regno;
-    axios.get('http://localhost:3000/regAcess',{ withCredentials: true }).then((res)=> {                
-                if(res.data < 1){
-                    alert("접근할 수 없습니다.");
-                    window.close();
-                }
-            }).catch((err) => {
-                alert(err+"에러 발생");
-                window.close();
-            }),
-    this.getLastTimes(this.application.reg_no);
+  components: {
+    FullCalendar
   },
-  data(){
-    return{
-      isSelected : null,
-      stuNum : null,
-      active: false,
-      availableTime: [],
+  data() {
+    return {
+      name:'',
+      selectedDate: '',
+      selectedTime: null,
+      availableTimes: [],
+      isPast: false,
+      showModal: false, // 모달창 표시 여부
+      currentEvent: {}, // 현재 이벤트 객체
+      selectedCounselingType: '전문상담', // 선택된 상담 유형 초기화
+      showCounselingTypeAlert: false, // 상담 유형 선택 알림 표시 여부
+
+      //studentId: 24300011, // 학생 ID (임의 값)
+      majorId: null, // 상담사의 소속 학과 ID (초기값 null)
+
+      // 예약 가능한 시간대 정의
+      timeSlots: [
+        { code: 'A', time: '10:00 - 11:00' },
+        { code: 'B', time: '11:00 - 12:00' },
+        { code: 'C', time: '13:00 - 14:00' },
+        { code: 'D', time: '14:00 - 15:00' },
+        { code: 'E', time: '15:00 - 16:00' },
+        { code: 'F', time: '16:00 - 17:00' },
+        { code: 'G', time: '17:00 - 18:00' }
+      ],
+
+      calendarOptions: {
+        plugins: [dayGridPlugin, interactionPlugin],
+        initialView: 'dayGridMonth',
+        locale: 'ko',
+        selectable: false,
+        weekends: false,
+        editable: false,
+        validRange: { // 오늘부터 한 달까지만 달력에 나오도록
+          start: Date.now(),
+          //start: new Date(new Date().setDate(new Date().getDate() + 1)),
+          //end: Date.now() + 2592000000,
+          end: new Date(new Date().setMonth(new Date().getMonth() + 1))
+        },
+        events: [],
+        eventClick: this.handleEventClick,
+        dateClick: this.fetchDateInfo,        
+        dayCellDidMount: this.handleDayMount
+      },      
       application: {
         stuNum: '',
         proNum: '',
@@ -95,170 +109,80 @@ export default {
         time: '',
         reg_no: '',
         memo:'',
-        times:'',
-      },
+        times: '',
+      },      
     };
   },
-  setup() {
-    const currentDate = new Date();
-    const currentYear = ref(currentDate.getFullYear());
-    const currentMonth = ref(currentDate.getMonth() + 1);
-    const selectedDate = ref(currentDate);
-    const availableTimes = ref("");
-
-    const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
-
-    const calendar = computed(() => {
-      const firstDayOfMonth = new Date(
-        currentYear.value,
-        currentMonth.value - 1,
-        1
-      ).getDay();
-      const daysInMonth = new Date(
-        currentYear.value,
-        currentMonth.value,
-        0
-      ).getDate();
-
-      const calendarArray = [];
-      let week = [];
-
-      // 이전 달의 마지막 날짜 추가
-      for (let i = 0; i < firstDayOfMonth; i++) {
-        week.push({ day: "", date: null, isCurrentMonth: false });
-      }
-
-      // 현재 달의 날짜 추가
-      for (let i = 1; i <= daysInMonth; i++) {
-        const date = new Date(currentYear.value, currentMonth.value - 1, i);
-        week.push({ day: i, date, isCurrentMonth: true });
-
-        if (week.length === 7) {
-          calendarArray.push(week);
-          week = [];
-        }
-      }
-
-      // 다음 달의 첫 날짜 추가
-      if (week.length > 0) {
-        for (let i = week.length; i < 7; i++) {
-          week.push({ day: "", date: null, isCurrentMonth: false });
-        }
-        calendarArray.push(week);
-      }
-
-      return calendarArray;
-    });
-
-    const prevMonth = () => {
-      if (currentMonth.value === 1) {
-        currentMonth.value = 12;
-        currentYear.value--;
-      } else {
-        currentMonth.value--;
-      }
-    };
-
-    const nextMonth = () => {
-      if (currentMonth.value === 12) {
-        currentMonth.value = 1;
-        currentYear.value++;
-      } else {
-        currentMonth.value++;
-      }
-    };
-    const pastDate = (date) => {
-      const today = new Date();
-      return date < today;
-    }
-
-    //없엘까
-    const available = (date) => {
-      const today = new Date();
-      return date > today;
-    }
-    const isCurrentDay = (date) => {
-      if (!date) {
-        return false; // 날짜가 null인 경우 false를 반환
-      }
-
-      const today = new Date();
-      return (
-        date.getFullYear() === today.getFullYear() &&
-        date.getMonth() === today.getMonth() &&
-        date.getDate() === today.getDate()
-      );
-    };
-
-    return {
-      currentYear,
-      currentMonth,
-      selectedDate,
-      availableTimes,
-      daysOfWeek,
-      calendar,
-      prevMonth,
-      nextMonth,
-      isCurrentDay,
-      pastDate,
-      available,
-    };
+  computed: {
+    ...mapGetters(['getAccountId']) // Vuex store의 account id getter를 사용
   },
-  methods: {
-    getLastTimes(regno){
-      axios.get('http://localhost:3000/getRegInfo?regno='+regno).then((res) => {      
+  mounted(){    
+      axios.get('http://localhost:3000/getRegInfo?regno='+this.$route.query.regno).then((res) => {      
         console.log(res.data);
             if(res.data.currentTimes >= 10){
             alert("모든 회기가 종료된 상담입니다.");
               window.close();
             } else {
+              this.name = res.data.name;
               this.application.times = res.data.currentTimes+1;
               this.application.proNum = res.data.pro;
+              this.application.reg_no = this.$route.query.regno;
+              this.application.stuNum = this.$route.query.stuNum;
             }
           }).catch((err) => {
             console.log(err);
           })
-    }
-    ,
-    async selectDay(rowIndex,cellIndex,date){
-      try {
-        const today = new Date(); 
-        if(date<today){
-          alert("오늘보다 이전 날짜로는 신청 할 수 없습니다.");
-          return false;
-        }
-        this.active = '';
-        this.application.time = '';
+  },
+  methods: {
+    fetchDateInfo(info) {
+      this.showCounselingTypeAlert = false;
 
-        const response = await axios.get('http://localhost:3000/timetable');
-        console.log("일단은 여기다------------");
-        console.log(response.data);
-        this.availableTime = response.data;
-        
-      } catch(error) {
-        console.log(error);
-      }
-      this.isSelected = rowIndex+''+cellIndex;
-      this.selectedDate = date;
-      this.application.date = this.selectedDate;
-      console.log(this.application.date);
-    },
-    async regSubmit(){
+      this.selectedDate = info.dateStr;
+      this.selectedTime = null;  // 시간 선택 초기화
+      this.availableTimes = [];  // 추가: 이전 날짜의 시간이 남아있지 않도록 초기화
+
       const today = new Date();
-      alert(this.application.times);
-      if(this.application.date < today){
-        alert("오늘보다 이전 날짜로 지정 할 수 없습니다.");        
-        return false;
-      }
+      today.setHours(0, 0, 0, 0);
+      const clickedDate = new Date(info.dateStr);
 
-      if(this.application.date.length<1 || this.application.time.length<1
-        || this.application.stuNum.length<1 || this.application.reg_no.length<1) {
-        alert("다시 선택해주세요");
+      this.isPast = clickedDate < today || clickedDate.toDateString() === today.toDateString();
+      if (this.isPast) {
+        return;
+
+      }
+      // 예약 정보를 조회하여 해당 날짜에 예약이 있는 시간대를 비활성화
+      axios.get('http://localhost:3000/regReservations?date=' + this.selectedDate).then(response => {
+        console.log("**-*-*-*-*");
+        console.log(response.data);
+        const reservedTimes = response.data.map(reservation => reservation.time);
+        this.availableTimes = this.timeSlots.map(slot => ({
+      ...slot,
+
+          available: !reservedTimes.includes(slot.code)
+        }));
+      }).catch(error => {
+        console.error("Error fetching reservations:", error);
+      this.availableTimes = this.timeSlots.map(slot => ({
+      ...slot,
+      available: true
+    }));
+  });
+
+      //날짜 강조 스타일
+      let days = document.querySelectorAll(".selectedDate");
+      days.forEach(day => day.classList.remove("selectedDate"));
+      info.dayEl.classList.add("selectedDate");
+    },
+    async submitReservation() {
+      if (!this.selectedTime) {
+        alert("상담 시간을 선택해 주세요.");
+        return;
+      }      
+      if(!confirm("신청하시겠습니까?")){
         return false;
       }
-      if(!confirm('신청하시겠습니까?')){
-        return false;
-      }
+      this.application.date = this.selectedDate;
+      this.application.time = this.selectedTime.code;
       await axios.post('http://localhost:3000/regSubmit',this.application)
       .then((res)=>{
         console.log(res);
@@ -271,71 +195,50 @@ export default {
       }).catch((err)=>{
         alert(err);
       })
-      //window.close();
+
     },
-    selectTime(time){
-      this.application.time = time.code;
-      this.active = time.time;
-    }
+    handleDayRender({ date, el }) {
+      console.log(el);  // 개발자 도구 콘솔에서 확인 가능
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // 오늘 날짜의 자정으로 설정
+      if (date < today) {
+        //el.classList.add('past-date'); // 과거 날짜에 클래스 추가
+        el.style.backgroundColor = '#ccc';
+        el.style.color = '#666';
+        el.style.pointerEvents = 'none';
+        el.style.opacity = '0.6';
+      }
+    },
+    handleEventClick(info) {
+      // 이벤트 클릭 시 실행될 로직
+      this.currentEvent = {
+        title: info.event.title,
+        start: info.event.start.toISOString()
+      };
+      this.showModal = true;  // 모달창 표시
+    },
   }
-};
+}
+
 </script>
 
-<style>
-.rsv-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+<style scoped>
+.box{
+  margin-top: -25px;
 }
-
-.calendar-container {
-  flex: 1;
-  margin-right: 20px;
+.available-times{
+  height: 400px;
 }
-
-.calendar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+.memo{
+  margin-top: 10px;
+  margin-left: 20px;
+  width: 526px;
+  height: 100px;
 }
-
-.calendar {
-  width: 100%;
-  border-collapse: collapse;
+.submitBtn{
+  margin-top: 10px;
 }
-
-.calendar th,
-.calendar td {
-  padding: 8px;
-  text-align: center;
-  border: 1px solid #ccc;
-}
-
-.calendar th {
-  background-color: #f2f2f2;
-}
-
-.calendar td.disabled {
-  color: #ccc;
-  background-color: #c0c0c0;
-}
-
-.calendar td.current-day {
-  color: black;
-  background-color: skyblue;
-}
-
-.available-times-container {
-  flex: 1;
-}
-.selected{
-  background-color: yellow;
-}
-.available{
-  background-color: white;
-}
-.selectedTime{
-  background-color: yellow;
+.bigTitle{
+  font-family: 'sj';
 }
 </style>

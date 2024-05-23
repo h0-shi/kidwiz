@@ -59,4 +59,12 @@
 		SELECT * from regview WHERE reg_no = #{regno}
 	</select>
 	
+	<select id="regReservations" parameterType="String">
+		SELECT * FROM timeTestReg WHERE date = #{date} 
+	</select>
+	
+	<select id="getCounselorInfo" parameterType="String" resultType="Map">
+		SELECT * FROM counselorList WHERE id = #{id}
+	</select>
+	
 </mapper>

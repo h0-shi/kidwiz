@@ -31,7 +31,7 @@ import MySimriResult from '@/views/mypage/MySimriResult.vue';
 import MySimriReserve from '@/views/mypage/MySimriReserve.vue';
 import BoardList from '@/views/boardviews/BoardList.vue';
 //import menu from '@/components/MenuPage.vue';
-
+import regCounselor from '@/views/regviews/regCounselor.vue'
 import pop from '@/layout/RegTimeLayout.vue';
 import MainLayout from '@/layout/MainLayout.vue';
 //import header from '@/components/Header.vue'
@@ -100,6 +100,7 @@ const routes = [
     {path: '/test/career',name: 'CareerTest',component: CareerTest, meta: {layout : MainLayout}},
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : MainLayout}},
     {path: '/regIntroduce', name: 'regIntroduce',component: regIntroduce, meta: {layout : MainLayout}},
+    {path: '/regCounselor', name: 'regCounselor',component: regCounselor, meta: {layout : MainLayout}},
 
 
 
