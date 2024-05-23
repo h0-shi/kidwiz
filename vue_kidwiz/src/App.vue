@@ -42,7 +42,26 @@ import { watch } from 'vue';
   text-align: center;
   color: #2c3e50;
 }
-
+@font-face {
+  font-family: 'hanna';
+  src: url("@/assets/font/BMHANNAAir_ttf.ttf");
+}
+@font-face {
+  font-family: 'dh';
+  src: url("@/assets/font/BMDOHYEON_ttf.ttf");
+}
+@font-face {
+    font-family: 'sj';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/SejonghospitalBold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'sjl';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/SejonghospitalBold.woff2') format('woff2');
+    font-weight: 300;
+    font-style: nomal;
+}
 
 .bd-placeholder-img {
         font-size: 1.125rem;

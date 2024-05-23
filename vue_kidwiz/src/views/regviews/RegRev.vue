@@ -1,10 +1,12 @@
 <template>
     <div class="container">
         <my-sidebar></my-sidebar>
-        <h1>정기상담 예약 조회</h1>
+        <div class="mainContainer">
+        <h2 class="title mb-4">정기상담 예약 조회</h2>
+        <hr class="line">
         <table class="table regRev">
             <thead>
-                <tr>
+                <tr class="tr">
                     <th scope="col">번호</th>
                     <th scope="col">학번</th>
                     <th scope="col">학과</th>
@@ -119,6 +121,7 @@
           </ul>
         </div>
     </div>
+    </div>
     </template>
     
     <script>
@@ -221,7 +224,7 @@
     }
     </script>
     
-    <style>
+<style>
     .modal-wrap{
         position: fixed;
         left: 0;
@@ -248,4 +251,19 @@
         background-color: white;
         border: 1px solid #c0c0c0;
     }
-    </style>
+    .line{
+        width: 40%;  
+    }
+    .title{
+        text-align: left;
+        font-family: 'sj';
+    }
+    .mainContainer{
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .tr{
+        font-family: 'sjl';
+    }
+</style>
