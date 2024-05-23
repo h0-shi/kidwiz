@@ -13,26 +13,39 @@
 		<result property="rsvmemo" column="rsvmemo" />
 	</resultMap>
 
-	<select id="getAllReservations" resultMap="ReservationResultMap" parameterType="Map">
-		SELECT * FROM rsv WHERE cdate = #{date} AND ctype=#{ctype}
+	<select id="getAllReservations" resultMap="ReservationResultMap">
+		SELECT * FROM rsv
+		WHERE cdate = #{date} AND ctype=#{ctype}
 	</select>
 
 	<insert id="insertReservation"
 		parameterType="com.kidwiz.web.DTO.RsvDTO">
-		INSERT INTO rsv (sid, proid, ctype, ctime, cdate, rsvdate, rsvmemo)
-		VALUES (#{sid}, #{proid}, #{ctype}, #{ctime}, #{cdate}, #{rsvdate},
+		INSERT INTO rsv (sid, proid, ctype, ctime, cdate,
+		rsvdate, rsvmemo)
+		VALUES (#{sid}, #{proid}, #{ctype}, #{ctime},
+		#{cdate}, #{rsvdate},
 		#{rsvmemo})
 	</insert>
 
 
-	<select id="getMemberById" parameterType="int"
-		resultType="com.kidwiz.web.DTO.MemberDTO">
+	<select id="getMemberById" parameterType="int" resultType="com.kidwiz.web.DTO.MemberDTO">
 		SELECT * FROM members WHERE id = #{id}
 	</select>
-	
+
+	<!-- 지도교수 id 가져오기 -->
 	<select id="getProId" parameterType="String" resultType="int">
-        SELECT id as major_head_id FROM members WHERE name = #{majorHead} AND dept = '교수'
-    </select>
-	
-	
+		SELECT id as major_head_id FROM members WHERE name = #{majorHead} AND dept =
+		'교수'
+	</select>
+
+	<!-- 상담사 id 가져오기 -->
+	<select id="getCounselorId" parameterType="String"
+		resultType="int">
+		SELECT id as Counselor_id
+		FROM members
+		WHERE major_head LIKE CONCAT('%', #{CounselingType}, '%')
+		AND dept = '상담사'
+	</select>
+
+
 </mapper>
