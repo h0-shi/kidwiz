@@ -6,7 +6,7 @@
   
   <script>
 import axios from 'axios';
-import store from './views/store';
+import store from './store';
 import { useRoute } from 'vue-router';
 import { watch } from 'vue';
   
@@ -121,4 +121,4 @@ import { watch } from 'vue';
         display: block !important;
       }
     
-</style>
+</style>./store./views/store./store

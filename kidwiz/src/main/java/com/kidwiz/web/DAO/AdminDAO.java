@@ -18,4 +18,6 @@ public interface AdminDAO {
 
 	int changeDb(Map<String, Object> row);
 
+	int admincheck(int id);
+
 }

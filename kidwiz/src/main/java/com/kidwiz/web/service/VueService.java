@@ -2,6 +2,7 @@ package com.kidwiz.web.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.kidwiz.web.DAO.RegDAO;
 import com.kidwiz.web.DAO.VueDAO;
+import com.kidwiz.web.DTO.Counselor;
 import com.kidwiz.web.DTO.RegDTO;
 
 @Service
@@ -22,10 +24,6 @@ public class VueService {
 	@Autowired
 	private RegDAO regDAO;
 	
-	public List<Map<String, Object>> list(Map<String, Object> pageMap) {
-		return vueDAO.boardList(pageMap);
-	}
-
 	public List<Map<String, Object>> getBoard(Map<String, Object> pageMap) {
 		return vueDAO.getBoard(pageMap);
 	}
@@ -137,6 +135,38 @@ public class VueService {
 	public Map<String, Object> getMemberType(int id) {
 		// TODO Auto-generated method stub
 		return vueDAO.getMemberType(id);
+	}
+
+	public String getUpGrNo(String gr_no) {
+		// TODO Auto-generated method stub
+		return vueDAO.getUpGrNo(gr_no);
+	}
+
+	public void applyGroup(int id, String up_gr_no) {
+		// TODO Auto-generated method stub
+		
+		List<String> list = vueDAO.getGrNo(up_gr_no);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		for(String row : list) {
+			map.put("up_gr_no", row);
+			vueDAO.applyGroup(map);
+		}
+	}
+
+	public int checkGroup(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return vueDAO.checkGroup(map);
+	}
+
+	public List<Map<String, Object>> getRsv(int id) {
+		// TODO Auto-generated method stub
+		return vueDAO.getRsv(id);
+	}
+
+	public List<Counselor> counselorList() {
+		return vueDAO.counselorList();
 	}
 
 }
