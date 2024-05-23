@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kidwiz.web.DAO.RsvBatisDAO">
+
+	<select id="studentCoun" parameterType="int">
+		SELECT r.*, m.name FROM rsv r JOIN members m ON r.sid = m.id WHERE r.sid = #{id}
+	</select>
+
+</mapper>

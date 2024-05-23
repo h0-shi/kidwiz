@@ -40,10 +40,10 @@
                     <th>상담일</th>
                     <td>{{date}}</td>
                     <th>상담자</th>
-                    <td>위지언(수정필요)</td>
+                    <td>{{proName}}</td>
                 </tr>
                 <tr>
-                    <th>상담 시간</th>
+                    <th>상담 시간</th>                                        
                     <td>{{time}}</td>
                     <th>상담 회기</th>
                     <td>{{times}}/{{totalTimes}}회기</td>
@@ -81,7 +81,6 @@
         </table>      
         <section class="btns">
             <button class="button save">저장</button>
-            <button class="button cancel">취소</button>
         </section>  
         
     </form>
@@ -102,8 +101,7 @@ export default {
             birth_date:'',
             times:'',
             totalTimes:'',            
-            contact:'',
-
+            contact:'',            
             resultForm : {                
                 regno : '',
                 stuNum: '',
@@ -112,27 +110,25 @@ export default {
                 summary:'',
                 homework:'',
                 opinion:'',
+                proNum:'',
             }
         }
     },
     mounted() {
         this.resultForm.regno = this.$route.query.regno;
-        axios.get('http://localhost:3000/regResult?regno='+this.resultForm.regno).then((res) => {        
-            
+        axios.get('http://localhost:3000/regResult?regno='+this.resultForm.regno).then((res) => {                    
+            console.log(res.data[0]);
             this.resultForm.stuNum = res.data[0].stuNum;            
+            this.resultForm.proName = res.data[0].proName;
             this.date = res.data[0].date;
             this.time = res.data[0].time;
             this.times = res.data[0].times;
             this.totalTimes = res.data[0].totalTimes;
-            axios.get('http://localhost:3000/memberDetail?stuNum='+this.resultForm.stuNum).then((response)=>{                
-            this.stuName = response.data[0].name;
-            this.major = response.data[0].major_name;
+            this.stuName = res.data[0].name;
+            this.major = res.data[0].major_name;
             this.gender = res.data[0].gender;
             this.contact = res.data[0].contact;
             this.birth_date = res.data[0].birth_date;
-        }).catch((error) => {
-            console.log(error);
-        })
         }).catch((err) => {
             console.log(err+'에러디');
         })

@@ -37,8 +37,8 @@ public class RegService {
 		return regDAO.regResult(regno);
 	}
 
-	public List<MemberDTO> memberDetail(String stuNum) {
-		return regDAO.memberDetail(stuNum);
+	public List<MemberDTO> memberDetail(String id) {
+		return regDAO.memberDetail(id);
 	}
 
 	public int resultWrite(ResultDTO result) {
@@ -51,6 +51,22 @@ public class RegService {
 
 	public int oneTimeRegInsert(RegDTO test) {
 		return regDAO.oneTimeRegInsert(test);
+	}
+
+	public int resultUpdate(ResultDTO result) {
+		return regDAO.resultUpdate(result);
+	}
+
+	public String getMajor(int id) {
+		return regDAO.getMajor(id);
+	}
+
+	public List<Map<String, Object>> regRev(Map<String, Object> pageMap) {
+		return regDAO.regRev(pageMap);
+	}
+
+	public Map<String, Object> getRegInfo(String regno) {
+		return regDAO.getRegInfo(regno);
 	}
 
 }

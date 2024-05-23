@@ -1,6 +1,7 @@
 import ContactMap from '@/views/counselingFolder/ContactMap.vue';
 import CounselingIntro from '@/views/counselingFolder/CounselingIntro.vue';
 import CounselorShow from '@/views/counselingFolder/CounselorShow.vue';
+import CounselorList from '@/views/alpha/CounselorList.vue';
 import SimriSecMenu from '@/views/counselingFolder/SimriSecMenu.vue';
 import FaqQuestion from '@/views/faqFolder/FaqQuestion.vue';
 import FaqWrite from '@/views/faqFolder/FaqWrite.vue'; 
@@ -21,6 +22,7 @@ import login from "@/views/LoginPage.vue";
 import jobConsulting from "@/views/JobConsulting.vue"; // 취업상담
 import mypage from "@/views/mypage/MyPage.vue";
 import MyConsultations from '@/views/mypage/MyConsultations.vue';
+import StudentConsultations from '@/views/mypage/StudentConsultations.vue';
 import MyGroupConsulte from '@/views/mypage/MyGroupConsulte.vue';
 import MyInfo from '@/views/mypage/MyInfo.vue';
 import MyQna from '@/views/mypage/MyQna.vue';
@@ -49,8 +51,9 @@ import cardDetail2 from '@/views/alpha/cardDetail2.vue';
 import cardDetail3 from '@/views/alpha/cardDetail3.vue';
 
 import adminMemberControl from '@/layout/AdminSidebar.vue';
-import MemberControl from '@/components/MemberControl.vue'
-import BoardControl from '@/components/BoardControl.vue'
+import MemberControl from '@/components/MemberControl.vue';
+import BoardControl from '@/components/BoardControl.vue';
+import resultUpdate from '@/views/regviews/resultUpdate.vue';
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 
@@ -86,6 +89,7 @@ const routes = [
     {path: '/contact', name: 'Contact', component: ContactMap, meta: {layout : MainLayout}},
     {path: '/counseling', name: 'Counseling', component: CounselingIntro, meta: {layout : MainLayout}},
     {path: '/counselorshow', name: 'CounselorShow', component: CounselorShow, meta: {layout : MainLayout}},
+    {path: '/counselorList', name: 'CounselorList', component: CounselorList, meta: {layout : MainLayout}},
     {path: '/simrisec', name: 'simrisec', component: SimriSecMenu, meta: {layout : MainLayout}},
     {path: '/faq', name: 'FAQ', component: FaqQuestion, meta: {layout : MainLayout}},
     {path: '/faqwrite', name: 'FaqWrite', component: FaqWrite, meta: {layout : MainLayout}},
@@ -103,6 +107,7 @@ const routes = [
     {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : MainLayout}},
     {path: '/mypage', name: 'mypage', component: mypage, meta: {layout : MainLayout}},
     {path: '/myconsultations', name: 'myconsultations', component: MyConsultations, meta: { layout: MainLayout } },
+    {path: '/StudentConsultations', name: 'StudentConsultations', component: StudentConsultations, meta: { layout: MainLayout } },
     {path: '/mygroup', name: 'mygroup', component: MyGroupConsulte, meta: { layout: MainLayout } },
     {path: '/myqna', name: 'myqna', component: MyQna, meta: { layout: MainLayout } },
     {path: '/myinfo', name: 'myinfo', component: MyInfo, meta: { layout: MainLayout } },
@@ -122,7 +127,8 @@ const routes = [
     {path: '/cardDetail1', name: 'cardDetail1', component: cardDetail1, meta: { layout: MainLayout } },
     {path: '/cardDetail2', name: 'cardDetail2', component: cardDetail2, meta: { layout: MainLayout } },
     {path: '/cardDetail3', name: 'cardDetail3', component: cardDetail3, meta: { layout: MainLayout } },
-    
+    {path: '/resultUpdate', name: 'resultUpdate', component: resultUpdate, meta: { layout: MainLayout } },
+
 
     
     

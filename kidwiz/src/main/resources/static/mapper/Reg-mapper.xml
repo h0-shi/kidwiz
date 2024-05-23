@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kidwiz.web.DAO.RegDAO">
+
+	<select id="regRev" resultType="Map">
+		SELECT * FROM regview LIMIT #{startRow},10;
+	</select>
+	
 	<update id="accept" parameterType="String">
 		UPDATE reg_consulting SET stat = '1' WHERE reg_no = #{reg_no} 
 	</update>
@@ -10,15 +15,15 @@
 	</insert>
 	
 	<select id="regDetail" parameterType="map" resultType="map">
-		SELECT * FROM regInfoView WHERE reg_no=#{rgno}
+		SELECT * FROM regInfoView WHERE reg_no=#{rgno} order by times
 	</select>
 	
 	<select id="timetable" resultType="map">
-		select * from timeTest
+		select * from timeCode
 	</select>
 	
 	<insert id="oneTimeRegInsert" parameterType="map">
-		INSERT INTO timeTestReg (stuNum, date, time, reg_no, memo) VALUES (#{stuNum}, #{date}, #{time}, #{reg_no}, #{memo})
+		INSERT INTO timeTestReg (stuNum, date, time, reg_no, memo, times, proNum) VALUES (#{stuNum}, #{date}, #{time}, #{reg_no}, #{memo}, #{times}, #{proNum})
 	</insert>
 	
 	<select id="regTotalCount">
@@ -26,20 +31,32 @@
 	</select>
 	
 	<select id="regResult" parameterType="String">
-		SELECT * FROM regInfoView WHERE regno = #{regno}
+		SELECT * FROM regInfoView WHERE regno = #{regno
 	</select>
 	
 	<select id="memberDetail" parameterType="String">
-		SELECT * FROM members WHERE id = #{stuNum}
+		SELECT * FROM members WHERE id = #{id}
 	</select>
 	
 	<insert id="resultWrite" parameterType="map">
 		INSERT INTO counResult (counNum, stuNum, proNum, goal, content, summary,homework, opinion) 
-		VALUES (#{regno}, #{stuNum}, 000321, #{goal}, #{content}, #{summary}, #{homework}, #{opinion})
+		VALUES (#{regno}, #{stuNum}, #{proNum}, #{goal}, #{content}, #{summary}, #{homework}, #{opinion})
 	</insert>
 	
 	<select id="getRegResult" parameterType="String">
 		SELECT * FROM resultView WHERE regno = #{regno}
+	</select>
+	
+	<update id="resultUpdate" parameterType="Map">
+	UPDATE counResult SET goal = #{goal}, content = #{content}, summary = #{summary} ,homework = #{homework}, opinion = #{opinion}
+	</update>
+	
+	<select id="getMajor" parameterType="int" resultType="String">
+		SELECT major_name FROM members WHERE id = #{id}
+	</select>
+	
+	<select id="getRegInfo" parameterType="String">
+		SELECT * from regview WHERE reg_no = #{regno}
 	</select>
 	
 </mapper>
