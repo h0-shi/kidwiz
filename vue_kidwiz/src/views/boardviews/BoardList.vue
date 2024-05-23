@@ -6,6 +6,7 @@
         <th>제목</th>
         <th>작성자</th>
         <th>작성일</th>
+        <th>답변유무</th>
       </tr>
       <tr v-for="row in list" v-bind:key="row.bno">
         <td v-text="row.no"></td>
@@ -17,10 +18,12 @@
           {{ row.btitle }}
         </td>
         <td v-else @click="detail(row.bno)" style="text-align: left">
-          &nbsp;ㄴ[:Re]{{ row.btitle }}
+          <span v-for="(row,index) in row.depth" :key="index">&nbsp;</span>ㄴ[:Re]{{ row.btitle }}
         </td>
         <td>{{ row.writer }}</td>
         <td>{{ row.bdate }}</td>
+        <td v-if="row.checkUp > 1">답변 완료/{{ row.checkUp }}</td>
+        <td v-else>답변 대기/{{ row.checkUp }}</td>
       </tr>
     </table>
     <div class="d-flex justify-content-center">
@@ -68,7 +71,7 @@
 
       </ul>
     </div>
-    <button v-if="$store.state.account.id" @click="$router.push('/boardwrite')">글쓰기</button>
+    <button class="btn btn-primary" v-if="$store.state.account.id" @click="$router.push('/boardwrite')">글쓰기</button>
   </div>
 </template>
 
@@ -117,8 +120,37 @@ export default {
 </script>
 
 <style scope>
- .pagination{
-  --bs-pagination-border-color:none;
- }
+.table-container {
+  margin: 20px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
 
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 16px;
+  text-align: left;
+}
+
+.table th, .table td {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  border-left: 0;
+  border-right: 0;
+  padding: 12px;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+
+.table tr:hover {
+  background-color: #e4dedef3;
+}
 </style>

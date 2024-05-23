@@ -34,7 +34,12 @@ public class VueService {
 	
 	public int boardWrite(Map<String, Object> map) {
 		// TODO Auto-generated method stub
-		return vueDAO.boardWrite(map);
+		
+		vueDAO.boardWrite(map);
+		
+		map.put("bno", vueDAO.boardWriteAfter(map));
+		
+		return vueDAO.boardInsertUpdate(map);
 	}
 
 	public Map<String, Object> boardDetail(String bno) {
@@ -54,6 +59,8 @@ public class VueService {
 
 	public int boardReply(Map<String, Object> map) {
 		// TODO Auto-generated method stub
+		
+		map.put("ordernum", vueDAO.getOrdernum(map));
 		return vueDAO.boardReply(map);
 	}
 
@@ -87,10 +94,6 @@ public class VueService {
 		return vueDAO.totalGPage();
 	}
 
-	public Map<String, Object> getCoun(String id) {
-		// TODO Auto-generated method stub
-		return vueDAO.getCoun(id);
-	}
 
 	public void createGroup(Map<String, Object> map) {
 		// TODO Auto-generated method stub
@@ -167,6 +170,11 @@ public class VueService {
 
 	public List<Counselor> counselorList() {
 		return vueDAO.counselorList();
+	}
+
+	public int counselorcheck(int id) {
+		// TODO Auto-generated method stub
+		return vueDAO.counselorcheck(id);
 	}
 
 }

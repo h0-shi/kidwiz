@@ -66,7 +66,6 @@ public class AdminController {
 	@PostMapping("/api/admin/admincheck")
 	public ResponseEntity admincheck(@CookieValue (value = "token", required = false) String token) {
 		//TODO: process POST request
-		System.out.println("박선우");
 		
 		int check = 0;
 		
@@ -75,7 +74,7 @@ public class AdminController {
         	return new ResponseEntity<>(check,HttpStatus.OK);
         }
         check = adminService.admincheck(jwtService.getId(token));
-        System.out.println(check);
+        
 		return new ResponseEntity<>(check,HttpStatus.OK);
 	}
 	
