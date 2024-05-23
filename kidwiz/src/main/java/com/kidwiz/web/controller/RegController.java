@@ -166,4 +166,16 @@ public class RegController {
 		List<RegDTO> checkRegRev = regService.checkRegRev(date);
 		return checkRegRev;
 	}
+	
+	@GetMapping("/rsvs")
+	public List<RegDTO> rsvs(@RequestParam("date") String date){
+		List<RegDTO> rsvs = regService.rsvs(date);
+		return rsvs;
+	}
+	
+	@GetMapping("/getScehdule")
+	public List<RegDTO> getScehdule(){
+		List<RegDTO> getScehdule = regService.getScehdule();
+		return getScehdule;
+	}
 }

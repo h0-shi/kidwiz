@@ -50,4 +50,8 @@ public interface RegDAO {
 
 	public List<RegDTO> checkRegRev(String date);
 
+	public List<RegDTO> rsvs(String date);
+
+	public List<RegDTO> getScehdule();
+
 }

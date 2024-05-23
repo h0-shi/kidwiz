@@ -31,7 +31,7 @@
 	</select>
 	
 	<select id="regResult" parameterType="String">
-		SELECT * FROM regInfoView WHERE regno = #{regno
+		SELECT * FROM regInfoView WHERE regno = #{regno}
 	</select>
 	
 	<select id="memberDetail" parameterType="String">
@@ -74,4 +74,14 @@
 	<select id="checkRegRev" parameterType="String" resultType="Map">
 		SELECT * FROM timeTestReg WHERE date = #{date}
 	</select>
+	
+	<select id="rsvs" resultType="Map" parameterType="String">
+		SELECT regno as title, date as start FROM timeTestReg WHERE date = #{date}
+	</select>
+	
+	<select id="getScehdule" resultType="Map" >
+		SELECT regno as title, date as start FROM timeTestReg
+	</select>
+	
+	
 </mapper>

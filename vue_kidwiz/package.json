@@ -23,6 +23,7 @@
     "clean-stack": "^5.2.0",
     "connect-history-api-fallback": "^2.0.0",
     "core-js": "^3.8.3",
+    "dayjs": "^1.11.11",
     "delegates": "^1.0.0",
     "humanize-ms": "^1.2.1",
     "moment": "^2.30.1",
