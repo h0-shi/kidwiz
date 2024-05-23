@@ -16,9 +16,9 @@
           <div class="timeListContainer">
           <h4 class="boxTitle mt-3 mb-3">일정</h4>
           <div class="date">
-            <a @click="postday()">L</a>
+            <a @click="postday()">⬅️</a>
             <span>{{today}}</span>
-            <a @click="nextday()">R</a>
+            <a @click="nextday()">➡️</a>
           </div>
           <hr class="halfLine mb-3">
           <table class="timeList">
