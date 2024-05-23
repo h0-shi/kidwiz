@@ -258,7 +258,8 @@ export default {
       //});
       //info.dayEl.classList.add("selectedDate");
       //},
-
+      
+      //날짜 강조 스타일
       let days = document.querySelectorAll(".selectedDate");
       days.forEach(day => day.classList.remove("selectedDate"));
       info.dayEl.classList.add("selectedDate");

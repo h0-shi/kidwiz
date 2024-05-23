@@ -21,11 +21,11 @@ public class RsvServiceImpl implements RsvService {
 		this.reservationDAO = reservationDAO;
 	}
 
-	@Override
-	public List<RsvDTO> getAllReservations(RsvDTO rsv) {
-		logger.info("getAllReservations 호출");
-		return reservationDAO.getAllReservations(rsv);
-	}
+	/*
+	  @Override public List<RsvDTO> getAllReservations(RsvDTO rsv) {
+	  logger.info("getAllReservations 호출"); return
+	  reservationDAO.getAllReservations(rsv); }
+	 */
 
 	@Override
 	@Transactional // 트랜잭션 관리
@@ -79,7 +79,7 @@ public class RsvServiceImpl implements RsvService {
 
 	@Override
 	public List<RsvDTO> getAllReservations(String type, String date) {
-		// TODO Auto-generated method stub
+		logger.info("getAllReservations type이랑 date 변수로 호출");
 		return null;
 	}
 

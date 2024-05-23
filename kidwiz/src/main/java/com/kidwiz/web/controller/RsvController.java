@@ -37,7 +37,7 @@ public class RsvController {
 		RsvDTO rsv = new RsvDTO();
 		rsv.setDate(date);
 		rsv.setCtype(ctype);
-		List<RsvDTO> reservations = reservationService.getAllReservations(rsv);
+		List<RsvDTO> reservations = reservationService.getAllReservations(ctype, date);
 		System.out.println(reservations);
 		return new ResponseEntity<>(reservations, HttpStatus.OK);
 	}
