@@ -38,6 +38,8 @@ import MainLayout from '@/layout/MainLayout.vue';
 import secMenuTest from '@/views/regviews/secMenuTest.vue';
 import applyForm3 from '@/views/RsvAndApply/applyForm3.vue';
 import resultWrite from '@/views/regviews/resultWrite.vue';
+import ProResult from '@/views/regviews/ProResult.vue';
+import ProResultUpdate from '@/views/regviews/ProResultUpdate.vue';
 import ProResultWrite from '@/views/regviews/ProResultWrite.vue';
 import regResult from '@/views/regviews/regResult.vue';
 import jobapply from '@/views/jobs/apply.vue';
@@ -58,6 +60,7 @@ import regIntroduce from '@/views/regviews/regIntroduce.vue';
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 import axios from 'axios';
+import store from '@/store';
 
 const routes = [
     {path: '/', component: mainPage, meta: {layout : MainLayout}},    
@@ -65,11 +68,29 @@ const routes = [
     {path: '/testVue', name:'testVue', component: testVue, meta: {layout : MainLayout}},
     {path: '/listTest', name:'listTest', component: listTest, meta: {layout : MainLayout}},
     {path:'/BoardList', name:'BoardList', component: BoardList, meta: {layout : MainLayout}},
-    {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite, meta: {layout : MainLayout}},
+    {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite, meta: {layout : MainLayout},
+    beforeEnter: (to,from,next) =>{
+      if(store.state.account.id!=null){
+        next()
+      }else{
+        next('/')
+      }
+    }},
     {path: '/insertTest', name:'insertTest', component: insertTest, meta: {layout : MainLayout}},
     {path:"/boardDetail", name:"boardDetail", component: boardDetail, meta: {layout : MainLayout}},
     {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate, meta: {layout : MainLayout}},
-    {path:"/groupCreate", name:"/groupCreate", component:()=> import("@/views/groupviews/groupCreate.vue"), meta: {layout : MainLayout}},
+
+
+    {path:"/groupCreate", name:"/groupCreate", component:()=> import("@/views/groupviews/groupCreate.vue"), meta: {layout : MainLayout},
+    beforeEnter: (to,from,next) =>{
+      if(store.state.account.id!=null){
+        next()
+      }else{
+        next('/')
+      }
+    }},
+
+
     {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue'), meta: {layout : MainLayout}},
     {path: '/regTime', component: () => import('@/views/regviews/RegTime.vue'), meta: { layout:pop}},
     {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue'), meta: {layout : MainLayout}},
@@ -134,6 +155,7 @@ const routes = [
       }
     }
   },
+  
 
 
 
@@ -151,6 +173,8 @@ const routes = [
     {path: '/secMenuTest', name: 'secMenuTest', component: secMenuTest, meta: { layout: MainLayout } },
     {path: '/applyForm3', name: 'applyForm3', component: applyForm3, meta: { layout: MainLayout } },
     {path: '/resultWrite', name: 'resultWrite', component: resultWrite, meta: { layout: MainLayout } },
+    {path: '/ProResult/:rsvno', name: 'ProResult', props: true, component: ProResult, meta: { layout: MainLayout } },
+    {path: '/ProResultUpdate/:rsvno', name: 'ProResultUpdate', props: true, component: ProResultUpdate, meta: { layout: MainLayout } },
     {path: '/ProResultWrite/:rsvno', name: 'ProResultWrite', props: true, component: ProResultWrite, meta: { layout: MainLayout } },
     {path: '/regResult', name: 'regResult', component: regResult, meta: { layout: MainLayout } },
     {path: '/jobs/apply', name: 'jobapply', component: jobapply, meta: { layout: MainLayout } },

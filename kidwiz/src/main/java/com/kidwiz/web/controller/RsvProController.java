@@ -54,8 +54,6 @@ public class RsvProController {
 	public ResponseEntity getRsvInfo(@PathVariable("rsvno") Integer rsvno,
 			@CookieValue(value = "token", required = false) String token) {
 
-		System.out.println("들어오나"+rsvno);
-		
 		// 토큰값이 유효하지 않으면
 		if (!jwtService.isValid(token)) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
@@ -63,18 +61,57 @@ public class RsvProController {
 
 		// rsvno 정보 담기
 		Map<String, Object> rsvnoinfo = rsvProService.getRsvInfoByRsvno(rsvno);
-		
+
 		return new ResponseEntity<>(rsvnoinfo, HttpStatus.OK);
 	}
 
+	// 상담일지 작성하기 및 저장
 	@PostMapping("/api/rsv/{rsvno}/save")
-	public ResponseEntity saveRsvResult(@PathVariable("rsvno") Integer rsvno,
-            @RequestBody Map<String, Object> payload,
-            @CookieValue(value = "token", required = false) String token) {
-		
-		System.out.println("rsvno: " + rsvno);
-        System.out.println("Payload: " + payload);
-        
-        return ResponseEntity.ok("Data saved successfully");
+	public ResponseEntity saveRroResult(@PathVariable("rsvno") Integer rsvno, @RequestBody Map<String, Object> payload,
+			@CookieValue(value = "token", required = false) String token) {
+
+		System.out.println("상담일지 저장하기 rsvno: " + rsvno);
+		System.out.println("상담일지 저장하기 Payload: " + payload);
+
+		if (!jwtService.isValid(token)) {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+		}
+
+		rsvProService.saveProResultWrite(rsvno, payload);
+
+		return ResponseEntity.ok("상담일지 저장 완료~");
+	}
+
+	// 상담일지 출력
+	@GetMapping("/api/proresult/{rsvno}")
+	public ResponseEntity getProResult(@PathVariable("rsvno") Integer rsvno,
+			@CookieValue(value = "token", required = false) String token) {
+
+		// 토큰값이 유효하지 않으면
+		if (!jwtService.isValid(token)) {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+		}
+
+		// rsvno 정보 담기
+		Map<String, Object> ProResult = rsvProService.getProResultByRsvno(rsvno);
+
+		return new ResponseEntity<>(ProResult, HttpStatus.OK);
+	}
+
+	// 상담일지 수정하기
+	@PostMapping("/api/rsv/{rsvno}/update")
+	public ResponseEntity updateProResult(@PathVariable("rsvno") Integer rsvno,
+			@RequestBody Map<String, Object> payload, @CookieValue(value = "token", required = false) String token) {
+
+		System.out.println("상담일지 수정하기 rsvno: " + rsvno);
+		System.out.println("상담일지 수정하기 Payload: " + payload);
+
+		if (!jwtService.isValid(token)) {
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+		}
+
+		rsvProService.updateProResult(rsvno, payload);
+
+		return ResponseEntity.ok("상담일지 수정 완료~");
 	}
 }

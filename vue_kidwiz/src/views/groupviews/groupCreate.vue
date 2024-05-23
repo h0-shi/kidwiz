@@ -4,7 +4,7 @@
     <div>
       <div class="input-group mb-3">
         <div class="col-2 firstGroup">
-          상담 제목 : 
+          상담 제목 
         </div>
         <div class="col">
           <input type="text" aria-label="First name" class="form-control" v-model="group.request.g_title">  
@@ -13,10 +13,10 @@
 
       <div class="input-group">
         <div class="col-2 firstGroup">
-          상담사 이름 :  
+          상담사 이름  
         </div>
         <div class="col">
-          <input type="text" aria-label="First name" class="form-control" disabled v-model="coun.coun_name">
+          <input type="text" aria-label="First name" class="form-control" disabled v-model="group.request.g_coun_name">
         </div>
       </div>
     </div>
@@ -108,7 +108,7 @@
 
       <div class="input-group">
         <div class="col-2 firstGroup">
-          총 인원 수: 
+          총 인원 수
         </div>
         <div class="col">
           <select class="form-select" v-model="group.request.g_total">
@@ -122,7 +122,7 @@
     <hr>
     <div class="mb-3">
       <div  class="input-group mb-3">
-        <div class="col-2 firstGroup">성별 : </div>
+        <div class="col-2 firstGroup">성별</div>
         <div class="col">
           <select class="form-select" v-model="group.request.g_sex">
             <option value="전체">전체</option>
@@ -132,7 +132,7 @@
         </div>
       </div>
       <div class="input-group">
-        <div class="col-2 firstGroup">전공 :</div>
+        <div class="col-2 firstGroup">전공</div>
         <div class="col">
           <select class="form-select" v-model="group.request.g_major">
             <option value="전체">전체</option>
@@ -150,15 +150,14 @@
 </template>
 
 <script>
+import store from '@/store';
 import axios from 'axios';
-import { onMounted, ref } from "vue";
-import { useRoute } from 'vue-router';
+import { ref } from "vue";
 
 export default {
 
   name:"groupCreate",
   setup(){
-    const route = useRoute()
 
     const date1 = ref();
     const date2 = ref();
@@ -173,8 +172,8 @@ export default {
         },
         request:{
           g_title:null,
-          g_coun_name:null,
-          g_coun_id:route.query.id,
+          g_coun_name:store.state.account.name,
+          g_coun_id:store.state.account.id,
           g_content:null,
           g_apply:null,
           g_oper:null,
@@ -186,14 +185,6 @@ export default {
         }
       })
 
-
-    onMounted(()=>{
-      axios.get("/api/getcoun?id="+route.query.id).then((res)=>{
-        coun.value.coun_name = res.data.map.coun_name
-      }).catch((err)=>{
-        alert(err);
-      })
-    })
 
     const click1= () =>{
       
@@ -289,7 +280,6 @@ export default {
 
 <style scope>
   .firstGroup {
-    padding-left: 20px;
     text-align: left;
   }
 </style>

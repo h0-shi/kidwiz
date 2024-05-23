@@ -12,28 +12,23 @@
               <div class="col-md-4 order-md-2 text-center">
                 <img :src="require('@/assets/simri2.png')" alt="Counselor Image"
                   class="img-fluid rounded-circle mb-3 shadow"
-                  style="width: 250px; height: 250px; object-fit: cover;" />
+                  style="width: 250px; height: 250px; object-fit: cover; margin-left:50px;" />
               </div>
-              <div class="col-md-8 order-md-1 text-white">
+              <div class="col-md-8 order-md-2 text-white" style="text-align: left; padding-left: 50px;">
                 <h1 class="mb-3 name">{{ r.name }}</h1>
                 <p class="mb-2 font">{{ r.title }}</p><br>
                 <p class="mb-3 font">{{ r.bio }}</p>
-
+                <p :href="'mailto:' + r.email" class="text-decoration-none">{{ r.email }}</p>
               </div>
             </div>
           </div>
 
           <div class="profile-body bg-white rounded p-4 mt-n5 position-relative">
-            <p class="lead mb-4" style="font-weight: 500;" v-html="r.greeting"></p><br>
+            <ul class="lead mb-4" style="font-weight: 500; text-align: left; list-style: none; padding-left: 0;">
+              <li v-for="item in r.greeting.split('?')" :key="item">{{ item.trim() }}</li>
+            </ul><br>
+
             <div class="row">
-              <div class="col-md-3 mb-8">
-                <div class="card h-100 border-0 shadow-sm">
-                  <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                    <h5 class="card-title font-weight-bold" style="font-weight: bold;">전문분야</h5><br>
-                    <p class="card-text text-center">{{ r.expertise }}</p>
-                  </div>
-                </div>
-              </div>
               <div class="col-md-3 mb-8">
                 <div class="card h-100 border-0 shadow-sm">
                   <div class="card-body d-flex flex-column align-items-center justify-content-center">
@@ -42,19 +37,23 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 mb-8">
+              <div class="col-md-4 mb-8">
                 <div class="card h-100 border-0 shadow-sm">
                   <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                    <h5 class="card-title font-weight-bold" style="font-weight: bold;">자격증</h5><br>
-                    <p class="card-text text-center">{{ r.certifications }}</p>
+                    <h5 class="card-title font-weight-bold" style="font-weight: bold;">전문분야</h5><br>
+                    <ul class="card-text text-center list-unstyled">
+                      <li v-for="item in r.expertise.split(',')" :key="item">{{ item.trim() }}</li>
+                    </ul>
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 mb-8">
+              <div class="col-md-5 mb-8">
                 <div class="card h-100 border-0 shadow-sm">
                   <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                    <h5 class="card-title font-weight-bold" style="font-weight: bold;">연락처</h5><br>
-                    <a :href="'mailto:' + counselor.email" class="text-decoration-none">{{ r.email }}</a>
+                    <h5 class="card-title font-weight-bold" style="font-weight: bold;">자격증</h5><br>
+                    <ul class="card-text text-center list-unstyled">
+                      <li v-for="cert in r.certifications.split(',')" :key="cert">{{ cert.trim() }}</li>
+                    </ul>
                   </div>
                 </div>
               </div>

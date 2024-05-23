@@ -11,53 +11,57 @@
             <div class="row align-items-center">
               <div class="col-md-4 order-md-2 text-center">
                 <img
-                  :src="require('@/assets/simri2.png')"
+                  :src="require('@/assets/counselor1.jpg')"
                   alt="Counselor Image"
                   class="img-fluid rounded-circle mb-3 shadow"
                   style="width: 250px; height: 250px; object-fit: cover;"
                 />
               </div>
-              <div class="col-md-8 order-md-1 text-white">
+              <div class="col-md-8 order-md-2 text-white" style="text-align: left; padding-left: 50px;">
                 <h1 class="mb-1">{{ counselor.name }}</h1>
                 <p class="mb-3">{{ counselor.title }}</p>
                 <br>
-                <p class="mb-4">{{ counselor.bio }}</p>
+                <p class="mb-4">{{ counselor.bio }}</p><br>
+                <p :href="'mailto:' + counselor.email" class="text-decoration-none">{{ counselor.email }}</p>
               </div>
             </div>
           </div>
+
           <div class="profile-body bg-white rounded p-4 mt-n5 position-relative">
-            <p class="lead mb-4" style="font-weight: 500;" v-html="counselor.greeting"></p><br>
-            <div class="row">
-              <div class="col-md-3 mb-8">
-                <div class="card h-100 border-0 shadow-sm">
-                  <div class="card-body d-flex flex-column align-items-center justify-content-center"> 
-                    <h5 class="card-title font-weight-bold" style="font-weight: bold;">전문분야</h5><br>
-                    <p class="card-text text-center">{{ counselor.expertise }}</p> 
-                  </div>
-                </div>
-              </div>
+            <ul class="lead mb-4" style="font-weight: 500; text-align: left; list-style: none; padding-left: 0;">
+              <li v-for="item in counselor.greeting.split('?')" :key="item" v-html="item.trim()"></li>
+            </ul><br>
+
+          <div class="row">
               <div class="col-md-3 mb-8">
                 <div class="card h-100 border-0 shadow-sm">
                   <div class="card-body d-flex flex-column align-items-center justify-content-center">
                     <h5 class="card-title font-weight-bold" style="font-weight: bold;">경력</h5><br>
-                    <p class="card-text">{{ counselor.experience }}년</p>
+                    <p class="card-text text-center">{{ counselor.experience }} 년</p> 
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 mb-8">
+              <div class="col-md-4 mb-8">
+                <div class="card h-100 border-0 shadow-sm">
+                  <div class="card-body d-flex flex-column align-items-center justify-content-center">
+                    <h5 class="card-title font-weight-bold" style="font-weight: bold;">전문분야</h5><br>
+                    <ul class="card-text text-center list-unstyled">
+                      <li v-for="item in counselor.expertise.split(',')" :key="item">{{ item.trim() }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5 mb-8">
                 <div class="card h-100 border-0 shadow-sm">
                   <div class="card-body d-flex flex-column align-items-center justify-content-center">
                     <h5 class="card-title font-weight-bold" style="font-weight: bold;">자격증</h5><br>
-                    <p class="card-text text-center">{{ counselor.certifications }}</p>
+                    <ul class="card-text text-center list-unstyled">
+                      <li v-for="cert in counselor.certifications.split(',')" :key="cert">{{ cert.trim() }}</li>
+                    </ul>
                   </div>
                 </div>
               </div>
-              <div class="col-md-3 mb-8">
-                <div class="card h-100 border-0 shadow-sm">
-                  <div class="card-body d-flex flex-column align-items-center justify-content-center">
-                    <h5 class="card-title font-weight-bold" style="font-weight: bold;">연락처</h5><br>
-                    <a :href="'mailto:' + counselor.email" class="text-decoration-none">{{ counselor.email }}</a>
-                  </div>
+                    
                   </div>
                 </div>
               </div>
