@@ -11,13 +11,10 @@
             <router-link :to="{ name: 'CounselorShow' }" class="router-link" @click="handleClick(1, 'CounselorShow', $event)">상담사 소개</router-link>
           </th>
           <th :style="select[2]">
-            <router-link :to="{ name: 'CareerTest' }" class="router-link" @click="handleClick(2, 'CareerTest', $event)">온라인 심리검사</router-link>
+            <router-link :to="{ name: 'Test' }" class="router-link" @click="handleClick(2, 'Test', $event)">온라인 심리검사</router-link>
           </th>
           <th :style="select[3]">
             <router-link :to="{ name: 'PersonTest' }" class="router-link" @click="handleClick(3, 'PersonTest', $event)">오프라인 심리검사</router-link>
-          </th>
-          <th :style="select[4]">
-            <router-link :to="{ name: 'Contact' }" class="router-link" @click="handleClick(4, 'Contact', $event)">찾아오는 길</router-link>
           </th>
         </tr>
       </table>
@@ -26,7 +23,6 @@
     <section class="section s2" :style="cssAct[1]"></section>
     <section class="section s3" :style="cssAct[2]"></section>
     <section class="section s4" :style="cssAct[3]"></section>
-    <section class="section s5" :style="cssAct[4]"></section>
   </div>
 </template>
 
@@ -39,10 +35,8 @@ export default {
         { display: "none" },
         { display: "none" },
         { display: "none" },
-        { display: "none" }
       ],
       select: [
-        {},
         {},
         {},
         {},
@@ -66,13 +60,12 @@ export default {
       const routeIndexMap = {
         'Counseling': 0,
         'CounselorShow': 1,
-        'CareerTest': 2,
+        'Test': 2,
         'PersonTest': 3,
-        'Contact': 4
       };
       const index = routeIndexMap[routeName] || 0;
-      this.cssAct = this.cssAct.map((style, i) => i === index ? { display: "block" } : { display: "none" });
-      this.select = this.select.map((style, i) => i === index ? { border: "2px solid rgb(43, 43, 165)", 'border-bottom': "none" } : {});
+      this.cssAct = this.cssAct.map((style, i) => i === index ? { display: "block", backgroundColor: "#333", color: "#fff" } : { display: "none" });
+      this.select = this.select.map((style, i) => i === index ? { backgroundColor: "#58C495", color: "#fff" } : {});
     }
   }
 };
@@ -82,22 +75,26 @@ export default {
 .sbmContainer {
   width: 100%;
   margin-bottom: 50px;
+  border-bottom: 2px solid rgb(149, 248, 187);
 }
 .subMenu {
   width: 100%;
   margin: auto;
   table-layout: fixed;
+  
 }
 .subMenu tr th {
   width: 20%;
   height: 55px;
-  border-bottom: 2px solid rgb(43, 43, 165);
+  border-bottom: 2px solid rgb(121, 253, 172);
   text-align: center;
 }
 .boundary {
   width: 100%;
   max-width: 1200px;
+  margin: auto; 
   padding: 0 auto;
+  
 }
 .router-link {
   display: block;
