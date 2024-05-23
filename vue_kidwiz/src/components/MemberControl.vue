@@ -34,14 +34,12 @@
 <script>
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 export default {
   name: "MemberControl",
   setup() {
     const member = ref([]);
     
-    const router = useRouter()
 
     onMounted(() => {
       axios.get("/api/admin/member")
@@ -52,13 +50,6 @@ export default {
           console.error("There was an error fetching the data:", error);
         });
 
-        axios.post("/api/admin/admincheck",{ withCredentials: true }).then((res)=>{
-          if(res.data!=1){
-            router.push({path:"/"})
-          }
-        }).catch(()=>{
-          router.push({path:"/login"})
-        })
     });
 
     const changeDbGrade = (row) =>{

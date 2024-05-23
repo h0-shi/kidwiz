@@ -54,6 +54,7 @@ import BoardControl from '@/components/BoardControl.vue';
 import resultUpdate from '@/views/regviews/resultUpdate.vue';
 
 import { createRouter,createWebHashHistory } from 'vue-router';
+import axios from 'axios';
 
 const routes = [
     {path: '/', component: mainPage, meta: {layout : MainLayout}},    
@@ -96,9 +97,39 @@ const routes = [
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : MainLayout}},
 
 
-    {path: '/admin', name: 'admin',component: MemberControl,meta:{layout:adminMemberControl}},
-    {path: '/adminMemberControl', name: 'adminMemberControl',component: MemberControl,meta:{layout:adminMemberControl}},
-    {path: '/adminBoardControl', name: 'adminBoardControl',component: BoardControl,meta:{layout:adminMemberControl}},
+
+    {path: '/admin', name: 'admin',component: MemberControl,meta:{layout:adminMemberControl},
+      beforeEnter:async (to,from,next) =>{
+        const check = await userPermission();
+        if(check){
+          next()
+        } else{
+          next('/')
+        }
+      }
+  },
+    {path: '/adminMemberControl', name: 'adminMemberControl',component: MemberControl,meta:{layout:adminMemberControl},
+    beforeEnter:async (to,from,next) =>{
+      const check = await userPermission();
+      if(check){
+        next()
+      } else{
+        next('/')
+      }
+    }
+  },
+    {path: '/adminBoardControl', name: 'adminBoardControl',component: BoardControl,meta:{layout:adminMemberControl},
+    beforeEnter:async (to,from,next) =>{
+      const check = await userPermission();
+      if(check){
+        next()
+      } else{
+        next('/')
+      }
+    }
+  },
+
+
 
     
     {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : MainLayout}},
@@ -134,5 +165,21 @@ const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes
 });
+
+
+async function userPermission(){
+  try {
+    const res = await axios.post("/api/admin/admincheck", {}, { withCredentials: true });
+    if (res.data == 1) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error checking user permission:", error);
+    return false;
+  }
+}
+
 
 export default router;
