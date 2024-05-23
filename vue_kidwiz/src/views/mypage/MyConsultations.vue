@@ -30,11 +30,14 @@
                   <td>{{ rsv.name }}</td>
                   <td>{{ rsv.rsvdate }}</td>
                   <td>{{ rsv.cdate }}</td>
-                  <td>{{ rsv.ctime }}</td>
+                  <td>{{ rsv.time }}</td>
                   <td>상담 상태 만들어??</td>
                   <td>
-                    <router-link :to="`/ProResultWrite/${rsv.rsvno}`">
-                      <button>상담일지 작성</button>
+                    <router-link v-if="rsv.writed === 1" :to="`/ProResult/${rsv.rsvno}`">
+                      <button class="btn-view">상담일지 보기</button>
+                    </router-link>
+                    <router-link v-else :to="`/ProResultWrite/${rsv.rsvno}`">
+                      <button class="btn-write">상담일지 작성</button>
                     </router-link>
                   </td>
                 </tr>
@@ -88,6 +91,20 @@ export default {
 }
 .table {
   margin-top: 20px;
+}
+.btn-view {
+  background-color: rgb(155, 155, 175);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+.btn-write {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
 }
 </style>
 
