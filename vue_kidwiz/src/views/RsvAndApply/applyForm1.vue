@@ -4,7 +4,7 @@
             <div class="col-md-8">
                 <div class="formContainer">
                     <div class="card-body">
-                        <h2 class="card-title mb-4">지도 교수 상담</h2>
+                        <h2 class="card-title mb-4">{{localSelectedCounselingType}}</h2>
                         <span class="formInfo">🧾 상담 신청서</span>
                         <form @submit="submitForm">
                             <table class="formTable">
@@ -17,7 +17,7 @@
                                 <tbody>
                                     <tr>
                                         <th>상담 유형<span> *</span></th>
-                                        <td>지도 교수 상담</td>
+                                        <td>{{localSelectedCounselingType}}</td>
                                         <th>상담자<span> *</span></th>
                                         <td>{{ advisor }}</td>
                                     </tr>
@@ -31,7 +31,7 @@
                                         <th>성별<span> *</span></th>
                                         <td v-if="gender === 'M'">남자</td>
                                         <td v-if="gender === 'F'">여자</td>
-                                        <th>소속<span> *</span></th>
+                                        <th>소속 (학과)<span> *</span></th>
                                         <td>{{ major_name }}</td>
                                     </tr>
                                     <tr>
@@ -202,24 +202,25 @@ export default {
     mounted() {
         this.studentName = this.$store.state.account.name;
         this.studentID = this.$store.state.account.id;
-        axios
-            .get(
+        axios.get(
                 `/api/reservations/members?studentID=` + this.$store.state.account.id
-            )
-            .then((response) => {
+            ).then((response) => {
                 this.major_name = response.data.major_name;
-                this.gender = response.data.gender;
-                this.advisor = response.data.major_head;
+                this.gender = response.data.gender;                
                 this.contact = response.data.contact;
                 this.birth_date = response.data.birth_date;
-                this.getProId(this.advisor); //상담자 id 가져오기 위한 변수
-            })
-            .catch((error) => {
+                if(this.localSelectedCounselingType == '지도교수 상담'){
+                    this.advisor = response.data.major_head;                  
+                    this.getProId(this.advisor); //상담자 id 가져오기 위한 변수                               
+                } else {
+                    this.getProInfo(this.selectedCounselingType);                                
+                }
+            }).catch((error) => {
                 console.error("Error fetching advisor:", error);
                 this.advisor = "상담자 정보를 불러오는 데 실패했습니다.";
             });
     },
-    computed: {
+    computed: {        
         formattedSelectedDate() {
             //return `${this.localSelectedDate} ${this.localSelectedTime ? this.localSelectedTime.time : ''}`;
             // 날짜와 시간을 함께 포맷팅하여 표시
@@ -258,15 +259,23 @@ export default {
             try {
                 const encodedMajorHead = encodeURIComponent(majorHead); // URL 인코딩
                 const response = await axios.get(
-                    `/api/reservations/getProId?majorHead=` + encodedMajorHead
+                    `http://localhost:3000/api/reservations/getProId?majorHead=` + encodedMajorHead
                 );
                 this.proid = response.data;
+                alert(this.proid);
             } catch (error) {
                 console.error("Error fetching ProId:", error);
                 this.proid = null;
             }
             console.log("현시점 majorHead : " + majorHead);
             console.log("현시점 proid : " + this.proid);
+        },
+        getProInfo(major){
+            axios.get('http://localhost:3000/getProInfo?major='+major).then((res) => {
+                console.log(res.data);
+                this.advisor = res.data.name;
+                this.proid = res.data.id;
+            })
         },
         async submitForm(event) {
             event.preventDefault(); // 기본 폼 제출 방지

@@ -101,7 +101,7 @@ export default {
   },
   methods: {
     contactCounselor() {
-      this.$router.push({ name: 'applyForm4' });
+      this.$router.push('rsrvTest4?selectedCounselingType=심리상담');
     }
   }
 }

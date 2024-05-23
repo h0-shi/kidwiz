@@ -96,8 +96,13 @@ public class RegController {
 	
 	@GetMapping("/memberDetail")
 	public List<MemberDTO> memberDetail(@RequestParam("id") String id){
-		List<MemberDTO> memberDetail = regService.memberDetail(id);
-		System.out.println("-*-*-*-*-*-*-*--*-*-*-*-");
+		List<MemberDTO> memberDetail = regService.memberDetail(id);		
+		return memberDetail;
+	}
+	
+	@GetMapping("/getProInfo")
+	public Map<String, Object> getProInfo(@RequestParam("major") String type){
+		Map<String, Object> memberDetail = regService.getProInfo(type);		
 		return memberDetail;
 	}
 	
@@ -154,5 +159,11 @@ public class RegController {
 	public Map<String, Object> getCounselorInfo(@RequestParam("id") String id){
 		Map<String, Object> map = regService.getCounselorInfo(id);
 		return map;
+	}
+	
+	@GetMapping("/checkRegRev")
+	public List<RegDTO> checkRegRev(@RequestParam("date") String date){
+		List<RegDTO> checkRegRev = regService.checkRegRev(date);
+		return checkRegRev;
 	}
 }

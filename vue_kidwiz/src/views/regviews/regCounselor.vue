@@ -7,7 +7,7 @@
                 <th :style="select[0]" @click="this.$router.push('regIntroduce')">개인상담이란?</th>
                 <th :style="select[1]" @click="this.$router.push('regCounselor')">상담사 소개</th>
                 <th :style="select[2]" @click="displayAct(2)">여긴 뭐넣지~?</th>
-                <th :style="select[3]" @click="displayAct(3)">상담 신청</th>
+                <th :style="select[3]" @click="this.$router.push('rsrvTest4?selectedCounselingType=전문상담')">상담 신청</th>
             </tr>
         </table>
     <section class="section s1 mt-5" :style="cssAct[0]">

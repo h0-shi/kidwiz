@@ -77,4 +77,12 @@ public class RegService {
 		return regDAO.getCounselorInfo(id);
 	}
 
+	public Map<String, Object> getProInfo(String type) {
+		return regDAO.getProInfo(type);
+	}
+
+	public List<RegDTO> checkRegRev(String date) {
+		return regDAO.checkRegRev(date);
+	}
+
 }

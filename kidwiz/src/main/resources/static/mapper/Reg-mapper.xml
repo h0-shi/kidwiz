@@ -67,4 +67,11 @@
 		SELECT * FROM counselorList WHERE id = #{id}
 	</select>
 	
+	<select id="getProInfo" parameterType="String" resultType="Map">
+		SELECT * FROM members WHERE major_name = #{type}
+	</select>
+	
+	<select id="checkRegRev" parameterType="String" resultType="Map">
+		SELECT * FROM timeTestReg WHERE date = #{date}
+	</select>
 </mapper>

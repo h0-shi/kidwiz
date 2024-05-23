@@ -77,6 +77,7 @@ export default {
       selectedTime: null,
       availableTimes: [],
       isPast: false,
+      formURL: '',
       showModal: false, // 모달창 표시 여부
       currentEvent: {}, // 현재 이벤트 객체
       counselingTypes: ['지도교수 상담', '취업상담', '전문상담', '심리상담'], // 상담 유형 추가
@@ -119,6 +120,8 @@ export default {
   },
   created() {
     this.loadReservations();
+    this.selectedCounselingType = this.$route.query.selectedCounselingType;
+    
   },
   computed: {
     ...mapGetters(['getAccountId']) // Vuex store의 account id getter를 사용
@@ -180,10 +183,22 @@ export default {
       }
 
       // 예약 정보를 조회하여 해당 날짜에 예약이 있는 시간대를 비활성화
-      axios.get('http://localhost:3000/api/reservations?date=' + this.selectedDate + "&type=" + this.selectedCounselingType, {
-
+      let revURL;
+      if(this.selectedCounselingType == '전문상담'){
+        revURL = "checkRegRev?date="+this.selectedDate;
+      } else {
+        revURL = 'api/reservations?date='+this.selectedDate+"&type="+ this.selectedCounselingType;
+      }
+      revURL;
+      axios.get('http://localhost:3000/'+revURL, {
       }).then(response => {
-        const reservedTimes = response.data.map(reservation => reservation.ctime);
+        let reservedTimes
+        if(this.selectedCounselingType == '전문상담'){
+          reservedTimes = response.data.map(reservation => reservation.time);
+        } else {
+          reservedTimes = response.data.map(reservation => reservation.ctime);
+        }
+        
         //this.availableTimes = this.timeSlots.map((slot, index) => ({
         //  id: index + 1, // 각 시간에 고유 id를 설정
         //  time: slot.time,
@@ -233,16 +248,8 @@ export default {
         alert("상담 유형과 시간을 선택해 주세요.");
         return;
       }
-
-      const formRouteMap = {
-        '지도교수 상담': 'applyForm1',
-        '취업상담': 'applyForm2',
-        '전문상담': 'applyForm3',
-        '심리상담': 'applyForm4'
-      };
-
-      const formRoute = formRouteMap[this.selectedCounselingType] || 'applyForm4';
-
+      //const formRoute = formRouteMap[this.selectedCounselingType] || 'applyForm4';
+      
         // 240522 상담 유형에 따라 적절한 상담자 ID 가져오기
 
           //예약 데이터 담기
@@ -257,9 +264,14 @@ export default {
           };
 
           console.log('Reservation data being sent:', reservationData);
-
+          
+          if(this.selectedCounselingType == '전문상담'){
+            this.formURL = 'applyForm3';
+          } else {
+            this.formURL = 'applyForm1';
+          }
           this.$router.push({
-                name: formRoute,
+                name: this.formURL,
                 query: {
                   selectedDate: this.selectedDate,
                   selectedTime: this.selectedTime.time,
