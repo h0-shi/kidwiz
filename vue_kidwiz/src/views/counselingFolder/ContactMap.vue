@@ -5,7 +5,7 @@
     <h1>Contact 게시판 입니다. 위치 지도 불러오기</h1>
 
     <div class="mt-2">
-    <div id="map" style="width: 500px; height: 400px"></div>
+    <div id="map" style="width: 500px; height: 400px;"></div>
   </div>
   </div>
 </template>
