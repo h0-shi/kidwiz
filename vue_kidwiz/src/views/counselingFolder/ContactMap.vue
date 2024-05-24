@@ -27,7 +27,7 @@
 </div>
 
     <!-- 상담센터 오시는 길 -->
-    <div class="container mt-5">
+    <div class="container mt-5" style="width:1100px;">
       <h2 style="font-weight: bolder;">위치 안내</h2>
       <hr class="hr" />
       <div class="row justify-content-center mt-5">
@@ -113,7 +113,7 @@ export default {
   padding: 0 20px;
 }
 .map {
-  width: 800px;
+  width: 700px;
   height: 400px;
 }
 .container {
