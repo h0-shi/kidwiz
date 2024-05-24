@@ -1,6 +1,8 @@
 <template>
   <div>
     <MenuPage />
+    <div class="boundary">
+    <h1 class="title">심리 상담</h1>
     <SimriSecMenu />
     <div class="container py-6 px-lg-7 rounded shadow-lg mt-5">
       <div class="row justify-content-center">
@@ -66,7 +68,8 @@
             </div>
             <button @click="contactCounselor" class="btn btn-primary btn-lg btn-block mt-4 shadow-sm" style="margin-bottom:40px;">상담 요청</button>
           </div>
-          </div>
+        </div>
+      </div>
 </template>
 
 <script>
@@ -100,7 +103,7 @@ export default {
   },
   methods: {
     contactCounselor() {
-      this.$router.push({ name: 'applyForm4' });
+      this.$router.push('rsrvTest4?selectedCounselingType=심리상담');
     }
   }
 }
@@ -148,5 +151,11 @@ export default {
 
 .btn {
   font-size: 1.2rem;
+}
+.title{
+  text-align: left;
+  font-family: 'sj';
+  margin-left: 15px;
+  margin-bottom: 40px;
 }
 </style>

@@ -129,6 +129,7 @@ export default {
             this.gender = res.data[0].gender;
             this.contact = res.data[0].contact;
             this.birth_date = res.data[0].birth_date;
+            this.proName = res.data[0].proName;
         }).catch((err) => {
             console.log(err+'에러디');
         })

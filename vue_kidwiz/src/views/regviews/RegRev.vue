@@ -1,10 +1,12 @@
 <template>
     <div class="container">
         <my-sidebar></my-sidebar>
-        <h1>정기상담 예약 조회</h1>
+        <div class="mainContainer">
+        <h2 class="title mb-4">정기상담 예약 조회</h2>
+        <hr class="line">
         <table class="table regRev">
             <thead>
-                <tr>
+                <tr class="tr">
                     <th scope="col">번호</th>
                     <th scope="col">학번</th>
                     <th scope="col">학과</th>
@@ -49,7 +51,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="row in responseData" :key="row.regno"> 
-                            <td>{{row.times}}회차</td>
+                            <td>{{row.times}}회기</td>
                             <td>{{ row.stuNum }}</td>
                             <td>{{ row.date }}</td>                            
                             <td>{{row.time}}</td>
@@ -119,6 +121,7 @@
           </ul>
         </div>
     </div>
+    </div>
     </template>
     
     <script>
@@ -143,6 +146,7 @@
                 first:'',
                 lsat:'',
                 currentTimes:'',
+                popupWindow : null
             }
         },
         mounted(){
@@ -206,7 +210,10 @@
                 console.log(this.regno);
             },
             btnPopup(regno,stuNum){
-                window.open("#/regTime?stuNum="+stuNum+"&regno="+regno,"_blank","width=950,height=500");
+                if(this.popupWindow && !this.popupWindow.closed){
+                    this.popupWindow.close();
+                }
+                this.popupWindow = window.open("#/regTime?stuNum="+stuNum+"&regno="+regno,"popup","width=1200,height=660");
             },
             async getData(reg_no){
                 try{
@@ -221,7 +228,7 @@
     }
     </script>
     
-    <style>
+<style>
     .modal-wrap{
         position: fixed;
         left: 0;
@@ -248,4 +255,19 @@
         background-color: white;
         border: 1px solid #c0c0c0;
     }
-    </style>
+    .line{
+        width: 40%;  
+    }
+    .title{
+        text-align: left;
+        font-family: 'sj';
+    }
+    .mainContainer{
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+    .tr{
+        font-family: 'sjl';
+    }
+</style>
