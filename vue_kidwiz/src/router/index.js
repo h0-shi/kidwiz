@@ -115,6 +115,17 @@ const routes = [
     {path: '/counselorList', name: 'CounselorList', component: CounselorList, meta: {layout : MainLayout}},
     {path: '/simrisec', name: 'simrisec', component: SimriSecMenu, meta: {layout : MainLayout}},
     {path: '/faq', name: 'FAQ', component: FaqQuestion, meta: {layout : MainLayout}},
+
+    {path:"/faqwrite", name:"/faqwrite", component:()=> import("@/views/faqFolder/FaqWrite.vue"), meta: {layout : MainLayout},
+    beforeEnter: (to,from,next) =>{
+      if(store.state.account.id!=null){
+        next()
+      }else{
+        next('/')
+      }
+    }},
+
+
     {path: '/faqwrite', name: 'FaqWrite', component: FaqWrite, meta: {layout : MainLayout}},
     {path: '/faq/:id', name: 'FaqDetail', component: FaqDetail, meta: {layout : MainLayout}},// 동적 세그먼트를 포함하는 라우트 추가
     {path: '/test',name: 'Test',component: TestMain, meta: {layout : MainLayout}},

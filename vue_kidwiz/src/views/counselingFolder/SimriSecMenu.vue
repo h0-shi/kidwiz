@@ -11,10 +11,11 @@
             <router-link :to="{ name: 'CounselorShow' }" class="router-link" @click="handleClick(1, 'CounselorShow', $event)">상담사 소개</router-link>
           </th>
           <th :style="select[2]">
-            <router-link :to="{ name: 'Test' }" class="router-link" @click="handleClick(2, 'Test', $event)">온라인 심리검사</router-link>
+            <router-link :to="{ name: 'PersonTest' }" class="router-link" @click="handleClick(3, 'PersonTest', $event)">오프라인 심리검사</router-link>
           </th>
           <th :style="select[3]">
-            <router-link :to="{ name: 'PersonTest' }" class="router-link" @click="handleClick(3, 'PersonTest', $event)">오프라인 심리검사</router-link>
+            <router-link :to="{ name: 'Test' }" class="router-link" @click="handleClick(2, 'Test', $event)">온라인 심리검사</router-link>
+            
           </th>
         </tr>
       </table>
@@ -60,8 +61,8 @@ export default {
       const routeIndexMap = {
         'Counseling': 0,
         'CounselorShow': 1,
-        'Test': 2,
-        'PersonTest': 3,
+        'PersonTest': 2,
+        'Test': 3,
       };
       const index = routeIndexMap[routeName] || 0;
       this.cssAct = this.cssAct.map((style, i) => i === index ? { display: "block", backgroundColor: "#333", color: "#fff" } : { display: "none" });
