@@ -93,4 +93,12 @@ public class RegService {
 		return regDAO.getScehdule(map);
 	}
 
+	public List<Map<String, Object>> recentBoard(String id) {
+		return regDAO.recentBoard(id);
+	}
+
+	public List<Map<String, Object>> need2Write(String id) {
+		return regDAO.need2Write(id);
+	}
+
 }

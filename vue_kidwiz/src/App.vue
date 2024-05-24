@@ -62,6 +62,12 @@ import { watch } from 'vue';
     font-weight: 300;
     font-style: nomal;
 }
+@font-face {
+    font-family: 'pr';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
 
 .bd-placeholder-img {
         font-size: 1.125rem;

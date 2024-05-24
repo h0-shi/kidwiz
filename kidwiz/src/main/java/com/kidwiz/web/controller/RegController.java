@@ -198,4 +198,16 @@ public class RegController {
 		List<RegDTO> getScehdule = regService.getScehdule(map);
 		return getScehdule;
 	}
+	
+	@GetMapping("/recentBoard")
+	public List<Map<String, Object>> recentBoard(@RequestParam("id") String id){
+		List<Map<String, Object>> recentBoard = regService.recentBoard(id);
+		return recentBoard;
+	}
+	
+	@GetMapping("/need2Write")
+	public List<Map<String, Object>> need2Write(@RequestParam("id") String id){
+		List<Map<String, Object>> need2Write = regService.need2Write(id);
+		return need2Write;
+	}
 }

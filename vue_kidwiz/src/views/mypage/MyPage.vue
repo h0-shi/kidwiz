@@ -30,7 +30,49 @@
             </div>
           </div>
           <div class="notice mb-4">
-            <div class="mb-4"><h4 style="text-align: left; font-family: 'sjl';">알림</h4></div>
+            <div class="mb-4">
+              <h4 v-if="grade<2" style="text-align: left; font-family: 'sjl';">최근 글</h4>
+              <h4 v-if="grade == 2" style="text-align: left; font-family: 'sjl';">일지 미작성 상담 ({{ needList.length }}건)</h4>
+            </div>
+            <div class="scrollDiv">            
+            <table v-if="grade<2" class="myBoard">
+              <thead>
+                <tr>
+                  <td>글 번호</td>
+                  <td>제목</td>
+                  <td>작성일</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="row in recentBoardList" :key="row.bno">
+                  <td class="w2">{{row.bno}}</td>
+                  <td class="w5">{{row.btitle}}</td>
+                  <td class="w3">{{row.date}}</td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- 교직원용 -->
+            <table v-if="grade==2" class="myBoard">
+              <thead>
+                <tr>
+                  <td>상담일</td>
+                  <td>상담 시간</td>
+                  <td>내담자명</td>
+                  <td>일지 작성</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="row in needList" :key="row.bno">
+                  <td class="w2">{{row.date}}</td>
+                  <td class="w3">{{row.time}}</td>
+                  <td class="w3">{{row.name}}</td>
+                  <td class="w2">
+                    <button @click="write(row.no,row.type)">일지 작성</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           </div>
           </div>
           <div class="schedule">
@@ -107,12 +149,20 @@ export default {
         dayCellDidMount: this.handleDayMount,
       },
       profile:[],
+      recentBoardList:[],
+      needList:[],
     }
   },
   mounted(){
     this.today = dayjs().format('YYYY-MM-DD');    
     this.id = this.$store.state.account.id;
-    this.getScehdule();
+    this.getScehdule().then(()=>{
+      if(this.grade < 2){
+        this.recentBoard();
+      } else if(this.grade==2) {
+        this.need2Write();
+      }
+    })    
   },
   methods: {
     nextday(){
@@ -151,11 +201,34 @@ export default {
         console.log(res.data[0]);
       this.grade = res.data[0].grade;      
       this.profile = res.data[0];
-      console.log(this.profile);
+      return this.grade;
     }).catch((err) => {
       console.log(err);
     })
-    }    
+    },
+    async recentBoard(){
+      await axios.get('http://localhost:3000/recentBoard?id='+this.id).then((res)=>{
+        console.log(res.data);
+        this.recentBoardList = res.data;
+      }).catch((err) => {
+        console.log(err);
+      })
+    },
+    async need2Write(){
+      await axios.get('http://localhost:3000/need2Write?id='+this.id).then((res) => {
+        this.needList = res.data;
+        console.log(res.data);
+      }).catch((err) => {
+        console.log(err.data);
+      })
+    },
+    write(no,type){
+      if(type === "reg"){
+        this.$router.push("/resultWrite?regno="+no);
+      } else {
+        this.$router.push("/ProResultWrite/"+no);
+      }
+    }
   }
 
 }
@@ -163,12 +236,38 @@ export default {
 
 <style scoped>
 .userInfo{
-  width: 69%;
+  width: 49%;
+  height: 290px;
   padding: 20px 30px 30px 30px;
   border: 1px solid #c0c0c0;
   background-color: white;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175) !important;
   border-radius: 15px;
+}
+.myBoard thead{
+  border-bottom: 1px solid #c0c0c0;
+}
+.myBoard tr td{
+  height: 30px;
+  font-family: 'pr';
+  border-bottom: 1px solid #c0c0c0;
+  font-size: smaller;  
+}
+.scrollDiv{
+  height: 195px;
+  overflow: auto;
+}
+.w2{
+  width: 20%;
+}
+.w3{
+  width: 30%;
+}
+.w5{
+  width: 50%;
+}
+.myBoard{
+  width: 100%;
 }
 .line{
   width: 40%;  
@@ -178,7 +277,8 @@ export default {
   font-family: 'sj';
 }
 .notice{
-  width: 29%;
+  width: 49%;
+  height: 290px;
   padding: 20px 30px 30px 30px;
   border: 1px solid #c0c0c0;
   background-color: white;

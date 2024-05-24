@@ -54,4 +54,8 @@ public interface RegDAO {
 
 	public List<RegDTO> getScehdule(Map<String, Object> map);
 
+	public List<Map<String, Object>> recentBoard(String id);
+
+	public List<Map<String, Object>> need2Write(String id);
+
 }
