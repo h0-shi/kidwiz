@@ -33,7 +33,10 @@
       </div>
       <div class="menu-item text-center">
         <router-link class="nav-link text-dark" :to="{ name: 'myreviews' }">나의 리뷰</router-link>
-      </div> -->
+      </div>
+      <div class="menu-item text-center" v-if="grade==3">
+        <router-link class="nav-link text-dark" :to="{ name: 'admin' }">관리자 페이지</router-link>
+      </div>
     </div>
   </nav>
 </template>

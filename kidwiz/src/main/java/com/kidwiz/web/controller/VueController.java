@@ -116,6 +116,7 @@ public class VueController {
 		JSONObject json = new JSONObject();
 		JSONArray arr = new JSONArray(list);
 		
+		
 		json.put("list", arr);
 		json.put("pageMap", pageMap);
 		return json.toString();
@@ -132,14 +133,7 @@ public class VueController {
 		json.put("glist", glist);
 		return json.toString();
 	}
-	@GetMapping("/api/getcoun")
-	public String getcoun(@RequestParam("id") String id) {
-		
-		Map<String, Object> map = vueService.getCoun(id);
-		JSONObject json = new JSONObject();
-		json.put("map", map);
-		return json.toString();
-	}
+	
 	
 	@PostMapping("/api/createGroup")
     public String createGroup(@RequestParam("image") MultipartFile image,

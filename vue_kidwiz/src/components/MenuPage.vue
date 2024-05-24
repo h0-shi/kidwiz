@@ -17,7 +17,7 @@
         <span class="top-right">
           <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
           <a to="/login" @click="logout()" v-else>로그아웃</a>
-          <router-link to="/mypage" v-if="$store.state.account.id">| 마이페이지</router-link>
+          <router-link to="/mypage" v-if="$store.state.account.id">| 마이페이지</router-link>          
           <a href="">| English</a>
         </span>
       </nav>
@@ -48,8 +48,8 @@
           <li><router-link to="/GroupList">집단상담</router-link></li>
           <li><router-link to="/jobs/intro">취업상담</router-link></li>
           <li><router-link to="/counseling">심리상담</router-link></li>          
-          <li><router-link to="/regIntroduce">전문상담</router-link></li>          
-          <li><router-link to="/admin">관리자페이지</router-link></li>
+          <li><router-link to="/regIntroduce">전문상담</router-link></li>           
+          <li><router-link to="/boardlist">게시판상담</router-link></li>
           <li></li>
         </ul>
         <ul name="alpha">
@@ -82,6 +82,7 @@
 import store from "@/store.js";
 import router from '@/router'
 import axios from 'axios';
+import { onMounted, ref } from 'vue';
 
 export default {
     name:'MenuPage',
@@ -100,6 +101,9 @@ export default {
       }
     },
     setup() {
+
+      const check = ref()
+
       const logout = () => {
         axios.post("http://localhost:3000/api/account/logout", {}, { withCredentials: true })
         .then(()=>{
@@ -108,7 +112,17 @@ export default {
         router.push({path: '/'});
         });
       }
-      return {logout}
+
+      onMounted(()=>{
+        axios.post("/api/admin/admincheck",{withCredentials:true}).then((res)=>{
+          if(res.data==1){
+            check.value = true
+          }else{
+            check.value = false
+          }
+        })
+      })
+      return {logout,check}
     }
 }
 </script>
