@@ -297,6 +297,9 @@ export default {
   font-family: 'sj';
   font-size: large;
 }
+.date a{
+  cursor: pointer;
+}
 .halfLine{
   width: 90%;
   margin: 0 auto;
