@@ -4,7 +4,7 @@
 <mapper namespace="com.kidwiz.web.DAO.RsvBatisDAO">
 
 	<select id="studentCoun" parameterType="int">
-		SELECT r.*, m.name FROM rsv r JOIN members m ON r.sid = m.id WHERE r.sid = #{id}
+		SELECT r.* FROM ProRsvListView r WHERE r.sid = #{id} ORDER BY cdate, time
 	</select>
 
 </mapper>

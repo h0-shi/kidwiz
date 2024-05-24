@@ -15,14 +15,11 @@
             </div>
             <div class="infoBox">
               <div>소속 : {{ profile.major_name }}</div>
+              <div>학번 : {{ profile.id }}</div>
               <div>구분 : 
                 <span v-if="profile.grade == 3">관리자</span>
                 <span v-if="profile.grade == 2">교직원</span>
                 <span v-if="profile.grade < 2">학생</span>
-              </div>
-              <div>성별 : 
-                <span v-if="profile.gender == 'M'">남성</span>
-                <span v-if="profile.gender == 'F'">여성</span>
               </div>
               <div>생년월일 : {{ profile.birth_date }}</div>
               <div>연락처 : {{ profile.contact }}</div>              
@@ -157,6 +154,7 @@ export default {
     this.today = dayjs().format('YYYY-MM-DD');    
     this.id = this.$store.state.account.id;
     this.getScehdule().then(()=>{
+      this.getOnedayScehdule();
       if(this.grade < 2){
         this.recentBoard();
       } else if(this.grade==2) {
@@ -259,6 +257,9 @@ export default {
 }
 .w2{
   width: 20%;
+}
+.w2 button{
+  background-color: white;
 }
 .w3{
   width: 30%;

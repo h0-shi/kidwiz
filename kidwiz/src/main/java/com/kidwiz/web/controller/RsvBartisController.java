@@ -1,6 +1,7 @@
 package com.kidwiz.web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -23,9 +24,9 @@ public class RsvBartisController {
 	private JwtService jwtService;
 	
 	@GetMapping("/studentCoun")
-	public List<RsvDTO> studentCoun(@CookieValue(value = "token", required = false) String token){
+	public List<Map<String, Object>> studentCoun(@CookieValue(value = "token", required = false) String token){
 		int id = jwtService.getId(token);				
-		List<RsvDTO> list = rsvService.studentCoun(id);		
+		List<Map<String, Object>> list = rsvService.studentCoun(id);		
 		return list;
 	}
 

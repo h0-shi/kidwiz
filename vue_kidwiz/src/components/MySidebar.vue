@@ -11,10 +11,10 @@
         <router-link class="nav-link text-dark" :to="{ name: 'myinfo' }">내 정보 수정</router-link>
       </div>
       <div class="menu-item text-center" v-if="grade>=2">
-        <router-link class="nav-link text-dark" :to="{ name: 'myconsultations' }">나의 상담 내역</router-link>
+        <router-link class="nav-link text-dark" :to="{ name: 'myconsultations' }">상담 내역</router-link>
       </div>
       <div class="menu-item text-center" v-if="grade<2">
-        <router-link class="nav-link text-dark" :to="{ name: 'StudentConsultations' }">나의 상담 내역(학생용)</router-link>
+        <router-link class="nav-link text-dark" :to="{ name: 'StudentConsultations' }">나의 상담 내역</router-link>
       </div>
       <div class="menu-item text-center" v-if="id=='24102003'">
         <router-link class="nav-link text-dark" :to="{ name: 'regRev' }">정기상담 관리</router-link>
@@ -22,18 +22,18 @@
       <div class="menu-item text-center">
         <router-link class="nav-link text-dark" :to="{ name: 'mygroup' }">비교과(집단 상담)내역</router-link>
       </div>
-      <div class="menu-item text-center">
+      <!-- <div class="menu-item text-center">
         <router-link class="nav-link text-dark" :to="{ name: 'mysimrireserve' }">심리검사 예약 내역</router-link>
-      </div>
+      </div> -->
       <div class="menu-item text-center">
         <router-link class="nav-link text-dark" :to="{ name: 'mysimri' }">나의 심리검사 결과</router-link>
-      </div>
-      <div class="menu-item text-center">
+      </div>      
+      <!-- <div class="menu-item text-center">
         <router-link class="nav-link text-dark" :to="{ name: 'myqna' }">나의 문의 내역</router-link>
       </div>
       <div class="menu-item text-center">
         <router-link class="nav-link text-dark" :to="{ name: 'myreviews' }">나의 리뷰</router-link>
-      </div>
+      </div> -->
     </div>
   </nav>
 </template>
