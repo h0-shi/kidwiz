@@ -25,7 +25,7 @@
         </button>
       </div>
       <div>
-        <button v-if="isAdmin" class="btn btn-primary" style="background-color: #67BF4E;" @click="faqwrite">등록</button>
+        <button v-if="isAdmin" class="btn btn-success" style="background-color: #67BF4E;" @click="faqwrite">등록</button>
       </div>
       <div>
         <button @click="nextPage" :disabled="!hasMore"  class="btn btn-outline-primary custom-outline-btn ml-3">
@@ -115,7 +115,11 @@ export default {
 .table-title:hover {
   background-color: #67BF4E;
 }
+.btn{
+  border-color: #67BF4E !important;
+  color: white;
 
+}
 .custom-outline-btn {
   border-color: #67BF4E !important;
   color: #67BF4E;
