@@ -4,9 +4,9 @@
       <thead>
         <tr>
           <th style="width: 10%;">번호</th>
-          <th style="width: 40%;">제목</th>
-          <th style="width: 20%;">글쓴이</th>
-          <th style="width: 30%;">날짜</th>
+          <th style="width: 60%;">제목</th>
+          <th style="width: 10%;">글쓴이</th>
+          <th style="width: 20%;">날짜</th>
         </tr>
       </thead>
       <tbody>
@@ -25,13 +25,14 @@
         </button>
       </div>
       <div>
+        <button v-if="isAdmin" class="btn btn-primary" @click="faqwrite">등록</button>
+      </div>
+      <div>
         <button @click="nextPage" :disabled="!hasMore" class="btn btn-outline-primary ml-3">
           Page {{ currentPage + 2 }} <i class="bi bi-chevron-right"></i>
         </button>
       </div>
-      <div>
-        <button v-if="isAdmin" class="btn btn-primary" @click="faqwrite">등록</button>
-      </div>
+
     </div>
   </div>
 </template>
