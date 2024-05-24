@@ -66,7 +66,7 @@
                 </div>
               </div>
             </div>
-            <button @click="contactCounselor" class="btn btn-primary btn-lg btn-block mt-4 shadow-sm" style="margin-bottom:40px;">상담 요청</button>
+            <button @click="contactCounselor" class="btn btn-success btn-lg btn-block mt-4 shadow-sm" style="margin-bottom:40px;">상담 요청</button>
           </div>
         </div>
       </div>
