@@ -2,9 +2,9 @@
   <div>
     <MySidebar></MySidebar>
     <MenuPage/>
-    <div class="container-fluid mt-5 pt-4">
+    <div class="mainContainer">
   <div class="row">
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <main class="">
       <div class="main-content">
         <div class="section">
           <h1 class="mb-4">마이페이지입니다</h1>
@@ -152,5 +152,10 @@ export default {
 }
 .btn.btn-change {
   background-color: #555;
+}
+.mainContainer{
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 </style>

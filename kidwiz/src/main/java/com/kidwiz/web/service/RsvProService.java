@@ -22,4 +22,28 @@ public class RsvProService {
 		return rsvProDAO.findRsvInfoByRsvno(rsvno);
 	}
 
+	public void saveProResultWrite(Integer rsvno, Map<String, Object> payload) {
+		String goal = (String) payload.get("goal");
+		String content = (String) payload.get("content");
+		String summary = (String) payload.get("summary");
+		String homework = (String) payload.get("homework");
+		String opinion = (String) payload.get("opinion");
+
+		rsvProDAO.saveProResultWrite(rsvno, goal, content, summary, homework, opinion);
+	}
+
+	public Map<String, Object> getProResultByRsvno(Integer rsvno) {
+		return rsvProDAO.findProResultByRsvno(rsvno);
+	}
+
+	public void updateProResult(Integer rsvno, Map<String, Object> payload) {
+		String goal = (String) payload.get("goal");
+		String content = (String) payload.get("content");
+		String summary = (String) payload.get("summary");
+		String homework = (String) payload.get("homework");
+		String opinion = (String) payload.get("opinion");
+		
+		rsvProDAO.updateProResult(rsvno, goal, content, summary, homework, opinion);
+	}
+
 }

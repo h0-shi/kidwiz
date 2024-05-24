@@ -31,13 +31,15 @@ import MySimriResult from '@/views/mypage/MySimriResult.vue';
 import MySimriReserve from '@/views/mypage/MySimriReserve.vue';
 import BoardList from '@/views/boardviews/BoardList.vue';
 //import menu from '@/components/MenuPage.vue';
-
+import regCounselor from '@/views/regviews/regCounselor.vue'
 import pop from '@/layout/RegTimeLayout.vue';
 import MainLayout from '@/layout/MainLayout.vue';
 //import header from '@/components/Header.vue'
 import secMenuTest from '@/views/regviews/secMenuTest.vue';
 import applyForm3 from '@/views/RsvAndApply/applyForm3.vue';
 import resultWrite from '@/views/regviews/resultWrite.vue';
+import ProResult from '@/views/regviews/ProResult.vue';
+import ProResultUpdate from '@/views/regviews/ProResultUpdate.vue';
 import ProResultWrite from '@/views/regviews/ProResultWrite.vue';
 import regResult from '@/views/regviews/regResult.vue';
 import jobapply from '@/views/jobs/apply.vue';
@@ -54,8 +56,11 @@ import adminMemberControl from '@/layout/AdminSidebar.vue';
 import MemberControl from '@/components/MemberControl.vue';
 import BoardControl from '@/components/BoardControl.vue';
 import resultUpdate from '@/views/regviews/resultUpdate.vue';
+import regIntroduce from '@/views/regviews/regIntroduce.vue';
 
 import { createRouter,createWebHashHistory } from 'vue-router';
+import axios from 'axios';
+import store from '@/store';
 
 const routes = [
     {path: '/', component: mainPage, meta: {layout : MainLayout}},    
@@ -63,11 +68,29 @@ const routes = [
     {path: '/testVue', name:'testVue', component: testVue, meta: {layout : MainLayout}},
     {path: '/listTest', name:'listTest', component: listTest, meta: {layout : MainLayout}},
     {path:'/BoardList', name:'BoardList', component: BoardList, meta: {layout : MainLayout}},
-    {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite, meta: {layout : MainLayout}},
+    {path:'/BoardWrite', name:'BoardWrite', component: Boardwrite, meta: {layout : MainLayout},
+    beforeEnter: (to,from,next) =>{
+      if(store.state.account.id!=null){
+        next()
+      }else{
+        next('/')
+      }
+    }},
     {path: '/insertTest', name:'insertTest', component: insertTest, meta: {layout : MainLayout}},
     {path:"/boardDetail", name:"boardDetail", component: boardDetail, meta: {layout : MainLayout}},
     {path:"/boardUpdate", name:"boardUpdate",component:boardUpdate, meta: {layout : MainLayout}},
-    {path:"/groupCreate", name:"/groupCreate", component:()=> import("@/views/groupviews/groupCreate.vue"), meta: {layout : MainLayout}},
+
+
+    {path:"/groupCreate", name:"/groupCreate", component:()=> import("@/views/groupviews/groupCreate.vue"), meta: {layout : MainLayout},
+    beforeEnter: (to,from,next) =>{
+      if(store.state.account.id!=null){
+        next()
+      }else{
+        next('/')
+      }
+    }},
+
+
     {path: '/regRev', name:'regRev', component: () => import('@/views/regviews/RegRev.vue'), meta: {layout : MainLayout}},
     {path: '/regTime', component: () => import('@/views/regviews/RegTime.vue'), meta: { layout:pop}},
     {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue'), meta: {layout : MainLayout}},
@@ -97,11 +120,44 @@ const routes = [
     {path: '/test',name: 'Test',component: TestMain, meta: {layout : MainLayout}},
     {path: '/test/career',name: 'CareerTest',component: CareerTest, meta: {layout : MainLayout}},
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : MainLayout}},
+    {path: '/regIntroduce', name: 'regIntroduce',component: regIntroduce, meta: {layout : MainLayout}},
+    {path: '/regCounselor', name: 'regCounselor',component: regCounselor, meta: {layout : MainLayout}},
 
 
-    {path: '/admin', name: 'admin',component: MemberControl,meta:{layout:adminMemberControl}},
-    {path: '/adminMemberControl', name: 'adminMemberControl',component: MemberControl,meta:{layout:adminMemberControl}},
-    {path: '/adminBoardControl', name: 'adminBoardControl',component: BoardControl,meta:{layout:adminMemberControl}},
+
+    {path: '/admin', name: 'admin',component: MemberControl,meta:{layout:adminMemberControl},
+      beforeEnter:async (to,from,next) =>{
+        const check = await userPermission();
+        if(check){
+          next()
+        } else{
+          next('/')
+        }
+      }
+  },
+    {path: '/adminMemberControl', name: 'adminMemberControl',component: MemberControl,meta:{layout:adminMemberControl},
+    beforeEnter:async (to,from,next) =>{
+      const check = await userPermission();
+      if(check){
+        next()
+      } else{
+        next('/')
+      }
+    }
+  },
+    {path: '/adminBoardControl', name: 'adminBoardControl',component: BoardControl,meta:{layout:adminMemberControl},
+    beforeEnter:async (to,from,next) =>{
+      const check = await userPermission();
+      if(check){
+        next()
+      } else{
+        next('/')
+      }
+    }
+  },
+  
+
+
 
     
     {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : MainLayout}},
@@ -117,6 +173,8 @@ const routes = [
     {path: '/secMenuTest', name: 'secMenuTest', component: secMenuTest, meta: { layout: MainLayout } },
     {path: '/applyForm3', name: 'applyForm3', component: applyForm3, meta: { layout: MainLayout } },
     {path: '/resultWrite', name: 'resultWrite', component: resultWrite, meta: { layout: MainLayout } },
+    {path: '/ProResult/:rsvno', name: 'ProResult', props: true, component: ProResult, meta: { layout: MainLayout } },
+    {path: '/ProResultUpdate/:rsvno', name: 'ProResultUpdate', props: true, component: ProResultUpdate, meta: { layout: MainLayout } },
     {path: '/ProResultWrite/:rsvno', name: 'ProResultWrite', props: true, component: ProResultWrite, meta: { layout: MainLayout } },
     {path: '/regResult', name: 'regResult', component: regResult, meta: { layout: MainLayout } },
     {path: '/jobs/apply', name: 'jobapply', component: jobapply, meta: { layout: MainLayout } },
@@ -138,5 +196,21 @@ const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes
 });
+
+
+async function userPermission(){
+  try {
+    const res = await axios.post("/api/admin/admincheck", {}, { withCredentials: true });
+    if (res.data == 1) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Error checking user permission:", error);
+    return false;
+  }
+}
+
 
 export default router;

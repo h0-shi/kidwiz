@@ -67,12 +67,13 @@ public class AdminController {
 	public ResponseEntity admincheck(@CookieValue (value = "token", required = false) String token) {
 		//TODO: process POST request
 		
+		int check = 0;
+		
     	// 토큰값이 유효하지 않으면
         if (!jwtService.isValid(token)) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        	return new ResponseEntity<>(check,HttpStatus.OK);
         }
-        
-        int check = adminService.admincheck(jwtService.getId(token));
+        check = adminService.admincheck(jwtService.getId(token));
         
 		return new ResponseEntity<>(check,HttpStatus.OK);
 	}

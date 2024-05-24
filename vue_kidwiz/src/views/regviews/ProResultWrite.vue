@@ -41,11 +41,11 @@
                 <th>상담일</th>
                 <td>{{ state.infos.cdate }}</td>
                 <th>상담자</th>
-                <td>위지언(수정필요)</td>
+                <td>{{ state.infos.proname }}</td>
               </tr>
               <tr>
                 <th>상담 시간</th>
-                <td>{{ state.infos.ctime }}</td>
+                <td>{{ state.infos.time }}</td>
                 <th>상담 회기</th>
                 <td>-</td>
               </tr>
@@ -86,7 +86,7 @@
           </table>
           <section class="btns">
             <button type="submit" class="button save">저장</button>
-            <button class="button cancel">취소</button>
+            <button type="button" @click="cancel" class="button cancel">취소</button>
           </section>
         </form>
       </div>
@@ -97,6 +97,7 @@
 <script>
 import axios from "axios";
 import { reactive, onMounted } from "vue";
+import router from '@/router';
 
 export default {
   props: ["rsvno"],
@@ -127,19 +128,24 @@ export default {
 
     const formSubmit = () => {
       axios
-        .post(`http://localhost:3000/api/rsv/${props.rsvno}/save`, state.form, {
-          withCredentials: true,
-        })
+        .post(`http://localhost:3000/api/rsv/${props.rsvno}/save`, state.form, {withCredentials: true})
         .then((response) => {
           console.log(response);
           alert("저장되었습니다.");
+          router.push({ name: 'ProResult', params: { rsvno: props.rsvno } }); // 수정 후 이동할 경로 설정
+          // router.push({path: "/myconsultations"});
         })
         .catch((err) => {
           alert("저장 중 문제가 발생했습니다: " + err);
         });
     };
 
-    return { state, formSubmit };
+    // 취소버튼 누르면 뒤로가기
+    const cancel = () => {
+      router.go(-1);
+    };
+
+    return { state, formSubmit, cancel };
   },
 };
 </script>

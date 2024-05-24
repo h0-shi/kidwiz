@@ -65,6 +65,8 @@ public class RsvController {
 	@GetMapping("/getProId")
 	public ResponseEntity<Integer> getProId(@RequestParam("majorHead") String majorHead) {
 		logger.info("getProId 호출: {}", majorHead);
+		System.out.println("-----------------------------");
+		System.out.println(majorHead);
 		Integer proId = reservationService.getProId(majorHead);
 		if (proId != null) {
 			return ResponseEntity.ok(proId);
@@ -72,48 +74,16 @@ public class RsvController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 	}
-	
-	
-	
-	
 	// 상담사 id 가져오기
 
-	/*
 	@GetMapping("/getCounselorId")
 	public ResponseEntity<Integer> getCounselorId(@RequestParam("CounselingType") String CounselingType) {
-		logger.info("getCounselorId 호출: {}", CounselingType);
-		Integer counselorId = reservationService.getCounselorId(CounselingType);
-		if (counselorId != null) {
-			return ResponseEntity.ok(counselorId);
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-		}
-	} 
-	*/
-	
-	@GetMapping("/getAdvisorId")
-	public ResponseEntity<Integer> getAdvisorId(@RequestParam("counselingType") String counselingType, @RequestParam(value = "majorHead", required = false, defaultValue = "") String majorHead) {
-	    logger.info("getAdvisorId 호출: {}", counselingType);
-
-	    Integer advisorId;
-	    if (counselingType.equals("지도교수 상담")) {
-	        if (majorHead.isEmpty()) {
-	            // majorHead가 빈 문자열인 경우 기본값 사용 또는 에러 응답 반환
-	            // 예: majorHead = "기본값";
-	            return ResponseEntity.badRequest().build();
-	        }
-	        advisorId = reservationService.getProId(majorHead);
-	    } else {
-	        advisorId = reservationService.getCounselorId(counselingType);
-	    }
-
-	    if (advisorId != null) {
-	        return ResponseEntity.ok(advisorId);
+	    logger.info("getCounselorId 호출: {}", CounselingType);
+	    Integer counselorId = reservationService.getCounselorId(CounselingType);
+	    if (counselorId != null) {
+	        return ResponseEntity.ok(counselorId);
 	    } else {
 	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 	    }
 	}
-	
-	
-	
 }

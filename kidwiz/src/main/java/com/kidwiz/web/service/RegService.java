@@ -69,4 +69,28 @@ public class RegService {
 		return regDAO.getRegInfo(regno);
 	}
 
+	public List<RegDTO> regReservations(String date) {
+		return regDAO.regReservations(date);
+	}
+
+	public Map<String, Object> getCounselorInfo(String id) {
+		return regDAO.getCounselorInfo(id);
+	}
+
+	public Map<String, Object> getProInfo(String type) {
+		return regDAO.getProInfo(type);
+	}
+
+	public List<RegDTO> checkRegRev(String date) {
+		return regDAO.checkRegRev(date);
+	}
+
+	public List<RegDTO> rsvs(String date) {
+		return regDAO.rsvs(date);
+	}
+
+	public List<RegDTO> getScehdule() {
+		return regDAO.getScehdule();
+	}
+
 }

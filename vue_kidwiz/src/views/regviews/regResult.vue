@@ -130,7 +130,7 @@ export default {
             this.times = res.data[0].times;
             this.totalTimes = res.data[0].totalTimes;
             this.contact = res.data[0].contact;
-            this.proName = res.data[0].proName;
+            this.proName = res.data[0].proName;            
         }).catch((err) => {
             console.log(err+'에러디')
         })

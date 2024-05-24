@@ -77,6 +77,7 @@ export default {
       selectedTime: null,
       availableTimes: [],
       isPast: false,
+      formURL: '',
       showModal: false, // 모달창 표시 여부
       currentEvent: {}, // 현재 이벤트 객체
       counselingTypes: ['지도교수 상담', '취업상담', '전문상담', '심리상담'], // 상담 유형 추가
@@ -85,7 +86,6 @@ export default {
 
       //studentId: 24300011, // 학생 ID (임의 값)
       majorId: null, // 상담사의 소속 학과 ID (초기값 null)
-      major_head: '',
 
       // 예약 가능한 시간대 정의
       timeSlots: [
@@ -118,25 +118,10 @@ export default {
       }
     };
   },
-  mounted() {
-    axios
-      .get(
-        `/api/reservations/members?studentID=` + this.$store.state.account.id
-      )
-      .then((response) => {
-        this.major_head = response.data.major_head;
-        console.log(this.major_head)
-      })
-      .catch((error) => {
-        console.error("Error fetching major_head:", error);
-
-      });
-  },
-
   created() {
     this.loadReservations();
-    //this.fetchMajorId();
-    //this.fetchAdvisorId(this.selectedCounselingType, this.major_head);
+    this.selectedCounselingType = this.$route.query.selectedCounselingType;
+    
   },
   computed: {
     ...mapGetters(['getAccountId']) // Vuex store의 account id getter를 사용
@@ -166,35 +151,6 @@ export default {
           console.error("Error fetching majorId:", error);
         });
     },*/
-
-
-    /* fetchMajorId() {
-      
-      const accountId = this.getAccountId;
-      //console.log("Account ID :", accountId); // 디버깅용
-      axios.get(`/api/members/${accountId}`)
-        .then(response => {
-          this.majorId = response.data.major_id; // 응답에서 major_id 가져오기
-        })
-        .catch(error => {
-          console.error("Error fetching major ID:", error);
-        });
-    }, */
-    async fetchAdvisorId(counselingType, majorHead) {
-      if (!majorHead) {
-        console.error('major_head 값이 설정되지 않았습니다.');
-        return null;
-      }
-      try {
-        const response = await axios.get(`/api/reservations/getAdvisorId?counselingType=${counselingType}&majorHead=${majorHead}`);
-        return response.data;
-      } catch (error) {
-        console.error("Error fetching AdvisorId:", error);
-        return null;
-      }
-    },
-
-
     fetchDateInfo(info) {
 
       //상담유형 미선택 시 날짜누르면 alert
@@ -226,81 +182,41 @@ export default {
         //  return;
       }
 
-      //// 더미 데이터 
-      //this.availableTimes = [
-      //  { id: 1, time: '10:00 - 11:00', availableSeats: 3 },
-      //  { id: 2, time: '11:00 - 12:00', availableSeats: 5 },
-      //  { id: 3, time: '13:00 - 14:00', availableSeats: 2 },
-      //  { id: 4, time: '14:00 - 15:00', availableSeats: 1 },
-      //  { id: 5, time: '15:00 - 16:00', availableSeats: 3 },
-      //  { id: 6, time: '16:00 - 17:00', availableSeats: 1 },
-      //  { id: 7, time: '17:00 - 18:00', availableSeats: 1 }
-      //];
-
-      // 예약 가능한 시간대 설정
-      /* const timeSlots = [
-        '10:00 - 11:00',
-        '11:00 - 12:00',
-        '13:00 - 14:00',
-        '14:00 - 15:00',
-        '15:00 - 16:00',
-        '16:00 - 17:00',
-        '17:00 - 18:00'
-      ]; */
-
       // 예약 정보를 조회하여 해당 날짜에 예약이 있는 시간대를 비활성화
-      axios.get('http://localhost:3000/api/reservations?date=' + this.selectedDate + "&type=" + this.selectedCounselingType, {
-
+      let revURL;
+      if(this.selectedCounselingType == '전문상담'){
+        revURL = "checkRegRev?date="+this.selectedDate;
+      } else {
+        revURL = 'api/reservations?date='+this.selectedDate+"&type="+ this.selectedCounselingType;
+      }
+      revURL;
+      axios.get('http://localhost:3000/'+revURL, {
       }).then(response => {
-        const reservedTimes = response.data.map(reservation => reservation.ctime);
+        let reservedTimes
+        if(this.selectedCounselingType == '전문상담'){
+          reservedTimes = response.data.map(reservation => reservation.time);
+        } else {
+          reservedTimes = response.data.map(reservation => reservation.ctime);
+        }
+        
         //this.availableTimes = this.timeSlots.map((slot, index) => ({
         //  id: index + 1, // 각 시간에 고유 id를 설정
         //  time: slot.time,
         //  code: slot.code,
         this.availableTimes = this.timeSlots.map(slot => ({
-          ...slot,
+      ...slot,
 
           available: !reservedTimes.includes(slot.code)
         }));
       }).catch(error => {
         console.error("Error fetching reservations:", error);
         //this.availableTimes = this.timeSlots.map(time => ({ time, available: true }));
-        //});
-        this.availableTimes = this.timeSlots.map(slot => ({
-          ...slot,
-          available: true
-        }));
-      });
-
-      //axios.get('/api/available-times', { params: { date: info.dateStr } })
-      //  .then(response => {
-      //    this.availableTimes = response.data.times;
-      //  })
-      //  .catch(error => {
-      //    console.error("Error fetching available times:", error);
-      //    this.availableTimes = [];  // 오류 시 배열 초기화
-      //  });
-
-
-      // 선택한 시간을 FullCalendar 이벤트에 추가하기
-      // const events = this.availableTimes.map(time => {
-      //   return {
-      //     title: `Available Seats: ${time.availableSeats}`,
-      //    start: `${info.dateStr}T${time.time.split(' - ')[0]}:00`,
-      //     end: `${info.dateStr}T${time.time.split(' - ')[1]}:00`
-      //   };
-      // });
-
-      // FullCalendar의 이벤트 업데이트
-      // this.calendarOptions.events = events;
-
-      // 선택한 날짜 강조 스타일 추가
-      //et days = document.querySelectorAll(".selectedDate");
-      //days.forEach(function (day) {
-      //  day.classList.remove("selectedDate");
       //});
-      //info.dayEl.classList.add("selectedDate");
-      //},
+      this.availableTimes = this.timeSlots.map(slot => ({
+      ...slot,
+      available: true
+    }));
+  });
 
       //날짜 강조 스타일
       let days = document.querySelectorAll(".selectedDate");
@@ -315,135 +231,58 @@ export default {
         // 날짜가 이미 선택된 상태라면, 해당 날짜의 예약 가능 시간을 다시 조회
         this.fetchDateInfo({ dateStr: this.selectedDate, dayEl: document.querySelector('.fc-day[data-date="' + this.selectedDate + '"]') });
       }
-      if (this.major_head) {
-        this.fetchAdvisorId(this.selectedCounselingType, this.major_head);
-      } else {
-        console.error('major_head 값이 설정되지 않았습니다.');
-      }
+
     },
-    //240523 MAJOR_ID 보내기 제거
-    //loadMemberInfo() {
-    //  axios.get(`/api/reservations/members/${this.account.id}`)
-    //    .then(response => {
-    //      this.majorId = response.data.major_id; // response 데이터에서 major_id 가져오기
-    //    })
-    //    .catch(error => {
-    //      console.error("Error fetching member info:", error);
-    //    });
-    //},
+    loadMemberInfo() {
+      axios.get(`/api/reservations/members/${this.account.id}`)
+        .then(response => {
+          this.majorId = response.data.major_id; // response 데이터에서 major_id 가져오기
+        })
+        .catch(error => {
+          console.error("Error fetching member info:", error);
+        });
+    },
 
-    async submitReservation() {
-
+    submitReservation() {
       if (!this.selectedTime || !this.selectedCounselingType) {
         alert("상담 유형과 시간을 선택해 주세요.");
         return;
       }
+      //const formRoute = formRouteMap[this.selectedCounselingType] || 'applyForm4';
+      
+        // 240522 상담 유형에 따라 적절한 상담자 ID 가져오기
 
-      //240517 선택한 상담 유형에 따라 신청form.vue 다른 곳으로 보내기
-      /* let formRoute;
-       switch (this.selectedCounselingType) {
-         case '지도교수 상담':
-           formRoute = 'applyForm1';
-           break;
-         case '취업상담':
-           formRoute = 'applyForm2';
-           break;
-         case '전문 상담':
-           formRoute = 'applyForm3';
-           break;
-         case '심리 상담':
-           formRoute = 'applyForm4';
-           break;
-         default:
-           formRoute = 'applyForm5';
-       }*/
+          //예약 데이터 담기
+          const reservationData = {
+            sid: this.getAccountId,
+            ctype: this.selectedCounselingType,
+            ctime: this.selectedTime.time,
+            ctimecode: this.selectedTime.code, //시간 코드(A~G)
+            cdate: this.selectedDate,
+            rsvdate: new Date().toISOString().split('T')[0],
+            rsvmemo: ''
+          };
 
-
-      const formRouteMap = {
-        '지도교수 상담': 'applyForm1',
-        '취업상담': 'applyForm2',
-        '전문 상담': 'applyForm3',
-        '심리 상담': 'applyForm4'
-      };
-
-      const formRoute = formRouteMap[this.selectedCounselingType] || 'applyForm5';
-
-      // 상담자 ID 가져오기
-      const advisorId = await this.fetchAdvisorId(this.selectedCounselingType, this.major_head);
-
-      console.log("===========================");
-      console.log(advisorId);
-      console.log(this.selectedCounselingType);
-      console.log(this.major_head);
-
-      console.log("===========================");
-
-      if (!advisorId) {
-        alert("상담자 정보를 불러오는 데 실패했습니다.");
-        return;
-      }
-
-
+          console.log('Reservation data being sent:', reservationData);
+          
+          if(this.selectedCounselingType == '전문상담'){
+            this.formURL = 'applyForm3';
+          } else {
+            this.formURL = 'applyForm1';
+          }
+          this.$router.push({
+                name: this.formURL,
+                query: {
+                  selectedDate: this.selectedDate,
+                  selectedTime: this.selectedTime.time,
+                  selectedCounselingType: this.selectedCounselingType,
+                  ctimecode: this.selectedTime.code
+                }
+              });
 
       // 폼 제출 로직: 서버에 예약 데이터 전송
       console.log('폼 제출 로직에 값 확인-------------------------------------------')
       console.log(`예약날짜 ${this.selectedDate} 시간 ${this.selectedTime.time} 시간코드 ${this.selectedTime.code}`);
-
-      // 240522 상담 유형에 따라 적절한 상담자 ID 가져오기 0523위치수정
-      //let idPromise;
-      /*
-    if (this.selectedCounselingType === '지도교수 상담') {
-      idPromise = axios.get(`/api/reservations/getProId`, {
-        params: { majorHead: this.majorId }
-      });
-    } else {
-      idPromise = axios.get(`/api/reservations/getCounselorId`, {
-        params: { CounselingType: this.selectedCounselingType }
-      });
-    } */
-
-
-      // 서버로 보내기 전에 데이터 콘솔에 출력하여 확인
-      const reservationData = {
-        sid: this.getAccountId,
-        proid: advisorId,
-        ctype: this.selectedCounselingType,
-        ctime: this.selectedTime.code,
-        cdate: this.selectedDate,
-        rsvdate: new Date().toISOString().split('T')[0],
-        rsvmemo: '', // 예약 메모 초기화
-      };
-
-      console.log('Reservation data being sent:', reservationData);
-
-      // 서버로 보내기
-      try {
-        const response = await axios.post('/api/reservations', reservationData);
-        console.log('Reservation response:', response);
-
-        // 예약 성공 시 FullCalendar에 이벤트 추가
-        const event = {
-          title: 'Reservation',
-          start: `${this.selectedDate}T${this.selectedTime.time.split(' - ')[0]}:00`,
-          end: `${this.selectedDate}T${this.selectedTime.time.split(' - ')[1]}:00`
-        };
-        this.calendarOptions.events.push(event);
-
-        // 예약 완료 후 페이지 이동
-        this.$router.push({
-          name: formRoute,
-          query: {
-            selectedDate: this.selectedDate,
-            selectedTime: this.selectedTime.time,
-            selectedCounselingType: this.selectedCounselingType,
-            ctimecode: this.selectedTime.code
-          }
-        });
-      } catch (error) {
-        console.error("Error submitting reservation:", error);
-        alert("예약 중 오류가 발생했습니다.");
-      }
-
 
     },
     handleDayRender({ date, el }) {
@@ -472,6 +311,5 @@ export default {
     }
   }
 }
-
 
 </script>
