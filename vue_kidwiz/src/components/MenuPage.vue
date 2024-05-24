@@ -34,15 +34,17 @@
       <nav class="nav-sec">
         <ul name="introduce">        
           <li><router-link to="/admin">관리자페이지</router-link></li>
-          <li> </li>
-          <li> </li>
+          <li>&ensp;</li>
+          <li>&ensp;</li>
+          <li>&ensp;</li>
+          <li>&ensp;</li>
         </ul>
         <ul name="counselors">
           <li><router-link to="/counselorList">상담사 소개</router-link></li>
           <li><router-link to="/rsrvTest4">예약테스트</router-link></li>          
           <li><router-link to="/secMenuTest">다증레이아웃</router-link></li>
-          <li></li>
-          <li></li>
+          <li>&ensp;</li>
+          <li>&ensp;</li>
         </ul>
         <ul name="counsel">
           <li><router-link to="/GroupList">집단상담</router-link></li>
@@ -50,20 +52,20 @@
           <li><router-link to="/counseling">심리상담</router-link></li>          
           <li><router-link to="/regIntroduce">전문상담</router-link></li>           
           <li><router-link to="/boardlist">게시판상담</router-link></li>
-          <li></li>
         </ul>
         <ul name="alpha">
           <li><router-link to="/cardNews">카드뉴스</router-link></li>
           <li><router-link to="/applyForm3">applyForm3</router-link></li>
           <li><router-link to="/resultWrite">resultWrite</router-link></li>
           <li><router-link to="/regResult">regResult</router-link></li>
-          <li></li>
+          <li>&ensp;</li>
         </ul>
-        <ul name="notice">
+        <ul name="notice" style="border-right: 1px solid #d6d6d6;">
           <li><router-link to="/faq">FAQ</router-link></li>
           <li><router-link to="/contact">Contact</router-link></li>
-          <li></li>
-          <li></li>
+          <li>&ensp;</li>
+          <li>&ensp;</li>
+          <li>&ensp;</li>
         </ul>
       </nav>
     </div>
