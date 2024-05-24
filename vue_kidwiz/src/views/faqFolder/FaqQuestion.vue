@@ -1,17 +1,17 @@
 <template>
   <div style="width: 1000px; margin: 0 auto;">
-    <table class="table table-hover">
+    <table class="table table-hover ">
       <thead>
-        <tr>
-          <th style="width: 10%;">번호</th>
-          <th style="width: 60%;">제목</th>
-          <th style="width: 10%;">글쓴이</th>
-          <th style="width: 20%;">날짜</th>
+        <tr class="table-title text-center">
+          <th style="width: 10%; color:white;">번호</th>
+          <th style="width: 60%; color:white;">제목</th>
+          <th style="width: 10%; color:white;">글쓴이</th>
+          <th style="width: 20%; color:white;">날짜</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(question, index) in questions" :key="question.id" @click="goToDetail(question.id)">
-          <td>{{ index + 1 + (currentPage * pageSize) }}</td>
+          <td class="text-center">{{ index + 1 + (currentPage * pageSize) }}</td>
           <td>{{ question.title }}</td>
           <td>{{ question.writer }}</td>
           <td>{{ question.date }}</td>
@@ -106,3 +106,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.table-title{
+  background-color: steelblue;
+}
+
+</style>
