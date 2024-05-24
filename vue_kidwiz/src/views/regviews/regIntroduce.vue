@@ -19,7 +19,7 @@
         </div>
         <div class="expBox mt-3">
             <span class="exp inBox" style="color:blue;">* 상담 신청 시 진행절차 안내</span>
-            <span class="exp inBox mb-1" style="font-weight: bold;">: 신청서 확인 ▶ 접수면담(30-50분) ▶ 심리검사 실시 ▶ 상담자 배정 ▶ 12회기 상담</span>
+            <span class="exp inBox mb-1" style="font-weight: bold;">: 신청서 확인 ▶ 접수면담(30-50분) ▶ 심리검사 실시 ▶ 상담자 배정 ▶ 10회기 상담</span>
             <span class="exp inBox mb-1">1) 상담신청서 작성 이후 접수면담 시간을 정하기 위한 연락을 받게 됩니다. 접수면담 일정이 확정이 되어야 상담 예약이 완료됩니다.</span>
             <span class="exp inBox mb-1">2) 접수 면담 후에 상담자의 안내에 따라 검사를 실시합니다.</span>
             <span class="exp inBox mb-1">3) 검사 실시가 완료되면, 상담자가 배정됩니다(대기가 많다면, 1-2주 소요될 수 있어요).</span>
