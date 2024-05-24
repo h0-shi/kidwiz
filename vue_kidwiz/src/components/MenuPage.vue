@@ -8,11 +8,11 @@
           <a href="">facebook</a>
         </span>
         <span class="mainImg">
-          <h1>
+          <h1><br>
             <router-link to="/">
-              <img src="@/assets/testLogo.png" alt="">
+              <img src="@/assets/kidwiz1.png" alt="" style="width:257px; height:80px;">
             </router-link>
-          </h1>
+          </h1><br>
         </span>
         <span class="top-right">
           <router-link to="/login" v-if="!$store.state.account.id">로그인</router-link>
@@ -149,7 +149,7 @@ export default {
 .nav-bot{
   height: 55px;
   width: 100%;
-  background-color: #fff;
+  /* background-color: #fff; */
   float: hide;
 }
 .nav-bot ul{
@@ -211,7 +211,7 @@ a:active {
   color : black;
 }
 .mainContainer{
-  margin-top: 185px;
+  margin-top: 205px;
 }
 
 </style>@/store@/store.js
