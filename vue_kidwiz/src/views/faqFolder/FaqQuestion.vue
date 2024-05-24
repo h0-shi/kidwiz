@@ -3,14 +3,14 @@
     <table class="table table-hover">
       <thead>
         <tr>
-      <th style="width: 10%;">번호</th>
-      <th style="width: 40%;">제목</th>
-      <th style="width: 20%;">글쓴이</th>
-      <th style="width: 30%;">날짜</th>
-    </tr>
+          <th style="width: 10%;">번호</th>
+          <th style="width: 40%;">제목</th>
+          <th style="width: 20%;">글쓴이</th>
+          <th style="width: 30%;">날짜</th>
+        </tr>
       </thead>
       <tbody>
-        <tr v-for="(question, index) in questions" :key="question.id" :track-by="question.id" @click="goToDetail(question.id)">
+        <tr v-for="(question, index) in questions" :key="question.id" @click="goToDetail(question.id)">
           <td>{{ index + 1 + (currentPage * pageSize) }}</td>
           <td>{{ question.title }}</td>
           <td>{{ question.writer }}</td>
@@ -29,13 +29,14 @@
           Page {{ currentPage + 2 }} <i class="bi bi-chevron-right"></i>
         </button>
       </div>
+      <div>
+        <button v-if="isAdmin" class="btn btn-primary" @click="faqwrite">등록</button>
+      </div>
     </div>
-    <button @click="$router.push('/faqwrite')" class="btn btn-primary mt-3">글쓰기</button>
   </div>
 </template>
 
 <script>
-//import 'bootstrap-icons/font/bootstrap-icons.css'
 import axios from 'axios';
 
 export default {
@@ -44,33 +45,41 @@ export default {
       questions: [],
       currentPage: 0,
       pageSize: 10,
-      hasMore: true
-    }
+      hasMore: true,
+      dept: null,
+      isAdmin: false,
+    };
   },
-  created() {
+  mounted() {
+    axios.post("/api/getMemberType", { withCredentials: true }).then((res) => {
+      this.dept = res.data.dept;
+      this.isAdmin = this.dept === '관리자';
+    }).catch(() => {
+      this.dept = null;
+    });
+
     this.fetchQuestions();
   },
   methods: {
     fetchQuestions() {
-  axios.get(`http://localhost:3000/api/faqquestions/paged?page=${this.currentPage}&size=${this.pageSize}`)
-    .then(response => {
-      console.log('Fetched response:', response);
-      this.questions = response.data.map(question => ({
-        ...question, // 기존 질문 정보 유지
-        date: new Date(question.date).toLocaleDateString('ko-KR', {
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-          hour: '2-digit',
-          minute: '2-digit'
+      axios.get(`http://localhost:3000/api/faqquestions/paged?page=${this.currentPage}&size=${this.pageSize}`)
+        .then(response => {
+          this.questions = response.data.map(question => ({
+            ...question,
+            date: new Date(question.date).toLocaleDateString('ko-KR', {
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit'
+            })
+          }));
+          this.hasMore = response.data.length === this.pageSize;
         })
-      }));
-      this.hasMore = response.data.length === this.pageSize;
-    })
-    .catch(error => {
-      console.error('Error fetching questions:', error);
-    });
-},
+        .catch(error => {
+          console.error('Error fetching questions:', error);
+        });
+    },
     goToDetail(questionId) {
       this.$router.push(`/faq/${questionId}`);
     },
@@ -85,8 +94,14 @@ export default {
         this.currentPage--;
         this.fetchQuestions();
       }
+    },
+    faqwrite() {
+      if (!this.isAdmin) {
+        alert('관리자만 접근 가능');
+      } else {
+        this.$router.push('/faqwrite');
+      }
+    }
   }
-  
-  }
-}
+};
 </script>

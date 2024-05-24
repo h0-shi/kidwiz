@@ -1,16 +1,24 @@
 <template>
-  <div class="faqwrite">
-    <h1>글쓰기</h1>
-    <form @submit.prevent="write">
-      <div class="form-group">
-        <label for="title">제목</label>
-        <input type="text" class="form-control" id="title" v-model="title" required>
+  <div class="faqwrite container mt-5 p-4 rounded bg-light">
+    <h3 class="mb-4 text-left" style="margin-left:100px;">글쓰기</h3>
+    <form @submit.prevent="write" class="form-horizontal">
+      <div class="mb-3 row align-items-center">
+        <label for="title" class="col-sm-2 col-form-label">제목</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="title" v-model="title" required>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="content">내용</label>
-        <textarea class="form-control" id="content" rows="5" v-model="content" required></textarea>
+      <div class="mb-4 row align-items-center">
+        <label for="content" class="col-sm-2 col-form-label">내용</label>
+        <div class="col-sm-10">
+          <textarea class="form-control" id="content" rows="5" v-model="content" required></textarea>
+        </div>
       </div>
-      <button type="submit" class="btn btn-primary">글쓰기</button>
+      <div class="row">
+        <div class="col-sm-10 offset-sm-2">
+          <button type="submit" class="btn btn-primary">글쓰기</button>
+        </div>
+      </div>
     </form>
   </div>
 </template>
@@ -53,22 +61,9 @@ export default {
 
 <style>
 .faqwrite {
-  width: 100%;
-  height: 500px;
+  max-width: 1200px;
   background-color: rgb(205, 255, 211);
-  padding: 10px;
 }
 
-.faqwrite input {
-  width: 100%;
-  height: 30px;
-  margin-bottom: 5px;
-  box-sizing: border-box;
-}
 
-.faqwrite textarea {
-  width: 100%;
-  height: 300px;
-  box-sizing: border-box;
-}
 </style>
