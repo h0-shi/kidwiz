@@ -5,7 +5,10 @@
     </div>
     <div class="menu-items text-center justify-content-center  align-items-center">
       <div class="menu-item text-center">
-        <router-link class="nav-link text-dark" :to="{ name: 'myinfo' }">나의 정보 관리</router-link>
+        <router-link class="nav-link text-dark" :to="{ name: 'mypage' }">나의 정보</router-link>
+      </div>
+      <div class="menu-item text-center">
+        <router-link class="nav-link text-dark" :to="{ name: 'myinfo' }">내 정보 수정</router-link>
       </div>
       <div class="menu-item text-center" v-if="grade>=2">
         <router-link class="nav-link text-dark" :to="{ name: 'myconsultations' }">나의 상담 내역</router-link>

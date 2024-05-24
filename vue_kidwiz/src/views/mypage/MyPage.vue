@@ -1,12 +1,37 @@
 <template>
   <div>
         <MySidebar></MySidebar>
-    <div class="container-fluid mt-5 pt-4 boundary">
-      <div class="row">
+    <div class="boundary">
         <main class="main-content">
-          <h1 class="mb-4">마이페이지입니다</h1>
-          <div class="userInfo mb-5">
-            일단 여기 유저 정보
+          <h2 class="mb-4 title">나의 정보</h2>
+          <hr class="line">
+          <div style="display: flex; justify-content: space-between;">
+          <div class="userInfo mb-4">
+            <div class="mb-4"><h4 style="text-align: left; font-family: 'sjl';">개인 정보</h4></div>
+            <div class="profileBox">
+            <div>
+            <div class="img"><img src="@/assets/img/myProfile.png" alt=""></div>
+            <div class="profileName">{{ profile.name }}</div>
+            </div>
+            <div class="infoBox">
+              <div>소속 : {{ profile.major_name }}</div>
+              <div>구분 : 
+                <span v-if="profile.grade == 3">관리자</span>
+                <span v-if="profile.grade == 2">교직원</span>
+                <span v-if="profile.grade < 2">학생</span>
+              </div>
+              <div>성별 : 
+                <span v-if="profile.gender == 'M'">남성</span>
+                <span v-if="profile.gender == 'F'">여성</span>
+              </div>
+              <div>생년월일 : {{ profile.birth_date }}</div>
+              <div>연락처 : {{ profile.contact }}</div>              
+            </div>            
+            </div>
+          </div>
+          <div class="notice mb-4">
+            <div class="mb-4"><h4 style="text-align: left; font-family: 'sjl';">알림</h4></div>
+          </div>
           </div>
           <div class="schedule">
           <div class="calendarContainer">
@@ -38,7 +63,6 @@
             <p>현재 로그인한 사용자 name: <strong>{{ $store.state.account.name }}</strong></p>
           </div>
         </main>
-      </div>
     </div>
   </div>
 </template>
@@ -80,8 +104,9 @@ export default {
         events: [],
         eventClick: this.handleEventClick,
         dateClick: this.fetchDateInfo,
-        dayCellDidMount: this.handleDayMount
-      }
+        dayCellDidMount: this.handleDayMount,
+      },
+      profile:[],
     }
   },
   mounted(){
@@ -123,7 +148,10 @@ export default {
     },
     async getGrade(){
       await axios.get('http://localhost:3000/memberDetail?id='+this.id).then((res) => {      
+        console.log(res.data[0]);
       this.grade = res.data[0].grade;      
+      this.profile = res.data[0];
+      console.log(this.profile);
     }).catch((err) => {
       console.log(err);
     })
@@ -135,9 +163,30 @@ export default {
 
 <style scoped>
 .userInfo{
-  border: 1px solid black;
-  background-color: yellow;
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+  width: 69%;
+  padding: 20px 30px 30px 30px;
+  border: 1px solid #c0c0c0;
+  background-color: white;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175) !important;
+  border-radius: 15px;
+}
+.line{
+  width: 40%;  
+}
+.title{
+  text-align: left;
+  font-family: 'sj';
+}
+.notice{
+  width: 29%;
+  padding: 20px 30px 30px 30px;
+  border: 1px solid #c0c0c0;
+  background-color: white;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175) !important;
+  border-radius: 15px;
+}
+.profileBox{
+  display: flex;
 }
 .boxTitle{
   font-family: 'sj';
@@ -151,6 +200,20 @@ export default {
   width: 90%;
   margin: 0 auto;
 }
+.img{
+  width: 120px;
+  height: 120px;
+  background-color: grey;
+  border-radius: 50%;
+}
+.img img{
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.profileName{
+  margin-top: 20px;
+}
 .schedule{
   width: 100%;
   display: flex;
@@ -162,12 +225,14 @@ export default {
 .calendarContainer{
   width: 49%;
   margin: 0;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175) !important;
   padding: 15px;
   border: 1px solid #c0c0c0;
   border-radius: 15px;
 }
 .timeListContainer{
   width: 49%;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175) !important;
   border: 1px solid #c0c0c0;
   border-radius: 15px;
   padding: 10px
@@ -180,6 +245,12 @@ export default {
 .timeList ul{
   list-style: none;
   padding: 0 0;
+}
+.infoBox{
+  width: calc(100% - 190px);
+  text-align: left;
+  margin-left: 30px;
+  line-height: 2;
 }
 .timeList ul li {
   height: 45px;
