@@ -70,18 +70,22 @@ export default {
   },
 
   methods: {
-    navigateToTest(testType) {
+  navigateToTest(testType) {
     const isLoggedIn = store.state.account.id !== 0 && store.state.account.id !== undefined;
     if (!isLoggedIn) {
       // 로그인 페이지로 리디렉션하기 전에 목적지 저장
       this.$store.commit('setRedirectAfterLogin', this.$route.path);
       alert(`로그인이 필요한 페이지입니다.`);
       this.$router.push({ name: 'login' });
-    } else if (testType === 'career') {
-      this.$router.push({ name: 'CareerTest' });
-    }
+    } else {
+      // 로그인 후에 심리검사 페이지로 이동
+      if (testType === 'career') {
+        this.$router.push({ name: 'CareerTest' });
+      }
     }
   }
+}
+
 };
 </script>
 @/store@/views/store@/store
