@@ -139,7 +139,7 @@ export default {
   z-index: 999;
 }
 .nav-top{
-  height: 80px;
+  height: 100px;
   width: 70%;
   margin: 0 auto; /* 가운데 정렬 */
   display: flex;
