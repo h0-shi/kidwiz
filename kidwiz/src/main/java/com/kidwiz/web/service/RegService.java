@@ -85,12 +85,12 @@ public class RegService {
 		return regDAO.checkRegRev(date);
 	}
 
-	public List<RegDTO> rsvs(String date) {
-		return regDAO.rsvs(date);
+	public List<RegDTO> rsvs(Map<String, Object> map) {
+		return regDAO.rsvs(map);
 	}
 
-	public List<RegDTO> getScehdule() {
-		return regDAO.getScehdule();
+	public List<RegDTO> getScehdule(Map<String, Object> map) {
+		return regDAO.getScehdule(map);
 	}
 
 }

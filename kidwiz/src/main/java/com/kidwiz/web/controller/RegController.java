@@ -1,5 +1,6 @@
 package com.kidwiz.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -168,14 +169,33 @@ public class RegController {
 	}
 	
 	@GetMapping("/rsvs")
-	public List<RegDTO> rsvs(@RequestParam("date") String date){
-		List<RegDTO> rsvs = regService.rsvs(date);
+	public List<RegDTO> rsvs(@RequestParam("date") String date, @RequestParam("id") String id, @RequestParam("grade") String grade){
+		int auto = Integer.parseInt(grade);
+		if(auto < 2) {
+			grade = "일반사용자";
+		} else {
+			grade= "관리자";
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("grade", grade);
+		map.put("date", date);
+		List<RegDTO> rsvs = regService.rsvs(map);
 		return rsvs;
 	}
 	
 	@GetMapping("/getScehdule")
-	public List<RegDTO> getScehdule(){
-		List<RegDTO> getScehdule = regService.getScehdule();
+	public List<RegDTO> getScehdule(@RequestParam("id") String id, @RequestParam("grade") String grade){
+		int auto = Integer.parseInt(grade);
+		if(auto < 2) {
+			grade = "일반사용자";
+		} else {
+			grade= "관리자";
+		}
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("grade", grade);
+		List<RegDTO> getScehdule = regService.getScehdule(map);
 		return getScehdule;
 	}
 }

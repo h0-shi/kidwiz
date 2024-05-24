@@ -20,21 +20,16 @@
             <span>{{today}}</span>
             <a @click="nextday()">➡️</a>
           </div>
-          <hr class="halfLine mb-3">
-          <table class="timeList">
-            <thead>
-              <tr>
-                <th>날짜</th>
-                <th>일정</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="row in schedule" :key="row.title">
-                <td>{{row.start}}</td>
-                <td>{{ row.title }}</td>
-              </tr>
-            </tbody>
-          </table>
+          <hr class="halfLine mb-3" >
+          <div class="timeList">
+            <ul>
+              <li v-for="row in schedule" :key="row.title">                
+                <span v-if="this.grade<2">{{row.time}}&ensp;|&ensp; {{ row.title }}&ensp;  ( {{ row.proName }} )</span> 
+                <span v-if="this.grade>=2">{{row.time}}&ensp;|&ensp; {{ row.title }}&ensp; ( {{ row.stuName }} )</span>
+              </li>
+              <li v-if="schedule.length < 1" style="text-align: center; border: none;">일정이 존재하지 않습니다.</li>
+            </ul>
+          </div>
           </div>
         </div>
           <div class="mt-4">
@@ -65,6 +60,8 @@ export default {
   },
   data(){
     return {
+      id:'',
+      grade:'',
       today: null,
       schedule: [],
       calendarOptions: {
@@ -88,7 +85,8 @@ export default {
     }
   },
   mounted(){
-    this.today = dayjs().format('YYYY-MM-DD');
+    this.today = dayjs().format('YYYY-MM-DD');    
+    this.id = this.$store.state.account.id;
     this.getScehdule();
   },
   methods: {
@@ -101,21 +99,35 @@ export default {
       this.getOnedayScehdule();
     },
     getOnedayScehdule(){
-      axios.get('http://localhost:3000/rsvs?date='+this.today).then((res) => {
+      const params = new URLSearchParams();
+      params.append('date', this.today );
+      params.append('id', this.id );
+      params.append('grade', this.grade );
+      axios.get('http://localhost:3000/rsvs',{params:params}).then((res) => {
       this.schedule = res.data;
       console.log(res.data);
     }).catch((err) => {
       console.log(err);
     })   
     },
-    getScehdule(){
-      axios.get('http://localhost:3000/getScehdule').then((res) => {
-      console.log(res.data);
+    async getScehdule(){
+      await this.getGrade();
+      const params = new URLSearchParams();      
+      params.append('id', this.id );
+      params.append('grade', this.grade );
+      axios.get('http://localhost:3000/getScehdule',{params:params}).then((res) => {
       this.calendarOptions.events = res.data;
     }).catch((err) => {
       console.log(err);
     })   
-    }
+    },
+    async getGrade(){
+      await axios.get('http://localhost:3000/memberDetail?id='+this.id).then((res) => {      
+      this.grade = res.data[0].grade;      
+    }).catch((err) => {
+      console.log(err);
+    })
+    }    
   }
 
 }
@@ -158,10 +170,25 @@ export default {
   width: 49%;
   border: 1px solid #c0c0c0;
   border-radius: 15px;
+  padding: 10px
 }
 .timeList{
-  width: 100%;
-  margin-left: 10px;
+  width: 90%;
+  border : 1px soild black;
+  margin: 0 auto;
+}
+.timeList ul{
+  list-style: none;
+  padding: 0 0;
+}
+.timeList ul li {
+  height: 45px;
+  position: relative;
+  box-sizing: border-box;
+  border-bottom: 1px solid #dfdfdf;
+  line-height: 45px;
+  text-align: left;
+  font-family: 'sjl';
 }
 .boundary{
   width: 100%;

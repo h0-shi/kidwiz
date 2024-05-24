@@ -75,12 +75,29 @@
 		SELECT * FROM timeTestReg WHERE date = #{date}
 	</select>
 	
-	<select id="rsvs" resultType="Map" parameterType="String">
-		SELECT regno as title, date as start FROM timeTestReg WHERE date = #{date}
+	<!-- 원데이 스케쥴 -->
+	<select id="rsvs" resultType="Map" parameterType="Map">
+		SELECT ctype as title, date as start, time, stuName, proName, code FROM scheduleView WHERE date = #{date}
+		<if test="grade.equals('일반사용자')">
+			AND stuNum = #{id}
+		</if>
+		<if test="grade.equals('관리자')">
+			AND proNum = #{id}
+		</if>
+		ORDER BY code
 	</select>
 	
 	<select id="getScehdule" resultType="Map" >
-		SELECT regno as title, date as start FROM timeTestReg
+		SELECT time as title, date as start, code FROM scheduleView
+		<where>
+			<if test="grade.equals('일반사용자')">
+				AND stuNum = #{id}
+			</if>
+			<if test="grade.equals('관리자')">
+				AND proNum = #{id}
+			</if>
+		</where>
+		ORDER BY date, code
 	</select>
 	
 	
