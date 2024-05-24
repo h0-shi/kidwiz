@@ -71,7 +71,7 @@ export default {
 }
 .custom-sidebar {
   position: fixed;
-  top: 150px; /* 조금 아래로 내려줍니다. */
+  top: 200px; /* 조금 아래로 내려줍니다. */
   left: 20px;
   width: 200px;
   height: auto;
