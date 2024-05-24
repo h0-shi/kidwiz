@@ -32,9 +32,7 @@
       </nav>
     <div class="secNav boundary" :style="{display: navDisplay}" @mouseover="navAct()" @mouseleave="navDead()">
       <nav class="nav-sec">
-        <ul name="introduce">
-          <li><router-link to="/listTest">DB테스트</router-link></li>
-          <li><router-link to="/insertTest">insert 테스트</router-link></li>          
+        <ul name="introduce">        
           <li><router-link to="/admin">관리자페이지</router-link></li>
           <li> </li>
           <li> </li>
