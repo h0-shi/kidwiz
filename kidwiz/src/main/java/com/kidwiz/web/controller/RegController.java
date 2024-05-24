@@ -96,8 +96,13 @@ public class RegController {
 	
 	@GetMapping("/memberDetail")
 	public List<MemberDTO> memberDetail(@RequestParam("id") String id){
-		List<MemberDTO> memberDetail = regService.memberDetail(id);
-		System.out.println("-*-*-*-*-*-*-*--*-*-*-*-");
+		List<MemberDTO> memberDetail = regService.memberDetail(id);		
+		return memberDetail;
+	}
+	
+	@GetMapping("/getProInfo")
+	public Map<String, Object> getProInfo(@RequestParam("major") String type){
+		Map<String, Object> memberDetail = regService.getProInfo(type);		
 		return memberDetail;
 	}
 	
@@ -144,4 +149,33 @@ public class RegController {
 		return map;
 	}
 	
+	@GetMapping("/regReservations")
+	public List<RegDTO> regReservations(@RequestParam("date") String date){
+		List<RegDTO> regReservations = regService.regReservations(date);
+		return regReservations;
+	}
+	
+	@GetMapping("/getCounselorInfo")
+	public Map<String, Object> getCounselorInfo(@RequestParam("id") String id){
+		Map<String, Object> map = regService.getCounselorInfo(id);
+		return map;
+	}
+	
+	@GetMapping("/checkRegRev")
+	public List<RegDTO> checkRegRev(@RequestParam("date") String date){
+		List<RegDTO> checkRegRev = regService.checkRegRev(date);
+		return checkRegRev;
+	}
+	
+	@GetMapping("/rsvs")
+	public List<RegDTO> rsvs(@RequestParam("date") String date){
+		List<RegDTO> rsvs = regService.rsvs(date);
+		return rsvs;
+	}
+	
+	@GetMapping("/getScehdule")
+	public List<RegDTO> getScehdule(){
+		List<RegDTO> getScehdule = regService.getScehdule();
+		return getScehdule;
+	}
 }

@@ -1,7 +1,8 @@
 <template>
   <div class="career-test">
     <MenuPage />
-  <div class="container my-5">
+  <div class="container boundary">
+    <h1 class="title">심리 상담</h1>
     <SimriSecMenu />
     <h1 class="title-box text-center mt-5 mb-4" style="color:darkgreen; font-weight: bolder;">  🙋‍♀️ 직업 및 성향 심리검사 🙋‍♂️  </h1>
     <div v-for="(question, index) in questions" :key="question.qid" class="card mb-4 shadow-sm">

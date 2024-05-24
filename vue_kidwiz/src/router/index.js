@@ -31,7 +31,7 @@ import MySimriResult from '@/views/mypage/MySimriResult.vue';
 import MySimriReserve from '@/views/mypage/MySimriReserve.vue';
 import BoardList from '@/views/boardviews/BoardList.vue';
 //import menu from '@/components/MenuPage.vue';
-
+import regCounselor from '@/views/regviews/regCounselor.vue'
 import pop from '@/layout/RegTimeLayout.vue';
 import MainLayout from '@/layout/MainLayout.vue';
 //import header from '@/components/Header.vue'
@@ -56,6 +56,7 @@ import adminMemberControl from '@/layout/AdminSidebar.vue';
 import MemberControl from '@/components/MemberControl.vue';
 import BoardControl from '@/components/BoardControl.vue';
 import resultUpdate from '@/views/regviews/resultUpdate.vue';
+import regIntroduce from '@/views/regviews/regIntroduce.vue';
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 import axios from 'axios';
@@ -119,6 +120,8 @@ const routes = [
     {path: '/test',name: 'Test',component: TestMain, meta: {layout : MainLayout}},
     {path: '/test/career',name: 'CareerTest',component: CareerTest, meta: {layout : MainLayout}},
     {path: '/test/person', name: 'PersonTest',component: PersonTest, meta: {layout : MainLayout}},
+    {path: '/regIntroduce', name: 'regIntroduce',component: regIntroduce, meta: {layout : MainLayout}},
+    {path: '/regCounselor', name: 'regCounselor',component: regCounselor, meta: {layout : MainLayout}},
 
 
 

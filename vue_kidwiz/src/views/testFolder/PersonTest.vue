@@ -1,6 +1,8 @@
 <template>
     <div class="custom-container">
         <MenuPage />
+        <div class="boundary">
+        <h1 class="title">심리 상담</h1>
         <SimriSecMenu />
         <div class="ems_cnts">
             <div class="intro_box psyexam mb-4">
@@ -25,6 +27,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </template>
 
