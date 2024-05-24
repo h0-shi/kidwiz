@@ -1,6 +1,6 @@
 <template>
   <div class="faqwrite container mt-5 p-4 rounded bg-light">
-    <h3 class="mb-4 text-left" style="margin-left:100px;">글쓰기</h3>
+    <h3 class="mb-4 text-left" style="margin-left:100px;">공지사항 게시판</h3><br>
     <form @submit.prevent="write" class="form-horizontal">
       <div class="mb-3 row align-items-center">
         <label for="title" class="col-sm-2 col-form-label">제목</label>

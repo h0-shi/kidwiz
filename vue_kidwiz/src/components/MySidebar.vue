@@ -1,6 +1,6 @@
 <template>
   <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block custom-sidebar">
-    <div class="py-4 rounded-top text-white pl-3 mb-0" style="background-color: midnightblue;">
+    <div class="py-4 rounded-top text-white pl-3 mb-0" style="background-color: #67BF4E;">
       <h4 class="mb-0" style="margin: 0;">메뉴</h4>
     </div>
     <div class="menu-items text-center justify-content-center  align-items-center">
