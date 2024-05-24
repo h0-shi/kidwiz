@@ -29,9 +29,6 @@
           <hr>
           <div class="border border-secondary p-3" style="height: 200px; overflow-y:auto">
             <div class="mb-3 border-bottom" v-for="row in groupList" :key="row.gr_title" style="display: flex;">
-              <div class="d-flex align-items-center">
-                <input type="checkbox" value="" id="flexCheckDefault" class="form-check-input" >
-              </div>
               <div class="flex-grow-1 mb-1">
                 <div class="mb-1 fw-bold">{{ row.gr_title }}</div>
                 <div class="mb-1" style="font-size: 13px">
@@ -96,7 +93,7 @@
         <div class="text-start fw-bold mb-2">
           세부내용
         </div>
-        <div class="p-3" style="border: 1px solid #c1c1c1; border-top:2px solid black ;">
+        <div class="p-3 formatted-text" style="border: 1px solid #c1c1c1; border-top:2px solid black ;">
           {{ list.gr_content }}
       
         </div>
@@ -168,4 +165,12 @@ export default {
   .table thead {
     background-color: #f4f4f4 !important;
   }
+.formatted-text {
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  white-space: pre-line; /* 줄바꿈 유지 */
+}
 </style>

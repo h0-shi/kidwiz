@@ -29,7 +29,7 @@
           내용
         </div>
         <div class="col">
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="group.request.g_content"></textarea>
+          <textarea class="form-control user-text" id="exampleFormControlTextarea1" rows="3" v-model="group.request.g_content"></textarea>
         </div>
       </div>
 
@@ -150,6 +150,7 @@
 </template>
 
 <script>
+import router from '@/router';
 import store from '@/store';
 import axios from 'axios';
 import { ref } from "vue";
@@ -185,7 +186,6 @@ export default {
         }
       })
 
-
     const click1= () =>{
       
       const startDate1 = new Date();
@@ -210,10 +210,10 @@ export default {
             headers: {
               "Content-Type": "multipart/form-data",
             },
+          }).then(()=>{
+            router.push({path:"/GroupList"})
           });
-          alert("Group created successfully!");
         } catch (error) {
-          alert("Error creating group.");
           alert(error);
         }
       };
@@ -263,6 +263,8 @@ export default {
     }
 
     const clickbtn= (time,index) =>{
+
+      
       for(let i=0; i<clicked.value.length;i++){
         clicked.value[i]=false
       }
