@@ -46,6 +46,7 @@ import jobapply from '@/views/jobs/apply.vue';
 import jobintro from '@/views/jobs/intro.vue';
 import joblist from '@/views/jobs/list.vue';
 import jobtest from '@/views/jobs/test.vue';
+import NoticeBoard from '@/views/notice/NoticeBoard.vue';
 
 import cardNews from '@/views/alpha/cardNews.vue';
 import cardDetail1 from '@/views/alpha/cardDetail1.vue';
@@ -211,6 +212,7 @@ const routes = [
     {path: '/resultUpdate', name: 'resultUpdate', component: resultUpdate, meta: { layout: MainLayout } },
     {path: '/jobSecMenu', name: 'jobSecMenu', component: jobSecMenu, meta: { layout: MainLayout } },
     {path: '/regTypes', name: 'regTypes', component: regTypes, meta: { layout: MainLayout } },
+    {path: '/notice', name: 'notice', component: NoticeBoard, meta: { layout: MainLayout } },
 
     
     {path: '/professorIntro', name: 'ProfessorIntro', component: professorIntro, meta: { layout: MainLayout } },

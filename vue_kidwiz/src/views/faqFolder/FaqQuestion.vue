@@ -11,8 +11,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="question in questions" :key="question.id" @click="goToDetail(question.id)">
-          <td class="text-center">{{ question.number }}</td>
+        <tr v-for="(question, index) in questions" :key="index" @click="goToDetail(question.id)">
+          <td class="text-center">{{ question.id }}</td>
           <td>{{ question.title }}</td>
           <td>{{ question.writer }}</td>
           <td>{{ question.date }}</td>
@@ -50,12 +50,12 @@ export default {
       pageSize: 10,
       hasMore: true,
       dept: null,
-      isAdmin: false,
-      totalElements: 0, // 추가
+      isAdmin: false, // 초기에 false로 설정
+      totalElements: 0,
     };
   },
   mounted() {
-    axios.post("/api/getMemberType", { withCredentials: true }).then((res) => {
+    axios.post("http://localhost:3000/api/getMemberType", {}, { withCredentials: true }).then((res) => {
       this.dept = res.data.dept;
       this.isAdmin = this.dept === '관리자';
     }).catch(() => {
@@ -68,12 +68,11 @@ export default {
     fetchQuestions() {
       axios.get(`http://localhost:3000/api/faqquestions/paged?page=${this.currentPage}&size=${this.pageSize}`)
         .then(response => {
-          console.log('Response data:', response.data);
-          console.log('Questions array:', response.data.questions);
-
-          // 받아온 데이터를 처리하여 적절히 출력
-          this.questions = response.data.questions.map((question, index) => ({
-            id: question.question_id, // question_id를 id로 사용
+          console.log("페치퀘스천..:",response.data);
+          // 응답 데이터 처리
+          const questionsData = response.data.questions;
+          const processedQuestions = questionsData.map((question) => ({
+            id: question.id,
             title: question.title,
             writer: question.writer,
             date: new Date(question.date).toLocaleDateString('ko-KR', {
@@ -83,20 +82,24 @@ export default {
               hour: '2-digit',
               minute: '2-digit'
             }),
-            // 역순으로 번호를 계산
-            number: response.data.totalElements - (this.currentPage * this.pageSize) - index
           }));
-
+          
+          this.questions = processedQuestions;
+          
           this.totalElements = response.data.totalElements;
           this.hasMore = response.data.hasMore;
         })
         .catch(error => {
-          console.error('Error fetching questions:', error);
+          console.error('에러 fetchQuestions :', error);
         });
     },
 
-
     goToDetail(questionId) {
+      if (questionId === undefined) {
+        console.error('questionId 정의되지 않음.');
+        return;
+      }
+      console.log('questionId 디테일 페이지 확인: ', questionId);
       this.$router.push(`/faq/${questionId}`);
     },
     nextPage() {
@@ -112,12 +115,14 @@ export default {
       }
     },
     faqwrite() {
-      if (!this.isAdmin) {
-        alert('관리자만 접근 가능');
-      } else {
-        this.$router.push('/faqwrite');
-      }
-    }
+  if (!this.isAdmin) {
+    alert('관리자만 접근 가능');
+  } else {
+    this.$router.push('/faqwrite').then(() => {
+      // /faqwrite 컴포넌트에서 beforeRouteLeave 가드를 사용하여 fetchQuestions() 호출
+    });
+  }
+}
   }
 };
 </script>

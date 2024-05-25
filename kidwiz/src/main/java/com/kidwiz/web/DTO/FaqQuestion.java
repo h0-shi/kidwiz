@@ -2,6 +2,8 @@ package com.kidwiz.web.DTO;
 
 import java.util.Date;
 
+import org.hibernate.annotations.Comment;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +18,7 @@ import lombok.Data;
 public class FaqQuestion {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="question_id")
+    @Column(name = "question_id")
     private Long id;
 	
 	@Column(name="writer")
@@ -31,6 +33,11 @@ public class FaqQuestion {
     @Column(name="date") 
     private Date date; 
     
+    @Column(name="faq_del")
+    @Comment("0=삭제")
+    private int faqdel;
+    
+    
     // 기본 생성자 추가
     public FaqQuestion() {
     }
@@ -42,9 +49,14 @@ public class FaqQuestion {
         this.date = date;
     }
     
-    public void setNumber(Long id) {
-        this.id = id;
+    public void setNumber(Long number) {
+        this.id = number;
     }
+    
+//    public void setQuestionId(Long questionId) {
+//        this.id = questionId;
+//      }
+
 }
 
 
