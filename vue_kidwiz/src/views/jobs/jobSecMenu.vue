@@ -4,10 +4,18 @@
     <div class="sbmContainer boundary">
       <table class="subMenu">
         <tr>
-          <th :style="select[0]" @click="navigate(0)">상담 안내</th>
-          <th :style="select[1]" @click="navigate(1)">직업 심리 검사</th>
-          <th :style="select[2]" @click="navigate(2)">채용 정보</th>
-          <th :style="select[3]" @click="navigate(3)">상담 신청</th>
+          <th :style="select[0]">
+            <router-link :to="{ name: 'jobintro' }" class="router-link" @click="handleClick(0, 'jobintro', $event)">취업상담 안내</router-link>
+          </th>
+          <th :style="select[1]">
+            <router-link :to="{ name: 'jobtest' }" class="router-link" @click="handleClick(1, 'jobtest', $event)">진로적성검사</router-link>
+          </th>
+          <th :style="select[2]">
+            <router-link :to="{ name: 'joblist' }" class="router-link" @click="handleClick(3, 'joblist', $event)">채용정보</router-link>
+          </th>
+          <th :style="select[3]">
+            <router-link :to="{ name: 'jobapply' }" class="router-link" @click="handleClick(2, 'jobapply', $event)">취업상담 신청</router-link>
+          </th>
         </tr>
       </table>
     </div>
@@ -15,82 +23,84 @@
     <section class="section s2" :style="cssAct[1]"></section>
     <section class="section s3" :style="cssAct[2]"></section>
     <section class="section s4" :style="cssAct[3]"></section>
-
   </div>
 </template>
-  
-  <script>
+
+<script>
 export default {
   data() {
     return {
-      act: "none",
       cssAct: [
         { display: "none" },
         { display: "none" },
         { display: "none" },
         { display: "none" },
       ],
-      select: [{}, {}, {}, {}],
+      select: [
+        {},
+        {},
+        {},
+        {}
+      ],
     };
   },
   mounted() {
-    this.cssAct[0] = { display: "block" };
-    this.select[0] = {
-      border: "2px solid rgb(43, 43, 165",
-      "border-bottom": "none",
-    };
+    this.updateDisplay(this.$route.name);
   },
-  methods: {
-    displayAct(num) {
-      this.cssAct = this.cssAct.map((style, i) => {
-        if (i == num) {
-          return { display: "block" };
-        }
-        return { display: "none" };
-      });
-      this.select = this.select.map((style, i) => {
-        if (i == num) {
-          return {
-            border: "2px solid rgb(43, 43, 165",
-            "border-bottom": "none",
-          };
-        }
-        return {};
-      });
-    },
-    navigate(num) {
-      this.displayAct(num); // displayAct 메서드 호출
-
-      const routes = [
-          '/jobs/intro', // 상담 안내
-          '/jobs/test', // 직업 심리 검사
-          '/jobs/list', // 채용 정보
-          '/jobs/apply' // 상담 신청
-      ];
-
-      this.$router.push(routes[num]); // Vue 라우터를 사용하여 URL 변경
+  watch: {
+    '$route.name'(newRoute) {
+      this.updateDisplay(newRoute);
     }
   },
+  methods: {
+    handleClick(num, routeName) {
+      this.$router.push({ name: routeName });
+    },
+    updateDisplay(routeName) {
+      const routeIndexMap = {
+        'jobintro': 0,
+        'jobtest': 1,
+        'joblist': 2,
+        'jobapply': 3,
+      };
+      const index = routeIndexMap[routeName] || 0;
+      this.cssAct = this.cssAct.map((style, i) => i === index ? { display: "block", backgroundColor: "#333", color: "#fff" } : { display: "none" });
+      this.select = this.select.map((style, i) => i === index ? { border: "2px solid #67BF4E", 'border-bottom':"none", color: "#67BF4E" } : {});
+      
+    }
+  }
 };
 </script>
-  
-  <style>
+
+<style scoped>
 .sbmContainer {
   width: 100%;
   margin-bottom: 50px;
+  /* border-bottom: 2px solid #67BF4E */
 }
 .subMenu {
   width: 100%;
   margin: auto;
+  table-layout: fixed;
+  
 }
 .subMenu tr th {
-  width: 25%;
+  width: 20%;
   height: 55px;
-  border-bottom: 2px solid rgb(43, 43, 165);
+  border-bottom: 2px solid #67BF4E;
+  text-align: center;
 }
 .boundary {
   width: 100%;
   max-width: 1200px;
+  margin: auto; 
   padding: 0 auto;
+}
+.router-link {
+  display: block;
+  height: 70%;
+  width: 100%;
+  text-decoration: none;
+  color: inherit;
 }
 </style>
