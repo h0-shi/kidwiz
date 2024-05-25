@@ -1,11 +1,14 @@
 package com.kidwiz.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -80,31 +83,39 @@ public class FaqQuestionController {
     }
     
     
-    
     @GetMapping("/paged")
-    public ResponseEntity<List<FaqQuestion>> getQuestionPaged(
+    public ResponseEntity<Map<String, Object>> getQuestionPaged(
             @RequestParam(name = "page", defaultValue = "0") int page,
             @RequestParam(name = "size", defaultValue = "10") int size) {
 
-        System.out.println("Page requested: " + page);
-        System.out.println("Page size: " + size);
-
         try {
-            Pageable pageable = PageRequest.of(page, size);
+            Pageable pageable = PageRequest.of(page, size, Sort.by("date").descending());
             Page<FaqQuestion> questionPage = faqQuestionService.getQuestionsPaged(pageable);
-            System.out.println("서버 확인 : "+questionPage);
-            
-            if (!questionPage.isEmpty()) {
-                return ResponseEntity.ok(questionPage.getContent());
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+            List<FaqQuestion> content = questionPage.getContent();
+            System.out.println(content);
+            System.out.println(questionPage);
+
+            // 전체 글 개수를 기반으로 역순 번호 계산
+            long totalElements = questionPage.getTotalElements();
+            for (int i = 0; i < content.size(); i++) {
+                content.get(i).setNumber(totalElements - (page * size) - i);
             }
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("questions", content);
+            response.put("totalElements", totalElements);
+            response.put("currentPage", page);
+            response.put("hasMore", questionPage.hasNext());
+
+            System.out.println("response 오는지 확인: " +response);
+            return ResponseEntity.ok(response);
+
         } catch (Exception e) {
-            System.err.println("An error occurred while fetching paged questions: " + e.getMessage());
+            System.err.println(" 에러 paged questions: " + e.getMessage());
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    
 }
