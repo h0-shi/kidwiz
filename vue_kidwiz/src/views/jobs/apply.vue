@@ -2,7 +2,7 @@
   <div>
     <MenuPage />
     <div class="boundary">
-      <h1 class="title">취업 상담</h1>
+      <h1 class="title">취업 상담 테스트</h1>
       <jobSecMenu />
       <div class="container py-6 px-lg-7 rounded shadow-lg mt-5">
         <div class="row justify-content-center">
