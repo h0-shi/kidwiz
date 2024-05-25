@@ -2,26 +2,26 @@
   <div>
     <MenuPage />
     <div class="boundary">
-    <h1 class="title">취업 상담</h1>
-    <jobSecMenu />
-    <div class="container py-5">
-      <!-- 이미지 경로 -->
-      <img :src="require(`@/assets/jobsintro.png`)" class="enlarged-image" />
+      <h1 class="title">취업 상담</h1>
+      <jobSecMenu />
+      <div class="container py-5">
+        <!-- 이미지 경로 -->
+        <img :src="require(`@/assets/jobsintro.png`)" class="enlarged-image" />
+      </div>
     </div>
-  </div>
   </div>
 </template>
 
 <script>
-import MenuPage from '@/components/MenuPage.vue';
-import jobSecMenu from '@/views/jobs/jobSecMenu.vue';
+import MenuPage from "@/components/MenuPage.vue";
+import jobSecMenu from "@/views/jobs/jobSecMenu.vue";
 
 export default {
-  name: 'CounselingInfo',
+  name: "CounselingInfo",
   components: {
     MenuPage,
-    jobSecMenu
-  }
+    jobSecMenu,
+  },
 };
 </script>
 
