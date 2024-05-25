@@ -60,5 +60,117 @@ public class Member {
 	
 	@Column
 	private LocalDate birthDate;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getEnteryear() {
+		return enteryear;
+	}
+
+	public void setEnteryear(int enteryear) {
+		this.enteryear = enteryear;
+	}
+
+	public int getMno() {
+		return mno;
+	}
+
+	public void setMno(int mno) {
+		this.mno = mno;
+	}
+
+	public int getMajorId() {
+		return majorId;
+	}
+
+	public void setMajorId(int majorId) {
+		this.majorId = majorId;
+	}
+
+	public String getMajorName() {
+		return majorName;
+	}
+
+	public void setMajorName(String majorName) {
+		this.majorName = majorName;
+	}
+
+	public String getMajorHead() {
+		return majorHead;
+	}
+
+	public void setMajorHead(String majorHead) {
+		this.majorHead = majorHead;
+	}
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getContact() {
+		return contact;
+	}
+
+	public void setContact(String contact) {
+		this.contact = contact;
+	}
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
 	
 }
