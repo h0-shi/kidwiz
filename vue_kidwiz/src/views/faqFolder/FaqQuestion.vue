@@ -1,5 +1,6 @@
 <template>
   <div style="width: 1000px; margin: 0 auto;">
+    <h1 class="title">FAQ</h1>
     <table class="table ">
       <thead>
         <tr class="table-title text-center">

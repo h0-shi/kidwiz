@@ -46,6 +46,7 @@ export default {
 }
 .mainContainer h1{
     font-family: 'dh';
+    text-align: left; /* 왼쪽 정렬 */
 }
 .line{
     margin: 35px 0;
