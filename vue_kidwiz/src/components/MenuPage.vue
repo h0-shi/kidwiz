@@ -24,46 +24,42 @@
       <nav class="nav-bot boundary">
         <ul @mouseover="navAct()" @mouseleave="navDead()">
           <li>센터소개</li>
-          <li>상담사소개</li>
-          <li>상담실</li>
-          <li>상담백과</li>
+          <li>온라인상담</li>
+          <li>1:1 대면상담</li>
+          <li>특화상담</li>
           <li>공지사항</li>
         </ul>
       </nav>
     <div class="secNav boundary" :style="{display: navDisplay}" @mouseover="navAct()" @mouseleave="navDead()">
       <nav class="nav-sec">
         <ul name="introduce">        
-          <li><router-link to="/admin">관리자페이지</router-link></li>
-          <li>&ensp;</li>
-          <li>&ensp;</li>
+          <!-- <li><router-link to="/admin">관리자페이지</router-link></li> -->
+          <li><router-link to="/contact">KIDWIZ</router-link></li>
+          <li><router-link to="/counselorList">상담사 소개</router-link></li>
           <li>&ensp;</li>
           <li>&ensp;</li>
         </ul>
         <ul name="counselors">
-          <li><router-link to="/counselorList">상담사 소개</router-link></li>
-          <li><router-link to="/rsrvTest4">예약테스트</router-link></li>          
-          <li><router-link to="/secMenuTest">다증레이아웃</router-link></li>
+          <li><router-link to="/boardlist">게시판상담</router-link></li>
+          <li>&ensp;</li>
           <li>&ensp;</li>
           <li>&ensp;</li>
         </ul>
         <ul name="counsel">
-          <li><router-link to="/GroupList">집단상담</router-link></li>
+          <li><router-link to="/">지도교수상담</router-link></li>
           <li><router-link to="/jobs/intro">취업상담</router-link></li>
-          <li><router-link to="/counseling">심리상담</router-link></li>          
-          <li><router-link to="/regIntroduce">전문상담</router-link></li>           
-          <li><router-link to="/boardlist">게시판상담</router-link></li>
+          <li><router-link to="/counseling">심리상담</router-link></li> 
+          <li>&ensp;</li>               
         </ul>
         <ul name="alpha">
-          <li><router-link to="/cardNews">카드뉴스</router-link></li>
-          <li><router-link to="/applyForm3">applyForm3</router-link></li>
-          <li><router-link to="/resultWrite">resultWrite</router-link></li>
-          <li><router-link to="/regResult">regResult</router-link></li>
+          <li><router-link to="/GroupList">집단상담</router-link></li>
+          <li><router-link to="/regIntroduce">전문상담</router-link></li> 
+          <li>&ensp;</li>
           <li>&ensp;</li>
         </ul>
         <ul name="notice" style="border-right: 1px solid #d6d6d6;">
           <li><router-link to="/faq">FAQ</router-link></li>
-          <li><router-link to="/contact">Contact</router-link></li>
-          <li>&ensp;</li>
+          <li><router-link to="/cardNews">CardNews</router-link></li>
           <li>&ensp;</li>
           <li>&ensp;</li>
         </ul>

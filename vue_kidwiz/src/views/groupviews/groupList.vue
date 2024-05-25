@@ -1,6 +1,6 @@
 <template>
-  <div class="py-5 mt-5">
     <div class="container text-start">
+      <h1 class="title">집단 상담</h1>
       <!-- row-cols-1은 행에 열 1개씩 배치, 
         row-cols-sm-2 : 가로화면 크기가 576px보다 크거나 같으면 행에 2개씩 배치
         row-cols-md-3 : 가로화면 크기가 768px보다 크거나 같으면 행에 3개씩 배치  -->
@@ -95,7 +95,6 @@
 
 
     </div>
-  </div>
 </template>
 
 <script>

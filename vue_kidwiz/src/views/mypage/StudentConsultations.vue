@@ -5,7 +5,7 @@
     <div class="mainContainer">
       <div class="row">
         <main class="">
-          <h2 class="mb-4 title">나의 상담 내역(학생)</h2>
+          <h2 class="mb-4 title">나의 상담 내역</h2>
           <hr class="line">
           <div class="mt-4">
             <table class="table">

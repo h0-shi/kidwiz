@@ -1,5 +1,6 @@
 <template>
-  <div class="container py-5 mt-5">
+  <div class="container mt-5">
+    <h1 class="title">게시판 상담</h1>
     <table class="table">
       <tr>
         <th>번호</th>

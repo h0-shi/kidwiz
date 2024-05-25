@@ -8,7 +8,7 @@
         <div class="col-md-8 d-flex justify-content-between">
           <div class="col-md-8">
             <div v-if="testResult" class="card mt-4">
-              <div class="card-header bg-primary text-white">
+              <div class="card-header text-white">
                 <h2 class="m-0">테스트 결과</h2>
               </div>
               <div class="card-body">
@@ -220,8 +220,8 @@ export default {
 
 
 <style scoped>
-.history{
-  margin-left:50px;
+.history {
+  margin-left: 50px;
 }
 .card {
   margin-top: 20px;
@@ -238,5 +238,26 @@ export default {
 .modal {
   display: block;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 중앙 정렬을 위해 수정된 CSS */
+.row.justify-content-center {
+  display: flex;
+  justify-content: center;
+}
+
+.col-md-8 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 800px; /* 원하는 최대 너비 설정 */
+}
+
+.card-header {
+  background-color: #67bf4e;
 }
 </style>
