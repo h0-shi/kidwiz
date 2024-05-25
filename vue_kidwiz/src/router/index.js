@@ -60,6 +60,12 @@ import regIntroduce from '@/views/regviews/regIntroduce.vue';
 import jobSecMenu from '@/views/jobs/jobSecMenu.vue';
 import regTypes from '@/views/regviews/regTypes.vue';
 
+import professorIntro from '@/views/professorIntro/ProfessorIntro.vue';
+import professorSelcMenu from '@/views/professorIntro/ProfessorSelcMenu.vue';
+import professorcinfo from '@/views/professorIntro/Professorcinfo.vue';
+
+
+
 import { createRouter,createWebHashHistory } from 'vue-router';
 import axios from 'axios';
 import store from '@/store';
@@ -177,11 +183,6 @@ const routes = [
       }
     }
   },
-  
-
-
-
-    
     {path: '/test/result', name: 'ResultPage',component: ResultPage, meta: {layout : MainLayout}},
     {path: '/mypage', name: 'mypage', component: mypage, meta: {layout : MainLayout}},
     {path: '/myconsultations', name: 'myconsultations', component: MyConsultations, meta: { layout: MainLayout } },
@@ -211,8 +212,11 @@ const routes = [
     {path: '/jobSecMenu', name: 'jobSecMenu', component: jobSecMenu, meta: { layout: MainLayout } },
     {path: '/regTypes', name: 'regTypes', component: regTypes, meta: { layout: MainLayout } },
 
-
     
+    {path: '/professorIntro', name: 'ProfessorIntro', component: professorIntro, meta: { layout: MainLayout } },
+    {path: '/professorSelcMenu', name: 'ProfessorSelcMenu', component: professorSelcMenu, meta: { layout: MainLayout } },
+    {path: '/professorcinfo', name: 'Professorcinfo', component: professorcinfo, meta: { layout: MainLayout } },
+
     
 ];
 
