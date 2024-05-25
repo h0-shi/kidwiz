@@ -5,35 +5,35 @@
       <div class="cardsBox boundary">
         
         <div class="cards block">
-          <a @click="goto('BoardList')" class="block">
-            <img src="@/assets/sec01_chat.png" alt="">
-            <h3 class="subtit">게시글 상담
-              <span>사람들과 소통하는 공간</span>
+          <a @click="goto('contact')" class="block">
+            <img src="@/assets/icon/board.png" alt="">
+            <h3 class="subtit">센터 소개
+              <span>KIDWIZ에 대해 소개합니다!</span>
             </h3>
             <span class="togo">바로가기</span>
           </a>
         </div>
         <div class="cards">
-          <a @click="goto('cardNews')" class="block">
-            <img src="@/assets/sec01_chat.png" alt="">
-            <h3 class="subtit">카드뉴스
-              <span>카드뉴스를 볼 수 있어요!</span>
+          <a @click="goto('test')" class="block">
+            <img src="@/assets/icon/test.png" alt="">
+            <h3 class="subtit">심리검사 상담
+              <span>심리 검사 및 상담을 받을 수 있어요!</span>
             </h3>
             <span class="togo">바로가기</span>
           </a>
         </div>
         <div class="cards">
-          <a @click="goto('simrimain')" class="block">
-            <img src="@/assets/sec01_chat.png" alt="">
-            <h3 class="subtit">심리 상담
-              <span>심리 검사와 함께 하는 상담</span>
+          <a @click="goto('GroupList')" class="block">
+            <img src="@/assets/icon/group.png" alt="">
+            <h3 class="subtit">집단 상담
+              <span>비슷한 고민이 있는 사람들과 함께 하는 상담!</span>
             </h3>
             <span class="togo">바로가기</span>
           </a>
         </div>
         <div class="cards">
           <a @click="goto('jobs/intro')" class="block">
-            <img src="@/assets/sec01_chat.png" alt="">
+            <img src="@/assets/icon/job.png" alt="">
             <h3 class="subtit">취업 상담
               <span>당신의 취업을 함께 고민해요</span>
             </h3>
@@ -41,46 +41,46 @@
           </a>
         </div>
         <div class="cards">
+          <a @click="goto('regIntroduce')" class="block">
+            <img src="@/assets/icon/reg.png" alt="">
+            <h3 class="subtit">전문 상담
+              <span>전문 상담사와 함께하는 1:1 상담</span>
+            </h3>
+            <span class="togo">바로가기</span>
+          </a>
+        </div>
+        <div class="cards">
+          <a @click="goto('BoardList')" class="block">
+            <img src="@/assets/sec01_chat.png" alt="">
+            <h3 class="subtit">게시판 상담
+              <span>게시판을 활용한 상담 문의!</span>
+            </h3>
+            <span class="togo">바로가기</span>
+          </a>
+        </div>
+        <div class="cards">
+          <a @click="goto('cardNews')" class="block">
+            <img src="@/assets/icon/cards.png" alt="">
+            <h3 class="subtit">카드뉴스
+              <span>KidWiz의 소식을 접할 수 있어요!</span>
+            </h3>
+            <span class="togo">바로가기</span>
+          </a>
+        </div>
+        <div class="cards">
           <a @click="goto('rsrvTest4')" class="block">
-            <img src="@/assets/sec01_chat.png" alt="">
+            <img src="@/assets/icon/apply.png" alt="">
             <h3 class="subtit">상담 신청
-              <span>여기서 상담 신청</span>
+              <span>상담을 신청합니다!</span>
             </h3>
             <span class="togo">바로가기</span>
           </a>
         </div>
         <div class="cards">
-          <a @click="goto()" class="block">
-            <img src="@/assets/sec01_chat.png" alt="">
-            <h3 class="subtit">채팅상담
-              <span>박시호가 테스트중</span>
-            </h3>
-            <span class="togo">바로가기</span>
-          </a>
-        </div>
-        <div class="cards">
-          <a @click="goto()" class="block">
-            <img src="@/assets/sec01_chat.png" alt="">
-            <h3 class="subtit">채팅상담
-              <span>박시호가 테스트중</span>
-            </h3>
-            <span class="togo">바로가기</span>
-          </a>
-        </div>
-        <div class="cards">
-          <a @click="goto()" class="block">
-            <img src="@/assets/sec01_chat.png" alt="">
-            <h3 class="subtit">채팅상담
-              <span>박시호가 테스트중</span>
-            </h3>
-            <span class="togo">바로가기</span>
-          </a>
-        </div>
-        <div class="cards">
-          <a @click="goto()" class="block">
-            <img src="@/assets/sec01_chat.png" alt="">
-            <h3 class="subtit">채팅상담
-              <span>박시호가 테스트중</span>
+          <a @click="goto('counselorList')" class="block">
+            <img src="@/assets/icon/notice.png" alt="">
+            <h3 class="subtit">상담사 소개
+              <span>KidWiz의 상담사들을 만나봐요!</span>
             </h3>
             <span class="togo">바로가기</span>
           </a>
@@ -143,25 +143,25 @@ export default {
   transition: all 0.5s;
   background-color: f0f4ff;
 }
-.cards:nth-child(1):hover{background-color: #edbf47;}
-.cards:nth-child(2):hover{background-color: #edbf47;}
-.cards:nth-child(3):hover{background-color: #edbf47;}
-.cards:nth-child(4):hover{background-color: #edbf47;}
-.cards:nth-child(5):hover{background-color: #edbf47;}
+.cards:nth-child(1):hover{background-color: #8CEEF9;}
+.cards:nth-child(2):hover{background-color: #017296;}
+.cards:nth-child(3):hover{background-color: #B6C4CF;}
+.cards:nth-child(4):hover{background-color: #FF6C52;}
+.cards:nth-child(5):hover{background-color: #00A4FB;}
 .cards:nth-child(6):hover{background-color: #edbf47;}
-.cards:nth-child(7):hover{background-color: #edbf47;}
-.cards:nth-child(8):hover{background-color: #edbf47;}
-.cards:nth-child(9):hover{background-color: #edbf47;}
+.cards:nth-child(7):hover{background-color: #FFC143;}
+.cards:nth-child(8):hover{background-color: #2E88FF;}
+.cards:nth-child(9):hover{background-color: #005C83;}
 
-.cards:nth-child(1):hover .togo {color:#edbf47;}
-.cards:nth-child(2):hover .togo {color:#edbf47;}
-.cards:nth-child(3):hover .togo {color:#edbf47;}
-.cards:nth-child(4):hover .togo {color:#edbf47;}
-.cards:nth-child(5):hover .togo {color:#edbf47;}
+.cards:nth-child(1):hover .togo {color:#8CEEF9;}
+.cards:nth-child(2):hover .togo {color:#017296;}
+.cards:nth-child(3):hover .togo {color:#B6C4CF;}
+.cards:nth-child(4):hover .togo {color:#FF6C52;}
+.cards:nth-child(5):hover .togo {color:#00A4FB;}
 .cards:nth-child(6):hover .togo {color:#edbf47;}
-.cards:nth-child(7):hover .togo {color:#edbf47;}
-.cards:nth-child(8):hover .togo {color:#edbf47;}
-.cards:nth-child(9):hover .togo {color:#edbf47;}
+.cards:nth-child(7):hover .togo {color:#FFC143;}
+.cards:nth-child(8):hover .togo {color:#2E88FF;}
+.cards:nth-child(9):hover .togo {color:#005C83;}
 
 .cards:hover {
 	color:#fff;
@@ -177,6 +177,9 @@ export default {
 	background:#fff;
 	text-shadow:none;
 }
+.cards img{
+  filter: drop-shadow(0 0 5px white) ;
+}
 .block{
   display: block;
 }
@@ -186,7 +189,7 @@ export default {
 }
 .block img{
   display: inline-block;
-  max-width: 100%;
+  width: 96px;
   vertical-align: center;
 }
 .cards h3{ 

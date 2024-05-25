@@ -18,12 +18,13 @@
           {{ row.btitle }}
         </td>
         <td v-else @click="detail(row.bno)" style="text-align: left">
-          <span v-for="(row,index) in row.depth" :key="index">&nbsp;</span>ㄴ[:Re]{{ row.btitle }}
+          <span v-for="(row,index) in row.depth" :key="index">&nbsp;</span>
+          ㄴ[:Re]{{ row.btitle }}
         </td>
         <td>{{ row.writer }}</td>
         <td>{{ row.bdate }}</td>
-        <td v-if="row.checkUp > 1">답변 완료/{{ row.checkUp }}</td>
-        <td v-else>답변 대기/{{ row.checkUp }}</td>
+        <td v-if="row.checkUp > 1 || row.depth>0">답변 완료</td>
+        <td v-else>답변 대기</td>
       </tr>
     </table>
     <div class="d-flex justify-content-center">

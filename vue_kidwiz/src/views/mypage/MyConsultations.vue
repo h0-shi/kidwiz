@@ -2,40 +2,36 @@
   <div>
         <MySidebar></MySidebar>
     <MenuPage />
-    <div class="mainContainer">
+    <div class="mainContainer boundary">
       <div class="row">
         <main class="">
           <h2 class="mb-4 title">나의 상담 내역</h2>
           <hr class="line">
           <div class="mt-4">
-            <table class="table table-striped">
+            <table class="table">
               <thead>
-                <tr class="tr">
-                  <th>번호</th>
-                  <th>신청자 학번</th>
+                <tr class="tr">     
+                  <th>상담 예약일</th>
+                  <th>상담 희망시간</th>             
+                  <th>상담 종류</th>
                   <th>신청자 이름</th>
-                  <th>예약 일자</th>
-                  <th>상담 희망일</th>
-                  <th>상담 희망시간</th>
-                  <th>상담 상태</th>
+                  <th>신청자 학번</th>                  
                   <th>상담 일지</th>
                 </tr>
               </thead>
               <tbody>
                 <tr v-for="rsv in state.rsvs" v-bind:key="rsv.id">
-                  <th>{{ rsv.rsvno }}</th>
-                  <td>{{ rsv.sid }}</td>
-                  <td>{{ rsv.name }}</td>
-                  <td>{{ rsv.rsvdate }}</td>
-                  <td>{{ rsv.cdate }}</td>
+                  <th>{{ rsv.cdate }}</th>
                   <td>{{ rsv.time }}</td>
-                  <td>상담 상태 만들어??</td>
+                  <td>{{ rsv.ctype }}</td>
+                  <td>{{ rsv.name }}</td>
+                  <td>{{ rsv.sid }}</td>
                   <td>
                     <router-link v-if="rsv.writed === 1" :to="`/ProResult/${rsv.rsvno}`">
-                      <button class="btn-view">상담일지 보기</button>
+                      <button class="done">상담일지 보기</button>
                     </router-link>
                     <router-link v-else :to="`/ProResultWrite/${rsv.rsvno}`">
-                      <button class="btn-write">상담일지 작성</button>
+                      <button class="save">상담일지 작성</button>
                     </router-link>
                   </td>
                 </tr>
@@ -89,6 +85,27 @@ export default {
 }
 .table {
   margin-top: 20px;
+}
+.line{
+  width: 40%;  
+}
+.title{
+  text-align: left;
+  font-family: 'sj';
+}
+.tr{
+  font-family: 'sjl';
+}
+table thead :hover{
+  background-color: inherit !important;        
+}
+table{
+  text-align: center;
+}
+.done{
+  color : black;
+  background-color: white;
+  border: 1px solid #c0c0c0;
 }
 .btn-view {
   background-color: rgb(155, 155, 175);

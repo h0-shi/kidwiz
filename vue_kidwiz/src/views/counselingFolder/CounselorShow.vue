@@ -7,11 +7,11 @@
     <div class="container py-6 px-lg-7 rounded shadow-lg mt-5">
       <div class="row justify-content-center">
         <div class="col-lg-11">
-          <div class="profile-header text-white py-4 rounded-top" style="margin-top:50px; background-color: cadetblue;">
+          <div class="profile-header text-white py-4 rounded-top" style="margin-top:50px; background-color: #67BF4E;">
             <div class="row align-items-center">
               <div class="col-md-4 order-md-2 text-center">
                 <img
-                  :src="require('@/assets/counselor1.jpg')"
+                  :src="require('@/assets/157563710.jpg')"
                   alt="Counselor Image"
                   class="img-fluid rounded-circle mb-3 shadow"
                   style="width: 250px; height: 250px; object-fit: cover;"
@@ -66,7 +66,7 @@
                 </div>
               </div>
             </div>
-            <button @click="contactCounselor" class="btn btn-primary btn-lg btn-block mt-4 shadow-sm" style="margin-bottom:40px;">상담 요청</button>
+            <button @click="contactCounselor" class="btn btn-success btn-lg btn-block mt-4 shadow-sm" style="margin-bottom:40px;">상담 요청</button>
           </div>
         </div>
       </div>
@@ -116,10 +116,6 @@ export default {
   border-radius: 8px;
 }
 
-.profile-header {
-  background-color: cadetblue;
-}
-
 .profile-body {
   background-color: white;
   padding: 30px;
@@ -151,6 +147,8 @@ export default {
 
 .btn {
   font-size: 1.2rem;
+  background-color: #67BF4E;
+  border: #67BF4E;
 }
 .title{
   text-align: left;

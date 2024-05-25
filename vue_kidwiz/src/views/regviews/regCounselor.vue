@@ -1,12 +1,12 @@
 <template>
   <div>
     <div class="sbmContainer boundary">
-        <h1 class="title">개인 상담</h1>
+        <h1 class="title">전문 상담</h1>
         <table class="subMenu">
             <tr>
-                <th :style="select[0]" @click="this.$router.push('regIntroduce')">개인상담이란?</th>
+                <th :style="select[0]" @click="this.$router.push('regIntroduce')">전문상담이란?</th>
                 <th :style="select[1]" @click="this.$router.push('regCounselor')">상담사 소개</th>
-                <th :style="select[2]" @click="displayAct(2)">여긴 뭐넣지~?</th>
+                <th :style="select[2]" @click="this.$router.push('regTypes')">상담 종류</th>
                 <th :style="select[3]" @click="this.$router.push('rsrvTest4?selectedCounselingType=전문상담')">상담 신청</th>
             </tr>
         </table>
@@ -15,7 +15,7 @@
       <div class="container py-6 px-lg-7 rounded shadow-lg mt-5">
       <div class="row justify-content-center">
         <div class="col-lg-11">
-          <div class="profile-header text-white py-4 rounded-top" style="margin-top:50px; background-color: cadetblue;">
+          <div class="profile-header text-white py-4 rounded-top" style="margin-top:50px; background-color: #67BF4E;">
             <div class="row align-items-center">
               <div class="col-md-4 order-md-2 text-center">
                 <img
@@ -111,7 +111,7 @@ export default {
     },
     mounted(){
         this.cssAct[0] = {display:"block"};
-        this.select[1] = {border:"2px solid rgb(43, 43, 165", 'border-bottom':"none"};
+        this.select[1] = {border:"2px solid #67BF4E", 'border-bottom':"none"};
         const id = 24102003;
         axios.get('http://localhost:3000/getCounselorInfo?id='+id).then((res) => {
           this.counselor = res.data;
@@ -152,7 +152,10 @@ export default {
 .subMenu tr th{
     width: 25%;
     height: 55px;
-    border-bottom: 2px solid rgb(43, 43, 165);
+    border-bottom: 2px solid #67BF4E;
+}
+.subMenu:hover{
+  cursor: pointer;
 }
 .boundary{
     width: 100%;

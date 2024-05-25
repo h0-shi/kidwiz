@@ -7,7 +7,7 @@
       <hr class="mb-5 line">
       <div class="row justify-content-center mb-5" v-for="r in counselorList" v-bind:key="r.id">
         <div class="col-lg-11">
-          <div class="profile-header text-white py-4 rounded-top" style="margin-top:50px; background-color: cadetblue;">
+          <div class="profile-header text-white py-4 rounded-top" style="margin-top:50px; background-color: #67BF4E;">
             <div class="row align-items-center">
               <div class="col-md-4 order-md-2 text-center">
                 <img :src="require('@/assets/simri2.png')" alt="Counselor Image"

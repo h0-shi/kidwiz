@@ -64,7 +64,7 @@ export default {
 }
 .cardsNews:hover{
     transition: 0.3s;
-    background-color: #ae68f0;    
+    background-color: #67BF4E;    
 }
 .cardsNews:hover > *{
     transition: 0.3s;

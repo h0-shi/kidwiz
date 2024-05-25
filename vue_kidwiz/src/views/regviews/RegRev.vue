@@ -4,7 +4,7 @@
         <div class="mainContainer">
         <h2 class="title mb-4">정기상담 예약 조회</h2>
         <hr class="line">
-        <table class="table regRev">
+        <table class="table">
             <thead>
                 <tr class="tr">
                     <th scope="col">번호</th>
@@ -25,11 +25,6 @@
                     <td>{{ n.first }}</td>
                     <td>{{ n.last }}</td>
                     <td>{{ n.currentTimes }} / 10 회기</td>
-                    <td v-if=" n.stat === '0'" v-bind:class="[n.reg_no+'stat']" >
-                        <button @click="al(n, 1)" >승인</button>
-                        <button>거절</button>
-                    </td>
-                    <td v-if=" n.stat === '1' " v-bind:class="[n.no+'stat']">승인완료</td>
                 </tr>
             </tbody>
         </table>
@@ -228,7 +223,7 @@
     }
     </script>
     
-<style>
+<style scoped>
     .modal-wrap{
         position: fixed;
         left: 0;
@@ -238,7 +233,12 @@
         background: rgba(0,0,0,0.4);
         z-index: 99;
     }
-    
+    table thead :hover{
+        background-color: inherit !important;        
+    }
+    table{
+        text-align: center;
+    }
     .modal-container{
         position: relative;
         top: 50%;

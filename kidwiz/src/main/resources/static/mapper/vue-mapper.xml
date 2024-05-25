@@ -57,8 +57,11 @@
 	
 	<select id="getGroupList" resultType="Map">
 		SELECT gr_no,coun_no,gr_title,gr_content,gr_apply,
-		CONCAT(gr_oper," ",gr_time) AS gr_oper, total_num,img 
-		FROM group_consulting ORDER BY gr_no DESC LIMIT #{startRow},8
+		CONCAT(DATE_FORMAT(CONCAT(gr_oper," ",gr_time),'%Y-%m-%d %H:%i'),' ~ ',
+		DATE_FORMAT(DATE_ADD(gr_time, INTERVAL 50 MINUTE), '%H:%i')) AS gr_oper,
+		 total_num,img,
+		(SELECT COUNT(*) FROM group_apply WHERE gr_no = b.gr_no) as apply_people  
+		FROM group_consulting b ORDER BY gr_oper DESC LIMIT #{startRow},8
 	</select>
 	
 	<select id="groupDetail" parameterType="String">
@@ -84,7 +87,7 @@
 	
 	<insert id="createGroup" parameterType="Map">
 		INSERT INTO group_consulting (coun_no,up_gr_no,gr_title,gr_content,gr_apply,gr_oper,total_num,round,img,sex,major,gr_time) 
-		VALUES ((SELECT coun_no FROM counselor WHERE coun_id = #{g_coun_id}),#{up_gr_no},#{g_title},
+		VALUES (#{g_coun_id},#{up_gr_no},CONCAT(#{g_title},' ',#{round}),
 		#{g_content},#{g_apply},#{g_oper},#{g_total},#{round},#{image},#{g_sex},#{g_major},#{g_time})
 	</insert>
 	<select id="getDay" parameterType="Map">

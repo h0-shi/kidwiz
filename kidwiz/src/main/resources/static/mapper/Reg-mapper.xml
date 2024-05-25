@@ -75,13 +75,40 @@
 		SELECT * FROM timeTestReg WHERE date = #{date}
 	</select>
 	
-	<select id="rsvs" resultType="Map" parameterType="String">
-		SELECT regno as title, date as start FROM timeTestReg WHERE date = #{date}
+	<!-- 원데이 스케쥴 -->
+	<select id="rsvs" resultType="Map" parameterType="Map">
+		SELECT ctype as title, date as start, time, stuName, proName, code FROM scheduleView WHERE date = #{date}
+		<if test="grade.equals('일반사용자')">
+			AND stuNum = #{id}
+		</if>
+		<if test="grade.equals('관리자')">
+			AND proNum = #{id}
+		</if>
+		ORDER BY code
 	</select>
 	
 	<select id="getScehdule" resultType="Map" >
-		SELECT regno as title, date as start FROM timeTestReg
+		SELECT time as title, date as start, code FROM scheduleView
+		<where>
+			<if test="grade.equals('일반사용자')">
+				AND stuNum = #{id}
+			</if>
+			<if test="grade.equals('관리자')">
+				AND proNum = #{id}
+			</if>
+		</where>
+		ORDER BY date, code
 	</select>
 	
+	<select id="recentBoard" parameterType="String" resultType="Map">
+		SELECT bno, btitle, DATE_FORMAT(bdate, '%y-%m-%d') AS date
+		 FROM board_consulting WHERE writer = #{id} ORDER BY bdate DESC LIMIT 0,5;
+	</select>
 	
+	<select id="need2Write" parameterType="String" resultType="Map">
+		SELECT prs.rsvno as no, prs.cdate as date, prs.time, prs.name, 'one' as type FROM ProResultWriteInfoView prs WHERE proid = #{id} AND writed = 0
+		UNION ALL
+		SELECT reg.regno as no, reg.date, reg.time, reg.name ,'reg' as type FROM regInfoView reg WHERE proNum = #{id} AND writed = 0
+		ORDER BY date, time
+	</select>
 </mapper>

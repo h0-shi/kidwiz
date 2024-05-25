@@ -57,6 +57,8 @@ import MemberControl from '@/components/MemberControl.vue';
 import BoardControl from '@/components/BoardControl.vue';
 import resultUpdate from '@/views/regviews/resultUpdate.vue';
 import regIntroduce from '@/views/regviews/regIntroduce.vue';
+import jobSecMenu from '@/views/jobs/jobSecMenu.vue';
+import regTypes from '@/views/regviews/regTypes.vue';
 
 import { createRouter,createWebHashHistory } from 'vue-router';
 import axios from 'axios';
@@ -206,6 +208,8 @@ const routes = [
     {path: '/cardDetail2', name: 'cardDetail2', component: cardDetail2, meta: { layout: MainLayout } },
     {path: '/cardDetail3', name: 'cardDetail3', component: cardDetail3, meta: { layout: MainLayout } },
     {path: '/resultUpdate', name: 'resultUpdate', component: resultUpdate, meta: { layout: MainLayout } },
+    {path: '/jobSecMenu', name: 'jobSecMenu', component: jobSecMenu, meta: { layout: MainLayout } },
+    {path: '/regTypes', name: 'regTypes', component: regTypes, meta: { layout: MainLayout } },
 
 
     

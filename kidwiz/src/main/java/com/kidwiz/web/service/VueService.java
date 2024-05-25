@@ -111,7 +111,7 @@ public class VueService {
 		List<Map<String, Object>> list = new ArrayList<>();
 		list = vueDAO.getDay(dayMap);
 		
-		int i = 0;
+		int i = 1;
 		String up_gr_no="0";
 		map.put("up_gr_no", up_gr_no);
 		map.put("round", i);

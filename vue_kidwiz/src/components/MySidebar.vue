@@ -1,17 +1,20 @@
 <template>
   <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block custom-sidebar">
-    <div class="py-4 rounded-top text-white pl-3 mb-0" style="background-color: midnightblue;">
+    <div class="py-4 rounded-top text-white pl-3 mb-0" style="background-color: #67BF4E;">
       <h4 class="mb-0" style="margin: 0;">메뉴</h4>
     </div>
     <div class="menu-items text-center justify-content-center  align-items-center">
       <div class="menu-item text-center">
-        <router-link class="nav-link text-dark" :to="{ name: 'myinfo' }">나의 정보 관리</router-link>
+        <router-link class="nav-link text-dark" :to="{ name: 'mypage' }">나의 정보</router-link>
+      </div>
+      <div class="menu-item text-center">
+        <router-link class="nav-link text-dark" :to="{ name: 'myinfo' }">내 정보 수정</router-link>
       </div>
       <div class="menu-item text-center" v-if="grade>=2">
-        <router-link class="nav-link text-dark" :to="{ name: 'myconsultations' }">나의 상담 내역</router-link>
+        <router-link class="nav-link text-dark" :to="{ name: 'myconsultations' }">상담 내역</router-link>
       </div>
       <div class="menu-item text-center" v-if="grade<2">
-        <router-link class="nav-link text-dark" :to="{ name: 'StudentConsultations' }">나의 상담 내역(학생용)</router-link>
+        <router-link class="nav-link text-dark" :to="{ name: 'StudentConsultations' }">나의 상담 내역</router-link>
       </div>
       <div class="menu-item text-center" v-if="id=='24102003'">
         <router-link class="nav-link text-dark" :to="{ name: 'regRev' }">정기상담 관리</router-link>
@@ -19,17 +22,20 @@
       <div class="menu-item text-center">
         <router-link class="nav-link text-dark" :to="{ name: 'mygroup' }">비교과(집단 상담)내역</router-link>
       </div>
-      <div class="menu-item text-center">
+      <!-- <div class="menu-item text-center">
         <router-link class="nav-link text-dark" :to="{ name: 'mysimrireserve' }">심리검사 예약 내역</router-link>
-      </div>
+      </div> -->
       <div class="menu-item text-center">
         <router-link class="nav-link text-dark" :to="{ name: 'mysimri' }">나의 심리검사 결과</router-link>
-      </div>
-      <div class="menu-item text-center">
+      </div>      
+      <!-- <div class="menu-item text-center">
         <router-link class="nav-link text-dark" :to="{ name: 'myqna' }">나의 문의 내역</router-link>
-      </div>
-      <div class="menu-item text-center">
+      </div> -->
+      <!-- <div class="menu-item text-center">
         <router-link class="nav-link text-dark" :to="{ name: 'myreviews' }">나의 리뷰</router-link>
+      </div> -->
+      <div class="menu-item text-center" v-if="grade==3">
+        <router-link class="nav-link text-dark" :to="{ name: 'admin' }">관리자 페이지</router-link>
       </div>
     </div>
   </nav>
@@ -65,7 +71,7 @@ export default {
 }
 .custom-sidebar {
   position: fixed;
-  top: 150px; /* 조금 아래로 내려줍니다. */
+  top: 200px; /* 조금 아래로 내려줍니다. */
   left: 20px;
   width: 200px;
   height: auto;

@@ -160,12 +160,12 @@ export default {
 }
 
 .career-test .btn-primary {
-  background-color: #007bff;
-  border-color: #007bff;
+  font-size: 1.2rem;
+  background-color: #67BF4E;
+  border: #67BF4E
 }
-
 .career-test .btn-primary:hover {
-  background-color: #0069d9;
-  border-color: #0062cc;
+  background-color: #4f8342;
+  border-color: #67BF4E;
 }
 </style>
