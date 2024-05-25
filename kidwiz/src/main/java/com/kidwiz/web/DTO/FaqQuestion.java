@@ -8,9 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
-import lombok.Builder;
 import lombok.Data;
 
 @Data
@@ -44,7 +41,10 @@ public class FaqQuestion {
         this.writer = writer;
         this.date = date;
     }
-
-
     
+    public void setNumber(Long id) {
+        this.id = id;
+    }
 }
+
+
