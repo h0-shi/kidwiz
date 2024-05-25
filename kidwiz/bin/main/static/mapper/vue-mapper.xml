@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kidwiz.web.DAO.VueDAO">
+	
+	<select id='getBoard' resultType="Map">
+		SELECT ROW_NUMBER() OVER(ORDER BY up_bno DESC,ordernum ASC,depth asc) AS no,
+		bno,writer,btitle, IF(DATE_FORMAT(bdate,'%Y-%m-%d') = DATE_FORMAT(NOW(),'%Y-%m-%d'), DATE_FORMAT(bdate,'%H:%i'), DATE_FORMAT(bdate,'%Y-%m-%d')) AS bdate,
+    	up_bno,depth,ordernum,(SELECT COUNT(*) FROM board_consulting WHERE up_bno = b.bno) AS checkUp 
+		FROM board_consulting b LIMIT #{startRow}, 10;
+	</select>
+	
+	<insert id="boardWrite" parameterType="Map">
+	    INSERT INTO board_consulting (writer, btitle, bcontent) VALUES (#{writer}, #{title}, #{content})
+	</insert>
+	
+	<select id="boardWriteAfter" parameterType="Map">
+	        SELECT bno FROM board_consulting WHERE btitle = #{title} AND writer = #{writer} AND bcontent = #{content}
+	</select>
+	
+	<update id="boardInsertUpdate" parameterType="Map">
+		UPDATE board_consulting SET up_bno = #{bno} WHERE bno = #{bno}
+	</update>
+	
+	<insert id="write" parameterType="Map">
+		INSERT INTO Temp (name, age) VALUES (#{name}, #{age})
+	</insert>
+	
+	<select id="boardDetail" resultType="Map">
+		SELECT bno,writer, btitle,bcontent,up_bno,depth,ordernum,DATE_FORMAT(bdate,"%Y-%m-%d %H:%i") AS bdate
+  FROM board_consulting WHERE bno = #{bno};
+	</select>
+	
+	<delete id="boardDel" parameterType="String">
+		DELETE FROM board_consulting WHERE bno = #{bno}
+	</delete>
+	
+	<update id="boardUpdate" parameterType="Map">
+		UPDATE board_consulting SET btitle = #{btitle}, bcontent = #{bcontent} WHERE bno = #{bno}
+	</update>
+	
+	<insert id="boardReply" parameterType="Map">
+		INSERT INTO board_consulting (btitle, depth, ordernum, writer, bcontent, up_bno)
+    VALUES (#{btitle}, #{depth} + 1,#{ordernum},#{writer}, #{bcontent}, #{up_bno})
+	</insert>
+	
+	<select id="getOrdernum" resultType="int">
+    SELECT COALESCE(MAX(ordernum), 0) + 1 
+    FROM board_consulting 
+    WHERE up_bno = #{bno} 
+  </select>
+	
+	<select id="getPath" parameterType="String">
+		SELECT up_bno, depth, ordernum 
+		FROM board_consulting
+		WHERE bno = #{bno}
+	</select>
+	
+	<select id="getGroupList" resultType="Map">
+		SELECT gr_no,coun_no,gr_title,gr_content,gr_apply,
+		CONCAT(DATE_FORMAT(CONCAT(gr_oper," ",gr_time),'%Y-%m-%d %H:%i'),' ~ ',
+		DATE_FORMAT(DATE_ADD(gr_time, INTERVAL 50 MINUTE), '%H:%i')) AS gr_oper,
+		 total_num,img,
+		(SELECT COUNT(*) FROM group_apply WHERE gr_no = b.gr_no) as apply_people  
+		FROM group_consulting b ORDER BY gr_oper DESC LIMIT #{startRow},8
+	</select>
+	
+	<select id="groupDetail" parameterType="String">
+		SELECT a.gr_no,a.up_gr_no,a.coun_no,a.gr_title,a.gr_content,a.gr_apply,a.gr_oper, a.gr_del
+		,a.total_num,a.img,a.sex,a.major, b.name,b.major_name,b.contact  
+		FROM group_consulting a, members b WHERE a.coun_no = b.id AND gr_no =  #{gr_no}
+	</select>
+	
+	<select id="getGList" parameterType="String">
+		SELECT gr_title,CONCAT(DATE_FORMAT(CONCAT(gr_oper," ",gr_time),'%Y-%m-%d %H:%i'),' ~ ',
+		DATE_FORMAT(DATE_ADD(CONCAT(gr_oper," ",gr_time),INTERVAL 50 MINUTE),'%Y-%m-%d %H:%i')) AS gr_oper,
+		total_num,(SELECT COUNT(*) FROM group_apply WHERE gr_no = b. gr_no) as apply_people, gr_del,round
+		FROM group_consulting b WHERE up_gr_no = #{gr_no}
+	</select>
+	
+	<select id="totalPage" resultType="String">
+		SELECT COUNT(*) FROM board_consulting
+	</select>
+	<select id="totalGPage" resultType="INTEGER">
+		SELECT COUNT(*) FROM group_consulting
+	</select>
+	
+	
+	<insert id="createGroup" parameterType="Map">
+		INSERT INTO group_consulting (coun_no,up_gr_no,gr_title,gr_content,gr_apply,gr_oper,total_num,round,img,sex,major,gr_time) 
+		VALUES (#{g_coun_id},#{up_gr_no},CONCAT(#{g_title},' ',#{round}),
+		#{g_content},#{g_apply},#{g_oper},#{g_total},#{round},#{image},#{g_sex},#{g_major},#{g_time})
+	</insert>
+	<select id="getDay" parameterType="Map">
+			WITH RECURSIVE T_TEMP_DATES AS (
+			   SELECT #{startDay} AS DT
+			UNION
+			   SELECT DATE_ADD(T_TEMP_DATES.DT, INTERVAL 1 DAY) FROM T_TEMP_DATES WHERE DATE_ADD(T_TEMP_DATES.DT, INTERVAL 1 DAY) &lt;= #{endDay}
+			)
+			SELECT DT, WEEKDAY(DT) AS DAY FROM T_TEMP_DATES GROUP BY DT HAVING DAY = #{day}
+	</select>
+	
+	<select id="getUpGrNo" parameterType="String">
+		SELECT up_gr_no FROM group_consulting WHERE gr_no = #{gr_no}
+	</select>
+	
+	<select id="getMemberType" parameterType="int">
+		SELECT dept FROM members WHERE id = #{id}
+	</select>
+	
+	<select id="getGrNo" parameterType="String">
+		SELECT gr_no FROM group_consulting WHERE up_gr_no = #{up_gr_no}
+	</select>
+	
+	<insert id="applyGroup" parameterType="Map">
+		INSERT INTO group_apply (gr_no,id) VALUES (#{up_gr_no},#{id})
+	</insert>
+	
+	
+	<select id="checkGroup" parameterType="Map">
+		SELECT count(*) FROM group_apply WHERE gr_no = #{gr_no} AND id = #{id}
+	</select>
+	
+	<select id="getRsv" parameterType="int">
+		SELECT * FROM total_rsv WHERE id = #{id}
+	</select>
+	
+	<select id="counselorList" resultType="Map">
+		SELECT * FROM counselorList
+	</select>
+	
+	<select id="counselorcheck" parameterType="int">
+		SELECT count(*) FROM members WHERE id = #{id} AND grade = 2
+	</select>
+</mapper>

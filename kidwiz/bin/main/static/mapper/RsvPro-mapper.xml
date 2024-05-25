@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kidwiz.web.DAO.RsvProDAO">
+
+	<!-- 상담내역 list 출력하기 -->
+	<select id="findRsvByProid" parameterType="int">
+		SELECT * FROM
+		ProRsvListView
+		WHERE
+		proid = #{proid}
+		ORDER BY
+		cdate ASC, time ASC;
+	</select>
+
+	<!-- 상담일지에 학생정보 출력하기 -->
+	<select id="findRsvInfoByRsvno" parameterType="int">
+		SELECT * FROM
+		ProResultWriteInfoView
+		WHERE rsvno = #{rsvno};
+	</select>
+
+	<!-- 상담일지 저장하기 -->
+	<insert id="saveProResultWrite">
+		INSERT INTO ProResultWrite (rsvno, goal, content,
+		summary, homework,
+		opinion)
+		VALUES (#{rsvno}, #{goal}, #{content},
+		#{summary}, #{homework}, #{opinion})
+	</insert>
+
+	<!-- 상담일지 출력하기 -->
+	<select id="findProResultByRsvno" parameterType="int">
+		SELECT * FROM
+		ProResultView
+		WHERE rsvno = #{rsvno};
+	</select>
+
+	<!-- 상담일지 수정하기 -->
+	<insert id="updateProResult">
+		UPDATE ProResultWrite SET goal = #{goal}, content =
+		#{content}, summary = #{summary} ,homework = #{homework}, opinion =
+		#{opinion} WHERE rsvno = #{rsvno}
+	</insert>
+
+</mapper>
+
