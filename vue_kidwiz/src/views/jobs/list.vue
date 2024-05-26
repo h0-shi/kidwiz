@@ -104,7 +104,7 @@ export default {
 }
 
 .job-table td:last-child {
-  width: 120px; /* 상세 정보 칸 크기 조정 */
+  width: 90px; /* 상세 정보 칸 크기 조정 */
   word-wrap: break-word; /* 단어가 길 경우 줄 바꿈 처리 */
 }
 </style>
