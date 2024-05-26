@@ -153,7 +153,7 @@ export default {
 }
 .title-font {
   font-weight: bold; 
-  font-size: x-large; 
+  font-size: large; 
   text-align: left;
   margin-left: 10px;
 }
