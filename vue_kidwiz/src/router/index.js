@@ -58,6 +58,7 @@ import MemberControl from '@/components/MemberControl.vue';
 import BoardControl from '@/components/BoardControl.vue';
 import resultUpdate from '@/views/regviews/resultUpdate.vue';
 import regIntroduce from '@/views/regviews/regIntroduce.vue';
+import cardWrite from '@/views/regviews/cardWrite.vue';
 import jobSecMenu from '@/views/jobs/jobSecMenu.vue';
 import regTypes from '@/views/regviews/regTypes.vue';
 
@@ -213,8 +214,7 @@ const routes = [
     {path: '/jobSecMenu', name: 'jobSecMenu', component: jobSecMenu, meta: { layout: MainLayout } },
     {path: '/regTypes', name: 'regTypes', component: regTypes, meta: { layout: MainLayout } },
     {path: '/notice', name: 'notice', component: NoticeBoard, meta: { layout: MainLayout } },
-
-    
+    {path: '/cardWrite', name: 'cardWrite', component: cardWrite, meta: { layout: MainLayout } },    
     {path: '/professorIntro', name: 'ProfessorIntro', component: professorIntro, meta: { layout: MainLayout } },
     {path: '/professorSelcMenu', name: 'ProfessorSelcMenu', component: professorSelcMenu, meta: { layout: MainLayout } },
     {path: '/professorcinfo', name: 'Professorcinfo', component: professorcinfo, meta: { layout: MainLayout } },

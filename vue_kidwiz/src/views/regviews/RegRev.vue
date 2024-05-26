@@ -59,7 +59,7 @@
                     </tbody>
                 </table>                
                 <div class="modal-btn">
-                    <button @click="btnPopup(regno, stuNum)" class="newCoun">새 상담 추가하기</button>
+                    <button @click="btnPopup(rd_no, stuNum)" class="newCoun" v-if="count<10">새 상담 추가하기</button>
                     <button @click="modalOpen" class="modalClose">닫기</button>
                 </div>
             </div>
@@ -142,7 +142,8 @@
                 first:'',
                 lsat:'',
                 currentTimes:'',
-                popupWindow : null
+                popupWindow : null,
+                count:'',
             }
         },
         mounted(){
@@ -195,8 +196,7 @@
             regWrite(reg){
                 this.$router.push('/resultWrite?regno='+reg.rd_no);
             },
-            async modalOpen(reg_no, stuNum){
-                console.log(this.modalCheck==false)
+            async modalOpen(reg_no, stuNum){                
                 if(this.modalCheck == false){
                     await this.getData(reg_no)
                 }
@@ -216,6 +216,8 @@
                     const response = await axios.get('http://localhost:3000/regDetail?rgno='+reg_no);
                     this.responseData = response.data;
                     this.stuName = response.data[0].name;
+                    const length = response.data.length-1;
+                    this.count = response.data[length].times;
                     console.log(this.responseData);
                 } catch(error) {
                     console.log('에러 발생: '+error )

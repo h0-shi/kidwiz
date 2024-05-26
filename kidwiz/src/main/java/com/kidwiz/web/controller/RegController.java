@@ -1,5 +1,7 @@
 package com.kidwiz.web.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -7,13 +9,16 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kidwiz.web.DTO.CardDTO;
 import com.kidwiz.web.DTO.MemberDTO;
 import com.kidwiz.web.DTO.RegDTO;
 import com.kidwiz.web.DTO.ResultDTO;
@@ -212,4 +217,24 @@ public class RegController {
 		List<Map<String, Object>> need2Write = regService.need2Write(id);
 		return need2Write;
 	}
+	
+	@PostMapping(value="cardWrite", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+	public Object cardWrite(@RequestParam("c1") MultipartFile[] c1) throws IllegalStateException, IOException {
+		System.out.println(c1[0].getOriginalFilename());
+						
+		String upfile = "C:\\temp\\coding\\";
+		File saveFile = new File(upfile);
+		if(!saveFile.exists()) {
+			try {
+				saveFile.mkdirs();
+				System.out.println("폴더 생성");
+			} catch (Exception e) {
+			}
+		}
+		
+		c1[0].transferTo(saveFile);
+		
+		return null;
+	}
+	
 }
