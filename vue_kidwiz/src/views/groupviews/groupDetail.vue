@@ -100,8 +100,9 @@
       </div>
     </div>
     <div class="mt-3">
-      <button v-if="!$store.state.account.id" class="btn btn-primary disabled">신청하기</button>
-      <button v-if="check==1" class="btn btn-danger disabled">신청완료</button>
+      <button v-if="membercheck" class="btn btn-danger disabled">인원초과</button>
+      <button v-else-if="!$store.state.account.id" class="btn btn-primary disabled">신청하기</button>
+      <button v-else-if="check==1" class="btn btn-danger disabled">신청완료</button>
       <button v-else-if="$store.state.account.id" @click="applyGroup()" class="btn btn-primary">신청하기</button>
     </div>
   </div>
@@ -123,11 +124,15 @@ export default {
     const rsv = ref();
 
     const myConsult = ref();
+    const membercheck = ref();
 
     onMounted(()=>{
       axios.get("/api/groupDetail?gr_no="+no.value).then((res)=>{
         list.value = res.data.list
         groupList.value = res.data.glist
+
+        membercheck.value = groupList.value[0].total_num == groupList.value[0].apply_people
+
         //중복 체크
         axios.post("/api/checkGroup",list.value, { withCredentials: true }).then((res)=>{
           check.value = res.data
@@ -155,7 +160,7 @@ export default {
     }
 
     return{
-      applyGroup,groupList,list,check,myConsult,rsv
+      applyGroup,groupList,list,check,myConsult,rsv,membercheck
     }
   },
 }
