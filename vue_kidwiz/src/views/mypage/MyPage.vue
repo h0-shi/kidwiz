@@ -96,11 +96,6 @@
           </div>
           </div>
         </div>
-          <div class="mt-4">
-            <p>현재 로그인한 사용자 id: <strong>{{ $store.state.account.id }}</strong></p>
-            <p>현재 로그인한 사용자 email: <strong>{{ $store.state.account.email }}</strong></p>
-            <p>현재 로그인한 사용자 name: <strong>{{ $store.state.account.name }}</strong></p>
-          </div>
         </main>
     </div>
   </div>

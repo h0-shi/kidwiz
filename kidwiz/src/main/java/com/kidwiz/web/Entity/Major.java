@@ -21,5 +21,31 @@ public class Major {
 
 	@Column(length = 100)
 	private String majorHead;
+
+	public int getMajorId() {
+		return majorId;
+	}
+
+	public void setMajorId(int majorId) {
+		this.majorId = majorId;
+	}
+
+	public String getMajorName() {
+		return majorName;
+	}
+
+	public void setMajorName(String majorName) {
+		this.majorName = majorName;
+	}
+
+	public String getMajorHead() {
+		return majorHead;
+	}
+
+	public void setMajorHead(String majorHead) {
+		this.majorHead = majorHead;
+	}
+	
+	
 	
 }

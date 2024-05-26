@@ -28,4 +28,30 @@ public class Notice {
 	@Comment("notice 글 내용")
 	private String ncontent;
 
+	public Long getNno() {
+		return nno;
+	}
+
+	public void setNno(Long nno) {
+		this.nno = nno;
+	}
+
+	public String getNtitle() {
+		return ntitle;
+	}
+
+	public void setNtitle(String ntitle) {
+		this.ntitle = ntitle;
+	}
+
+	public String getNcontent() {
+		return ncontent;
+	}
+
+	public void setNcontent(String ncontent) {
+		this.ncontent = ncontent;
+	}
+	
+	
+
 }
