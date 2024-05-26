@@ -37,16 +37,10 @@ public class AccountController {
 		int id = Integer.parseInt(params.get("id"));
 		
 		Member member = memberRepository.findByIdAndPassword(id, params.get("password"));
-
+		
 		if (member != null) {
 			int tokenid = member.getId();
 			String token = jwtService.getToken("id", tokenid);
-
-//			Cookie cookie = new Cookie("token", token);
-//			cookie.setHttpOnly(true);
-//			cookie.setPath("/");
-
-//			res.addCookie(cookie);
 			
 			// 직접 Set-Cookie 헤더 추가
 	        String cookieValue = String.format("token=%s; HttpOnly; SameSite=None; Secure; Path=/", token);

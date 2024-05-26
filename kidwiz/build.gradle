@@ -36,8 +36,9 @@ dependencies {
 	implementation	'org.json:json:20230227'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
 	
-	// spring sequrity 추가
+	// spring sequrity 추가 -> 암호화
 	// implementation 'org.springframework.boot:spring-boot-starter-security'
+	
 	// jwt 추가
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.5'
@@ -50,6 +51,7 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
-compileJava {
-    options.compilerArgs << "-parameters"
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs << '-parameters'
 }

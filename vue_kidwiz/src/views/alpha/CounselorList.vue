@@ -3,16 +3,18 @@
     <MenuPage />
     <div class="container py-5 px-lg-7 rounded shadow-lg">
       <h1 class="mb-2 name">상담사 소개</h1>
-      <h6 class="mb-4 font">다양한 상담사들이 있다! 보고 가거라!</h6>
+      <h6 class="mb-4 font">KIDWIZ 대학교의 상담사 안내</h6>
       <hr class="mb-5 line">
       <div class="row justify-content-center mb-5" v-for="r in counselorList" v-bind:key="r.id">
         <div class="col-lg-11">
           <div class="profile-header text-white py-4 rounded-top" style="margin-top:50px; background-color: #67BF4E;">
             <div class="row align-items-center">
               <div class="col-md-4 order-md-2 text-center">
+
                 <img :src="require('@/assets/simri2.png')" alt="Counselor Image"
                   class="img-fluid rounded-circle mb-3 shadow"
                   style="width: 250px; height: 250px; object-fit: cover; margin-left:50px;" />
+
               </div>
               <div class="col-md-8 order-md-2 text-white" style="text-align: left; padding-left: 50px;">
                 <h1 class="mb-3 name">{{ r.name }}</h1>
@@ -93,7 +95,8 @@ export default {
         email: '',
         greeting: '',
       },
-      counselorList: [],
+      counselorList: [
+      ],
     }
   }
 }

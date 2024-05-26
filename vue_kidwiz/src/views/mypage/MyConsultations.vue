@@ -86,24 +86,24 @@ export default {
 .table {
   margin-top: 20px;
 }
-.line{
-  width: 40%;  
+.line {
+  width: 40%;
 }
-.title{
+.title {
   text-align: left;
   font-family: 'sj';
 }
-.tr{
+.tr {
   font-family: 'sjl';
 }
-table thead :hover{
-  background-color: inherit !important;        
+table thead :hover {
+  background-color: inherit !important;
 }
-table{
+table {
   text-align: center;
 }
-.done{
-  color : black;
+.done {
+  color: black;
   background-color: white;
   border: 1px solid #c0c0c0;
 }
@@ -120,5 +120,8 @@ table{
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
+}
+.mainContainer {
+  padding-left: 20px; /* Add padding to the left to create space between sidebar and main content */
 }
 </style>
