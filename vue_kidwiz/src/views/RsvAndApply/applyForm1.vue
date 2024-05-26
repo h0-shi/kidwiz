@@ -262,7 +262,6 @@ export default {
                     `http://localhost:3000/api/reservations/getProId?majorHead=` + encodedMajorHead
                 );
                 this.proid = response.data;
-                alert(this.proid);
             } catch (error) {
                 console.error("Error fetching ProId:", error);
                 this.proid = null;
@@ -279,7 +278,6 @@ export default {
         },
         async submitForm(event) {
             event.preventDefault(); // 기본 폼 제출 방지
-            alert("눌렀냐?");
             if (this.isSubmitting) return; // 중복 제출 방지 240516
             this.isSubmitting = true;
 
@@ -287,7 +285,6 @@ export default {
             while (this.proid === null) {
                 await new Promise((resolve) => setTimeout(resolve, 100));
             }
-            alert("오냐?");
             // 상담 유형이 선택되지 않은 경우 경고 메시지 표시(240516 기본값 만들어서 이제 필요 없음)
             // 240520 이제 신청페이지에서 선택하므로 삭제
             //if (!this.selectedCounselingType) {
@@ -336,7 +333,7 @@ export default {
 
                 if (response.status === 201) {
                     alert("예약이 성공적으로 완료되었습니다.");
-                    this.$router.push("/rsrvTest4");
+                    this.$router.push("/mypage");
                 } else {
                     console.error("예약 중 오류가 발생했습니다.", response);
                     alert("예약 중 오류가 발생했습니다. 관리자에게 문의해주세요.");

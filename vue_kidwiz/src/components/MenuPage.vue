@@ -46,7 +46,7 @@
           <li>&ensp;</li>
         </ul>
         <ul name="counsel">
-          <li><router-link to="/">지도교수상담</router-link></li>
+          <li><router-link to="/professorIntro">지도교수상담</router-link></li>
           <li><router-link to="/jobs/intro">취업상담</router-link></li>
           <li><router-link to="/counseling">심리상담</router-link></li> 
           <li>&ensp;</li>               
