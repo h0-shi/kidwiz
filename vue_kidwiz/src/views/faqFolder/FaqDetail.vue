@@ -4,7 +4,7 @@
       <h3>&gt; FAQ 게시판</h3>
     </div>
     <div class="card shadow-sm">
-      <div class="card-header bg-light">
+      <div class="card-header" style="height: 60px; background-color: #67BF4E; color:white;">
         <div class="title d-flex align-items-left">
           <div class="col-md-6 title-font">
             <span v-if="!isUpdating"><strong>{{ question.title }}</strong></span>
@@ -19,21 +19,26 @@
         </div>
       </div>
       <div class="card-body">
-        <p class="card-text contents">
-          <span v-if="!isUpdating">{{ question.content }}</span>
-          <textarea v-else v-model="question.content" class="form-control"></textarea>
-        </p>
+        <div class="card-text contents" v-if="!isUpdating" v-html="question.content"></div>
+        <div v-else>
+          <div ref="quillContainer" style="height: 300px;"></div> 
+        </div>
       </div>
       <div class="card-footer">
         <div class="d-flex justify-content-end">
-          <div v-if="isUpdating">
-            <button @click="updateQuestion" class="btn btn-success me-2 custom-border">수정 완료</button>
-            <button @click="cancelUpdate" class="btn btn-secondary custom-border">취소</button>
-          </div>
-          <div v-else>
-            <button v-if="isAdmin" @click="startUpdate" class="btn btn-warning me-2 custom-border">수정하기</button>
-            <button v-if="isAdmin" @click="deleteQuestion" class="btn btn-danger me-2 custom-border">삭제하기</button>
-            <button @click="goBack" class="btn btn-secondary me-2 custom-border">게시판으로 돌아가기</button>
+          <div class="question-editor" :class="{ updating: isUpdating }"> 
+            <div v-if="isUpdating" class="question-editor-toolbar">
+              <span class="ql-formats"></span>
+            </div> 
+            <div v-if="isUpdating">
+              <button @click="updateQuestion" class="btn btn-success me-2 custom-border">수정 완료</button>
+              <button @click="cancelUpdate" class="btn btn-secondary custom-border">취소</button>
+            </div>
+            <div v-else>
+              <button v-if="isAdmin" @click="startUpdate" class="btn btn-warning me-2 custom-border" style="color:white;">수정하기</button>
+              <button v-if="isAdmin" @click="deleteQuestion" class="btn btn-danger me-2 custom-border">삭제하기</button>
+              <button @click="goBack" class="btn custom-border" style="background-color: #67BF4E; color:white;">게시판으로 돌아가기</button>
+            </div>
           </div>
         </div>
       </div>
@@ -41,8 +46,10 @@
   </div>
 </template>
 
+
 <script>
 import axios from 'axios';
+import Quill from 'quill';
 
 export default {
   data() {
@@ -51,6 +58,7 @@ export default {
       isUpdating: false,
       dept: null,
       isAdmin: false,
+      quill: null 
     }
   },
   mounted() {
@@ -62,6 +70,8 @@ export default {
     });
 
     this.fetchQuestion();
+      // 새로고침 시 isUpdating 플래그를 false로 설정
+  this.isUpdating = false;
   },
   computed: {
     formattedDate() {
@@ -76,39 +86,57 @@ export default {
   },
   methods: {
     fetchQuestion() {
-      const questionId = this.$route.params.id;
-      axios.get(`http://localhost:3000/api/faqquestions/${questionId}`)
-        .then(response => {
-          this.question = response.data;
-        })
-        .catch(error => {
-          console.error('Error fetching question:', error);
-        });
-    },
+  const questionId = this.$route.params.id;
+  axios.get(`http://localhost:3000/api/faqquestions/${questionId}`)
+    .then(response => {
+      this.question = response.data;
+      // isUpdating과 관계없이 항상 Quill 초기화
+      this.initQuill(); 
+    })
+    .catch(error => {
+      console.error('Error fetching question:', error);
+    });
+},
     startUpdate() {
       this.isUpdating = true;
+      this.$nextTick(() => { // isUpdating 변경 후 DOM 업데이트 후 Quill 초기화
+        this.initQuill(); 
+      });
     },
     cancelUpdate() {
-      this.isUpdating = false;
-      this.fetchQuestion(); // 원래 데이터 가져오기
-    },
-    updateQuestion() {
-      if (!this.isAdmin) {
-        alert('관리자만 접근 가능');
-        return;
-      }
-      if (confirm('수정하시겠습니까?')) {
-        const questionId = this.$route.params.id;
-        axios.put(`http://localhost:3000/api/faqquestions/${questionId}`, this.question)
-          .then(() => {
-            console.log('Question updated successfully');
-            this.isUpdating = false;
-          })
-          .catch(error => {
-            console.error('Error updating question:', error);
-          });
-      }
-    },
+    this.isUpdating = false;
+    if (this.quill) {
+      this.quill.disable(); // Quill 에디터를 비활성화
+      this.quill = null; // Quill 인스턴스를 제거
+    }
+    this.fetchQuestion(); // 원래의 데이터를 다시 가져옴
+  },
+  updateQuestion() {
+  if (!this.isAdmin) {
+    alert('관리자만 접근 가능');
+    return;
+  }
+  if (confirm('수정하시겠습니까?')) {
+    this.question.content = this.quill.root.innerHTML;
+
+    const questionId = this.$route.params.id;
+    axios.put(`http://localhost:3000/api/faqquestions/${questionId}`, this.question)
+      .then(() => {
+        console.log('Question updated successfully');
+        this.isUpdating = false; // 수정 완료 후 isUpdating 플래그를 false로 설정
+        if (this.quill) {
+          this.quill.disable(); // Quill 에디터를 비활성화
+          this.quill = null; // Quill 인스턴스를 제거
+        }
+        this.fetchQuestion(); // 갱신된 데이터를 다시 가져옴
+      })
+      .catch(error => {
+        console.error('Error updating question:', error);
+      });
+  }
+},
+
+
     deleteQuestion() {
       if (!this.isAdmin) {
         alert('관리자만 접근 가능');
@@ -127,11 +155,29 @@ export default {
       }
     },
     goBack() {
-      this.$router.push('/faq'); // 게시판으로 돌아가기
-    }
+      this.$router.push('/faq'); 
+    },
+    initQuill() {
+  if (this.quill) {
+    this.quill.destroy();
+  }
+  this.quill = new Quill(this.$refs.quillContainer, {
+    theme: 'snow'
+  });
+
+  // isUpdating 상태에 따라 처리
+  if (this.isUpdating) {
+    this.quill.root.innerHTML = this.question.content; // 에디터에 내용 표시
+    this.quill.enable();
+  } else {
+    this.$refs.quillContainer.innerHTML = this.question.content; // 에디터 외부에 내용 표시
+    this.quill.disable();
+  }
+},
   }
 }
 </script>
+
 
 <style scoped>
 .container-lg {
@@ -167,5 +213,18 @@ export default {
 }
 .custom-border {
   border-color: transparent !important;
+}
+.card-body{
+  background-color: rgb(252, 255, 252);
+}
+.card-footer{
+  background-color: #e7fee1;
+}
+.question-editor .ql-toolbar {
+  display: none; /* 기본적으로 툴바 숨기기 */
+}
+
+.question-editor.updating .ql-toolbar {
+  display: block; /* .updating 클래스가 있을 때만 툴바 표시 */
 }
 </style>

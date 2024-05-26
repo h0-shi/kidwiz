@@ -11,7 +11,7 @@
             <div class="intro-section p-4 rounded shadow-sm mb-4">
               <p class="mb-0">온라인 심리검사는 다양한 항목으로 구성되어 있으며, </p>
               <p class="mb-0">각 항목은 새로운 환경에 대한 적응성, 사회적 활동 선호도, 독립적 업무 선호도 등 여러 가지 주제를 다룹니다.</p>
-              <p class="mb-0">각 항목에 따라 여러 가지 질문이 제공되며, 사용자는 해당 질문에 대한 답변을 선택하여 진행합니다.</p><br>
+              <p class="mb-0">각 항목에 따라 여러 가지 질문이 제공되며, 사용자는 해당 질문에 대한 답변을 선택하여 진행합니다.</p>
             </div>
             <div>
               <h3 class="font-weight-bold mb-3 text-left">안내 사항</h3>
@@ -29,8 +29,7 @@
                   <li>총점에 따른 추천 직업 목록</li>
                   <li>총점에 따른 성향 분석</li>
                 </ul>
-                <p class="text-left">검사 결과는 사용자가 선택한 답변을 기반으로 총점이 계산됩니다. 총점에 따라 추천 직업 목록과 성향 분석이 제공됩니다.</p>
-                <p class="text-left">이를 통해 여러분은 자신의 성향과 능력을 더 잘 이해할 수 있습니다.</p>
+                <p class="text-left">검사 결과는 사용자가 선택한 답변을 기반으로 총점이 계산됩니다. 총점에 따라 추천 직업 목록과 성향 분석이 제공됩니다. 이를 통해 여러분은 자신의 성향과 능력을 더 잘 이해할 수 있습니다.</p>
               </div>
               <hr class="hr">
               <div class="participation-guidelines mb-4 text-left">
