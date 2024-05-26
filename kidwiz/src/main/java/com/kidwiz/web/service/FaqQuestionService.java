@@ -21,9 +21,9 @@ public class FaqQuestionService {
         return faqQuestionRepository.findAll();
     }
 
-    public FaqQuestion getQuestionById(Long fid) {
-        return faqQuestionRepository.findById(fid).orElse(null);
-    }
+    public FaqQuestion getQuestionById(Long questionId) { // 메서드 이름 변경
+        return faqQuestionRepository.findById(questionId).orElse(null);
+      }
 
     public void saveQuestion(FaqQuestion question) {
         faqQuestionRepository.save(question);
@@ -33,6 +33,9 @@ public class FaqQuestionService {
         Optional<FaqQuestion> optionalQuestion = faqQuestionRepository.findById(id);
         if (optionalQuestion.isPresent()) {
             FaqQuestion question = optionalQuestion.get();
+            
+         // 아래 라인 추가
+            question.setId(updatedQuestion.getId());
             question.setTitle(updatedQuestion.getTitle());
             question.setContent(updatedQuestion.getContent());
             question.setWriter(updatedQuestion.getWriter());
@@ -46,7 +49,8 @@ public class FaqQuestionService {
     }
     
 	public Page<FaqQuestion> getQuestionsPaged(Pageable pageable) {
-		return faqQuestionRepository.findAll(pageable);
+		// findAll()이 아니라, faq_del이 0인 글만 조회
+		return faqQuestionRepository.findByFaqdel(0, pageable); 
 	}
 }
 

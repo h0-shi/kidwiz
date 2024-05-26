@@ -38,8 +38,8 @@ public class FaqQuestionController {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<FaqQuestion> getQuestionById(@PathVariable(name = "id") Long fid) {
-	    FaqQuestion question = faqQuestionService.getQuestionById(fid);
+	public ResponseEntity<FaqQuestion> getQuestionById(@PathVariable(name = "id") Long id) { 
+	    FaqQuestion question = faqQuestionService.getQuestionById(id);
 	    if (question != null) {
 	        return ResponseEntity.ok(question);
 	    } else {
@@ -102,6 +102,7 @@ public class FaqQuestionController {
                 content.get(i).setNumber(totalElements - (page * size) - i);
             }
 
+            
             Map<String, Object> response = new HashMap<>();
             response.put("questions", content);
             response.put("totalElements", totalElements);

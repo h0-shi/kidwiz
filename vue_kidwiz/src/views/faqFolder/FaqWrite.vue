@@ -36,6 +36,7 @@ export default {
       date: null // 초기화하지 않음
     }
   },
+
   methods: {
     write() {
       axios.post('http://localhost:3000/api/faqquestions', {
@@ -54,7 +55,9 @@ export default {
           console.error('글쓰기 오류:', error);
         });
     }
+    
   }
+  
 };
 </script>
 
