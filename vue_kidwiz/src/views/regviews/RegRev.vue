@@ -32,8 +32,7 @@
         <!-- 모달 -->
         <div class="modal-wrap" v-show="modalCheck">
             <div class="modal-container">
-                <h5>{{regno}} / {{stuNum}} // {{ check }}</h5>
-                <button @click="btnPopup(regno, stuNum)">신청하기</button>
+                <h3 class="dh"><span class="emp">{{stuName}}</span>의 정기상담</h3>                
                 <table class="table stu" v-if="responseData && responseData.length > 0">
                     <thead>
                         <tr>
@@ -45,7 +44,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="row in responseData" :key="row.regno"> 
+                        <tr v-for="row in responseData" :key="row.rd_no"> 
                             <td>{{row.times}}회기</td>
                             <td>{{ row.stuNum }}</td>
                             <td>{{ row.date }}</td>                            
@@ -58,9 +57,10 @@
                             </td>
                         </tr>
                     </tbody>
-                </table>
+                </table>                
                 <div class="modal-btn">
-                    <button @click="modalOpen">닫기</button>
+                    <button @click="btnPopup(regno, stuNum)" class="newCoun">새 상담 추가하기</button>
+                    <button @click="modalOpen" class="modalClose">닫기</button>
                 </div>
             </div>
         </div>
@@ -138,6 +138,7 @@
                 writed:'',
                 major_name: '',
                 name:'',
+                stuName:'',
                 first:'',
                 lsat:'',
                 currentTimes:'',
@@ -188,11 +189,11 @@
             })
             },
             regDetail(reg){
-                console.log(reg.reg_no);
-                this.$router.push('/regResult?regno='+reg.regno);
+                console.log(reg);
+                this.$router.push('/regResult?regno='+reg.rd_no);
             },
             regWrite(reg){
-                this.$router.push('/resultWrite?regno='+reg.regno);
+                this.$router.push('/resultWrite?regno='+reg.rd_no);
             },
             async modalOpen(reg_no, stuNum){
                 console.log(this.modalCheck==false)
@@ -200,20 +201,21 @@
                     await this.getData(reg_no)
                 }
                 this.modalCheck = !this.modalCheck;
-                this.regno = reg_no;
+                this.rd_no = reg_no;
                 this.stuNum = stuNum;
-                console.log(this.regno);
+                console.log(this.rd_no);
             },
-            btnPopup(regno,stuNum){
+            btnPopup(rd_no,stuNum){
                 if(this.popupWindow && !this.popupWindow.closed){
                     this.popupWindow.close();
                 }
-                this.popupWindow = window.open("#/regTime?stuNum="+stuNum+"&regno="+regno,"popup","width=1200,height=660");
+                this.popupWindow = window.open("#/regTime?stuNum="+stuNum+"&regno="+rd_no,"popup","width=1200,height=660");
             },
             async getData(reg_no){
                 try{
                     const response = await axios.get('http://localhost:3000/regDetail?rgno='+reg_no);
                     this.responseData = response.data;
+                    this.stuName = response.data[0].name;
                     console.log(this.responseData);
                 } catch(error) {
                     console.log('에러 발생: '+error )
@@ -239,6 +241,27 @@
     table{
         text-align: center;
     }
+    .emp{
+        color: #67BF4E;
+    }
+    .newCoun{        
+        width: 20%;
+        height: 35px;
+        margin: 15px 10px;
+        color: white;
+        background-color: #67BF4E;
+        border: none;
+        font-family: 'sjl';
+    }
+    .modalClose{
+        width: 20%;
+        height: 35px;
+        margin: 15px 10px;
+        color: white;
+        background-color: rgb(255, 101, 101);
+        border: none;
+        font-family: 'sjl'; 
+    }
     .modal-container{
         position: relative;
         top: 50%;
@@ -249,6 +272,9 @@
         border-radius: 10px;
         padding: 20px;
         box-sizing: border-box;
+    }
+    .dh{
+        font-family: 'dh';
     }
     .done{
         color : black;

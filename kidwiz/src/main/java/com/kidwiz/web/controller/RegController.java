@@ -121,7 +121,9 @@ public class RegController {
 	
 	@PostMapping("/resultUpdate")
 	public int resultUpdate(@RequestBody ResultDTO result) {
+		System.out.println(result.getRegno());
 		int update = regService.resultUpdate(result);
+		
 		return update;
 	}
 	

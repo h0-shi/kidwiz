@@ -118,11 +118,12 @@ export default {
     mounted() {
         this.regno = this.$route.query.regno;
         axios.get('http://localhost:3000/getRegResult?regno='+this.regno).then((res) => {            
+            this.resultForm.regno = this.regno;
             this.stuName = res.data[0].name;
             this.date = res.data[0].date;
             this.time = res.data[0].time;
             this.major = res.data[0].major_name;
-            this.stuNum = res.data[0].stuNum;
+            this.stuNum = res.data[0].stuNum;            
             this.resultForm.goal = res.data[0].goal;
             this.resultForm.homework = res.data[0].homework;
             this.resultForm.content = res.data[0].content;
@@ -142,6 +143,7 @@ export default {
     methods: {
         formSubmit(){
             this.resultForm.content = this.resultForm.content.replaceAll(/(\n|\r\n)/g,'<br>');
+            console.log(this.resultForm);
             if(!confirm("일지를 저장하시겠습니까?")){
                 return false;
             }

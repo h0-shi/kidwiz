@@ -21,7 +21,7 @@
         테스트3
     </section>
     <section class="section s4" :style="cssAct[3]">
-        테스트4
+        테스트4 
     </section>
   </div>
 </template>
