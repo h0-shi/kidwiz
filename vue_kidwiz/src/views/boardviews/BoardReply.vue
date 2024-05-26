@@ -1,13 +1,31 @@
 <template>
-  <div>
-    제목 : <input v-model="reply.btitle"><br>
-    글쓴이 : {{ reply.writer }}<br>
-    내용 : <textarea v-model="reply.bcontent"></textarea><br>
-    <button @click="boardReply()">답글 달기</button>
+  <div class="boundary text-start p-3 border" style="border-radius: 10px;">
+    <div>
+      <div class="input-group mb-3">
+        <div class="col-2">제목</div>
+        <input type="text" class="form-control col" v-model="reply.btitle">
+      </div>
+      <div class="input-group mb-3">
+        <div class="col-2">글쓴이</div>
+        <input type="text" class="form-control col" disabled v-model="reply.writer">
+      </div>
+      <hr>
+      <div>
+        <div class="mb-3">내용</div>
+        <textarea class="form-control" v-model="reply.bcontent"></textarea>
+      </div>
+    </div>
+    <div>
+      <hr>
+      <div class="text-center">
+        <button class="btn btn-primary me-2" @click="boardReply()">입&nbsp;력</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import store from '@/store';
 import axios from 'axios';
 
 
@@ -20,7 +38,7 @@ export default {
         bno:this.$route.query.bno,
         btitle:null,
         bcontent:null,
-        writer:"상담자",
+        writer:store.state.account.id,
         up_bno:null,
         depth:null,
         ordernum:null
@@ -55,4 +73,13 @@ export default {
 
 <style>
 
+textarea{
+  resize: none;
+  height: 300px;
+}
+.col-2{
+  display: flex;
+  justify-content: center; /* 수평 정렬 */
+  align-items: center; /* 수직 정렬 */
+}
 </style>

@@ -1,10 +1,27 @@
 <template>
-  <div>
-    제목:<input v-model="upDate.btitle"><br>
-    글쓴이:{{ upDate.writer }}<br>
-    내용:<textarea v-model="upDate.bcontent"></textarea><br>
-    <button @click="update()">수정하기</button>
-    <button @click="recomment()">덧글쓰기</button>
+  
+  <div class="boundary text-start p-3 border" style="border-radius: 10px;">
+    <div>
+      <div class="input-group mb-3">
+        <div class="col-2">제목</div>
+        <input type="text" class="form-control col" v-model="upDate.btitle">
+      </div>
+      <div class="input-group mb-3">
+        <div class="col-2">글쓴이</div>
+        <input type="text" class="form-control col" disabled v-model="upDate.writer">
+      </div>
+      <hr>
+      <div>
+        <div class="mb-3">내용</div>
+        <textarea class="form-control" v-model="upDate.bcontent"></textarea>
+      </div>
+    </div>
+    <div>
+      <hr>
+      <div class="text-center">
+        <button class="btn btn-primary me-2" @click="update()">수정하기</button>
+      </div>
+    </div>
   </div>
 </template>
 

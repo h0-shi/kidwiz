@@ -22,9 +22,9 @@
           </div>
             <hr>
           <div class="mb-3">
-            <div class="mb-1">모집대상 {{ list.target }}</div>
-            <div class="mb-1">학년/성별 {{ list.grade }}/{{ list.sex }}</div>
-            <div class="mb-1">학과 {{ list.major }}</div>
+            <div class="mb-1">모집대상 : 전체</div>
+            <div class="mb-1">성별 : {{ list.sex }}</div>
+            <div class="mb-1">학과 : {{ list.major }}</div>
           </div>
           <hr>
           <div class="border border-secondary p-3" style="height: 200px; overflow-y:auto">

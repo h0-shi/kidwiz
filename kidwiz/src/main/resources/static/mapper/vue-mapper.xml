@@ -90,6 +90,15 @@
 		VALUES (#{g_coun_id},#{up_gr_no},CONCAT(#{g_title},' ',#{round}),
 		#{g_content},#{g_apply},#{g_oper},#{g_total},#{round},#{image},#{g_sex},#{g_major},#{g_time})
 	</insert>
+	
+	<select id="selectUpGrNo" parameterType="Map">
+		SELECT gr_no FROM group_consulting WHERE coun_no = #{g_coun_id} AND gr_content = #{g_content} AND gr_apply = #{g_apply}
+	</select>
+	
+	<update id="updateUpgrno" parameterType="Map">
+		UPDATE group_consulting SET up_gr_no =#{up_gr_no} WHERE coun_no = #{g_coun_id} AND gr_content = #{g_content} AND gr_apply = #{g_apply}
+	</update>
+	
 	<select id="getDay" parameterType="Map">
 			WITH RECURSIVE T_TEMP_DATES AS (
 			   SELECT #{startDay} AS DT
@@ -130,5 +139,9 @@
 	
 	<select id="counselorcheck" parameterType="int">
 		SELECT count(*) FROM members WHERE id = #{id} AND grade = 2
+	</select>
+	
+	<select id="writerCheck" parameterType="String">
+		SELECT writer FROM board_consulting WHERE bno = #{up_bno}
 	</select>
 </mapper>

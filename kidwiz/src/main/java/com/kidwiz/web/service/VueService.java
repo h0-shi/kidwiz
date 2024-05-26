@@ -1,6 +1,7 @@
 package com.kidwiz.web.service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -113,7 +114,6 @@ public class VueService {
 		
 		int i = 1;
 		String up_gr_no="0";
-		map.put("up_gr_no", up_gr_no);
 		map.put("round", i);
 		
 		System.out.println(list);
@@ -123,8 +123,9 @@ public class VueService {
 			
 			map.put("g_oper", map2.get("DT"));
 			if(i == 0 ) {
-				map.put("up_gr_no",map.get("gr_no"));
 				vueDAO.createGroup(map);
+				map.put("up_gr_no",vueDAO.selectUpGrNo(map));
+				vueDAO.updateUpgrno(map);
 				i++;
 			} else{
 				map.put("round", i);
@@ -175,6 +176,11 @@ public class VueService {
 	public int counselorcheck(int id) {
 		// TODO Auto-generated method stub
 		return vueDAO.counselorcheck(id);
+	}
+
+	public String writerCheck(String up_bno) {
+		// TODO Auto-generated method stub
+		return vueDAO.writerCheck(up_bno);
 	}
 
 }

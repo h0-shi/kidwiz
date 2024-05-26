@@ -204,7 +204,6 @@ export default {
         formData.append("image", group.value.input.g_img);
         formData.append("request", JSON.stringify(group.value.request));
 
-        console.log(formData)
         try {
           await axios.post("/api/createGroup", formData, {
             headers: {
@@ -284,4 +283,12 @@ export default {
   .firstGroup {
     text-align: left;
   }
+  .user-text {
+  width: 100%;
+  height: 200px; /* 적절한 높이 설정 */
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
 </style>

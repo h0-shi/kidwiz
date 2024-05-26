@@ -63,5 +63,11 @@ public interface VueDAO {
 
 	public String boardWriteAfter(Map<String, Object> map);
 
+	public String writerCheck(String up_bno);
+
+	public void updateUpgrno(Map<String, Object> map);
+
+	public String selectUpGrNo(Map<String, Object> map);
+
 
 }

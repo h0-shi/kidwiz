@@ -14,9 +14,9 @@
     <div>
       <hr>
       <div class="text-end">
-        <button class="btn btn-danger me-2" @click="del(requestBody.bno)">삭&nbsp;제</button>
-        <button class="btn btn-warning me-2" @click="update()">수&nbsp;정</button>
-        <button v-if="check" class="btn btn-success me-2" @click="reply()">답변글</button>
+        <button v-if="detail.writer == $store.state.account.id" class="btn btn-danger me-2" @click="del(requestBody.bno)">삭&nbsp;제</button>
+        <button v-if="detail.writer == $store.state.account.id" class="btn btn-warning me-2" @click="update()">수&nbsp;정</button>
+        <button v-if="check || (beforeWriterCheck == $store.state.account.id)" class="btn btn-success me-2" @click="reply()">답변글</button>
       </div>
     </div>
   </div>
@@ -39,14 +39,14 @@ export default {
         up_bno:null,
         depth:null,
         ordernum:null
-      },check:false
+      },check:false,
+      beforeWriterCheck:null
     }
   },mounted(){
     this.boardDetail()
     this.counselorcheck()
   },
   methods:{
-
     counselorcheck(){
       axios.post("/api/counselorcheck",{withCredentials:true}).then((res)=>{
         if(res.data ==1){
@@ -60,6 +60,9 @@ export default {
     boardDetail(){
       axios.get("/api/boardDetail?bno="+this.requestBody.bno).then((res)=>{
         this.detail = res.data.list
+        axios.post("/api/writerCheck",{up_bno : this.detail.up_bno}).then((result)=>{
+          this.beforeWriterCheck = result.data.beforeWrite
+        })
       }).catch((err)=>{
         alert("에러 발생 : "+err)
       })

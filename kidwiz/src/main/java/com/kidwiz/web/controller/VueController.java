@@ -111,7 +111,9 @@ public class VueController {
 	@GetMapping("/api/getGroupList")
 	public String getGroupList(@RequestParam("currentpage")int currentpage) {
 		int totalcount = vueService.totalGPage();
+		
 		Map<String, Object> pageMap = Util.pageGMap(totalcount, currentpage);
+		
 		List<Map<String, Object>> list = vueService.getGroupList(pageMap);
 		JSONObject json = new JSONObject();
 		JSONArray arr = new JSONArray(list);
@@ -233,6 +235,17 @@ public class VueController {
 		
 		check = vueService.counselorcheck(jwtService.getId(token));
 		return new ResponseEntity<>(check,HttpStatus.OK);
+	}
+	
+	@PostMapping("/api/writerCheck")
+	public String writerCheck(@RequestBody Map<String, Object> map) {
+		//TODO: process POST request
+		JSONObject json = new JSONObject();
+		String s =vueService.writerCheck((String)map.get("up_bno"));
+		json.put("beforeWrite", s);
+		
+		
+		return json.toString();
 	}
 	
 }
