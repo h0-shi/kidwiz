@@ -283,9 +283,10 @@ export default {
 }
 
 .custom-radio:checked + .custom-label {
-  background-color: #90c6ff;
-  border-color: #90c6ff; // 체크된 라벨의 테두리 색상 변경
+  background-color: #67BF4E;
+  border-color: #67BF4E; // 체크된 라벨의 테두리 색상 변경
   font-weight: bold;
+  color : white;
 }
 
 .selected-option {

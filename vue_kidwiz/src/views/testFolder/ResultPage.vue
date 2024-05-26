@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-5">
-    <h1 class="mb-4 text-center text-primary">심리검사 결과</h1>
+    <h1 class="mb-4 text-center" style="color:#2F9713; font-weight: bolder;">심리검사 결과</h1>
     <div v-if="isValidResult" class="result-container shadow-lg">
       <div class="mb-4">
         <h2 class="mb-2 text-center text-primary">{{ result.title }}</h2>
@@ -42,7 +42,7 @@
       </div>
 
       <div class="text-center mt-4">
-        <button class="btn btn-primary" @click="retakeTest">다시 검사하기</button>
+        <button class="btn btn-success" @click="retakeTest">다시 검사하기</button>
       </div>
     </div>
   </div>
@@ -115,7 +115,7 @@ export default {
 }
 
 .recommended-job {
-  background: linear-gradient(45deg, #1166c1, #931ed6);
+  background: linear-gradient(45deg, #0ab84a, #105222);
   color: #fff;
   padding: 15px;
   margin-bottom: 20px;
@@ -161,6 +161,12 @@ export default {
   bottom: 0;
   width: 100%;
   height: 2px;
-  background: linear-gradient(to right, #007bff, #6c757d);
+  background: linear-gradient(to right, #0a8457, #66c96c);
+}
+.btn{
+  border-color: #67BF4E !important;
+  color: white;
+  margin: 0 auto;
+  background-color: #67BF4E;
 }
 </style>

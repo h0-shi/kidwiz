@@ -14,6 +14,9 @@ import '@/assets/css/styles.css';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
+// Quill 에디터
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
+
 const app = createApp(App)
 
 app.component('DatePicker', VueDatePicker)
