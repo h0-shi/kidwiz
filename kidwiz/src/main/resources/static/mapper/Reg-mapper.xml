@@ -122,11 +122,11 @@
 	</insert>
 	
 	<select id="getCardNews" resultType="Map">
-		SELECT * FROM cardNewsView ORDER BY cn_no
+		SELECT * FROM cardNewsView ORDER BY cn_no DESC
 	</select>
 	
 	<select id="cardDetail" parameterType="String" resultType="Map">
-		SELECT * FROM cardNews WHERE cn_uuid = #{uuid} ORDER BY cn_no DESC
+		SELECT * FROM cardNews WHERE cn_uuid = #{uuid} ORDER BY cn_no
 	</select>
 	
 </mapper>
