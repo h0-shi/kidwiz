@@ -69,5 +69,7 @@ public interface VueDAO {
 
 	public String selectUpGrNo(Map<String, Object> map);
 
+	public String getGListUpGrNo(String gr_no);
+
 
 }
