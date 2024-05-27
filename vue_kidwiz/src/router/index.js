@@ -65,7 +65,7 @@ import regTypes from '@/views/regviews/regTypes.vue';
 import professorIntro from '@/views/professorIntro/ProfessorIntro.vue';
 import professorSelcMenu from '@/views/professorIntro/ProfessorSelcMenu.vue';
 import professorcinfo from '@/views/professorIntro/Professorcinfo.vue';
-
+import jobslists from '@/views/jobs/CrawlingPage.vue';
 
 
 import { createRouter,createWebHashHistory } from 'vue-router';
@@ -218,6 +218,7 @@ const routes = [
     {path: '/professorIntro', name: 'ProfessorIntro', component: professorIntro, meta: { layout: MainLayout } },
     {path: '/professorSelcMenu', name: 'ProfessorSelcMenu', component: professorSelcMenu, meta: { layout: MainLayout } },
     {path: '/professorcinfo', name: 'Professorcinfo', component: professorcinfo, meta: { layout: MainLayout } },
+    {path: '/jobslists', name: 'jobslists', component: jobslists, meta: { layout: MainLayout } },
 
     
 ];

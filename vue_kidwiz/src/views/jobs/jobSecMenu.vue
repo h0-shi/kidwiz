@@ -16,6 +16,9 @@
           <th :style="select[3]">
             <router-link :to="{ name: 'jobapply' }" class="router-link" @click="handleClick(2, 'jobapply', $event)">취업상담 신청</router-link>
           </th>
+          <th :style="select[4]">
+            <router-link :to="{ name: 'jobslists' }" class="router-link" @click="handleClick(2, 'jobslists', $event)">취업정보크롤링</router-link>
+          </th>
         </tr>
       </table>
     </div>
@@ -23,6 +26,7 @@
     <section class="section s2" :style="cssAct[1]"></section>
     <section class="section s3" :style="cssAct[2]"></section>
     <section class="section s4" :style="cssAct[3]"></section>
+    <section class="section s5" :style="cssAct[4]"></section>
   </div>
 </template>
 
@@ -35,8 +39,10 @@ export default {
         { display: "none" },
         { display: "none" },
         { display: "none" },
+        { display: "none" },
       ],
       select: [
+        {},
         {},
         {},
         {},
@@ -62,6 +68,7 @@ export default {
         'jobtest': 1,
         'joblist': 2,
         'jobapply': 3,
+        'jobslists': 4,
       };
       const index = routeIndexMap[routeName] || 0;
       this.cssAct = this.cssAct.map((style, i) => i === index ? { display: "block", backgroundColor: "#333", color: "#fff" } : { display: "none" });
