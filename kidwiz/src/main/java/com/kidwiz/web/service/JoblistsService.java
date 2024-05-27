@@ -28,11 +28,11 @@ public class JoblistsService {
             String detailLink = jobElement.select(".cell_mid .cl_top a").attr("href");  // 자세히 보기 링크
 
             // Debug logging
-            System.out.println("Title: " + title);
-            System.out.println("Company: " + company);
-            System.out.println("Location: " + location);
-            System.out.println("Date: " + date);
-            System.out.println("Detail Link: " + detailLink);
+//            System.out.println("Title: " + title);
+//            System.out.println("Company: " + company);
+//            System.out.println("Location: " + location);
+//            System.out.println("Date: " + date);
+//            System.out.println("Detail Link: " + detailLink);
 
             JoblistsDTO job = new JoblistsDTO(title, company, location, date, detailLink);
             jobs.add(job);
