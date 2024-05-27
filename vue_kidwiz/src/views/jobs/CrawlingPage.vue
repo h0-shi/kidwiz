@@ -14,7 +14,6 @@
                   <th>고용 형태</th>
                   <th>근무 지역</th>
                   <th>접수 기간</th>
-                  <th>상세 정보</th>
                 </tr>
               </thead>
               <tbody>
