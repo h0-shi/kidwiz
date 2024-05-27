@@ -2,7 +2,7 @@
   <div>
     <MenuPage />
     <div class="boundary">
-      <h1 class="title">취업 상담</h1>
+      <h1 class="title">취업 리스트 크롤링</h1>
       <jobSecMenu />
       <div class="container">
         <div v-if="jobs.length">
@@ -18,13 +18,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="job in jobs" :key="job.recrutPblntSn">
-                <td>{{ job.recrutPbancTtl }}</td>
-                <td>{{ job.instNm }}</td>
-                <td>{{ job.hireTypeNmLst }}</td>
-                <td>{{ job.workRgnNmLst }}</td>
-                <td>{{ job.pbancBgngYmd }} ~ {{ job.pbancEndYmd }}</td>
-                <td><a :href="job.srcUrl" target="_blank">상세보기</a></td>
+              <tr v-for="job in jobs" :key="job.detailLink">
+                <td>{{ job.title }}</td>
+                <td>{{ job.company }}</td>
+                <td>{{ job.location }}</td>
+                <td>{{ job.date }}</td>
+                <td><a :href="job.detailLink" target="_blank">상세보기</a></td>
               </tr>
             </tbody>
           </table>
