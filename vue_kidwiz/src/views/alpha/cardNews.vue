@@ -59,12 +59,14 @@ export default {
     margin: 35px 0;
 }
 .cardContainer{
+    width: 100%;  
+    margin: 0 auto;  
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-wrap: wrap;
 }
 .cardsNews{
     width: 28%;
+    margin: 20px;
     border-radius: 8px;
     background-color: white;
     color: black;

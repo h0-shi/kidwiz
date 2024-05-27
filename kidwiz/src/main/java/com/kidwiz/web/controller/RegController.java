@@ -244,7 +244,6 @@ public class RegController {
 			card.setCn_name(uuidNum+"_"+fileName);
 			card.setCn_title(cardDTO.getCn_title());
 			card.setCn_exp(cardDTO.getCn_exp());
-			card.setCn_root(upfile+uuidNum+"_"+fileName);
 			
 			cards.add(card);
 			if(!saveFile.exists()) {

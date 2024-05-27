@@ -114,10 +114,10 @@
 	</select>
 	
 	<insert id="cardWrite" parameterType="java.util.List">
-		INSERT INTO cardNews (cn_uuid, cn_name, cn_title, cn_exp, cn_root) 
+		INSERT INTO cardNews (cn_uuid, cn_name, cn_title, cn_exp) 
 		VALUES 
 		<foreach collection="list" item="card" separator=",">
-			(#{card.cn_uuid}, #{card.cn_name}, #{card.cn_title}, #{card.cn_exp}, #{card.cn_root})
+			(#{card.cn_uuid}, #{card.cn_name}, #{card.cn_title}, #{card.cn_exp})
 		</foreach>
 	</insert>
 	
