@@ -10,16 +10,16 @@ import com.kidwiz.web.service.JobService;
 @RestController
 public class JobController {
 	
-    @Autowired
-    private JobService jobService;
-
-    @GetMapping("api/jobs")
-    public String getJobs(@RequestParam(name = "apiKey") String apiKey) {
-    	
-        String response = jobService.getJobs(apiKey);
-        System.out.println(apiKey);
-        System.out.println(response);
-        
-        return response;
-    }
+//    @Autowired
+//    private JobService jobService;
+//
+//    @GetMapping("/api/jobs")
+//    public String getJobs(@RequestParam(name = "apiKey") String apiKey) {
+//    	
+//        String response = jobService.getJobs(apiKey);
+//        System.out.println(apiKey);
+//        System.out.println(response);
+//        
+//        return response;
+//    }
 }

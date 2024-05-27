@@ -7,11 +7,13 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class JobService {
 	
-    @Autowired
-    private RestTemplate restTemplate;
-
-    public String getJobs(String apiKey) {
-        String url = "http://apis.data.go.kr/1051000/recruitment/list?serviceKey=" + apiKey;
-        return restTemplate.getForObject(url, String.class);
-    }
+//    @Autowired
+//    private RestTemplate restTemplate;
+//
+//    public String getJobs(String apiKey) {
+//    	RestTemplate restTemplate = new RestTemplate();
+//        String url = "https://apis.data.go.kr/1051000/recruitment/" + apiKey;
+//        String response = restTemplate.getForObject(url + "?apiKey=" + apiKey, String.class);
+//        return response;
+//    }
 }
