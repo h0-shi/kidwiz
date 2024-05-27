@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.kidwiz.web.DAO.RegDAO;
+import com.kidwiz.web.DTO.CardDTO;
 import com.kidwiz.web.DTO.MemberDTO;
 import com.kidwiz.web.DTO.RegDTO;
 import com.kidwiz.web.DTO.ResultDTO;
@@ -99,6 +100,18 @@ public class RegService {
 
 	public List<Map<String, Object>> need2Write(String id) {
 		return regDAO.need2Write(id);
+	}
+
+	public int cardsWrite(List<CardDTO> cards) {
+		return regDAO.cardWrite(cards);
+	}
+
+	public List<CardDTO> getCardNews() {
+		return regDAO.getCardNews();
+	}
+
+	public List<CardDTO> cardDetail(String uuid) {
+		return regDAO.cardDetail(uuid);
 	}
 
 }

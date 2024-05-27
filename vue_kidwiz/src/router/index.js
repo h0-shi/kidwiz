@@ -214,7 +214,7 @@ const routes = [
     {path: '/jobSecMenu', name: 'jobSecMenu', component: jobSecMenu, meta: { layout: MainLayout } },
     {path: '/regTypes', name: 'regTypes', component: regTypes, meta: { layout: MainLayout } },
     {path: '/notice', name: 'notice', component: NoticeBoard, meta: { layout: MainLayout } },
-    {path: '/cardWrite', name: 'cardWrite', component: cardWrite, meta: { layout: MainLayout } },    
+    {path: '/cardWrite', name: 'cardWrite', component: cardWrite, meta: { layout: MainLayout }},    
     {path: '/professorIntro', name: 'ProfessorIntro', component: professorIntro, meta: { layout: MainLayout } },
     {path: '/professorSelcMenu', name: 'ProfessorSelcMenu', component: professorSelcMenu, meta: { layout: MainLayout } },
     {path: '/professorcinfo', name: 'Professorcinfo', component: professorcinfo, meta: { layout: MainLayout } },
@@ -241,6 +241,5 @@ async function userPermission(){
     return false;
   }
 }
-
 
 export default router;

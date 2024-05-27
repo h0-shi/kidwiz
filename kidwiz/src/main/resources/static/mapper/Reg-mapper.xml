@@ -112,4 +112,21 @@
 		SELECT reg.rd_no as no, reg.date, reg.time, reg.name ,'reg' as type FROM regInfoView reg WHERE proNum = #{id} AND writed = 0
 		ORDER BY date, time
 	</select>
+	
+	<insert id="cardWrite" parameterType="java.util.List">
+		INSERT INTO cardNews (cn_uuid, cn_name, cn_title, cn_exp, cn_root) 
+		VALUES 
+		<foreach collection="list" item="card" separator=",">
+			(#{card.cn_uuid}, #{card.cn_name}, #{card.cn_title}, #{card.cn_exp}, #{card.cn_root})
+		</foreach>
+	</insert>
+	
+	<select id="getCardNews" resultType="Map">
+		SELECT * FROM cardNewsView ORDER BY cn_no
+	</select>
+	
+	<select id="cardDetail" parameterType="String" resultType="Map">
+		SELECT * FROM cardNews WHERE cn_uuid = #{uuid} ORDER BY cn_no DESC
+	</select>
+	
 </mapper>

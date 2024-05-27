@@ -1,35 +1,42 @@
 <template>
   <div class="mainContainer">
-    <h1>상담 카드뉴스</h1>
+    <h1>상담 카드뉴스</h1>        
     <hr class="line">
+    <button v-if="grade>=2" @click="write" class="writeBtn mb-5">카드뉴스 작성</button>
     <div class="cardContainer">
-        <div class="cardsNews" @click="gotoCard(1)">
-            <img src="@/assets/card01/001.png" class="thumbNail">
-            <div class="title">상담 좋아하세요?</div>
-            <div class="exp">당신은 상담을 좋아하십니까?</div>
-            <div class="date">2024-05-21</div>
-        </div>
-        <div class="cardsNews" @click="gotoCard(2)">
-            <img src="@/assets/card02/001.png" class="thumbNail">
-            <div class="title">상담이 뭐죠?</div>
-            <div class="exp">상담에 대해 알아보아요!</div>
-            <div class="date">2024-05-18</div>
-        </div>
-        <div class="cardsNews" @click="gotoCard(3)">
-            <img src="@/assets/card03/001.png" class="thumbNail">
-            <div class="title">또래상담사를 모집해요!</div>
-            <div class="exp">또래 상담사가 되어 저희와 함께해주세요!</div>
-            <div class="date">2024-04-12</div>
+        <div class="cardsNews" v-for="c in list" :key="c.cn_no" @click="gotoCard(c)">
+            <img :src="require(`@public/images/cardNews/${c.cn_uuid}/${c.cn_name}`)" class="thumbNail">
+            <div class="title">{{ c.cn_title }}</div>
+            <div class="exp">{{c.cn_exp}}</div>
+            <div class="date">{{c.cn_date}}</div>
         </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
+    data() {
+        return {
+            list : [],
+            grade: '',
+        }
+    },
+    mounted(){
+        axios.get("http://localhost:3000/getCardNews").then((res) => {
+            this.list = res.data;
+            console.log(res.data);
+        }),
+        axios.get("http://localhost:3000/memberDetail?id="+this.$store.state.account.id).then((res) => {            
+            this.grade = res.data[0].grade;
+        }).catch((err) => {
+            console.log("로그아웃상태"+err);
+        })
+    },
     methods: {
-        gotoCard(n){
-            this.$router.push("/cardDetail"+n);
+        gotoCard(c){
+            this.$router.push("/cardDetail1?uuid="+c.cn_uuid);
         },
         write(){
             this.$router.push("/cardWrite");
@@ -62,6 +69,14 @@ export default {
     background-color: white;
     color: black;
     box-shadow: 10px black;
+}
+.writeBtn{
+    width: 80%;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #67BF4E;   
+    color : white;
+    border: 1px solid white;
 }
 .cardsNews:hover{
     transition: 0.3s;

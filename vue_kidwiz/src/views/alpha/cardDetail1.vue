@@ -1,27 +1,46 @@
 <template>
   <div class="mainContainer">
     <div class="info">
-        <h1>상담 좋아하세요?</h1>
+        <h1>{{title}}</h1>
         <div class="date">
             작성자 : 관리자 <br>
-            작성일 : 2024-05-21
+            작성일 : {{date}}
         </div>
     </div>
     
     <hr>
     <div class="cardContainer">
-        <img src="@/assets/card01/001.png" alt="">
-        <img src="@/assets/card01/002.png" alt="">
-        <img src="@/assets/card01/003.png" alt="">
-        <img src="@/assets/card01/004.png" alt="">
-        <img src="@/assets/card01/005.png" alt="">
+        <span v-for="c in card" :key="c.cn_no">
+          <img :src="require(`@public/images/cardNews/${c.cn_uuid}/${c.cn_name}`)">
+        </span>
     </div>
     <hr class="endLine">
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
+  data(){
+    return {
+      card : [],
+      title : '',
+      exp : '',
+      date : '',
+      grade : '',
+      id : '',
+    }
+  },
+  mounted(){
+    this.uuid = this.$route.query.uuid;
+    axios.get("http://localhost:3000/cardDetail?uuid="+this.uuid).then((res) => {
+      console.log(res.data);
+      this.card = res.data;
+      this.title = res.data[0].cn_title;
+      this.exp = res.data[0].cn_exp;
+      this.date = res.data[0].cn_date;
+    })
+  },
   methods: {
     gotoCard() {
       this.$router.push("/cardDetail");
@@ -93,3 +112,4 @@ export default {
     margin-top: 30px;
 }
 </style>
+

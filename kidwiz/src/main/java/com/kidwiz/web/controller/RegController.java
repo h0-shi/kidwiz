@@ -2,9 +2,12 @@ package com.kidwiz.web.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -115,7 +119,7 @@ public class RegController {
 	@PostMapping("/resultWrite")
 	public int resultWrite(@RequestBody ResultDTO result) {
 		int resultWrite = regService.resultWrite(result);
-		return 1;
+		return resultWrite;
 	}
 	
 	@GetMapping("/getRegResult")
@@ -219,22 +223,54 @@ public class RegController {
 	}
 	
 	@PostMapping(value="cardWrite", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-	public Object cardWrite(@RequestParam("c1") MultipartFile[] c1) throws IllegalStateException, IOException {
-		System.out.println(c1[0].getOriginalFilename());
+	public Object cardWrite(@RequestParam("c1") MultipartFile[] c1,
+			@RequestPart("info") CardDTO cardDTO) throws IllegalStateException, IOException {
 						
-		String upfile = "C:\\temp\\coding\\";
-		File saveFile = new File(upfile);
-		if(!saveFile.exists()) {
-			try {
-				saveFile.mkdirs();
-				System.out.println("폴더 생성");
-			} catch (Exception e) {
-			}
-		}
+		UUID uuid = UUID.randomUUID();
+						
+		String uuidNum = uuid.toString();
+		List<CardDTO> cards = new ArrayList<CardDTO>();
 		
-		c1[0].transferTo(saveFile);
+		String pf = System.getProperty("user.dir");
+		String ppf = new File(pf).getParent();
+		String upfile = ppf+"\\vue_kidwiz\\public\\images\\cardNews\\"+uuid;
 		
-		return null;
+		for (MultipartFile mf : c1) {
+			String fileName = mf.getOriginalFilename();
+			File saveFile = new File(upfile, uuidNum+"_"+fileName);
+			
+			CardDTO card = new CardDTO();
+			card.setCn_uuid(uuidNum);
+			card.setCn_name(uuidNum+"_"+fileName);
+			card.setCn_title(cardDTO.getCn_title());
+			card.setCn_exp(cardDTO.getCn_exp());
+			card.setCn_root(upfile+uuidNum+"_"+fileName);
+			
+			cards.add(card);
+			if(!saveFile.exists()) {
+				try {
+					saveFile.mkdirs();
+					System.out.println("폴더 생성");
+				} catch (Exception e) {
+				}
+			}			
+			mf.transferTo(saveFile);			
+		}		
+		
+		int result = regService.cardsWrite(cards);
+		return result;
+	}
+	
+	@GetMapping("/getCardNews")
+	public List<CardDTO> getCardNews(){
+		List<CardDTO> cards = regService.getCardNews();
+		return cards;
+	}
+	
+	@GetMapping("/cardDetail")
+	public List<CardDTO> cardDetail(@RequestParam("uuid") String uuid){
+		List<CardDTO> cardDetail = regService.cardDetail(uuid);
+		return cardDetail;
 	}
 	
 }

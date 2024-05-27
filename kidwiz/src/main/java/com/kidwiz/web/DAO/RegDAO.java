@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import com.kidwiz.web.DTO.CardDTO;
 import com.kidwiz.web.DTO.MemberDTO;
 import com.kidwiz.web.DTO.RegDTO;
 import com.kidwiz.web.DTO.ResultDTO;
@@ -57,5 +58,11 @@ public interface RegDAO {
 	public List<Map<String, Object>> recentBoard(String id);
 
 	public List<Map<String, Object>> need2Write(String id);
+
+	public int cardWrite(List<CardDTO> cards);
+
+	public List<CardDTO> getCardNews();
+
+	public List<CardDTO> cardDetail(String uuid);
 
 }
