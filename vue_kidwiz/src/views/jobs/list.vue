@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     fetchJobs() {
-      const apiKey = 'lqwFKGI738YD57xRuHLCVHZptiqEwcR6tzFrrmvzBTpXOc2zhQctzP2RWVCl4+KD+/49Tcru3Q2HE+jFXpOGLg=='; // 여기에 실제 API 키를 넣으세요
+      const apiKey = 'lqwFKGI738YD57xRuHLCVHZptiqEwcR6tzFrrmvzBTpXOc2zhQctzP2RWVCl4%2BKD%2B%2F49Tcru3Q2HE%2BjFXpOGLg%3D%3D'; // 여기에 실제 API 키를 넣으세요
       axios.get('http://localhost:3000/api/jobs', {
         params: {
           apiKey: apiKey
@@ -63,7 +63,8 @@ export default {
       })
       .then(response => {
         // 응답 데이터 구조에 맞게 처리
-        this.jobs = response.data.result;
+        this.jobs = response.data.list;
+
       })
       .catch(error => {
         console.error('Error fetching jobs:', error);
