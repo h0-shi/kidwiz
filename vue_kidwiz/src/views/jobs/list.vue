@@ -19,11 +19,12 @@
             </thead>
             <tbody>
               <tr v-for="job in jobs" :key="job.detailLink">
-                <td>{{ job.title }}</td>
-                <td>{{ job.company }}</td>
-                <td>{{ job.location }}</td>
-                <td>{{ job.date }}</td>
-                <td><a :href="job.detailLink" target="_blank">상세보기</a></td>
+                <td>{{ job.recrutPbancTtl }}</td>
+                <td>{{ job.instNm }}</td>
+                <td>{{ job.hireTypeNmLst }}</td>
+                <td>{{ job.workRgnNmLst }}</td>
+                <td>{{ job.pbancBgngYmd }} ~ {{ job.pbancEndYmd }}</td>
+                <td><a :href="job.srcUrl" target="_blank">상세보기</a></td>
               </tr>
             </tbody>
           </table>
