@@ -96,7 +96,10 @@ public class Util {
 			
 			String saveFileName= currentTime + "." +ext;
 			
-			String uploadFilePath = "C:\\Users\\park\\kidwiz\\vue_kidwiz\\public\\images"+"/"+saveFileName;
+			String pf = System.getProperty("user.dir");
+			String ppf = new File(pf).getParent();
+			String uploadFilePath = ppf+"\\vue_kidwiz\\public\\images"+"/"+saveFileName;
+			
 			
 			File uploadFile = new File(uploadFilePath);
 			
