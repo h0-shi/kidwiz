@@ -19,11 +19,12 @@
             </thead>
             <tbody>
               <tr v-for="job in jobs" :key="job.detailLink">
-                <td>{{ job.title }}</td>
-                <td>{{ job.company }}</td>
-                <td>{{ job.location }}</td>
-                <td>{{ job.date }}</td>
-                <td><a :href="job.detailLink" target="_blank">상세보기</a></td>
+                <td>{{ job.recrutPbancTtl }}</td>
+                <td>{{ job.instNm }}</td>
+                <td>{{ job.hireTypeNmLst }}</td>
+                <td>{{ job.workRgnNmLst }}</td>
+                <td>{{ job.pbancBgngYmd }} ~ {{ job.pbancEndYmd }}</td>
+                <td><a :href="job.srcUrl" target="_blank">상세보기</a></td>
               </tr>
             </tbody>
           </table>
@@ -54,15 +55,16 @@ export default {
   },
   methods: {
     fetchJobs() {
-      const apiKey = 'wqF25IkSZaAdvYJHuzn8tR5NGdWuqjgFMBASZn3LEimWCQmEjFVNj1cLxPdEg4j8wowdCf%2BcGRuwy1Ci7kth4g%3D%3D'; // 여기에 실제 API 키를 넣으세요
-      axios.get(`http://localhost:3000/api/jobslists`, {
+      const apiKey = 'lqwFKGI738YD57xRuHLCVHZptiqEwcR6tzFrrmvzBTpXOc2zhQctzP2RWVCl4%2BKD%2B%2F49Tcru3Q2HE%2BjFXpOGLg%3D%3D'; // 여기에 실제 API 키를 넣으세요
+      axios.get('http://localhost:3000/api/jobs', {
         params: {
           apiKey: apiKey
         }
       })
       .then(response => {
         // 응답 데이터 구조에 맞게 처리
-        this.jobs = response.data.result;
+        this.jobs = response.data.list;
+
       })
       .catch(error => {
         console.error('Error fetching jobs:', error);
