@@ -2,7 +2,7 @@
   <div>
     <MenuPage />
     <div class="boundary">
-      <h1 class="title">취업 상담</h1>
+      <h1 class="title">취업 리스트 크롤링</h1>
       <jobSecMenu />
       <div class="container">
         <div v-if="jobs.length">
@@ -18,13 +18,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="job in jobs" :key="job.recrutPblntSn">
-                <td>{{ job.recrutPbancTtl }}</td>
-                <td>{{ job.instNm }}</td>
-                <td>{{ job.hireTypeNmLst }}</td>
-                <td>{{ job.workRgnNmLst }}</td>
-                <td>{{ job.pbancBgngYmd }} ~ {{ job.pbancEndYmd }}</td>
-                <td><a :href="job.srcUrl" target="_blank">상세보기</a></td>
+              <tr v-for="job in jobs" :key="job.detailLink">
+                <td>{{ job.title }}</td>
+                <td>{{ job.company }}</td>
+                <td>{{ job.location }}</td>
+                <td>{{ job.date }}</td>
+                <td><a :href="job.detailLink" target="_blank">상세보기</a></td>
               </tr>
             </tbody>
           </table>
@@ -55,8 +54,8 @@ export default {
   },
   methods: {
     fetchJobs() {
-      const apiKey = 'lqwFKGI738YD57xRuHLCVHZptiqEwcR6tzFrrmvzBTpXOc2zhQctzP2RWVCl4+KD+/49Tcru3Q2HE+jFXpOGLg=='; // 여기에 실제 API 키를 넣으세요
-      axios.get('http://localhost:3000/api/jobs', {
+      const apiKey = 'wqF25IkSZaAdvYJHuzn8tR5NGdWuqjgFMBASZn3LEimWCQmEjFVNj1cLxPdEg4j8wowdCf%2BcGRuwy1Ci7kth4g%3D%3D'; // 여기에 실제 API 키를 넣으세요
+      axios.get(`http://localhost:3000/api/jobslists`, {
         params: {
           apiKey: apiKey
         }
