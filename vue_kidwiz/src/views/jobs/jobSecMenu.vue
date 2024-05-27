@@ -11,13 +11,13 @@
             <router-link :to="{ name: 'jobtest' }" class="router-link" @click="handleClick(1, 'jobtest', $event)">진로적성검사</router-link>
           </th>
           <th :style="select[2]">
-            <router-link :to="{ name: 'joblist' }" class="router-link" @click="handleClick(3, 'joblist', $event)">채용정보</router-link>
-          </th>
-          <th :style="select[3]">
             <router-link :to="{ name: 'jobapply' }" class="router-link" @click="handleClick(2, 'jobapply', $event)">취업상담 신청</router-link>
           </th>
+          <th :style="select[3]">
+            <router-link :to="{ name: 'joblist' }" class="router-link" @click="handleClick(3, 'joblist', $event)">채용정보(공공기관)</router-link>
+          </th>
           <th :style="select[4]">
-            <router-link :to="{ name: 'jobslists' }" class="router-link" @click="handleClick(2, 'jobslists', $event)">취업정보크롤링</router-link>
+            <router-link :to="{ name: 'jobslists' }" class="router-link" @click="handleClick(4, 'jobslists', $event)">취업정보(인크루트)</router-link>
           </th>
         </tr>
       </table>
@@ -66,8 +66,8 @@ export default {
       const routeIndexMap = {
         'jobintro': 0,
         'jobtest': 1,
-        'joblist': 2,
-        'jobapply': 3,
+        'joblist': 3,
+        'jobapply': 2,
         'jobslists': 4,
       };
       const index = routeIndexMap[routeName] || 0;
