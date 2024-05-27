@@ -198,22 +198,27 @@ export default {
       date2.value = [startDate2, endDate2];
     }
       const createGroup = async () => {
-        group.value.request.g_coun_name =  coun.value.coun_name
 
-        const formData = new FormData();
-        formData.append("image", group.value.input.g_img);
-        formData.append("request", JSON.stringify(group.value.request));
+        if(group.value.request.g_total ==="선택"){
+          alert("인원수를 입력해주세요.")
+        } else{
+          group.value.request.g_coun_name =  coun.value.coun_name
 
-        try {
-          await axios.post("/api/createGroup", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }).then(()=>{
-            router.push({path:"/GroupList"})
-          });
-        } catch (error) {
-          alert(error);
+          const formData = new FormData();
+          formData.append("image", group.value.input.g_img);
+          formData.append("request", JSON.stringify(group.value.request));
+
+          try {
+            await axios.post("/api/createGroup", formData, {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }).then(()=>{
+              router.push({path:"/GroupList"})
+            });
+          } catch (error) {
+            alert(error);
+          }
         }
       };
 

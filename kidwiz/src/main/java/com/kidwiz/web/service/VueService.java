@@ -113,20 +113,25 @@ public class VueService {
 		list = vueDAO.getDay(dayMap);
 		
 		int i = 1;
-		String up_gr_no="0";
 		map.put("round", i);
 		
-		System.out.println(list);
 		//System.out.println(map);
 		
 		for (Map<String, Object> map2 : list) {
 			
 			map.put("g_oper", map2.get("DT"));
-			if(i == 0 ) {
-				vueDAO.createGroup(map);
-				map.put("up_gr_no",vueDAO.selectUpGrNo(map));
-				vueDAO.updateUpgrno(map);
-				i++;
+			if(i == 1 ) {
+				try {
+					vueDAO.createGroup(map);
+
+					map.put("up_gr_no",vueDAO.selectUpGrNo(map));
+//					(#{g_coun_id},#{up_gr_no},CONCAT(#{g_title},' ',#{round}),
+//							#{g_content},#{g_apply},#{g_oper},#{g_total},#{round},#{image},#{g_sex},#{g_major},#{g_time})
+					vueDAO.updateUpgrno(map);
+					i++;
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 			} else{
 				map.put("round", i);
 				vueDAO.createGroup(map);
@@ -181,6 +186,11 @@ public class VueService {
 	public String writerCheck(String up_bno) {
 		// TODO Auto-generated method stub
 		return vueDAO.writerCheck(up_bno);
+	}
+
+	public String getGListUpGrNo(String gr_no) {
+		// TODO Auto-generated method stub
+		return vueDAO.getGListUpGrNo(gr_no);
 	}
 
 }

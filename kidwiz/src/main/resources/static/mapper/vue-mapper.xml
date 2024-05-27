@@ -109,6 +109,11 @@
 	</select>
 	
 	<select id="getUpGrNo" parameterType="String">
+		SELECT up_gr_no FROM group_consulting WHERE coun_no = #{g_coun_id} AND gr_content = #{g_content} AND gr_apply = #{g_apply}
+	</select>
+	
+	
+	<select id="getGListUpGrNo" parameterType="String">
 		SELECT up_gr_no FROM group_consulting WHERE gr_no = #{gr_no}
 	</select>
 	

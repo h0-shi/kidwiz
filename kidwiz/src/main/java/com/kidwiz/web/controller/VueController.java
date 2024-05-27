@@ -129,7 +129,7 @@ public class VueController {
 		Map<String, Object> map = vueService.groupDetail(gr_no);
 		
 		
-		List<Map<String, Object>> glist = vueService.getGList(vueService.getUpGrNo(gr_no));
+		List<Map<String, Object>> glist = vueService.getGList(vueService.getGListUpGrNo(gr_no));
 		JSONObject json = new JSONObject();
 		json.put("list", map);
 		json.put("glist", glist);
@@ -143,13 +143,14 @@ public class VueController {
         // 이미지와 JSON 데이터를 받아 처리하는 로직을 작성합니다.
         // 예를 들어, 이미지를 저장하고 JSON 데이터를 파싱하여 필요한 작업을 수행합니다.
 		Map<String, Object> map;
-		 
+		
 		ObjectMapper objectMapper = new ObjectMapper();
         
 		map = objectMapper.readValue(requestJson, Map.class);
 		
 		
 		map.put("image", Util.fileUploadUtil(image).get("saveFileName"));
+		
 		
 		vueService.createGroup(map);
 		
