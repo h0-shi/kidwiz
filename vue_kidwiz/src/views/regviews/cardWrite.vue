@@ -47,7 +47,7 @@
         </div>
                         
             <br>
-            <button>submit</button>
+            <button class="apply">submit</button>
         </form>
         </div>
     </div>
@@ -101,7 +101,7 @@
     }
     </script>
     
-    <style>
+    <style scoped>
     .reason{
         width: 70%;
         height: 300px;
@@ -115,6 +115,15 @@
     }
     .line{
         margin: 35px 0;
-
+    }
+    .apply{        
+        width: 30%;
+        height: 35px;
+        margin: 15px 10px;
+        border-radius: 5px;
+        color: white;
+        background-color: #67BF4E;
+        border: none;
+        font-family: 'sjl';
     }
     </style>

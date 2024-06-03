@@ -41,7 +41,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="row in recentBoardList" :key="row.bno">
+                <tr v-for="row in recentBoardList" :key="row.bno" @click="goBoard(row)">
                   <td class="w2">{{row.bno}}</td>
                   <td class="w5">{{row.btitle}}</td>
                   <td class="w3">{{row.date}}</td>
@@ -221,6 +221,9 @@ export default {
       } else {
         this.$router.push("/ProResultWrite/"+no);
       }
+    },
+    goBoard(row){      
+      this.$router.push("/boardDetail?bno="+row.bno);
     }
   }
 

@@ -47,7 +47,7 @@
                 </span>
               </li>
             </ul>
-            <button v-if="!isPast && availableTimes.some(t => t.available)" @click="submitReservation">신청하기</button>
+            <button v-if="!isPast && availableTimes.some(t => t.available)" @click="submitReservation" class="apply">신청하기</button>
           </div>
         </div>
       </div>
@@ -313,3 +313,15 @@ export default {
 }
 
 </script>
+
+<style scoped>
+    .apply{        
+        width: 30%;
+        height: 35px;
+        margin: 15px 10px;
+        color: white;
+        background-color: #67BF4E;
+        border: none;
+        font-family: 'sjl';
+    }
+</style>

@@ -50,9 +50,6 @@ import NoticeBoard from '@/views/notice/NoticeBoard.vue';
 
 import cardNews from '@/views/alpha/cardNews.vue';
 import cardDetail1 from '@/views/alpha/cardDetail1.vue';
-import cardDetail2 from '@/views/alpha/cardDetail2.vue';
-import cardDetail3 from '@/views/alpha/cardDetail3.vue';
-
 import adminMemberControl from '@/layout/AdminSidebar.vue';
 import MemberControl from '@/components/MemberControl.vue';
 import BoardControl from '@/components/BoardControl.vue';
@@ -105,10 +102,7 @@ const routes = [
     {path: '/regTime', component: () => import('@/views/regviews/RegTime.vue'), meta: { layout:pop}},
     {path: '/GroupList', name:'groupList', component: () => import('@/views/groupviews/groupList.vue'), meta: {layout : MainLayout}},
     {path: "/groupDetail", name:"groupDetail", component:()=> import("@/views/groupviews/groupDetail.vue"), meta: {layout : MainLayout}},
-    {path: "/BoardReply", name:"BoardReply",component:boardReply, meta: {layout : MainLayout}},
-    {path: "/rsrv", component:()=> import("@/views/RsvAndApply/rsrvTest3.vue"), meta: {layout : MainLayout}},
-    {path: '/rsrvTest', name:'rsrvTest', component: () => import('@/views/RsvAndApply/rsrvTest.vue')},
-    {path: '/rsrvTest2', name:'rsrvTest2', component: () => import('@/views/RsvAndApply/rsrvTest2.vue')},
+    {path: "/BoardReply", name:"BoardReply",component:boardReply, meta: {layout : MainLayout}},    
     { path: '/rsrvTest4', name: 'rsrvTest4', component: () => import('@/views/RsvAndApply/rsrvTest4.vue'), meta: { layout: MainLayout },
 
     beforeEnter: (to, from, next) => {
@@ -118,12 +112,9 @@ const routes = [
         alert('상담 예약은 로그인 후 가능합니다.')
         next('/login')
       }
-  }},
-    {path: '/rsrvTest3', name:'rsrvTest3', component: () => import('@/views/RsvAndApply/rsrvTest3.vue')},
+  }},    
     {path: '/applyForm1', name:'applyForm1', component: () => import('@/views/RsvAndApply/applyForm1.vue'), props: route => ({ ...route.query }), meta: {layout : MainLayout}},
-    {path: '/applyForm2', name:'applyForm2', component: () => import('@/views/RsvAndApply/applyForm2.vue'), props: route => ({ ...route.query }), meta: {layout : MainLayout}},
     {path: '/applyForm3', name:'applyForm3', component: () => import('@/views/RsvAndApply/applyForm3.vue'), props: route => ({ ...route.query }), meta: {layout : MainLayout}},
-    {path: '/applyForm4', name:'applyForm4', component: () => import('@/views/RsvAndApply/applyForm4.vue'), props: route => ({ ...route.query }), meta: {layout : MainLayout}},
     {path: '/jobConsulting', name: 'jobConsulting', component: jobConsulting, meta: {layout : MainLayout}}, // 취업상담 경로 추가
     {path: '/login', name: 'login', component: login, meta: {layout : MainLayout} }, // 로그인 경로 추가
     {path: '/mypage', name: 'mypage',component: mypage, meta: {layout : MainLayout}}, // 마이페이지
@@ -208,8 +199,6 @@ const routes = [
     {path: '/jobs/test', name: 'jobtest', component: jobtest, meta: { layout: MainLayout } },
     {path: '/cardNews', name: 'cardNews', component: cardNews, meta: { layout: MainLayout } },
     {path: '/cardDetail1', name: 'cardDetail1', component: cardDetail1, meta: { layout: MainLayout } },
-    {path: '/cardDetail2', name: 'cardDetail2', component: cardDetail2, meta: { layout: MainLayout } },
-    {path: '/cardDetail3', name: 'cardDetail3', component: cardDetail3, meta: { layout: MainLayout } },
     {path: '/resultUpdate', name: 'resultUpdate', component: resultUpdate, meta: { layout: MainLayout } },
     {path: '/jobSecMenu', name: 'jobSecMenu', component: jobSecMenu, meta: { layout: MainLayout } },
     {path: '/regTypes', name: 'regTypes', component: regTypes, meta: { layout: MainLayout } },
