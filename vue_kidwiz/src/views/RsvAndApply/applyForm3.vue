@@ -232,8 +232,6 @@ export default {
             this.$route.query.selectedCounselingType || "";
         this.ctimecode = this.$route.query.ctimecode;
                 
-        // 예약페이지에서 ctimecode 값 잘 받아왔는지 확인
-        console.log("예약시간 코드 값 : ", this.ctimecode);
     },
     methods: {
         async getProId(majorHead) {
@@ -248,12 +246,10 @@ export default {
                 console.error("Error fetching ProId:", error);
                 this.proid = null;
             }
-            console.log("현시점 majorHead : " + majorHead);
-            console.log("현시점 proid : " + this.proid);
         },
         getProInfo(major){
             axios.get('http://localhost:3000/getProInfo?major='+major).then((res) => {
-                console.log(res.data);
+               
                 this.advisor = res.data.name;
                 this.proid = res.data.id;
             })
@@ -279,14 +275,10 @@ export default {
                 this.isSubmitting = false;
                 return;
             }
-            // 예약 데이터 확인
-            console.log('예약 데이터:', reservationData);
 
             try {
-                console.log('Axios 요청 시작', reservationData);
                 const response = await axios.post('http:localhost:3000/regconInsert', reservationData);
-                console.log('Axios 요청 성공', response);
-
+               
                 if (response.status === 200 ||response.status === 201) {
                     alert('예약이 성공적으로 완료되었습니다.');
                     this.$router.push('/rsrvTest4');
@@ -299,7 +291,6 @@ export default {
                 alert('예약 중 오류가 발생했습니다. 관리자에게 문의해주세요.');
             } finally {
                 this.isSubmitting = false;
-                console.log('submitForm 완료됨');
             }
         },
         updateTextLength() {

@@ -250,8 +250,6 @@ export default {
          this.$route.query.selectedCounselingType || "";
          const ctimecode = this.$route.query.ctimecode;
          
-         // 예약페이지에서 ctimecode 값 잘 받아왔는지 확인
-        console.log("예약시간 코드 값 : ", ctimecode);
     },
     methods: {
         async getProId(majorHead) {
@@ -265,8 +263,6 @@ export default {
                 console.error("Error fetching ProId:", error);
                 this.proid = null;
             }
-            console.log("현시점 majorHead : " + majorHead);
-            console.log("현시점 proid : " + this.proid);
         },
         async submitForm(event) {
             event.preventDefault(); // 기본 폼 제출 방지
@@ -279,13 +275,6 @@ export default {
                 await new Promise((resolve) => setTimeout(resolve, 100));
             }
 
-            // 상담 유형이 선택되지 않은 경우 경고 메시지 표시(240516 기본값 만들어서 이제 필요 없음)
-            // 240520 이제 신청페이지에서 선택하므로 삭제
-            //if (!this.selectedCounselingType) {
-            //    alert("상담 유형 선택은 필수 사항입니다.");
-            //    this.isSubmitting = false;
-            //    return;
-            //}
 
             console.log("제출시점 proid : " + this.proid);
             // 폼 제출 로직
@@ -293,7 +282,6 @@ export default {
                 sid: this.studentID, // 학생 ID (예: JWT에서 추출)
                 proid: this.proid, // 상담자 ID (상담자 정보에서 추출)
                 ctype: this.localSelectedCounselingType,
-                //ctime: this.localSelectedTime,
                 ctime: this.ctimecode,
                 cdate: this.localSelectedDate,
                 rsvdate: new Date().toISOString().split("T")[0],
@@ -310,15 +298,6 @@ export default {
                 alert("개인정보 비동의시 상담 접수가 불가합니다.");
                 return false;
             }
-            // 예약 데이터 확인
-            console.log("예약 데이터:", reservationData);
-
-            // for (const field in reservationData) {
-            //     // reservationData 객체에 폼 데이터 추가
-            //     if (Object.prototype.hasOwnProperty.call(this, field) && field !== 'isSubmitting') {
-            //        reservationData[field] = this[field];
-            //     }
-            // }
 
             try {
                 console.log("Axios 요청 시작", reservationData);
@@ -337,7 +316,6 @@ export default {
                 alert("예약 중 오류가 발생했습니다. 관리자에게 문의해주세요.");
             } finally {
                 this.isSubmitting = false;
-                console.log("submitForm 완료됨");
             }
         },
         updateTextLength() {
